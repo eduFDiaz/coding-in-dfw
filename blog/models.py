@@ -17,7 +17,7 @@ class Post(models.Model):
         self.published_date = timezone.now()
         self.save()
 
-    def save(self):
+    def save(self, **kwargs):
     	self.slug = slugify(self.title)
     	super(Post,self).save()
 
