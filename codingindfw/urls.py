@@ -17,6 +17,8 @@ from django.contrib import admin
 from django.urls import path, include
 
 urlpatterns = [
-    path('blog/', include('blog.urls')),
+	## leave below line when not want to redirect index to blog urls
+	#path('blog/', include('blog.urls')), 
+    path('', include('blog.urls')),
     path('admin/', admin.site.urls),
 ]
