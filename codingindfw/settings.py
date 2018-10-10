@@ -134,3 +134,29 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'static/')
 
 CKEDITOR_UPLOAD_PATH="uploads/"
 CKEDITOR_IMAGE_BACKEND='pillow'
+
+CKEDITOR_CONFIGS = {
+    'description': {
+        'toolbar': 'Custom',
+        'height': 200,
+        'toolbar_Custom': [
+            ['Styles', 'Format', 'Bold', 'Italic', 'Underline', 'Strike', 'SpellChecker', 'Undo', 'Redo'],
+            ['Link', 'Unlink', 'Anchor'],
+            ['Image', 'Flash', 'Table', 'HorizontalRule'],
+            ['TextColor', 'BGColor'],
+            ['Smiley', 'SpecialChar'], ['Source'],
+        ],
+    },
+    'special': {
+        'toolbar': 'Special',
+        'height': 500,
+        'toolbar_Special': [
+            ['Styles', 'Format', 'Bold', 'Italic', 'Underline', 'Strike', 'SpellChecker', 'Undo', 'Redo'],
+            ['Link', 'Unlink', 'Anchor'],
+            ['Image', 'Flash', 'Table', 'HorizontalRule'],
+            ['TextColor', 'BGColor'],
+            ['Smiley', 'SpecialChar'], ['Source'], ['CodeSnippet'],['Youtube'],
+        ],
+        'extraPlugins': ','.join(['codesnippet', 'youtube']),
+    }
+}
