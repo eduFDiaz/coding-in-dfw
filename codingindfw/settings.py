@@ -39,6 +39,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'blog.apps.BlogConfig',
     'django.contrib.humanize',
+    'ckeditor',
+    'ckeditor_uploader',
     ]
 
 MIDDLEWARE = [
@@ -121,3 +123,14 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
+PROJECT_DIR = os.path.dirname(os.path.abspath(__file__))
+STATIC_ROOT = os.path.join(BASE_DIR, 'static/')
+
+# Ckeditor config vars
+
+CKEDITOR_UPLOAD_PATH="uploads/"
+CKEDITOR_IMAGE_BACKEND='pillow'

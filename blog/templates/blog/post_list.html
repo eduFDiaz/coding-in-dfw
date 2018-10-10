@@ -9,7 +9,7 @@
 					<p>published: {{ post.published_date|timesince }} ago</p>
 				</div>
 				<h1><a href="{% url 'post_detail' pk=post.pk slug=post.slug %}">{{ post.title }}</a></h1>
-				<p>{{ post.text|linebreaksbr }}</p>
+				{{ post.description | safe }}
 			</div>
 			{% endfor %}
 		</div>

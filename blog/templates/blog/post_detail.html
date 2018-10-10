@@ -7,11 +7,15 @@
 			{{ post.published_date|timesince }}
 		</div>
 		{% endif %}
-		{% if user.is_authenticated %}
-		<a class="btn btn-default" href="{% url 'post_edit' pk=post.pk slug=post.slug %}"><span class="glyphicon glyphicon-pencil"></span></a>
+		<h1>{{ post.title }}{% if user.is_authenticated %}
+		    <a style="margin-left: 50px;" class="btn btn-default" href="{% url 'post_edit' pk=post.pk slug=post.slug %}"><span class="glyphicon glyphicon-pencil"></span></a>
 		{% endif %}
-		<h1>{{ post.title }}</h1>
-		<p>{{ post.text|linebreaksbr }}</p>
+        </h1>
+		{{ post.description | safe }}
+		{{ post.text | safe | linebreaksbr }}
+        <hr/>
+        <p><div class="fb-like" data-href="{{ request.build_absolute_uri }}" data-layout="standard" data-action="like" data-size="small" data-show-faces="true" data-share="true"></div></p>
+        <p><div class="fb-comments" data-href="{{ request.build_absolute_uri }}" data-numposts="5"></div></p>
 	</div>
 </div>
 {% endblock %}
