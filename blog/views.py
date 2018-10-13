@@ -1,18 +1,29 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.utils import timezone
-from .models import Post
+from .models import Post, Category
 
 from .forms import PostForm
 
+
 def post_list(request):
+    # Returns a list of Posts ordered by date, newest first
+    categories = Category.objects.all()
     posts = Post.objects.filter(published_date__lte=timezone.now()).order_by('-published_date')
-    return render(request, 'blog/post_list.html', { 'posts': posts } )
+    context = {'posts': posts, 'categories': categories}
+    template = 'blog/post_list.html'
+    return render(request, template, context)
+
 
 def post_detail(request, pk, slug):
-    post = get_object_or_404(Post,pk=pk,slug=slug)
-    return render(request, 'blog/post_detail.html', { 'post': post } )
+    # Returns a single post
+    post = get_object_or_404(Post,pk=pk, slug=slug)
+    template = 'blog/post_detail.html'
+    context = {'post': post}
+    return render(request, template, context)
+
 
 def post_new(request):
+    # Returns a view to create a post
     if request.method == "POST":
         form = PostForm(request.POST)
         if form.is_valid():
@@ -25,7 +36,9 @@ def post_new(request):
         form = PostForm()
     return render(request, 'blog/post_edit.html', {'form': form})
 
+
 def post_edit(request, pk, slug):
+    # Returns a view to edit the post
     post = get_object_or_404(Post, pk=pk, slug=slug)
     if request.method == "POST":
         form = PostForm(request.POST, instance=post)
@@ -38,3 +51,12 @@ def post_edit(request, pk, slug):
     else:
         form = PostForm(instance=post)
     return render(request, 'blog/post_edit.html', {'form': form})
+
+
+def post_list_by_category(request, category_slug):
+    # List of posts filtered by category
+    category = get_object_or_404(Category, slug=category_slug)
+    posts = Post.objects.filter(category=category).order_by('-published_date')
+    template = 'blog/post_by_category.html'
+    context = {'posts': posts, 'category': category}
+    return render(request, template, context)

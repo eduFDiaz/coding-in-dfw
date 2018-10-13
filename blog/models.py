@@ -9,10 +9,15 @@ from ckeditor_uploader.fields import RichTextUploadingField
 
 class Category(models.Model):
     # Class Category to organize posts according to
-    title = models.CharField(max_length=64, verbose_name='title')
+    title = models.CharField(max_length=255, verbose_name='title')
+    slug = models.SlugField(default='', blank=True)
 
     class Meta:
         verbose_name_plural = "categories"
+
+    def save(self, **kwargs):
+        self.slug = slugify(self.title)
+        super(Category, self).save()
 
     def __str__(self):
         return self.title
