@@ -17,11 +17,13 @@ from django.contrib import admin
 from django.urls import path, include
 from django.conf.urls.static import static
 from django.conf import settings
+from django.http import HttpResponseRedirect
+
 
 urlpatterns = [
-                  ## leave below line when not want to redirect index to blog urls
-                  # path('blog/', include('blog.urls')),
-                  path('', include('blog.urls')),
+                  # leave below line when not want to redirect index to blog urls
+                  path('', lambda r: HttpResponseRedirect('blog/')),
+                  path('blog/', include('blog.urls')),
                   path('admin/', admin.site.urls),
                   path('ckeditor/', include('ckeditor_uploader.urls')),
               ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

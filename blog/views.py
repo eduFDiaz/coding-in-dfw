@@ -16,9 +16,10 @@ def post_list(request):
 
 def post_detail(request, pk, slug):
     # Returns a single post
-    post = get_object_or_404(Post,pk=pk, slug=slug)
+    post = get_object_or_404(Post, pk=pk, slug=slug)
+    categories = Category.objects.all()
     template = 'blog/post_detail.html'
-    context = {'post': post}
+    context = {'post': post, 'categories': categories}
     return render(request, template, context)
 
 
@@ -55,8 +56,9 @@ def post_edit(request, pk, slug):
 
 def post_list_by_category(request, category_slug):
     # List of posts filtered by category
+    categories = Category.objects.all()
     category = get_object_or_404(Category, slug=category_slug)
     posts = Post.objects.filter(category=category).order_by('-published_date')
     template = 'blog/post_by_category.html'
-    context = {'posts': posts, 'category': category}
+    context = {'posts': posts, 'category': category, 'categories': categories}
     return render(request, template, context)

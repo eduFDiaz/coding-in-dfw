@@ -11,10 +11,11 @@ https://docs.djangoproject.com/en/2.1/ref/settings/
 """
 
 import os
+import socket
+from urllib import request
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/2.1/howto/deployment/checklist/
@@ -24,9 +25,6 @@ SECRET_KEY = 'qr1gh$9dgynwk08tz#++jg^6-mo7=*gx$)bxq34@d#8y&=039h'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
-
-ALLOWED_HOSTS = ['127.0.0.1','localhost','www.codingindfw.com']
-
 
 # Application definition
 
@@ -41,7 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.humanize',
     'ckeditor',
     'ckeditor_uploader',
-    ]
+]
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -73,7 +71,6 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'codingindfw.wsgi.application'
 
-
 # Database
 # https://docs.djangoproject.com/en/2.1/ref/settings/#databases
 
@@ -83,7 +80,6 @@ DATABASES = {
         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     }
 }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/2.1/ref/settings/#auth-password-validators
@@ -103,7 +99,6 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-
 # Internationalization
 # https://docs.djangoproject.com/en/2.1/topics/i18n/
 
@@ -116,7 +111,6 @@ USE_I18N = True
 USE_L10N = True
 
 USE_TZ = True
-
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.1/howto/static-files/
@@ -132,8 +126,8 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'static/')
 
 # Ckeditor config vars
 
-CKEDITOR_UPLOAD_PATH="uploads/"
-CKEDITOR_IMAGE_BACKEND='pillow'
+CKEDITOR_UPLOAD_PATH = "uploads/"
+CKEDITOR_IMAGE_BACKEND = 'pillow'
 
 CKEDITOR_CONFIGS = {
     'description': {
@@ -155,8 +149,45 @@ CKEDITOR_CONFIGS = {
             ['Link', 'Unlink', 'Anchor'],
             ['Image', 'Flash', 'Table', 'HorizontalRule'],
             ['TextColor', 'BGColor'],
-            ['Smiley', 'SpecialChar'], ['Source'], ['CodeSnippet'],['Youtube'],
+            ['Smiley', 'SpecialChar'], ['Source'], ['CodeSnippet'], ['Youtube'],
         ],
         'extraPlugins': ','.join(['codesnippet', 'youtube']),
+    }
+}
+
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_PORT = 587
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_HOST_USER = 'koohacksolutions@gmail.com'
+EMAIL_HOST_PASSWORD = 'koohack2017!'
+EMAIL_USE_TLS = True
+
+####################
+# DYNAMIC SETTINGS #
+####################
+
+f = os.path.join(PROJECT_DIR, "local_settings.py")
+if os.path.exists(f):
+    exec(open(f, "rb").read())
+else:
+    s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+    s.connect(("8.8.8.8", 80))
+
+ALLOWED_HOSTS = [
+    s.getsockname()[0],
+    request.urlopen('http://myip.dnsomatic.com').read().decode("utf-8"),
+    'www.codingindfw.com',
+    'localhost'
+]
+
+SESSION_COOKIE_SECURE = True
+SESSION_COOKIE_HTTPONLY = True
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTOCOL', 'https')
+SESSION_COOKIE_SECURE = True
+
+CACHES = {
+    'default': {
+        'BACKEND':
+            'django.core.cache.backends.dummy.DummyCache',
     }
 }
