@@ -1,20 +1,30 @@
-.page-header, .footer.navbar-fixed-bottom{
-    background-color: #ff9400;
+/* inside static/blog/css */
+.page-header{
+    background-color: #88c9ff;
     margin-top: 0;
-    padding: 20px 20px 20px 40px;
+    padding: 5px 5px 5px 10px;
+    font-size: 17px;
+}
+
+.footer.navbar-fixed-bottom{
+    background-color: #88c9ff;
+    margin-top: 0;
+    padding: 5px 5px 5px 10px;
+    font-size: 17px;
+    color: #ffffff;
 }
 
 .page-header h1, .page-header h1 a, .page-header h1 a:visited, .page-header h1 a:active {
     color: #ffffff;
-    font-size: 36pt;
+    font-size: 17pt;
     text-decoration: none;
 }
 
 .content {
-    margin-left: 40px;
+    margin-left: 10px;
 }
 
-h1, h2, h3, h4 {
+h1, h2, h3, h4, a{
     font-family: 'Lobster', cursive;
 }
 
@@ -50,6 +60,6 @@ body {
  	padding-bottom: 100px; 
  }
 
-.category-menu{
-    margin-top: 100px;
+li a {
+    font-size: 15px;
 }

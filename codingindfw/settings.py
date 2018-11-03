@@ -122,7 +122,6 @@ MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 PROJECT_DIR = os.path.dirname(os.path.abspath(__file__))
-STATIC_ROOT = os.path.join(BASE_DIR, 'static/')
 
 # Ckeditor config vars
 
@@ -166,12 +165,8 @@ EMAIL_USE_TLS = True
 # DYNAMIC SETTINGS #
 ####################
 
-f = os.path.join(PROJECT_DIR, "local_settings.py")
-if os.path.exists(f):
-    exec(open(f, "rb").read())
-else:
-    s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
-    s.connect(("8.8.8.8", 80))
+s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+s.connect(("8.8.8.8", 80))
 
 ALLOWED_HOSTS = [
     s.getsockname()[0],
