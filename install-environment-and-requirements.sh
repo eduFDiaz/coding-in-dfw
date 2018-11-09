@@ -9,7 +9,7 @@ wget https://www.python.org/ftp/python/3.6.6/Python-3.6.6.tar.xz
 tar xf Python-3.6.6.tar.xz
 cd Python-3.6.6
 ./configure --enable-optimizations
-make # me quede por aqui, tengo que instalarlo aun
+make
 sudo make altinstall
 
 # cleanup the install files and packages
