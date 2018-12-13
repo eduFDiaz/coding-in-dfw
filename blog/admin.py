@@ -10,5 +10,5 @@ class PostAdmin(admin.ModelAdmin):
     ordering = ['-published_date']
 
 
-admin.site.register(Post,PostAdmin)
+admin.site.register(Post, PostAdmin)
 admin.site.register(Category)
