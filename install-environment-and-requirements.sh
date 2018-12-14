@@ -30,4 +30,4 @@ source codingindfw-env/bin/activate
 
 # install requirements and dependencies
 sudo apt-get install -y libjpeg-dev zlib1g-dev
-pip install -r coding-in-dfw/requirements.txt
+sudo pip3.6 install -r coding-in-dfw/requirements.txt
