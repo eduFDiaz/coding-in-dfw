@@ -24,7 +24,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = 'qr1gh$9dgynwk08tz#++jg^6-mo7=*gx$)bxq34@d#8y&=039h'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 # Application definition
 
@@ -165,15 +165,15 @@ EMAIL_USE_TLS = True
 # DYNAMIC SETTINGS #
 ####################
 
-s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
-s.connect(("8.8.8.8", 80))
-
-ALLOWED_HOSTS = [
-    s.getsockname()[0],
-    request.urlopen('http://myip.dnsomatic.com').read().decode("utf-8"),
-    'www.codingindfw.com',
-    'localhost'
-]
+# s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+# s.connect(("8.8.8.8", 80))
+ALLOWED_HOSTS = ['*']
+# ALLOWED_HOSTS = [
+#     s.getsockname()[0],
+#     request.urlopen('http://myip.dnsomatic.com').read().decode("utf-8"),
+#     'www.codingindfw.com',
+#     'localhost',
+# ]
 
 SESSION_COOKIE_SECURE = True
 SESSION_COOKIE_HTTPONLY = True
