@@ -19,7 +19,6 @@ from django.conf.urls.static import static
 from django.conf import settings
 from django.http import HttpResponseRedirect
 
-
 urlpatterns = [
                   # leave below line when not want to redirect index to blog urls
                   path('', lambda r: HttpResponseRedirect('blog/')),

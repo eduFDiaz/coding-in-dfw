@@ -4,6 +4,12 @@ from .models import Post, Category
 
 from .forms import PostForm
 
+from rest_framework import viewsets
+from .serializers import CategorySerializer
+
+class CategoryViewSet(viewsets.ModelViewSet):
+    queryset = Category.objects.all()
+    serializer_class = CategorySerializer
 
 def post_list(request):
     # Returns a list of Posts ordered by date, newest first
