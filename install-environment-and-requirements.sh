@@ -31,3 +31,8 @@ source codingindfw-env/bin/activate
 # install requirements and dependencies
 sudo apt-get install -y libjpeg-dev zlib1g-dev
 sudo pip3.6 install -r coding-in-dfw/requirements.txt
+
+# in windows
+# virtualenv -p "C:\Program Files (x86)\Microsoft Visual Studio\Shared\Python36_64\python.exe" newenv
+#.\newenv\Scripts\activate
+# pip install -r requirements.txt
