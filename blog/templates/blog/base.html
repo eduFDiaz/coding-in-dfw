@@ -33,7 +33,7 @@
                 <ul class="list-group">
                 {% for category in categories %}
                     <li class="list-group-item">
-                        <a href="{% url 'post__by_category' category_slug=category.slug %}">{{ category.slug }}</a>
+                        <a href="{% url 'post__by_category' category_slug=category.slug %}">{{ category.title }}</a>
                     </li>
                 {% endfor %}
                 </ul>

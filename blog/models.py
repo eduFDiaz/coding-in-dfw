@@ -24,7 +24,7 @@ class Category(models.Model):
 
 
 class Post(models.Model):
-    # Class post
+    # Class post with fields title, author, description, text, category, created_date, published_date, slug
     author = models.ForeignKey('auth.User', on_delete=models.CASCADE)
     title = models.CharField(max_length=200)
     description = RichTextField(blank=True, null=True, config_name='description')
