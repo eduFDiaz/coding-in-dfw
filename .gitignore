@@ -4,6 +4,8 @@ __pycache__
 myvenv
 db.sqlite3
 /static
+.vscode
 .DS_Store
 venv/
+newenv/
 .idea/
