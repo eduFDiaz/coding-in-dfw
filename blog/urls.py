@@ -8,8 +8,6 @@ router = routers.DefaultRouter()
 router.register('categories',views.CategoryViewSet)
 router.register('posts',views.PostViewSet)
 
-print(router.urls)
-
 urlpatterns = [
     path('', views.post_list, name='post_list'),
     path('post/<int:pk>/<slug:slug>/', views.post_detail, name='post_detail'),

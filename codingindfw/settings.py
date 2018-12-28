@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.humanize',
     'ckeditor',
     'ckeditor_uploader',
+    'sorl.thumbnail',
     'rest_framework',
     'corsheaders',
 ]

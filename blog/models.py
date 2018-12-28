@@ -5,12 +5,18 @@ from django.utils.text import slugify
 from django.utils import timezone
 from ckeditor.fields import RichTextField
 from ckeditor_uploader.fields import RichTextUploadingField
+from django.conf import settings
 
+cat_img_dir = 'categories/images/'
+default_dir = ''.join([cat_img_dir,'no-img.jpg'])
+print(cat_img_dir,default_dir)
 
 class Category(models.Model):
     # Class Category to organize posts according to
-    title = models.CharField(max_length=255, verbose_name='title')
+    title = models.CharField(max_length=255, verbose_name = 'title')
+    description = models.CharField(max_length=100, verbose_name='description', default = 'Short description of the content')
     slug = models.SlugField(default='', blank=True)
+    image = models.ImageField(upload_to = cat_img_dir, default = default_dir)
 
     class Meta:
         verbose_name_plural = "categories"
