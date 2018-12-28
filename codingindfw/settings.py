@@ -40,9 +40,11 @@ INSTALLED_APPS = [
     'ckeditor',
     'ckeditor_uploader',
     'rest_framework',
+    'corsheaders',
 ]
 
 MIDDLEWARE = [
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -176,7 +178,7 @@ ALLOWED_HOSTS = ['*']
 #     'localhost',
 # ]
 
-SESSION_COOKIE_SECURE = True
+""" SESSION_COOKIE_SECURE = True
 SESSION_COOKIE_HTTPONLY = True
 SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTOCOL', 'https')
 SESSION_COOKIE_SECURE = True
@@ -187,8 +189,17 @@ CACHES = {
             'django.core.cache.backends.dummy.DummyCache',
     }
 }
-
+ """
 REST_FRAMEWORK = {
     'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
     'PAGE_SIZE': 10
 }
+
+CORS_ORIGIN_ALLOW_ALL = False
+
+CORS_ORIGIN_WHITELIST = (
+    'localhost:8000',
+    'localhost:3000',
+    '127.0.0.1:8000',
+    '127.0.0.1:3000',
+)
