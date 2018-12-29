@@ -20,9 +20,11 @@ from django.conf import settings
 from django.http import HttpResponseRedirect
 
 urlpatterns = [
-                  # leave below line when not want to redirect index to blog urls
-                  path('', lambda r: HttpResponseRedirect('blog/')),
-                  path('blog/', include('blog.urls')),
-                  path('admin/', admin.site.urls),
-                  path('ckeditor/', include('ckeditor_uploader.urls')),
-              ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+    # leave below line when not want to redirect index to blog urls
+    path('', lambda r: HttpResponseRedirect('blog/')),
+    path('blog/', include('blog.urls')),
+    path('admin/', admin.site.urls),
+    path('ckeditor/', include('ckeditor_uploader.urls')),
+    path('api-auth/', include('rest_framework.urls')),
+    path('api/', include('blog.api.urls')),
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
