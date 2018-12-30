@@ -1,10 +1,8 @@
-from django.urls import path
-from .views import CategoryListView, CategoryDetailView, PostListView, PostDetailView
+from .views import CategoryViewSet, PostViewSet
+from rest_framework.routers import DefaultRouter
 
-urlpatterns = [
-    path('', CategoryListView.as_view()),
-    path('categories/', CategoryListView.as_view()),
-    path('categories/<pk>', CategoryDetailView.as_view()),
-    path('posts/', PostListView.as_view()),
-    path('posts/<pk>', PostDetailView.as_view()),
-]
+router = DefaultRouter()
+router.register(r'categories', CategoryViewSet, basename='category')
+router.register(r'posts', PostViewSet, basename='post')
+urlpatterns = router.urls
+print(urlpatterns)
