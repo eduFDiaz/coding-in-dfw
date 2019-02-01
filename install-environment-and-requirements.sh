@@ -1,6 +1,4 @@
 #!/usr/bin/env bash
-# virtual env installation
-sudo pip install virtualenv
 
 # install python 3.6.6
 sudo apt-get update
@@ -13,6 +11,7 @@ make -j4
 sudo make -j4 altinstall
 
 # cleanup the install files and packages
+cd ..
 sudo rm -r Python-3.6.6
 rm Python-3.6.6.tgz
 sudo apt-get --purge remove -y build-essential tk-dev
@@ -21,6 +20,12 @@ sudo apt-get --purge remove -y libdb5.3-dev libgdbm-dev libsqlite3-dev libssl-de
 sudo apt-get --purge remove -y libbz2-dev libexpat1-dev liblzma-dev zlib1g-dev
 sudo apt-get autoremove -y
 sudo apt-get clean
+
+# install pip
+sudo apt install python3-pip
+
+# virtual env installation
+sudo pip3.6 install virtualenv
 
 # create virtual env
 virtualenv -p python3.6 codingindfw-env
