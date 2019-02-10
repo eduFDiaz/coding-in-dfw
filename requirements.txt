@@ -9,3 +9,4 @@ django-cors-headers==2.4.0
 sorl-thumbnail==12.5.0
 django-rest-auth==0.9.3
 django-allauth==0.38.0
+django-webpack-loader==0.6.0
