@@ -9,4 +9,5 @@ db.sqlite3
 .DS_Store
 venv/
 newenv/
+frontend/
 .idea/
