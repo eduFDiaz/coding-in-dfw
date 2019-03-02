@@ -14,14 +14,16 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path, include
+from django.urls import path, include, re_path
 from django.conf.urls.static import static
 from django.conf import settings
 from django.http import HttpResponseRedirect
 
+from django.views.generic import TemplateView
+
 urlpatterns = [
     # leave below line when not want to redirect index to blog urls
-    path('', lambda r: HttpResponseRedirect('blog/')),
+    #path('', lambda r: HttpResponseRedirect('blog/')),
     path('blog/', include('blog.urls')),
     path('admin/', admin.site.urls),
     path('ckeditor/', include('ckeditor_uploader.urls')),
@@ -29,5 +31,6 @@ urlpatterns = [
     path('api-auth/', include('rest_framework.urls')),
     path('api/', include('blog.api.urls')),
     path('rest-auth/', include('rest_auth.urls')),
-    path('rest-auth/registration/', include('rest_auth.registration.urls'))
-] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+    path('rest-auth/registration/', include('rest_auth.registration.urls')),
+    re_path('.*', TemplateView.as_view(template_name='index.html')),
+]
