@@ -33,12 +33,14 @@ namespace coding.API
             services.AddControllers();
             services.AddDbContext<DataContext>(options => options.UseSqlServer(Configuration.GetConnectionString("AzureSqlConnection")));
             //services.AddDbContext<DataContext>(options => options.UseSqlServer(Configuration.GetConnectionString("SqliteConnection")));
+            services.AddScoped<IRepo,Repo>();
             services.AddCors();
-            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_3_0)
+            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_3_0);
+            /* 
             .AddJsonOptions( options => {
                 options.SerializerSettings.ReferenceLoopHandling
                 = Newtonsoft.Json.ReferenceLoopHandling.Ignore;
-            });
+            }) */
 
             if (!_env.IsDevelopment())
             {
