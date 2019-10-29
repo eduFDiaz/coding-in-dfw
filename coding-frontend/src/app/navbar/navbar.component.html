@@ -53,10 +53,9 @@
                   <li class="nav-item dropdown">
                       <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="fas fa-cogs fa-fw mr-2"></i>More Pages </a>
                       <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                          <a class="dropdown-item" href="project.html">Project Page</a>
-                          <a class="dropdown-item" href="blog-home.html">Blog Home 1</a>
-                          <a class="dropdown-item" href="blog-home-alt.html">Blog Home 2</a>
-                          <a class="dropdown-item" href="blog-post.html">Blog Post</a>
+                          <a class="dropdown-item" [routerLink]="['/projects/1']">Project Page</a>
+                          <a class="dropdown-item" [routerLink]="['/blog']">Blog Home</a>
+                          <a class="dropdown-item"  [routerLink]="['/blog/1']">Blog Post</a>
                       </div>
                   </li>
               </ul>

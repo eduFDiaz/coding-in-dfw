@@ -1,13 +1,14 @@
+import { ProjectsListComponent } from './projects/projects-list/projects-list.component';
+import { PostListComponent } from './blog/post-list/post-list.component';
 import { ServicesComponent } from './services/services.component';
 import { ContactComponent } from './contact/contact.component';
 import { ProjectsComponent } from './projects/projects.component';
 import { ResumeComponent } from './resume/resume.component';
-import { BlogComponent } from './blog/blog.component';
 import { PortfolioComponent } from './portfolio/portfolio.component';
-import { NavbarComponent } from './navbar/navbar.component';
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { HomeComponent } from './home/home.component';
+import { PostComponent } from './blog/post/post.component';
 
 
 const routes: Routes = [
@@ -19,8 +20,10 @@ const routes: Routes = [
       { path: 'portfolio', component: PortfolioComponent},
       { path: 'services', component: ServicesComponent},
       { path: 'resume', component: ResumeComponent},
-      { path: 'blog', component: BlogComponent},
-      { path: 'projects', component: ProjectsComponent},
+      { path: 'blog', component: PostListComponent},
+      { path: 'blog/:id', component: PostComponent},
+      { path: 'projects', component: ProjectsListComponent},
+      { path: 'projects/:id', component: ProjectsComponent},
       { path: 'contact', component: ContactComponent}]
   },
   { path: '**', redirectTo: 'home', pathMatch: 'full'},

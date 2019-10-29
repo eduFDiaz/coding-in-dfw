@@ -7,13 +7,13 @@ import { NavbarComponent } from './navbar/navbar.component';
 import { PortfolioComponent } from './portfolio/portfolio.component';
 import { FooterComponent } from './footer/footer.component';
 import { ContactComponent } from './contact/contact.component';
-import { BlogComponent } from './blog/blog.component';
 import { PostListComponent } from './blog/post-list/post-list.component';
 import { PostComponent } from './blog/post/post.component';
 import { ResumeComponent } from './resume/resume.component';
 import { ProjectsComponent } from './projects/projects.component';
 import { ServicesComponent } from './services/services.component';
 import { HomeComponent } from './home/home.component';
+import { ProjectsListComponent } from './projects/projects-list/projects-list.component';
 
 
 @NgModule({
@@ -23,13 +23,13 @@ import { HomeComponent } from './home/home.component';
     PortfolioComponent,
     FooterComponent,
     ContactComponent,
-    BlogComponent,
     PostListComponent,
     PostComponent,
     ResumeComponent,
     ProjectsComponent,
     ServicesComponent,
-    HomeComponent
+    HomeComponent,
+    ProjectsListComponent
   ],
   imports: [
     BrowserModule,
