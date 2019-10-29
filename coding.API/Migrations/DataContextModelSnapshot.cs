@@ -130,6 +130,9 @@ namespace coding.API.Migrations
                     b.Property<string>("Email")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("FullName")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<DateTime>("LastActive")
                         .HasColumnType("datetime2");
 

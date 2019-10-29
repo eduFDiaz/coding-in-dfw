@@ -27,6 +27,13 @@ namespace coding.API.Controllers
             var users = await this._repo.GetUsers();
             return Ok(users);
         }
+
+        [HttpGet("{userId}")]
+        public async Task<ActionResult<User>> GetUser(int userId)
+        {
+            var user = await this._repo.GetUser(userId);
+            return Ok(user);
+        }
         
     }
 }

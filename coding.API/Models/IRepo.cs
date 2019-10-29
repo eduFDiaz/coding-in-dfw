@@ -6,6 +6,7 @@ namespace coding.API.Models
 {
     public interface IRepo
     {
+        Task<User> GetUser(int id);
         Task<List<User>> GetUsers();
     }
 }
