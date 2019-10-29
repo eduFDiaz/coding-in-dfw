@@ -14,6 +14,7 @@ import { ProjectsComponent } from './projects/projects.component';
 import { ServicesComponent } from './services/services.component';
 import { HomeComponent } from './home/home.component';
 import { ProjectsListComponent } from './projects/projects-list/projects-list.component';
+import { AdminComponent } from './admin/admin.component';
 
 
 @NgModule({
@@ -29,7 +30,8 @@ import { ProjectsListComponent } from './projects/projects-list/projects-list.co
     ProjectsComponent,
     ServicesComponent,
     HomeComponent,
-    ProjectsListComponent
+    ProjectsListComponent,
+    AdminComponent
   ],
   imports: [
     BrowserModule,

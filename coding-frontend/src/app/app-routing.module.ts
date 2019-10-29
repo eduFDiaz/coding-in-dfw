@@ -1,3 +1,4 @@
+import { AdminComponent } from './admin/admin.component';
 import { ProjectsListComponent } from './projects/projects-list/projects-list.component';
 import { PostListComponent } from './blog/post-list/post-list.component';
 import { ServicesComponent } from './services/services.component';
@@ -13,6 +14,7 @@ import { PostComponent } from './blog/post/post.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full'},
+  { path: 'admin', component: AdminComponent},
   {
     path: '',
     children: [
