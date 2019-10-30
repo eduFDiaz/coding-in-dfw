@@ -31,10 +31,18 @@ namespace coding.API
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
+            
             services.AddDbContext<DataContext>(options => options.UseSqlServer(Configuration.GetConnectionString("AzureSqlConnection")));
             //services.AddDbContext<DataContext>(options => options.UseSqlServer(Configuration.GetConnectionString("SqliteConnection")));
+
+            // Scoped services are created one per request but uses the same for scope of the request
+            // with these you make the interfaces and its implementations available for Dependency Injection to the controllers
             services.AddScoped<IRepo,Repo>();
+            services.AddScoped<IAuthRepo,AuthRepo>();
+
+            // Add CORS support
             services.AddCors();
+            
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_3_0);
             /* 
             .AddJsonOptions( options => {
