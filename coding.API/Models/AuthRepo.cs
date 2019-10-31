@@ -14,7 +14,8 @@ namespace coding.API.Models
         public async Task<User> Login(string email, string password)
         {
             // Here we allow the user to use its username or its email to login
-            var user = await _context.Users.Include(p => p.Photos).FirstOrDefaultAsync(x => x.Email == email || x.Username == email);
+            var user = await _context.Users.Include(p => p.Photos).Include(b => b.Posts)
+                                        .FirstOrDefaultAsync(x => x.Email == email || x.Username == email);
             if (user == null)
                 return null;
 
@@ -58,7 +59,7 @@ namespace coding.API.Models
         public async Task<bool> UserExists(string email)
         {
             // Method to check if the user exists
-            if (await _context.Users.AnyAsync(x => x.Username == email || x.Email == email))
+            if (await _context.Users.AnyAsync(x => x.Username == email && x.Email == email))
                 return true;
 
             return false;

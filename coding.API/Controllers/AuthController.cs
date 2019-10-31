@@ -30,6 +30,7 @@ namespace coding.API.Controllers
         public async Task<IActionResult> Register([FromBody] UserForRegisterDto userForRegisterDto)
         {
             userForRegisterDto.Username = userForRegisterDto.Username.ToLower();
+            userForRegisterDto.Email = userForRegisterDto.Email.ToLower();
 
             if (await _repo.UserExists(userForRegisterDto.Username) 
                     || await _repo.UserExists(userForRegisterDto.Email) )
