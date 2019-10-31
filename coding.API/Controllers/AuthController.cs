@@ -18,8 +18,10 @@ namespace coding.API.Controllers
     public class AuthController: ControllerBase
     {
         private readonly IAuthRepo _repo;
+        private readonly IConfiguration _config;
+        private readonly IMapper _mapper;
 
-        public AuthController(IAuthRepo repo)
+        public AuthController(IAuthRepo repo, IConfiguration config, IMapper mapper)
         {
             this._repo = repo;
         }
@@ -29,8 +31,9 @@ namespace coding.API.Controllers
         {
             userForRegisterDto.Username = userForRegisterDto.Username.ToLower();
 
-            if (await _repo.UserExists(userForRegisterDto.Username))
-                return BadRequest("Username already exists");
+            if (await _repo.UserExists(userForRegisterDto.Username) 
+                    || await _repo.UserExists(userForRegisterDto.Email) )
+                return BadRequest("You're already registered, sign in");
 
             var userToCreate = _mapper.Map<User>(userForRegisterDto);
 
