@@ -59,7 +59,7 @@ namespace coding.API.Models
         public async Task<bool> UserExists(string email)
         {
             // Method to check if the user exists
-            if (await _context.Users.AnyAsync(x => x.Username == email && x.Email == email))
+            if (await _context.Users.AnyAsync(x => x.Email == email))
                 return true;
 
             return false;

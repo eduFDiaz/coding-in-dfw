@@ -24,6 +24,8 @@ namespace coding.API.Controllers
         public AuthController(IAuthRepo repo, IConfiguration config, IMapper mapper)
         {
             this._repo = repo;
+            this._config = config;
+            this._mapper = mapper;
         }
 
         [HttpPost("register")]
@@ -32,15 +34,14 @@ namespace coding.API.Controllers
             userForRegisterDto.Username = userForRegisterDto.Username.ToLower();
             userForRegisterDto.Email = userForRegisterDto.Email.ToLower();
 
-            if (await _repo.UserExists(userForRegisterDto.Username) 
-                    || await _repo.UserExists(userForRegisterDto.Email) )
+            if (await _repo.UserExists(userForRegisterDto.Email))
                 return BadRequest("You're already registered, sign in");
 
             var userToCreate = _mapper.Map<User>(userForRegisterDto);
 
             var createdUser = await _repo.Register(userToCreate, userForRegisterDto.Password);
 
-            var userToReturn = _mapper.Map<UserForDetailedDto>(createdUser);
+            var userToReturn = _mapper.Map<UserForDetailedDto>(userToCreate);
 
             // GetUser is the name of the Method GetUser in the Users Controller, it needs to be passed a user id
             // this is used when the object just created needs to be returned
@@ -55,17 +56,23 @@ namespace coding.API.Controllers
             if (userFromRepo == null)
                 return Unauthorized();
 
+            // These are the claims that will make the user part of the JWT
             var claims = new[]
             {
                 new Claim(ClaimTypes.NameIdentifier, userFromRepo.Id.ToString()),
-                new Claim(ClaimTypes.Name, userFromRepo.Username)
+                new Claim(ClaimTypes.Name, userFromRepo.Username),
+                new Claim(ClaimTypes.Email, userFromRepo.Email)
             };
 
+            // Get the secret key from the appsettings.json config file
+            // and create a Symmetric Security Key with it
             var key = new SymmetricSecurityKey(Encoding.UTF8
             .GetBytes(_config.GetSection("AppSettings:Token").Value));
 
+            // Create a digital signature using the Symmetric Key using SHA512
             var credentials = new SigningCredentials(key, SecurityAlgorithms.HmacSha512Signature);
 
+            // Body of the token
             var tokenDescriptor = new SecurityTokenDescriptor
             {
                 Subject = new ClaimsIdentity(claims),
@@ -75,10 +82,11 @@ namespace coding.API.Controllers
 
             var tokenHandler = new JwtSecurityTokenHandler();
 
+            // The token is created to be returned when the user logs in
             var token = tokenHandler.CreateToken(tokenDescriptor);
 
             // The just logged in user is passed to be consumed by auth service and so on
-            var user = _mapper.Map<UserForListDto>(userFromRepo);
+            var user = _mapper.Map<UserForDetailedDto>(userFromRepo);
 
             return Ok(new
             {

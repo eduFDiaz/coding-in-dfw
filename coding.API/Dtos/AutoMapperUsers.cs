@@ -6,7 +6,12 @@ namespace coding.API.Dtos
 {
     public class AutoMapperProfiles: Profile
     {
-        public AutoMapperProfiles(){}
+        public AutoMapperProfiles()
+        {
+            CreateMap<UserForRegisterDto, User>();
+            CreateMap<UserForDetailedDto, User>();
+            CreateMap<User, UserForDetailedDto>();
+        }
         
     }
 }

@@ -29,15 +29,15 @@ namespace coding.API.Models
         public async Task<User> GetUser(int id)
         {
             var user = await this._context.Users.FirstOrDefaultAsync(user => user.Id == id);
-            //return user;
-            return this.users[0];
+            return user;
+            //return this.users[0];
         }
 
         public async Task<List<User>> GetUsers()
         {
             var users = await this._context.Users.ToListAsync();
-            //return users;
-            return this.users;
+            return users;
+            // return this.users;
         }
     }
 }

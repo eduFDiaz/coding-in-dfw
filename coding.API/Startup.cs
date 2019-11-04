@@ -20,7 +20,7 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
-
+using AutoMapper;
 
 namespace coding.API
 {
@@ -51,13 +51,14 @@ namespace coding.API
             // Add CORS support
             services.AddCors();
             
-            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_3_0);
+            services.AddMvc(options => options.EnableEndpointRouting = false).SetCompatibilityVersion(CompatibilityVersion.Version_3_0);
             /* 
             .AddJsonOptions( options => {
                 options.SerializerSettings.ReferenceLoopHandling
                 = Newtonsoft.Json.ReferenceLoopHandling.Ignore;
             }) */
             services.AddAutoMapper(typeof(Startup));
+
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
                 .AddJwtBearer(options => {
                     options.TokenValidationParameters = new TokenValidationParameters
@@ -95,17 +96,20 @@ namespace coding.API
                 //app.UseHsts();
             }
             app.UseCors(options => options.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
+            
+            app.UseAuthorization();
+            app.UseAuthentication();
+            app.UseMvc();
+
+            app.UseHsts();
             app.UseHttpsRedirection();
-            //app.UseHsts();
 
             app.UseRouting();
 
-            app.UseAuthorization();
-
-            app.UseEndpoints(endpoints =>
+            /* app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
-            });
-        }
+            });*/
+        } 
     }
 }
