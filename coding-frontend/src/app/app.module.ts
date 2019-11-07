@@ -1,3 +1,4 @@
+import { AlertifyService } from './_Services/alertify.service';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
@@ -38,7 +39,7 @@ import { AdminComponent } from './admin/admin.component';
     AppRoutingModule,
     HttpClientModule
   ],
-  providers: [],
+  providers: [AlertifyService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
