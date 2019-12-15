@@ -1,3 +1,6 @@
+import { Photo } from "./Photo";
+import { Posts } from "./Posts";
+
 export interface User {
   created: Date;
   email: string;
@@ -8,7 +11,7 @@ export interface User {
   passwordSalt: string;
   /* photos: Photo[]; */
   /* posts: Post[]; */
-  photos: string;
-  posts: string;
+  photos: Photo[];
+  posts: Posts[];
   username: string;
 }

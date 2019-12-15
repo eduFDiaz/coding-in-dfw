@@ -1,0 +1,47 @@
+{
+  "users": [
+    {
+      "id": 1,
+      "posts": [
+        {
+          "id": 1,
+          "title": "consectetur ut elit eu",
+          "description": "Voluptate deserunt ipsum cupidatat officia sint commodo occaecat non tempor excepteur fugiat nostrud dolor. Mollit magna aliquip cillum Lorem.",
+          "text": "Ipsum reprehenderit nisi ut consequat consequat sunt qui consequat ut. Labore cupidatat velit ad velit do. Exercitation labore in aute excepteur velit ut consectetur commodo nisi. Adipisicing duis adipisicing magna irure commodo. Commodo commodo aliquip ea occaecat culpa ad magna pariatur laborum deserunt veniam.\r\nUllamco nostrud irure laboris sunt. Culpa qui voluptate proident eiusmod. Nostrud pariatur aute qui sit magna laborum. Officia quis ea esse officia. Ipsum ex nisi aliquip est laboris fugiat nostrud dolor sint commodo Lorem aute commodo. Occaecat deserunt magna sunt ad labore id minim cillum. Est mollit eu qui sunt fugiat in aliquip Lorem cupidatat deserunt nostrud id magna.\r\n",
+          "createdAt": "Thu Jan 13 2000 16:01:41 GMT-0500 (hora estándar de Cuba)",
+          "publishedAt": "Wed Sep 05 1979 15:11:54 GMT-0400 (hora de verano de Cuba)",
+          "readingTime": 2,
+          "tags": [
+            {
+              "id": 1,
+              "title": "Tech",
+              "description": "asdasd",
+              "photo": 1
+            }
+          ],
+          "user": "eduardo",
+          "userId": "1"
+        }
+      ],
+      "username": "Eduardo",
+      "fullName": "Eeduardo fullname",
+      "email": "pepe@gmail.com",
+      "passwordHash": "d93bf899-a45e-4298-a94e-207f50a89b1e",
+      "passwordSalt": "c14135e9-d6c0-4eba-b266-a846c3a9c61b",
+      "created": "Mon Jun 04 2001 09:18:27 GMT-0400 (hora de verano de Cuba)",
+      "lastActive": "Sun Mar 23 2008 19:23:12 GMT-0400 (hora de verano de Cuba)",
+      "photos": [
+        {
+          "id": 1,
+          "url": "www.pepe.com",
+          "description": "sadadasd",
+          "dateAdded": "0001-01-01T00:00:00",
+          "isMain": false,
+          "user": 1,
+          "userId": 1,
+          "publicId": 1
+        }
+      ]
+    }
+  ]
+}
