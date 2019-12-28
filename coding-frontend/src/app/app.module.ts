@@ -16,7 +16,9 @@ import { ServicesComponent } from './services/services.component';
 import { HomeComponent } from './home/home.component';
 import { ProjectsListComponent } from './projects/projects-list/projects-list.component';
 import { AdminComponent } from './admin/admin.component';
-
+import { AuthService } from './_Services/auth.service';
+import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -34,12 +36,8 @@ import { AdminComponent } from './admin/admin.component';
     ProjectsListComponent,
     AdminComponent
   ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule,
-    HttpClientModule
-  ],
-  providers: [AlertifyService],
+  imports: [BrowserModule, AppRoutingModule, HttpClientModule, FormsModule],
+  providers: [AlertifyService, AuthService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

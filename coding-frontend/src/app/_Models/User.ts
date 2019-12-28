@@ -1,5 +1,5 @@
-import { Photo } from "./Photo";
-import { Posts } from "./Posts";
+import { Photo } from './Photo';
+import { Posts } from './Posts';
 
 export interface User {
   created: Date;

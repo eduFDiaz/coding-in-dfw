@@ -12,23 +12,27 @@ import { HomeComponent } from './home/home.component';
 import { PostComponent } from './blog/post/post.component';
 
 
+
 const routes: Routes = [
-  { path: '', redirectTo: 'home', pathMatch: 'full'},
-  { path: 'admin', component: AdminComponent},
+  { path: '', redirectTo: 'home', pathMatch: 'full' },
   {
     path: '',
     children: [
-      { path: 'home', component: HomeComponent},
-      { path: 'portfolio', component: PortfolioComponent},
-      { path: 'services', component: ServicesComponent},
-      { path: 'resume', component: ResumeComponent},
-      { path: 'blog', component: PostListComponent},
-      { path: 'blog/:id', component: PostComponent},
-      { path: 'projects', component: ProjectsListComponent},
-      { path: 'projects/:id', component: ProjectsComponent},
-      { path: 'contact', component: ContactComponent}]
+      { path: 'home', component: HomeComponent },
+      { path: 'portfolio', component: PortfolioComponent },
+      { path: 'services', component: ServicesComponent },
+      { path: 'resume', component: ResumeComponent },
+      { path: 'blog', component: PostListComponent },
+      { path: 'blog/:id', component: PostComponent },
+      { path: 'projects', component: ProjectsListComponent },
+      { path: 'projects/:id', component: ProjectsComponent },
+      { path: 'contact', component: ContactComponent },
+      {
+        path: 'admin', component: AdminComponent
+      }
+    ]
   },
-  { path: '**', redirectTo: 'home', pathMatch: 'full'},
+  { path: '**', redirectTo: 'home', pathMatch: 'full' },
 ];
 
 @NgModule({

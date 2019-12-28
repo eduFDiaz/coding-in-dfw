@@ -3,6 +3,8 @@ import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { User } from '../_Models/User';
 import { AlertifyService } from '../_Services/alertify.service';
+import { AuthService } from '../_Services/auth.service';
+
 
 @Component({
   selector: 'app-navbar',
@@ -11,24 +13,14 @@ import { AlertifyService } from '../_Services/alertify.service';
 })
 export class NavbarComponent implements OnInit {
   user: any;
-  isDataLoading: boolean = false;
-  constructor(private http: HttpClient, private alertify: AlertifyService) { }
+  isDataLoading = false;
+  constructor(private http: HttpClient, private alertify: AlertifyService, private auth: AuthService) { }
 
   ngOnInit() {
-    this.getUser(1);
+    
   }
 
-  getUser(id: number) {
-    this.http.get(environment.apiUrl + 'Users/' + id).subscribe(
-      (response: User) => {
-        this.user = response;
-        console.log(response);
-        this.isDataLoading = true;
-      }
-    , error => {
-      console.log(error);
-      this.alertify.error(error.message);
-    });
-  }
+
+
 
 }

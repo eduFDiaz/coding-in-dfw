@@ -1,7 +1,14 @@
 {
-  "users": [
+  "Users": [
     {
       "id": 1,
+      "username": "Eduardo",
+      "fullName": "12313Twst",
+      "email": "pepe@gmail.com",
+      "passwordHash": "d93bf899-a45e-4298-a94e-207f50a89b1e",
+      "passwordSalt": "c14135e9-d6c0-4eba-b266-a846c3a9c61b",
+      "created": "Mon Jun 04 2001 09:18:27 GMT-0400 (hora de verano de Cuba)",
+      "lastActive": "Sun Mar 23 2008 19:23:12 GMT-0400 (hora de verano de Cuba)",
       "posts": [
         {
           "id": 1,
@@ -20,16 +27,9 @@
             }
           ],
           "user": "eduardo",
-          "userId": "1"
+          "userId": 1
         }
       ],
-      "username": "Eduardo",
-      "fullName": "Eeduardo fullname",
-      "email": "pepe@gmail.com",
-      "passwordHash": "d93bf899-a45e-4298-a94e-207f50a89b1e",
-      "passwordSalt": "c14135e9-d6c0-4eba-b266-a846c3a9c61b",
-      "created": "Mon Jun 04 2001 09:18:27 GMT-0400 (hora de verano de Cuba)",
-      "lastActive": "Sun Mar 23 2008 19:23:12 GMT-0400 (hora de verano de Cuba)",
       "photos": [
         {
           "id": 1,
@@ -42,6 +42,9 @@
           "publicId": 1
         }
       ]
+    },
+    {
+      "id": 2
     }
   ]
 }

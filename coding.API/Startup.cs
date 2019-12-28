@@ -26,7 +26,7 @@ namespace coding.API
 {
     public class Startup
     {
-        public Startup(IConfiguration configuration,  IWebHostEnvironment env)
+        public Startup(IConfiguration configuration, IWebHostEnvironment env)
         {
             Configuration = configuration;
             _env = env;
@@ -39,18 +39,19 @@ namespace coding.API
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
-            
-            services.AddDbContext<DataContext>(options => options.UseSqlServer(Configuration.GetConnectionString("AzureSqlConnection")));
+
+            services.AddDbContext<DataContext>(x => x.UseSqlite(Configuration.GetConnectionString("DefaultConnection")));
+            //services.AddDbContext<DataContext>(options => options.UseSqlServer(Configuration.GetConnectionString("AzureSqlConnection")));
             //services.AddDbContext<DataContext>(options => options.UseSqlServer(Configuration.GetConnectionString("SqliteConnection")));
 
             // Scoped services are created one per request but uses the same for scope of the request
             // with these you make the interfaces and its implementations available for Dependency Injection to the controllers
-            services.AddScoped<IRepo,Repo>();
-            services.AddScoped<IAuthRepo,AuthRepo>();
+            services.AddScoped<IRepo, Repo>();
+            services.AddScoped<IAuthRepo, AuthRepo>();
 
             // Add CORS support
             services.AddCors();
-            
+
             services.AddMvc(options => options.EnableEndpointRouting = false).SetCompatibilityVersion(CompatibilityVersion.Version_3_0);
             /* 
             .AddJsonOptions( options => {
@@ -60,7 +61,8 @@ namespace coding.API
             services.AddAutoMapper(typeof(Startup));
 
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
-                .AddJwtBearer(options => {
+                .AddJwtBearer(options =>
+                {
                     options.TokenValidationParameters = new TokenValidationParameters
                     {
                         ValidateIssuerSigningKey = true,
@@ -96,7 +98,7 @@ namespace coding.API
                 //app.UseHsts();
             }
             app.UseCors(options => options.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
-            
+
             app.UseAuthorization();
             app.UseAuthentication();
             app.UseMvc();
@@ -110,6 +112,6 @@ namespace coding.API
             {
                 endpoints.MapControllers();
             });*/
-        } 
+        }
     }
 }
