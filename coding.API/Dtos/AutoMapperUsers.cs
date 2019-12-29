@@ -11,6 +11,9 @@ namespace coding.API.Dtos
             CreateMap<UserForRegisterDto, User>();
             CreateMap<UserForDetailedDto, User>();
             CreateMap<User, UserForDetailedDto>();
+            CreateMap<User, UserForUpdateDto>();
+            CreateMap<UserForUpdateDto, User>();
+            
         }
         
     }

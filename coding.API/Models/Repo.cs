@@ -39,5 +39,11 @@ namespace coding.API.Models
             return users;
             // return this.users;
         }
+
+        public async Task<bool> SaveAll()
+        {
+            return await _context.SaveChangesAsync() > 0;
+
+        }
     }
 }

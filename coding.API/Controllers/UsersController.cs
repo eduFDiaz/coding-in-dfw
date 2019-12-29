@@ -10,10 +10,11 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
+using System.Security.Claims;
 
 namespace coding.API.Controllers
 {
-    [Authorize]
+    // [Authorize]
     [ApiController]
     [Route("api/[controller]")]
     public class UsersController : ControllerBase
@@ -41,6 +42,19 @@ namespace coding.API.Controllers
             var user = await this._repo.GetUser(userId);
             var userToReturn = _mapper.Map<UserForDetailedDto>(user);
             return Ok(userToReturn);
+        }
+
+        [HttpPatch("{id}")]
+        public async Task<IActionResult> UpdateUser(int id, UserForUpdateDto userForUpdateDto)
+        {
+            var userFromRepo = await _repo.GetUser(id);
+
+            _mapper.Map(userForUpdateDto, userFromRepo);
+
+            if (await _repo.SaveAll())
+                return NoContent();
+
+            throw new Exception($"Failed update");
         }
 
     }

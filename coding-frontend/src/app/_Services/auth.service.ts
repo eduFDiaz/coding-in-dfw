@@ -2,9 +2,7 @@ import { Injectable } from '@angular/core';
 import { User } from '../_Models/User';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../environments/environment';
-import { AlertifyService } from './alertify.service';
 import { map } from 'rxjs/operators';
-import { BehaviorSubject } from 'rxjs';
 import { JwtHelperService } from '@auth0/angular-jwt';
 
 
@@ -21,7 +19,7 @@ export class AuthService {
 
   constructor(private http: HttpClient) { }
 
-  login(model: any, ) {
+  login(model: any) {
     return this.http.post(this.baseUrl + 'login', model).pipe(
       map((response: any) => {
         const user = response;
@@ -39,7 +37,5 @@ export class AuthService {
     const token = localStorage.getItem('token');
     return !this.jwtHelper.isTokenExpired(token);
   }
-
-
 
 }

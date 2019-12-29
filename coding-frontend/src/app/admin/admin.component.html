@@ -1,5 +1,5 @@
 <div class="main-wrapper">
-    <section class="cta-section theme-bg-light py-5" data-pg-id="495">
+    <section class="cta-section theme-bg-light py-1" data-pg-id="495">
         <div class="container text-center single-col-max-width" data-pg-id="496">
             <h2 class="heading" data-pg-id="497">Admin Control Center</h2>
             <!--//container-->
@@ -22,9 +22,11 @@
             </form>
         </div>
     </section>
-    <section>
+    <section *ngIf="isAuthenticated">
         <div>
-            <button type="submit" class="btn btn-success" (click)="logout()">Logout</button>
+            <button type="submit" class="btn btn-success" (click)="logout()"><i
+                    class="fas fa-power-off fa-fw mr-2"></i>Logout</button>
+
         </div>
     </section>
 

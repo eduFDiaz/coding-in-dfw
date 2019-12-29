@@ -8,5 +8,7 @@ namespace coding.API.Models
     {
         Task<User> GetUser(int id);
         Task<List<User>> GetUsers();
+        Task<bool> SaveAll();
+        
     }
 }

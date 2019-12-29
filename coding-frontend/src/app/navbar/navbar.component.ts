@@ -4,6 +4,7 @@ import { HttpClient } from '@angular/common/http';
 import { User } from '../_Models/User';
 import { AlertifyService } from '../_Services/alertify.service';
 import { AuthService } from '../_Services/auth.service';
+import { UserService } from '../_Services/user.service';
 
 
 @Component({
@@ -12,15 +13,23 @@ import { AuthService } from '../_Services/auth.service';
   styleUrls: ['./navbar.component.sass']
 })
 export class NavbarComponent implements OnInit {
-  user: any;
+  userData: any;
   isDataLoading = false;
-  constructor(private http: HttpClient, private alertify: AlertifyService, private auth: AuthService) { }
+  constructor(private user: UserService) { }
 
   ngOnInit() {
-    
+    this.getUserInfo();
   }
 
+  getUserInfo() {
+    return this.user.getUserInfo().subscribe((data) => {
+      this.userData = data;
+      console.log(data);
+    }, error => {
+      console.log(error);
+    });
 
+  }
 
 
 }
