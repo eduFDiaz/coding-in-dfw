@@ -7,6 +7,8 @@ import { map } from 'rxjs/operators';
 import { BehaviorSubject } from 'rxjs';
 import { JwtHelperService } from '@auth0/angular-jwt';
 
+
+
 @Injectable({ providedIn: 'root' })
 
 export class AuthService {
@@ -19,9 +21,8 @@ export class AuthService {
 
   constructor(private http: HttpClient) { }
 
-  login(model: any) {
-    // tslint:disable-next-line: quotemark
-    return this.http.post(this.baseUrl + "login", model).pipe(
+  login(model: any, ) {
+    return this.http.post(this.baseUrl + 'login', model).pipe(
       map((response: any) => {
         const user = response;
         if (user) {
@@ -35,8 +36,10 @@ export class AuthService {
   }
 
   loggedIn() {
-    
+    const token = localStorage.getItem('token');
+    return !this.jwtHelper.isTokenExpired(token);
   }
+
 
 
 }

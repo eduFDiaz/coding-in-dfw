@@ -5,9 +5,9 @@
             <!--//container-->
         </div>
     </section>
-    <section *ngIf="isAuthenticated" class="cta-section theme-bg-light py-5">
+    <section *ngIf="!isAuthenticated" class="cta-section theme-bg-light py-5">
         <div class="w-20 p-3 container text-center single-col-max-width">
-            <form #loginForm="ngForm">
+            <form #loginForm="ngForm" (ngSubmit)="login()">
 
                 <label for="name">Username</label>
                 <input name="username" type="text" class="form-control" id="username" required
@@ -16,10 +16,17 @@
                 <label for="password">Password</label>
                 <input type="password" class="form-control" name="password" id="password" required
                     [(ngModel)]="model.password">
+                <br>
                 <button [disabled]="!loginForm.valid" type="submit" class="btn btn-success">Submit</button>
 
             </form>
         </div>
     </section>
+    <section>
+        <div>
+            <button type="submit" class="btn btn-success" (click)="logout()">Logout</button>
+        </div>
+    </section>
+
 
 </div>
