@@ -7,8 +7,8 @@ export interface User {
   fullName: string;
   id: number;
   lastActive: Date;
-  passwordHash: string;
-  passwordSalt: string;
+  // passwordHash: string;
+  // passwordSalt: string;
   /* photos: Photo[]; */
   /* posts: Post[]; */
   photos: Photo[];

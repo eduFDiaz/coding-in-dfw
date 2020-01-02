@@ -28,6 +28,24 @@
                     class="fas fa-power-off fa-fw mr-2"></i>Logout</button>
 
         </div>
+        <div>
+            <form #updateProfileForm="ngForm" (ngSubmit)="updateUserInfo()">
+                <label for="name">FullName</label>
+                <input name="fullname" type="text" class="form-control" id="fullname" required
+                    [(ngModel)]="currentData.fullName">
+
+                <label for="name">Username</label>
+                <input name="username" type="text" class="form-control" id="username" required
+                    [(ngModel)]="currentData.username">
+
+                <label for="name">Email</label>
+                <input name="email" type="text" class="form-control" id="email" required
+                    [(ngModel)]="currentData.email">
+
+
+                <button type="submit" class="btn btn-success">Submit</button>
+            </form>
+        </div>
     </section>
 
 

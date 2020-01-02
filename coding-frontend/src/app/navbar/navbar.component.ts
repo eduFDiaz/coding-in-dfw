@@ -1,9 +1,7 @@
 import { environment } from './../../environments/environment';
 import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { User } from '../_Models/User';
-import { AlertifyService } from '../_Services/alertify.service';
-import { AuthService } from '../_Services/auth.service';
+
 import { UserService } from '../_Services/user.service';
 
 

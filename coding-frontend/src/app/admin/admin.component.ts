@@ -1,11 +1,13 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { AuthService } from '../_Services/auth.service';
-import { User } from '../_Models/User';
 import { FormGroup, FormControl } from '@angular/forms';
 import { AlertifyService } from '../_Services/alertify.service';
 import { Router } from '@angular/router';
+import { UserService } from '../_Services/user.service';
+import { User } from '../_Models/User';
+import { JwtHelperService } from '@auth0/angular-jwt';
 
-import { HttpHeaders } from '@angular/common/http';
+
 
 @Component({
   selector: 'app-admin',
@@ -17,13 +19,14 @@ export class AdminComponent implements OnInit {
 
   model: any = {};
   isAuthenticated = false;
+  currentData: User;
 
-  user: User;
-
-  constructor(public auth: AuthService, private alertify: AlertifyService, private router: Router) { }
+  constructor(public auth: AuthService, private alertify: AlertifyService, private router: Router, private user: UserService) { }
 
   ngOnInit() {
     this.isAuthenticated = this.auth.loggedIn();
+    this.getUserData();
+
   }
 
   login() {
@@ -51,5 +54,23 @@ export class AdminComponent implements OnInit {
     this.alertify.message('Loged out');
     this.router.navigate(['/home']);
   }
+
+  getUserData() {
+    return this.user.getUserInfo().subscribe((userd: User) => {
+      this.currentData = userd;
+      console.log(this.currentData);
+    }, error => {
+      console.log("error" + error.error.message);
+    });
+  }
+
+  updateUserInfo() {
+    return this.user.updateUser(this.currentData).subscribe(next => {
+      this.alertify.success("Perfil actualizado ok");
+    }, error => {
+      console.log(error.error.message);
+    })
+  }
+
 
 }
