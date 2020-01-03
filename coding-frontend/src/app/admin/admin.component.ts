@@ -17,6 +17,7 @@ import { JwtHelperService } from '@auth0/angular-jwt';
 })
 export class AdminComponent implements OnInit {
 
+
   model: any = {};
   isAuthenticated = false;
   currentData: User;
@@ -60,16 +61,17 @@ export class AdminComponent implements OnInit {
       this.currentData = userd;
       console.log(this.currentData);
     }, error => {
-      console.log("error" + error.error.message);
+      console.log('error' + error.error.message);
     });
   }
 
   updateUserInfo() {
     return this.user.updateUser(this.currentData).subscribe(next => {
-      this.alertify.success("Perfil actualizado ok");
+      this.alertify.success('Perfil actualizado ok');
+      this.user.announceUserChanged(this.currentData);
     }, error => {
       console.log(error.error.message);
-    })
+    });
   }
 
 

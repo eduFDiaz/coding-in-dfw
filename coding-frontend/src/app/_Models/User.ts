@@ -14,4 +14,5 @@ export interface User {
   photos: Photo[];
   posts: Posts[];
   username: string;
+  phone: string;
 }

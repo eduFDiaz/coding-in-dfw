@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { environment } from '../../environments/environment';
 import { User } from '../_Models/User';
+import { Subject } from 'rxjs';
 
 const httpOptions = {
   headers: new HttpHeaders({
@@ -16,6 +17,9 @@ const httpOptions = {
 
 export class UserService {
 
+  private user = new Subject<User>();
+
+  userInfo$ = this.user.asObservable();
 
   baseUrl = environment.apiUrl + 'users/';
 
@@ -27,6 +31,10 @@ export class UserService {
 
   updateUser(user: User) {
     return this.http.put(this.baseUrl + '1', user, httpOptions);
+  }
+
+  announceUserChanged(u: User) {
+    this.user.next(u);
   }
 
 }

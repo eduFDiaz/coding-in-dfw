@@ -15,5 +15,6 @@ namespace coding.API.Dtos
         // One to Many relationship
         public ICollection<PostForDetailDto> Posts { get; set; }
         public ICollection<PhotoForDetailDto> Photos { get; set; }
+        public string Phone { get; set; }
     }
 }

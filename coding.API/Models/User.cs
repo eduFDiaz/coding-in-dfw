@@ -21,5 +21,7 @@ namespace coding.API.Models
         // public ICollection<Like> Likeers { get; set; }
         // public ICollection<Message> MessagesSent { get; set; }
         // public ICollection<Message> MessagesReceived { get; set; }
+        public string Phone { get; set; }
+        
     }
 }

@@ -1,8 +1,7 @@
-import { environment } from './../../environments/environment';
-import { Component, OnInit } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-
+import { Component, OnInit, Input } from '@angular/core';
+import { Subscription } from 'rxjs';
 import { UserService } from '../_Services/user.service';
+import { User } from '../_Models/User';
 
 
 @Component({
@@ -11,18 +10,26 @@ import { UserService } from '../_Services/user.service';
   styleUrls: ['./navbar.component.sass']
 })
 export class NavbarComponent implements OnInit {
-  userData: any;
+  @Input() userData: any;
   isDataLoading = false;
+  private subscription: Subscription;
+
   constructor(private user: UserService) { }
 
   ngOnInit() {
+    // tslint:disable-next-line: max-line-length
+    this.subscription = this.user.userInfo$.subscribe(
+      (user) => {
+        this.userData = user;
+      }
+    );
     this.getUserInfo();
   }
 
   getUserInfo() {
     return this.user.getUserInfo().subscribe((data) => {
       this.userData = data;
-      console.log(data);
+
     }, error => {
       console.log(error);
     });
