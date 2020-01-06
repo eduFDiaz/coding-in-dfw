@@ -59,7 +59,7 @@ export class AdminComponent implements OnInit {
   getUserData() {
     return this.user.getUserInfo().subscribe((userd: User) => {
       this.currentData = userd;
-      console.log(this.currentData);
+      console.log(userd);
     }, error => {
       console.log('error' + error.error.message);
     });
