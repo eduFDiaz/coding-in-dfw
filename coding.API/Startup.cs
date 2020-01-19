@@ -40,7 +40,8 @@ namespace coding.API
         {
             services.AddControllers();
 
-            services.AddDbContext<DataContext>(x => x.UseSqlite(Configuration.GetConnectionString("DefaultConnection")));
+            services.AddDbContext<DataContext>(x => x.UseMySql(Configuration.GetConnectionString("MySqlConnection")));
+            //services.AddDbContext<DataContext>(x => x.UseSqlite(Configuration.GetConnectionString("DefaultConnection")));
             //services.AddDbContext<DataContext>(options => options.UseSqlServer(Configuration.GetConnectionString("AzureSqlConnection")));
             //services.AddDbContext<DataContext>(options => options.UseSqlServer(Configuration.GetConnectionString("SqliteConnection")));
 
@@ -74,14 +75,14 @@ namespace coding.API
                     };
                 });
 
-            if (!_env.IsDevelopment())
-            {
-                services.AddHttpsRedirection(options =>
-                {
-                    options.RedirectStatusCode = StatusCodes.Status307TemporaryRedirect;
-                    options.HttpsPort = 5001;
-                });
-            }
+            // if (!_env.IsDevelopment())
+            // {
+            //     services.AddHttpsRedirection(options =>
+            //     {
+            //         options.RedirectStatusCode = StatusCodes.Status307TemporaryRedirect;
+            //         options.HttpsPort = 5001;
+            //     });
+            // }
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -89,10 +90,21 @@ namespace coding.API
         {
             if (_env.IsDevelopment())
             {
+
                 app.UseDeveloperExceptionPage();
             }
             else
             {
+                try
+                {
+                    using (var serviceScope = app.ApplicationServices.GetService<IServiceScopeFactory>()
+                        .CreateScope())
+                    {
+                        serviceScope.ServiceProvider.GetService<DataContext>()
+                                .Database.Migrate();
+                    }
+                }
+                catch { }
                 app.UseExceptionHandler("/Error");
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 //app.UseHsts();

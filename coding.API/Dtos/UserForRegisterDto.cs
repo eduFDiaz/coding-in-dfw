@@ -24,6 +24,8 @@ namespace coding.API.Dtos
         [DataType(DataType.EmailAddress)]
         [EmailAddress]
         public string Email { get; set; }
+
+        public string Phone { get; set; }
         public DateTime Created { get; set; }
         public DateTime LastActive { get; set; }
     }
