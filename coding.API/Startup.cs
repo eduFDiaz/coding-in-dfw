@@ -22,6 +22,7 @@ using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using AutoMapper;
 
+
 namespace coding.API
 {
     public class Startup
@@ -113,17 +114,26 @@ namespace coding.API
 
             app.UseAuthorization();
             app.UseAuthentication();
+
+            // Kestrel will look for index.html or other static files to use in webroot
+            app.UseDefaultFiles();
+            // Kestrel will use the static files found above
+            app.UseStaticFiles();
+            app.UseRouting();
+
+            app.UseEndpoints(endpoints =>
+            {
+                endpoints.MapControllerRoute(
+                    name: "coding-fallback",
+                    pattern: " { controller = Fallback, action = Index }");
+                endpoints.MapFallbackToController("Index", "Fallback");
+            });
             app.UseMvc();
 
             app.UseHsts();
             app.UseHttpsRedirection();
 
-            app.UseRouting();
 
-            /* app.UseEndpoints(endpoints =>
-            {
-                endpoints.MapControllers();
-            });*/
         }
     }
 }
