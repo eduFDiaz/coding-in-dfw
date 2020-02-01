@@ -111,16 +111,13 @@ namespace coding.API
                 //app.UseHsts();
             }
             app.UseCors(options => options.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
-
-            app.UseAuthorization();
             app.UseAuthentication();
-
             // Kestrel will look for index.html or other static files to use in webroot
             app.UseDefaultFiles();
             // Kestrel will use the static files found above
             app.UseStaticFiles();
             app.UseRouting();
-
+            app.UseAuthorization();
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllerRoute(
