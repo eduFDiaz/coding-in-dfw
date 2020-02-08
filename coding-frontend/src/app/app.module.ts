@@ -1,3 +1,5 @@
+
+import { NbSidebarModule } from '@nebular/theme';
 import { AlertifyService } from './_Services/alertify.service';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
@@ -15,10 +17,11 @@ import { ProjectsComponent } from './projects/projects.component';
 import { ServicesComponent } from './services/services.component';
 import { HomeComponent } from './home/home.component';
 import { ProjectsListComponent } from './projects/projects-list/projects-list.component';
-import { AdminComponent } from './admin/admin.component';
+
 import { AuthService } from './_Services/auth.service';
 import { ReactiveFormsModule } from '@angular/forms';
 import { FormsModule } from '@angular/forms';
+import { AdminModule } from './admin/admin.module';
 
 @NgModule({
   declarations: [
@@ -34,9 +37,9 @@ import { FormsModule } from '@angular/forms';
     ServicesComponent,
     HomeComponent,
     ProjectsListComponent,
-    AdminComponent
+
   ],
-  imports: [BrowserModule, AppRoutingModule, HttpClientModule, FormsModule],
+  imports: [BrowserModule, AppRoutingModule, HttpClientModule, FormsModule, AdminModule, NbSidebarModule.forRoot(),],
   providers: [AlertifyService, AuthService],
   bootstrap: [AppComponent]
 })

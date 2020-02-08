@@ -1,74 +1,9 @@
-<div class="main-wrapper">
-    <section class="cta-section theme-bg-light py-1" data-pg-id="495">
-        <div class="container text-center single-col-max-width" data-pg-id="496">
-            <h2 class="heading" data-pg-id="497">Admin Control Center</h2>
-            <p class="tagline">Welcome back {{ currentData?.fullName }}</p>
-            <!--//container-->
-        </div>
-    </section>
-    <section *ngIf="!isAuthenticated" class="cta-section theme-bg-light py-5">
-        <div class="w-20 p-3 container text-center single-col-max-width">
-            <div class="col-md ">
-                <div class="row justify-content-center">
-                    <form #loginForm="ngForm" (ngSubmit)="login()">
-                        <label for="name">Username:</label>
-                        <input name="username" type="text" class="form-control" id="username" required
-                            [(ngModel)]="model.username">
-                        <div class="pt-1">
-                            <label for="password">Password:</label>
-                            <input type="password" class="form-control" name="password" id="password" required
-                                [(ngModel)]="model.password">
-                        </div>
-                        <div class="pt-2">
-                            <button [disabled]="!loginForm.valid" type="submit" class="btn btn-success">Sign in</button>
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </section>
-    <div class="container">
-        <section *ngIf="isAuthenticated">
-            <div class="row justify-content-end">
-                <button type="submit" class="btn btn-success" (click)="logout()"><i
-                        class="fas fa-power-off fa-fw mr-2"></i>Sign out</button>
-            </div>
-            <div class="row">
-                <div class="col-md-4">
-                    <form #updateProfileForm="ngForm" (ngSubmit)="updateUserInfo()">
-                        <label for="name"><b>What's your full name?:</b></label>
-                        <input name="fullname" type="text" class="form-control" id="fullname" required
-                            [(ngModel)]="currentData.fullName">
-                        <label for="name"><b>Username to log in on the blog:</b></label>
-                        <input name="username" type="text" class="form-control" id="username" required
-                            [(ngModel)]="currentData.username">
-                        <label for="email"><b>What's your email?</b></label>
-                        <input name="email" type="text" class="form-control" id="email" required
-                            [(ngModel)]="currentData.email">
-                        <label for="phone"><b>What's your phone?</b></label>
-                        <input name="phone" type="text" class="form-control" id="phone" [(ngModel)]="currentData.phone"
-                            required>
-                        <div class="pt-2">
-                            <button [disabled]="!updateProfileForm.dirty" type="submit" class="btn btn-success">Update
-                                Profile Fields</button>
-                        </div>
-                    </form>
-                </div>
-                <div class="col-md">
-                    <label for="name"><b>Resume your carrer here:</b></label>
-                    <form #carrerInfo="ngForm" (ngSubmit)="updateUserInfo()">
-                        <textarea class="form-control" id="resume" name="resumetext"
-                            placeholder="Enter your resume to show" rows="6"></textarea>
-                        <div class="pt-3">
-                            <button [disabled]="!carrerInfo.dirty" type="submit" class="btn btn-success">Update
-                                resume</button>
-                        </div>
-                    </form>
-                </div>
-            </div>
+<nb-layout>
+    <nb-layout-header fixed>Company Name</nb-layout-header>
 
-        </section>
-    </div>
+    <nb-sidebar state="fixed">Sidebar Content</nb-sidebar>
 
-
-</div>
+    <nb-layout-column>
+        Page Content <button nbButton (click)="logout()">Hello World</button>
+    </nb-layout-column>
+</nb-layout>

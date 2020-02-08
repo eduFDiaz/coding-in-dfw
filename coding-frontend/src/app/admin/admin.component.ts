@@ -17,7 +17,6 @@ import { JwtHelperService } from '@auth0/angular-jwt';
 })
 export class AdminComponent implements OnInit {
 
-
   model: any = {};
   isAuthenticated = false;
   currentData: User;

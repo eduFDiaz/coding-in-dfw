@@ -1,4 +1,4 @@
-import { AdminComponent } from './admin/admin.component';
+
 import { ProjectsListComponent } from './projects/projects-list/projects-list.component';
 import { PostListComponent } from './blog/post-list/post-list.component';
 import { ServicesComponent } from './services/services.component';
@@ -15,6 +15,7 @@ import { PostComponent } from './blog/post/post.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
+  { path: 'admin', loadChildren: './admin/admin.module#AdminModule' },
   {
     path: '',
     children: [
@@ -27,16 +28,14 @@ const routes: Routes = [
       { path: 'projects', component: ProjectsListComponent },
       { path: 'projects/:id', component: ProjectsComponent },
       { path: 'contact', component: ContactComponent },
-      {
-        path: 'admin', component: AdminComponent
-      }
+
     ]
   },
   { path: '**', redirectTo: 'home', pathMatch: 'full' },
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
+  imports: [RouterModule.forRoot(routes, { enableTracing: true })],
   exports: [RouterModule]
 })
 export class AppRoutingModule { }
