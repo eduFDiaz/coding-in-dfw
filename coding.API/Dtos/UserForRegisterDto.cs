@@ -16,6 +16,7 @@ namespace coding.API.Dtos
         [Required]
         [DataType(DataType.Password)]
         [RegularExpression(@"^(?=.*[0-9])(?=.*[a-z])(?=.*?[#?!@$%^&*-])(?=.*[A-Z]).{8,20}$",
+        // [RegularExpression(@"^(?=.*[0-9])(?=.*[a-z])(?=.*?[#?!@$%^&*-]).{8,20}$",
         ErrorMessage = "Password must be at least 8 characters long, include one special character [#?!@$%^&*-], a capital letter and a number")]
         public string Password { get; set; }
         [Required]

@@ -7,6 +7,7 @@ namespace coding.API.Models
     {
         public int Id { get; set; }
         public string Username { get; set; }
+        // public string Password { get; set; }
         public string FullName { get; set; }
         public string Email { get; set; }
         public byte[] PasswordHash { get; set; }
@@ -22,6 +23,7 @@ namespace coding.API.Models
         // public ICollection<Message> MessagesSent { get; set; }
         // public ICollection<Message> MessagesReceived { get; set; }
         public string Phone { get; set; }
+        public string Resume { get; set; }
         
     }
 }

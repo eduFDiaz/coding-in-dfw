@@ -11,11 +11,11 @@ namespace coding.API.Models
         {
             _context = context;
         }
-        public async Task<User> Login(string email, string password)
+        public async Task<User> Login(string username, string password)
         {
             // Here we allow the user to use its username or its email to login
             var user = await _context.Users.Include(p => p.Photos).Include(b => b.Posts)
-                                        .FirstOrDefaultAsync(x => x.Email == email || x.Username == email);
+                                        .FirstOrDefaultAsync(x => x.Email == username || x.Username == username);
             if (user == null)
                 return null;
 
