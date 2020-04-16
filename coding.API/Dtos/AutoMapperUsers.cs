@@ -13,6 +13,10 @@ namespace coding.API.Dtos
             CreateMap<User, UserForDetailedDto>();
             CreateMap<User, UserForUpdateDto>();
             CreateMap<UserForUpdateDto, User>();
+
+            CreateMap<PostForCreateDto, Post>();
+            CreateMap<PostForDetailDto, Post>();
+            CreateMap<Post, PostForDetailDto>();
             
         }
         

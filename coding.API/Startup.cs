@@ -50,6 +50,7 @@ namespace coding.API
             // with these you make the interfaces and its implementations available for Dependency Injection to the controllers
             services.AddScoped<IRepo, Repo>();
             services.AddScoped<IAuthRepo, AuthRepo>();
+            services.AddScoped<IPostRepo, PostRepo>();
 
             // Add CORS support
             services.AddCors();

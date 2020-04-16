@@ -10,6 +10,7 @@ namespace coding.API.Models
         // public string Password { get; set; }
         public string FullName { get; set; }
         public string Email { get; set; }
+        public string Location { get; set; }
         public byte[] PasswordHash { get; set; }
         public byte[] PasswordSalt { get; set; }
         public DateTime Created { get; set; }
