@@ -1,4 +1,5 @@
 using coding.API.Models;
+using System.Collections.Generic;
 using System;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
@@ -36,10 +37,20 @@ namespace coding.API.Controllers
 
             var createdPost = await _repo.Create(postToCreate);
 
-            // var postToReturn = _mapper.Map<PostForDetailDto>(postToCreate);
-
             return createdPost;
-            // return CreatedAtRoute("GetUser", new { controller = "Users", id = createdUser.Id } , userToReturn );
+            
+        }
+
+        [HttpGet("{id}", Name = "GetPost")]
+        public async Task<List<Post>> GetPosts()
+        {
+            var post = await _repo.GetPost();
+
+            // var post = _mapper.Map<List<PostForDetailDto>>(postFromRepo);
+
+            // var postToReturn = _mapper.Map<PostForDetailDto>(post);
+
+            return post;
         }
         
     }

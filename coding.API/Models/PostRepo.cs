@@ -1,5 +1,7 @@
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
+using System.Linq;
+using System.Collections.Generic;
 
 namespace coding.API.Models
 {
@@ -20,6 +22,21 @@ namespace coding.API.Models
             await _context.SaveChangesAsync();
             return post;
         }
+
+        public async Task<List<Post>> GetPost()
+        {
+        //    var post = await _context.Posts.Where(p => p.UserId == id).FirstOrDefaultAsync();
+            var post = await this._context.Posts.ToListAsync();
+
+            return post;
+        }
+
+        //  public async Task<List<User>> GetUsers()
+        // {
+        //     var users = await this._context.Users.ToListAsync();
+        //     return users;
+        //     // return this.users;
+        // }
         
         
     }
