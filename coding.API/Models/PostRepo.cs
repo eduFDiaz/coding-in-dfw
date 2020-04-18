@@ -23,10 +23,12 @@ namespace coding.API.Models
             return post;
         }
 
-        public async Task<List<Post>> GetPost()
+        public async Task<List<Post>> GetPost(int userid)
         {
-        //    var post = await _context.Posts.Where(p => p.UserId == id).FirstOrDefaultAsync();
-            var post = await this._context.Posts.ToListAsync();
+
+
+            var post = await _context.Posts.Where(p => p.UserId == userid).ToListAsync();
+            // var post = await this._context.Posts.ToListAsync();
 
             return post;
         }

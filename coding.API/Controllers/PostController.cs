@@ -1,7 +1,6 @@
 using coding.API.Models;
 using System.Collections.Generic;
 using System;
-using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
@@ -10,7 +9,8 @@ using coding.API.Dtos;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
-using Microsoft.IdentityModel.Tokens;
+
+
 
 namespace coding.API.Controllers
 {
@@ -42,16 +42,22 @@ namespace coding.API.Controllers
         }
 
         [HttpGet("{id}", Name = "GetPost")]
-        public async Task<List<Post>> GetPosts()
+        // public async Task<List<Post>> GetPosts()
+        public async Task<IActionResult> GetPosts(int id)
         {
-            var post = await _repo.GetPost();
+            var postFromRepo = await _repo.GetPost(id);
 
-            // var post = _mapper.Map<List<PostForDetailDto>>(postFromRepo);
+            var postsToReturn = _mapper.Map<List<PostForDetailDto>>(postFromRepo);
 
-            // var postToReturn = _mapper.Map<PostForDetailDto>(post);
+            var postsSize = postFromRepo.Count;
 
-            return post;
+            if (postsSize == 0)
+                return NoContent();
+
+            return Ok(postsToReturn);
         }
+
+
         
     }
 }
