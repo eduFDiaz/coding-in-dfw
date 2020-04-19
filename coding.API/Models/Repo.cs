@@ -1,6 +1,10 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
+using System.Linq;
+using Microsoft.AspNetCore.Mvc;
+
+
 
 namespace coding.API.Models
 {
@@ -29,7 +33,8 @@ namespace coding.API.Models
         {
             var user = await this._context.Users.FirstOrDefaultAsync(user => user.Id == id);
 
-            var postsFromUser = await this._context.Posts.FirstOrDefaultAsync(post => post.UserId == id);
+            // var posts = await this._context.Posts.FirstOrDefaultAsync(post => post.UserId == id);
+            var posts = await this._context.Posts.Where(post => post.UserId == id).ToListAsync();
             
             return user;
         
