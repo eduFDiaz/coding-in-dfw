@@ -9,8 +9,8 @@ using coding.API.Models;
 namespace coding.API.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20200416032052_AddedProductAndOtherPropsToModels")]
-    partial class AddedProductAndOtherPropsToModels
+    [Migration("20200419044317_TestingCascade")]
+    partial class TestingCascade
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -127,20 +127,10 @@ namespace coding.API.Migrations
                     b.Property<string>("Description")
                         .HasColumnType("longtext CHARACTER SET utf8mb4");
 
-                    b.Property<int?>("PhotoId")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("PostId")
-                        .HasColumnType("int");
-
                     b.Property<string>("Title")
                         .HasColumnType("longtext CHARACTER SET utf8mb4");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("PhotoId");
-
-                    b.HasIndex("PostId");
 
                     b.ToTable("Tags");
                 });
@@ -178,6 +168,9 @@ namespace coding.API.Migrations
                     b.Property<string>("LinkedInProfile")
                         .HasColumnType("longtext CHARACTER SET utf8mb4");
 
+                    b.Property<string>("Location")
+                        .HasColumnType("longtext CHARACTER SET utf8mb4");
+
                     b.Property<byte[]>("PasswordHash")
                         .HasColumnType("longblob");
 
@@ -209,7 +202,7 @@ namespace coding.API.Migrations
 
             modelBuilder.Entity("coding.API.Models.Photo", b =>
                 {
-                    b.HasOne("coding.API.Models.User", "User")
+                    b.HasOne("coding.API.Models.User", null)
                         .WithMany("Photos")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -218,7 +211,7 @@ namespace coding.API.Migrations
 
             modelBuilder.Entity("coding.API.Models.Post", b =>
                 {
-                    b.HasOne("coding.API.Models.User", "User")
+                    b.HasOne("coding.API.Models.User", null)
                         .WithMany("Posts")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -230,17 +223,6 @@ namespace coding.API.Migrations
                     b.HasOne("coding.API.Models.User", null)
                         .WithMany("Products")
                         .HasForeignKey("UserId");
-                });
-
-            modelBuilder.Entity("coding.API.Models.Tag", b =>
-                {
-                    b.HasOne("coding.API.Models.Photo", "Photo")
-                        .WithMany()
-                        .HasForeignKey("PhotoId");
-
-                    b.HasOne("coding.API.Models.Post", null)
-                        .WithMany("Tags")
-                        .HasForeignKey("PostId");
                 });
 #pragma warning restore 612, 618
         }

@@ -4,10 +4,24 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace coding.API.Migrations
 {
-    public partial class AddedResumeToModels : Migration
+    public partial class TestingCascade : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.CreateTable(
+                name: "Tags",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
+                    Title = table.Column<string>(nullable: true),
+                    Description = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Tags", x => x.Id);
+                });
+
             migrationBuilder.CreateTable(
                 name: "Users",
                 columns: table => new
@@ -17,12 +31,21 @@ namespace coding.API.Migrations
                     Username = table.Column<string>(nullable: true),
                     FullName = table.Column<string>(nullable: true),
                     Email = table.Column<string>(nullable: true),
+                    Location = table.Column<string>(nullable: true),
                     PasswordHash = table.Column<byte[]>(nullable: true),
                     PasswordSalt = table.Column<byte[]>(nullable: true),
                     Created = table.Column<DateTime>(nullable: false),
                     LastActive = table.Column<DateTime>(nullable: false),
                     Phone = table.Column<string>(nullable: true),
-                    Resume = table.Column<string>(nullable: true)
+                    ShortResume = table.Column<string>(nullable: true),
+                    FullResume = table.Column<string>(nullable: true),
+                    GithubUrl = table.Column<string>(nullable: true),
+                    TwiterProfile = table.Column<string>(nullable: true),
+                    FacebookProfile = table.Column<string>(nullable: true),
+                    LinkedInProfile = table.Column<string>(nullable: true),
+                    StackOverflowProfile = table.Column<string>(nullable: true),
+                    RedditProfile = table.Column<string>(nullable: true),
+                    CodepenProfile = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
@@ -79,31 +102,27 @@ namespace coding.API.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Tags",
+                name: "Product",
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
-                    Title = table.Column<string>(nullable: true),
-                    Description = table.Column<string>(nullable: true),
-                    PhotoId = table.Column<int>(nullable: true),
-                    PostId = table.Column<int>(nullable: true)
+                    Name = table.Column<string>(nullable: true),
+                    Type = table.Column<string>(nullable: true),
+                    Url = table.Column<string>(nullable: true),
+                    ProductPhoto = table.Column<string>(nullable: true),
+                    ProductDescription = table.Column<string>(nullable: true),
+                    UserId = table.Column<int>(nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Tags", x => x.Id);
+                    table.PrimaryKey("PK_Product", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Tags_Photos_PhotoId",
-                        column: x => x.PhotoId,
-                        principalTable: "Photos",
+                        name: "FK_Product_Users_UserId",
+                        column: x => x.UserId,
+                        principalTable: "Users",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_Tags_Posts_PostId",
-                        column: x => x.PostId,
-                        principalTable: "Posts",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateIndex(
@@ -117,26 +136,24 @@ namespace coding.API.Migrations
                 column: "UserId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Tags_PhotoId",
-                table: "Tags",
-                column: "PhotoId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Tags_PostId",
-                table: "Tags",
-                column: "PostId");
+                name: "IX_Product_UserId",
+                table: "Product",
+                column: "UserId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "Tags");
-
-            migrationBuilder.DropTable(
                 name: "Photos");
 
             migrationBuilder.DropTable(
                 name: "Posts");
+
+            migrationBuilder.DropTable(
+                name: "Product");
+
+            migrationBuilder.DropTable(
+                name: "Tags");
 
             migrationBuilder.DropTable(
                 name: "Users");
