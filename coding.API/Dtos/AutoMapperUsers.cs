@@ -14,13 +14,19 @@ namespace coding.API.Dtos
             CreateMap<User, UserForUpdateDto>();
             CreateMap<UserForUpdateDto, User>();
 
+            //Posts Maps
             CreateMap<PostForCreateDto, Post>();
             CreateMap<PostForDetailDto, Post>();
             CreateMap<Post, PostForDetailDto>();
-
             CreateMap<PostForUpdateDto, Post>().ForMember(post => post.Id, y => y.Ignore());
             // CreateMap<Post, PostForUpdateDto>();
-            
+
+            //Tags Maps
+            CreateMap<TagForCreateDto, Tag>();
+            CreateMap<TagForDetailDto, Tag>();
+            CreateMap<TagForUpdateDto, Tag>();
+            CreateMap<Tag, TagForDetailDto>();
+                        
         }
         
     }

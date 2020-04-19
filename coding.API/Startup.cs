@@ -52,6 +52,7 @@ namespace coding.API
             services.AddScoped<IRepo, Repo>();
             services.AddScoped<IAuthRepo, AuthRepo>();
             services.AddScoped<IPostRepo, PostRepo>();
+            services.AddScoped<ITagRepo, TagRepo>();
 
             services.AddSwaggerGen(c => {
                 c.SwaggerDoc("v1", new OpenApiInfo { 
