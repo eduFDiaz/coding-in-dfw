@@ -9,6 +9,7 @@ using coding.API.Dtos;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
+using Microsoft.AspNetCore.Authorization;
 
 
 
@@ -42,8 +43,7 @@ namespace coding.API.Controllers
         }
 
         [HttpGet("{id}", Name = "GetPost")]
-        // public async Task<List<Post>> GetPosts()
-        public async Task<IActionResult> GetPosts(int id)
+        public async Task<IActionResult> GetPost(int id)
         {
             var postFromRepo = await _repo.GetPost(id);
 
@@ -52,11 +52,24 @@ namespace coding.API.Controllers
             var postsSize = postFromRepo.Count;
 
             if (postsSize == 0)
-                return NoContent();
+                return NotFound();
 
             return Ok(postsToReturn);
         }
 
+        // [Authorize]
+        [HttpDelete("{postid}/delete", Name = "DetelePost")]
+        public async Task<IActionResult> DeletePost(int postid)
+        {
+                           
+            var postFromRepo = await _repo.DeletePost(postid);
+
+            if (!postFromRepo)
+                return NotFound();
+    
+            return NoContent();
+                        
+        }
 
         
     }

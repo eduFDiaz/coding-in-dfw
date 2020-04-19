@@ -18,8 +18,8 @@ namespace coding.API.Models
         public DateTime CreatedAt { get; set; }
         public DateTime? PublishedAt { get; set; }
         public int ReadingTime { get; set; } // In minutes
-        public ICollection<Tag> Tags { get; set; }
-        public User User { get; set; }
+        // public ICollection<Tag> Tags { get; set; }
+        // public User User { get; set; }
         public int UserId { get; set; }
     }
 }

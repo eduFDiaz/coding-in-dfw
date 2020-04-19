@@ -28,8 +28,11 @@ namespace coding.API.Models
         public async Task<User> GetUser(int id)
         {
             var user = await this._context.Users.FirstOrDefaultAsync(user => user.Id == id);
+
+            var postsFromUser = await this._context.Posts.FirstOrDefaultAsync(post => post.UserId == id);
+            
             return user;
-            //return this.users[0];
+        
         }
 
         public async Task<List<User>> GetUsers()
