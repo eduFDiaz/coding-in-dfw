@@ -21,6 +21,7 @@ using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using AutoMapper;
+using Microsoft.OpenApi.Models;
 
 
 namespace coding.API
@@ -52,6 +53,12 @@ namespace coding.API
             services.AddScoped<IAuthRepo, AuthRepo>();
             services.AddScoped<IPostRepo, PostRepo>();
 
+            services.AddSwaggerGen(c => {
+                c.SwaggerDoc("v1", new OpenApiInfo { 
+                    Title = "Coding in DFW API",
+                    Version = "v1"
+                });
+            });
             // Add CORS support
             services.AddCors();
 
@@ -119,18 +126,23 @@ namespace coding.API
             app.UseStaticFiles();
             app.UseRouting();
             app.UseAuthorization();
-            app.UseEndpoints(endpoints =>
-            {
-                endpoints.MapControllerRoute(
-                    name: "coding-fallback",
-                    pattern: " { controller = Fallback, action = Index }");
-                endpoints.MapFallbackToController("Index", "Fallback");
+            app.UseSwagger();
+            app.UseSwaggerUI(c => {
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "Coding in DfW API v1");
             });
+            // app.UseEndpoints(endpoints =>
+            // {
+            //     endpoints.MapControllerRoute(
+            //         name: "coding-fallback",
+            //         pattern: " { controller = Fallback, action = Index }");
+            //     endpoints.MapFallbackToController("Index", "Fallback");
+            // });
             app.UseMvc();
 
             app.UseHsts();
             app.UseHttpsRedirection();
 
+            
 
         }
     }
