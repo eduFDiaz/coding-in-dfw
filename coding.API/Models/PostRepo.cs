@@ -13,6 +13,17 @@ namespace coding.API.Models
         {
             _context = context;
         }
+
+        public async Task<Post> GetPost(int postid)
+        {
+            if (postid == 0)
+                return null;
+
+            var post = await _context.Posts.FirstOrDefaultAsync(p => p.Id == postid);
+
+            return post;
+        }
+
         public async Task<Post> Create(Post post)
         {
             if (post == null)
@@ -32,7 +43,7 @@ namespace coding.API.Models
             return post;
         }
 
-        public async Task<List<Post>> GetPost(int userid)
+        public async Task<List<Post>> GetAllUserPost(int userid)
         {
            var post = await _context.Posts.Where(p => p.UserId == userid).ToListAsync();
             
@@ -52,5 +63,24 @@ namespace coding.API.Models
 
             return true;
         }                
+
+        public async Task<bool> EditPost(int postid, Post post)
+        {
+            var postToEdit = await _context.Posts.FirstOrDefaultAsync(p => p.Id == postid);
+
+            if (postToEdit == null)
+                return false;
+            
+            _context.Posts.Update(postToEdit);
+
+            await _context.SaveChangesAsync();
+                        
+            return true;
+        }
+
+        public async Task<bool> SaveAll()
+        {
+            return await _context.SaveChangesAsync() > 0;
+        }
     }
 }

@@ -7,7 +7,9 @@ namespace coding.API.Models
     public interface IPostRepo
     {
         Task<Post> Create(Post post);
-        Task<List<Post>> GetPost(int userid);
+        Task<List<Post>> GetAllUserPost(int userid);
+        Task<Post> GetPost(int postid);
         Task<bool> DeletePost(int postid);
+        Task<bool> SaveAll();
     }
 }

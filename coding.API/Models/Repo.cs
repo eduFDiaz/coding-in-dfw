@@ -33,7 +33,6 @@ namespace coding.API.Models
         {
             var user = await this._context.Users.FirstOrDefaultAsync(user => user.Id == id);
 
-            // var posts = await this._context.Posts.FirstOrDefaultAsync(post => post.UserId == id);
             var posts = await this._context.Posts.Where(post => post.UserId == id).ToListAsync();
             
             return user;
