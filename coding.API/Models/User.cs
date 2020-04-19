@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using coding.API.Models.Products;
 
 namespace coding.API.Models
 {

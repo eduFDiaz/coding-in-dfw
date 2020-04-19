@@ -1,4 +1,5 @@
 using Microsoft.EntityFrameworkCore;
+using coding.API.Models.Products;
 
 namespace coding.API.Models
 {
@@ -9,6 +10,7 @@ namespace coding.API.Models
         public DbSet<Photo> Photos { get; set; }
         public DbSet<Post> Posts { get; set; }
         public DbSet<Tag> Tags { get; set; }
+        public DbSet<Product> Products { get; set; }
         protected override void OnModelCreating(ModelBuilder builder){
             
         }

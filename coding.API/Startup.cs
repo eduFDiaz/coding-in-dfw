@@ -22,6 +22,7 @@ using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using AutoMapper;
 using Microsoft.OpenApi.Models;
+using coding.API.Models.Products;
 
 
 namespace coding.API
@@ -53,6 +54,7 @@ namespace coding.API
             services.AddScoped<IAuthRepo, AuthRepo>();
             services.AddScoped<IPostRepo, PostRepo>();
             services.AddScoped<ITagRepo, TagRepo>();
+            services.AddScoped<IProductRepo, ProductRepo>();
 
             services.AddSwaggerGen(c => {
                 c.SwaggerDoc("v1", new OpenApiInfo { 

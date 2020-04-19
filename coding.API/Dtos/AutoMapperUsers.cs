@@ -1,6 +1,8 @@
 using System.Linq;
 using AutoMapper;
 using coding.API.Models;
+using coding.API.Models.Products;
+using coding.API.Dtos.Products;
 
 namespace coding.API.Dtos
 {
@@ -26,7 +28,17 @@ namespace coding.API.Dtos
             CreateMap<TagForDetailDto, Tag>();
             CreateMap<TagForUpdateDto, Tag>();
             CreateMap<Tag, TagForDetailDto>();
-                        
+
+
+            //Products Maps
+            CreateMap<ProductForCreateDto, Product>();
+            CreateMap<ProductForDetailDto, Product>();
+            CreateMap<ProductForUpdateDto, Product>();
+            CreateMap<Product, ProductForDetailDto>();
+            CreateMap<ProductForDetailDto, User>();
+
+            
+
         }
         
     }

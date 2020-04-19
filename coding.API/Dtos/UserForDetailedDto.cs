@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using coding.API.Models;
+using coding.API.Dtos.Products;
 
 namespace coding.API.Dtos
 {
@@ -16,7 +17,7 @@ namespace coding.API.Dtos
         // One to Many relationship
         public ICollection<PostForDetailDto> Posts { get; set; }
         public ICollection<PhotoForDetailDto> Photos { get; set; }
-        public ICollection<Product> Products { get; set; }
+        public ICollection<ProductForDetailDto> Products { get; set; }
         public string Phone { get; set; }
         public string ShortResume { get; set; }
         public string FullResume { get; set; }

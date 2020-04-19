@@ -22,6 +22,8 @@ namespace coding.API.Models
             var user = await this._context.Users.FirstOrDefaultAsync(user => user.Id == id);
 
             var posts = await this._context.Posts.Where(post => post.UserId == id).ToListAsync();
+
+            var products = await this._context.Products.Where(product => product.UserId == id).ToListAsync();
             
             return user;
         
@@ -29,7 +31,7 @@ namespace coding.API.Models
 
         public async Task<List<User>> GetUsers()
         {
-            var users = await this._context.Users.ToListAsync();
+            var users = await this._context.Users.Include(p => p.Posts).Include(prod => prod.Products).Include(p => p.Photos).ToListAsync();
             return users;
             // return this.users;
         }
