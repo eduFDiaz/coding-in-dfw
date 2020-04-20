@@ -4,6 +4,7 @@ using coding.API.Models;
 using coding.API.Models.Products;
 using coding.API.Dtos.Products;
 
+
 namespace coding.API.Dtos
 {
     public class AutoMapperProfiles: Profile
@@ -37,7 +38,12 @@ namespace coding.API.Dtos
             CreateMap<Product, ProductForDetailDto>();
             CreateMap<ProductForDetailDto, User>();
 
-            
+            //Photo Mapings
+            CreateMap<PhotoForCreationDto, Photo>();
+            CreateMap<PhotoForDetailDto, Photo>();
+            CreateMap<PhotoForReturnDto, Photo>();
+            CreateMap<Photo, PhotoForReturnDto>();
+            CreateMap<Photo, PhotoForDetailDto>();
 
         }
         

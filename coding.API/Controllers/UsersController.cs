@@ -36,7 +36,7 @@ namespace coding.API.Controllers
             return Ok(usersToReturn);
         }
 
-        [HttpGet("{userId}")]
+        [HttpGet("{userId}", Name = "GetUser")]
         public async Task<ActionResult<User>> GetUser(int userId)
         {
             var user = await this._repo.GetUser(userId);

@@ -23,7 +23,7 @@ using Microsoft.IdentityModel.Tokens;
 using AutoMapper;
 using Microsoft.OpenApi.Models;
 using coding.API.Models.Products;
-
+using coding.API.Helpers;
 
 namespace coding.API
 {
@@ -55,6 +55,7 @@ namespace coding.API
             services.AddScoped<IPostRepo, PostRepo>();
             services.AddScoped<ITagRepo, TagRepo>();
             services.AddScoped<IProductRepo, ProductRepo>();
+            services.AddScoped<IPhotoRepo, PhotoRepo>();
 
             services.AddSwaggerGen(c => {
                 c.SwaggerDoc("v1", new OpenApiInfo { 
@@ -64,7 +65,8 @@ namespace coding.API
             });
             // Add CORS support
             services.AddCors();
-
+            //Cloudinary
+            services.Configure<CloudinarySettings>(Configuration.GetSection("CloudinarySettings"));
             services.AddMvc(options => options.EnableEndpointRouting = false).SetCompatibilityVersion(CompatibilityVersion.Version_3_0);
             /* 
             .AddJsonOptions( options => {

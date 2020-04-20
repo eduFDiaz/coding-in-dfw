@@ -2,7 +2,7 @@ using System;
 
 namespace coding.API.Dtos
 {
-    public class PhotoForDetailDto
+    public class PhotoForReturnDto
     {
         public int Id { get; set; }
         public string Url { get; set; }

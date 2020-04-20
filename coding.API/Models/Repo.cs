@@ -24,6 +24,8 @@ namespace coding.API.Models
             var posts = await this._context.Posts.Where(post => post.UserId == id).ToListAsync();
 
             var products = await this._context.Products.Where(product => product.UserId == id).ToListAsync();
+
+            var photos = await this._context.Photos.Where(photo => photo.UserId == id).ToListAsync();
             
             return user;
         
