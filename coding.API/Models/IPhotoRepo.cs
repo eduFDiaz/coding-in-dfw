@@ -8,10 +8,13 @@ namespace coding.API.Models
 {
     public interface IPhotoRepo
     {
-        // Task<Photo> Create(Photo photo);
+        
         Task<User> GetUser(int userid);
         Task<bool> SaveAll();
-        // Task<bool> CreatePhoto(Photo photo);
+        Task<Photo> GetPhoto(int id);
+        Task<Photo> GetMainPhotoForUser(int userId);
+        Task<bool> DeletePhoto(int photoId);
+        
        
     }
 }

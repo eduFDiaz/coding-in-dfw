@@ -83,8 +83,8 @@ namespace coding.API.Controllers
 
             // return Ok();
 
-            // if(!userFromRepo.Photos.Any(u => u.IsMain))
-            //     photo.IsMain = true;
+            if(!userFromRepo.Photos.Any(u => u.IsMain))
+                photo.IsMain = true;
       
             userFromRepo.Photos.Add(photo);
                                              
@@ -97,6 +97,69 @@ namespace coding.API.Controllers
 
             return BadRequest("Could not add the photo");
 
+        }
+
+        // Set main photo using id as the photo id
+        [HttpPost("{photoId}/setMain")]
+        public async Task<IActionResult> SetMain(int userId, int photoId)
+        {
+            // Checks if the picture belongs to the user
+            var user = await _repo.GetUser(userId);
+            if(!user.Photos.Any(p => p.Id == photoId))
+                return Unauthorized();
+             
+            // Retrieve photo to be set as main
+            var photoFromRepo = await _repo.GetPhoto(photoId);
+            if(photoFromRepo.IsMain)
+                return BadRequest("This is already the main photo");
+            
+            // Retrieve current main photo
+            var currentMainPhoto = await _repo.GetMainPhotoForUser(userId);
+            
+            // Set main photo a
+            currentMainPhoto.IsMain = false;
+            photoFromRepo.IsMain = true;
+
+            if(await _repo.SaveAll())
+                return NoContent();
+
+            return BadRequest("Could not set photo to main");
+        }
+
+        // Delete photo using id as the photo id
+        [HttpDelete("{photoId}")]
+        public async Task<IActionResult> DeletePhoto(int userId, int photoId)
+        {
+            // Checks if the picture belongs to the user
+            var user = await _repo.GetUser(userId);
+            if(!user.Photos.Any(p => p.Id == photoId))
+                return Unauthorized();
+             
+            // Check if photo is set as main, don't delete if that is true
+            var photoFromRepo = await _repo.GetPhoto(photoId);
+            if(photoFromRepo.IsMain)
+                return BadRequest("Cannot delete the main photo");
+
+            // Let's check if the photo is storaged at Cloudinary so it can also be
+            // deleted from cloudinary
+            if(photoFromRepo.PublicId != null){
+                var deleteParams = new DeletionParams(photoFromRepo.PublicId);
+                var result = _cloudinary.Destroy(deleteParams);
+
+                // The Result from Destroying the cloudinary image is Ok
+                if(result.Result == "ok") {
+                    await _repo.DeletePhoto(photoFromRepo.Id);
+                }
+            } else {
+                // if the photo is not hosted on cloudinary
+                await _repo.DeletePhoto(photoFromRepo.Id);
+            }
+            
+            // Saving changes to repo
+            if(await _repo.SaveAll())
+                return Ok();
+
+            return BadRequest("Could not delete the photo");
         }
 
     }
