@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace coding.API.Migrations
 {
-    public partial class TestingCascade : Migration
+    public partial class init : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -102,7 +102,7 @@ namespace coding.API.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Product",
+                name: "Products",
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
@@ -112,15 +112,39 @@ namespace coding.API.Migrations
                     Url = table.Column<string>(nullable: true),
                     ProductPhoto = table.Column<string>(nullable: true),
                     ProductDescription = table.Column<string>(nullable: true),
-                    UserId = table.Column<int>(nullable: true)
+                    UserId = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Product", x => x.Id);
+                    table.PrimaryKey("PK_Products", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Product_Users_UserId",
+                        name: "FK_Products_Users_UserId",
                         column: x => x.UserId,
                         principalTable: "Users",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "PostTags",
+                columns: table => new
+                {
+                    PostId = table.Column<int>(nullable: false),
+                    TagId = table.Column<int>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_PostTags", x => new { x.PostId, x.TagId });
+                    table.ForeignKey(
+                        name: "FK_PostTags_Posts_PostId",
+                        column: x => x.PostId,
+                        principalTable: "Posts",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_PostTags_Tags_TagId",
+                        column: x => x.TagId,
+                        principalTable: "Tags",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -136,8 +160,13 @@ namespace coding.API.Migrations
                 column: "UserId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Product_UserId",
-                table: "Product",
+                name: "IX_PostTags_TagId",
+                table: "PostTags",
+                column: "TagId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Products_UserId",
+                table: "Products",
                 column: "UserId");
         }
 
@@ -147,10 +176,13 @@ namespace coding.API.Migrations
                 name: "Photos");
 
             migrationBuilder.DropTable(
-                name: "Posts");
+                name: "PostTags");
 
             migrationBuilder.DropTable(
-                name: "Product");
+                name: "Products");
+
+            migrationBuilder.DropTable(
+                name: "Posts");
 
             migrationBuilder.DropTable(
                 name: "Tags");

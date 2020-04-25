@@ -2,6 +2,8 @@ using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using System.Linq;
 using System.Collections.Generic;
+using coding.API.Dtos;
+
 
 namespace coding.API.Models
 {
@@ -9,6 +11,7 @@ namespace coding.API.Models
     {
         
         private readonly DataContext _context;
+        
         public PostRepo(DataContext context)
         {
             _context = context;
@@ -19,21 +22,18 @@ namespace coding.API.Models
             if (postid == 0)
                 return null;
 
-            var post = await _context.Posts.FirstOrDefaultAsync(p => p.Id == postid);
+            var post = await _context.Posts.Include(p => p.PostTags).FirstOrDefaultAsync(p => p.Id == postid);
 
             return post;
         }
 
-        public async Task<Post> Create(Post post)
+        public async Task<Post> Create(Post post )
         {
             if (post == null)
                 return null;
 
-            // var user = _context.Users.FirstOrDefaultAsync(u => u.Id == userid);
-
-            // if (user == null)
-            //     return null;
-
+            
+            
             await _context.Posts.AddAsync(post);
             
             // user.Posts.AddAsync(post);

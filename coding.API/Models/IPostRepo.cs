@@ -1,6 +1,7 @@
 using System.Threading.Tasks;
 using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc;
+using coding.API.Dtos;
 
 namespace coding.API.Models
 {
@@ -11,5 +12,6 @@ namespace coding.API.Models
         Task<Post> GetPost(int postid);
         Task<bool> DeletePost(int postid);
         Task<bool> SaveAll();
+               
     }
 }

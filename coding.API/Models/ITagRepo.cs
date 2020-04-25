@@ -7,7 +7,7 @@ namespace coding.API.Models
     public interface ITagRepo
     {
         Task<Tag> Create(Tag tag);
-        Task<List<Tag>> GetAllPostTags(int postid);
+        // Task<List<Tag>> GetAllPostTags(int postid);
         Task<Tag> GetTag(int tagid);
         Task<bool> DeleteTag(int tagid);
         Task<bool> SaveAll();

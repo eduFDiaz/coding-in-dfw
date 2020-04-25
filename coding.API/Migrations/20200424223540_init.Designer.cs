@@ -9,8 +9,8 @@ using coding.API.Models;
 namespace coding.API.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20200419214549_AddedProductIdToProduct")]
-    partial class AddedProductIdToProduct
+    [Migration("20200424223540_init")]
+    partial class init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -87,6 +87,21 @@ namespace coding.API.Migrations
                     b.ToTable("Posts");
                 });
 
+            modelBuilder.Entity("coding.API.Models.PostTag", b =>
+                {
+                    b.Property<int>("PostId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("TagId")
+                        .HasColumnType("int");
+
+                    b.HasKey("PostId", "TagId");
+
+                    b.HasIndex("TagId");
+
+                    b.ToTable("PostTags");
+                });
+
             modelBuilder.Entity("coding.API.Models.Products.Product", b =>
                 {
                     b.Property<int>("Id")
@@ -126,9 +141,6 @@ namespace coding.API.Migrations
 
                     b.Property<string>("Description")
                         .HasColumnType("longtext CHARACTER SET utf8mb4");
-
-                    b.Property<int>("PostId")
-                        .HasColumnType("int");
 
                     b.Property<string>("Title")
                         .HasColumnType("longtext CHARACTER SET utf8mb4");
@@ -205,7 +217,7 @@ namespace coding.API.Migrations
 
             modelBuilder.Entity("coding.API.Models.Photo", b =>
                 {
-                    b.HasOne("coding.API.Models.User", null)
+                    b.HasOne("coding.API.Models.User", "User")
                         .WithMany("Photos")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -217,6 +229,21 @@ namespace coding.API.Migrations
                     b.HasOne("coding.API.Models.User", null)
                         .WithMany("Posts")
                         .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("coding.API.Models.PostTag", b =>
+                {
+                    b.HasOne("coding.API.Models.Post", "Post")
+                        .WithMany("PostTags")
+                        .HasForeignKey("PostId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("coding.API.Models.Tag", "Tag")
+                        .WithMany("PostTags")
+                        .HasForeignKey("TagId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });

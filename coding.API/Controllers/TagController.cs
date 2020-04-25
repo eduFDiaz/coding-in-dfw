@@ -42,20 +42,20 @@ namespace coding.API.Controllers
             
         }
 
-        [HttpGet("{postid}", Name = "GetTag")]
-        public async Task<IActionResult> GetAllPostTags(int postid)
-        {
-            var tagsFromRepo = await _repo.GetAllPostTags(postid);
+        // [HttpGet("{postid}", Name = "GetTag")]
+        // public async Task<IActionResult> GetAllPostTags(int postid)
+        // {
+        //     var tagsFromRepo = await _repo.GetAllPostTags(postid);
 
-            var tagsToReturn = _mapper.Map<List<TagForDetailDto>>(tagsFromRepo);
+        //     var tagsToReturn = _mapper.Map<List<TagForDetailDto>>(tagsFromRepo);
 
-            var tagsSize = tagsToReturn.Count;
+        //     var tagsSize = tagsToReturn.Count;
 
-            if (tagsSize == 0)
-                return NotFound();
+        //     if (tagsSize == 0)
+        //         return NotFound();
 
-            return Ok(tagsToReturn);
-        }
+        //     return Ok(tagsToReturn);
+        // }
 
         // [Authorize]
         [HttpDelete("{tagid}/delete", Name = "DeleteTag")]

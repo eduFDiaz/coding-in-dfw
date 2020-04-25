@@ -28,6 +28,7 @@ namespace coding.API.Models
         {
             if (tag == null)
                 return null;
+              
 
             await _context.Tags.AddAsync(tag);
             
@@ -36,12 +37,12 @@ namespace coding.API.Models
             return tag;
         }
 
-        public async Task<List<Tag>> GetAllPostTags(int postid)
-        {
-           var tag = await _context.Tags.Where(t => t.PostId == postid).ToListAsync();
+        // public async Task<List<Tag>> GetAllPostTags(int postid)
+        // {
+        //    var tag = await _context.Tags.Where(t => t.PostId == postid).ToListAsync();
             
-           return tag;
-        }
+        //    return tag;
+        // }
 
         public async Task<bool> DeleteTag(int tagid)
         {

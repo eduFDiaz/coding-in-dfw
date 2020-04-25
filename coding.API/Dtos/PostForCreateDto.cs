@@ -21,9 +21,10 @@ namespace coding.API.Dtos
         public DateTime CreatedAt { get; set; }
         public DateTime PublishedAt { get; set; }
         public int ReadingTime { get; set; } // In minutes
-        public ICollection<Tag> Tags { get; set; }
+        // public ICollection<Tag> Tags { get; set; }
         // public User User { get; set; }
         public int UserId { get; set; }
+        public ICollection<int> TagId { get; set; }
          
     }
 }
