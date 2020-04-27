@@ -13,6 +13,7 @@ using Microsoft.AspNetCore.Authorization;
 
 
 
+
 namespace coding.API.Controllers
 {
     [ApiController]
@@ -32,14 +33,36 @@ namespace coding.API.Controllers
 
         [HttpPost("create")]
         public async Task<Post> Create([FromBody] PostForCreateDto postForCreateDto)
-        {
+        {   
 
+            // Creo una nueva instancia de PostTag asociandola con un Dto.
+            var postTag = new PostTagForCreateDto();
+
+            //Lo mismo pero con el post que voy a crear
             var postToCreate = _mapper.Map<Post>(postForCreateDto);
 
+            //Creo el post (sin los tags ni nada)
             var createdPost = await _repo.Create(postToCreate);
 
+            // Itero por los ids que recibo del usuario
+            foreach (var Tag in postForCreateDto.TagId)
+            {
+                // Asigno el TagId
+                postTag.TagId = Tag;
+                // Asigno el PostId
+                postTag.PostId = createdPost.Id;
+                // Mapeo a postTag
+                var postTagToCreate = _mapper.Map<PostTag>(postTag);
+                // Guardo
+                await _repo.AddTagsForPost(postTagToCreate);
+            }
+            //Guardo todo
+            await _repo.SaveAll();
+
+            // var postToReturn = _mapper.Map<PostForDetailDto>(createdPost);
+            //Retorno el post que recien se creo.                   
             return createdPost;
-            
+
         }
 
         [HttpGet("{id}", Name = "GetPost")]

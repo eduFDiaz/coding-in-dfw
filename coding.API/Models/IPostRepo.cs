@@ -12,6 +12,7 @@ namespace coding.API.Models
         Task<Post> GetPost(int postid);
         Task<bool> DeletePost(int postid);
         Task<bool> SaveAll();
+        Task<bool> AddTagsForPost(PostTag postTag);
                
     }
 }

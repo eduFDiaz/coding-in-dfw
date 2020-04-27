@@ -45,6 +45,11 @@ namespace coding.API.Dtos
             CreateMap<Photo, PhotoForReturnDto>();
             CreateMap<Photo, PhotoForDetailDto>();
 
+            // PostsTags Mappings
+            CreateMap<PostTagForCreateDto, PostTag>();
+            
+
+
         }
         
     }

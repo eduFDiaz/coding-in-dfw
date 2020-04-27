@@ -20,6 +20,6 @@ namespace coding.API.Dtos
         // public ICollection<Tag> Tags { get; set; }
         // public User User { get; set; }
         public int UserId { get; set; }
-        public List<TagForDetailDto> Tags { get; set; }
+        public List<PostTag> PostTags { get; set; }
     }
 }

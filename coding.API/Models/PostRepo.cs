@@ -27,13 +27,18 @@ namespace coding.API.Models
             return post;
         }
 
+        public async Task<bool> AddTagsForPost(PostTag postTag)
+        {
+            await _context.PostTags.AddAsync(postTag);
+
+            return true;
+        }
+
         public async Task<Post> Create(Post post )
         {
             if (post == null)
                 return null;
 
-            
-            
             await _context.Posts.AddAsync(post);
             
             // user.Posts.AddAsync(post);
@@ -45,7 +50,7 @@ namespace coding.API.Models
 
         public async Task<List<Post>> GetAllUserPost(int userid)
         {
-           var post = await _context.Posts.Where(p => p.UserId == userid).ToListAsync();
+           var post = await _context.Posts.Where(p => p.UserId == userid).Include(p => p.PostTags).ToListAsync();
             
            return post;
         }
