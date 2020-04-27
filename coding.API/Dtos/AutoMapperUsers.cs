@@ -47,6 +47,7 @@ namespace coding.API.Dtos
 
             // PostsTags Mappings
             CreateMap<PostTagForCreateDto, PostTag>();
+            CreateMap<PostTag, PostTagForDetailDto>();
             
 
 

@@ -65,7 +65,7 @@ namespace coding.API.Controllers
 
         }
 
-        [HttpGet("{id}", Name = "GetPost")]
+        [HttpGet("foruser/{id}", Name = "GetPost")]
         public async Task<IActionResult> GetAllUserPost(int id)
         {
             var postFromRepo = await _repo.GetAllUserPost(id);
@@ -109,6 +109,20 @@ namespace coding.API.Controllers
 
             throw new Exception($"Failed update");
         }
+
+         [HttpGet("{postid}", Name = "Get Single Post")]
+         public async Task<IActionResult> GetPost(int postid)
+         {
+             var postFromRepo = await _repo.GetPost(postid);
+
+             if (postFromRepo == null)
+                return NotFound();
+
+            var postToReturn = _mapper.Map<PostForDetailDto>(postFromRepo);
+
+            return Ok(postToReturn);
+            
+         }
 
         
     }
