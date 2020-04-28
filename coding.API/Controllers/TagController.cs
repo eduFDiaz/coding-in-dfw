@@ -30,6 +30,7 @@ namespace coding.API.Controllers
             this._mapper = mapper;
         }
 
+        [Authorize]
         [HttpPost("create")]
         public async Task<Tag> Create([FromBody] TagForCreateDto tagForCreateDto)
         {
@@ -42,22 +43,8 @@ namespace coding.API.Controllers
             
         }
 
-        // [HttpGet("{postid}", Name = "GetTag")]
-        // public async Task<IActionResult> GetAllPostTags(int postid)
-        // {
-        //     var tagsFromRepo = await _repo.GetAllPostTags(postid);
-
-        //     var tagsToReturn = _mapper.Map<List<TagForDetailDto>>(tagsFromRepo);
-
-        //     var tagsSize = tagsToReturn.Count;
-
-        //     if (tagsSize == 0)
-        //         return NotFound();
-
-        //     return Ok(tagsToReturn);
-        // }
-
-        // [Authorize]
+     
+        [Authorize]
         [HttpDelete("{tagid}/delete", Name = "DeleteTag")]
         public async Task<IActionResult> DeleteTag(int tagid)
         {
@@ -71,6 +58,7 @@ namespace coding.API.Controllers
                         
         }
 
+        [Authorize]
         [HttpPut("{tagid}/update", Name = "Update Tag")]
         public async Task<IActionResult> UpdateTag(int tagid, [FromBody] TagForUpdateDto tagForUpdateDto)
         {
@@ -90,9 +78,9 @@ namespace coding.API.Controllers
         [HttpGet]
         public async Task<IActionResult> GetAllTags()
         {
-            var alltags = await _repo.GetAll();
+            var tagsFromRepo = await _repo.GetAll();
 
-            return Ok(alltags);
+            return Ok(tagsFromRepo);
         }
     }
 }

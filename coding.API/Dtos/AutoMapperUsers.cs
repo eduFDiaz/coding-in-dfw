@@ -29,6 +29,7 @@ namespace coding.API.Dtos
             CreateMap<TagForDetailDto, Tag>();
             CreateMap<TagForUpdateDto, Tag>();
             CreateMap<Tag, TagForDetailDto>();
+             
 
 
             //Products Maps
