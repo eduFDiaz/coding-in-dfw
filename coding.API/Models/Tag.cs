@@ -6,7 +6,7 @@ namespace coding.API.Models
         public int Id { get; set; }
         public string Title { get; set; }
         public string Description { get; set; }
-         public ICollection<PostTag> PostTags { get; set; }
+        public ICollection<PostTag> PostTags { get; set; }
         
     }
 }

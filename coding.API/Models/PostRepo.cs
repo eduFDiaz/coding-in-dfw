@@ -23,9 +23,11 @@ namespace coding.API.Models
                 return null;
 
             var post = await _context.Posts.Include(p => p.PostTags).FirstOrDefaultAsync(p => p.Id == postid);
+            var tags = await _context.Tags.Include(t => t.PostTags).ToListAsync();
 
             return post;
         }
+        
 
         public async Task<bool> AddTagsForPost(PostTag postTag)
         {
@@ -51,7 +53,8 @@ namespace coding.API.Models
         public async Task<List<Post>> GetAllUserPost(int userid)
         {
            var post = await _context.Posts.Where(p => p.UserId == userid).Include(p => p.PostTags).ToListAsync();
-            
+           var tags = await _context.Tags.Include(t => t.PostTags).ToListAsync();
+                                   
            return post;
         }
 
