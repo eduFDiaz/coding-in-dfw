@@ -97,13 +97,27 @@ namespace coding.API.Controllers
         [HttpPut("{postid}/update", Name = "Update Post")]
         public async Task<IActionResult> UpdatePost(int postid, [FromBody] PostForUpdateDto postForUpdateDto)
         {
-            var postToUpdateFromRepo = await _repo.GetPost(postid);
+          var postToUpdateFromRepo = await _repo.GetPost(postid);
 
-            // var postTag = new PostTagForCreateDto();
+        //   var postTag = new PostTagForCreateDto();
             
             if (postToUpdateFromRepo == null)
                 return NotFound();
-                
+              
+            var tagsForUpdate = await _repo.GetTagsForPost(postToUpdateFromRepo.Id);           
+
+            // foreach (var tag in postForUpdateDto.TagId)
+            // {
+                 
+            //     tagsForUpdate.TagId = tag;
+            //     // Asigno el PostId
+            //     // postToUpdateFromRepo.PostId = createdPost.Id;
+            //     // Mapeo a postTag
+            //     // var postTagToCreate = _mapper.Map<PostTag>(postTag);
+            //     // Guardo
+            //     await _repo.UpdateTagsForPost(tagsForUpdate);
+            // }
+
             _mapper.Map(postForUpdateDto, postToUpdateFromRepo);
 
             if (await _repo.SaveAll())

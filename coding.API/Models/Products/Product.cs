@@ -11,7 +11,7 @@ namespace coding.API.Models.Products
         public string Url { get; set; }
         public string ProductPhoto { get; set; }
         public string ProductDescription { get; set; }
-        public int  UserId { get; set; }
+        public int UserId { get; set; }
         
     }
 }

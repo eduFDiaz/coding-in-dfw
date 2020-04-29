@@ -36,6 +36,23 @@ namespace coding.API.Models
             return true;
         }
 
+        public async Task<bool> UpdateTagsForPost(PostTag postTag)
+        {
+            _context.PostTags.Remove(postTag);
+
+            _context.PostTags.Update(postTag);
+
+            return true;
+        }
+
+        public async Task<PostTag> GetTagsForPost(int postid)
+        {
+            var mytags = await _context.PostTags.FirstOrDefaultAsync(p => p.PostId == postid);
+
+            return mytags;
+           
+        }
+
         public async Task<Post> Create(Post post )
         {
             if (post == null)

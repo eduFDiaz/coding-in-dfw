@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using coding.API.Models.Products;
+using coding.API.Models.WorkExperiences;
 
 namespace coding.API.Models
 {
@@ -12,6 +13,7 @@ namespace coding.API.Models
         public string FullName { get; set; }
         public string Email { get; set; }
         public string Location { get; set; }
+        public string CurrentOcupation { get; set; }
         public byte[] PasswordHash { get; set; }
         public byte[] PasswordSalt { get; set; }
         public DateTime Created { get; set; }
@@ -20,6 +22,7 @@ namespace coding.API.Models
         public ICollection<Post> Posts { get; set; }
         public ICollection<Photo> Photos { get; set; }
         public ICollection<Product> Products { get; set; }
+        public ICollection<WorkExperience> WorkExperiences { get; set; }
         // Many to Many relationship
         // public ICollection<Like> Likers { get; set; }
         // public ICollection<Like> Likeers { get; set; }

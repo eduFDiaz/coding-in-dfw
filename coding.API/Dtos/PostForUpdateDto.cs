@@ -15,7 +15,7 @@ namespace coding.API.Dtos
         public string Text { get; set; }
         public int ReadingTime { get; set; } // In minutes
         // public ICollection<Tag> Tags { get; set; }
-        public ICollection<int> TagId { get; set; }
+        //public ICollection<int> TagId { get; set; }
         // public ICollection<PostTag> PostTags { get; set; }
                 
     }
