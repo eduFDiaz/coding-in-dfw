@@ -2,6 +2,11 @@ using System;
 using System.Collections.Generic;
 using coding.API.Models.Products;
 using coding.API.Models.WorkExperiences;
+using coding.API.Models.Skills;
+using coding.API.Models.Educations;
+using coding.API.Models.Awards;
+using coding.API.Models.Languages;
+using coding.API.Models.Projects;
 
 namespace coding.API.Models
 {
@@ -9,7 +14,6 @@ namespace coding.API.Models
     {
         public int Id { get; set; }
         public string Username { get; set; }
-        // public string Password { get; set; }
         public string FullName { get; set; }
         public string Email { get; set; }
         public string Location { get; set; }
@@ -23,11 +27,11 @@ namespace coding.API.Models
         public ICollection<Photo> Photos { get; set; }
         public ICollection<Product> Products { get; set; }
         public ICollection<WorkExperience> WorkExperiences { get; set; }
-        // Many to Many relationship
-        // public ICollection<Like> Likers { get; set; }
-        // public ICollection<Like> Likeers { get; set; }
-        // public ICollection<Message> MessagesSent { get; set; }
-        // public ICollection<Message> MessagesReceived { get; set; }
+        public ICollection<Skill> Skills {get; set; }
+        public ICollection<Education> Educations {get; set; }
+        public ICollection<Award> Awards { get; set; }
+        public ICollection<Language> Languages { get; set; }
+        public ICollection<Project> Projects { get; set; }
         public string Phone { get; set; }
         public string ShortResume { get; set; }
         public string FullResume { get; set; }
