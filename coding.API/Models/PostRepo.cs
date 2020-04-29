@@ -72,18 +72,26 @@ namespace coding.API.Models
             return true;
         }                
 
-        public async Task<bool> EditPost(int postid, Post post)
+        public async Task<Post> EditPost(int postid, PostForUpdateDto postToEdit)
         {
-            var postToEdit = await _context.Posts.FirstOrDefaultAsync(p => p.Id == postid);
+            var postToEditFromRepo = await _context.Posts.Include(p => p.PostTags).FirstOrDefaultAsync(p => p.Id == postid);
 
-            if (postToEdit == null)
-                return false;
+            // var CurrentTags = await _context.PostTags.FirstOrDefaultAsync(p => p.PostId == postid);
+
+            // if (postToEditFromRepo == null)
+            //     return NotFound();
             
-            _context.Posts.Update(postToEdit);
+            _context.Posts.Update(postToEditFromRepo);
 
-            await _context.SaveChangesAsync();
+            // foreach (var tagid in postToEdit.TagId)
+            // {
+            //     _context.PostTags.Update(tagid);    
+            // }
+            
+
+            // await _context.SaveChangesAsync();
                         
-            return true;
+            return postToEditFromRepo;
         }
 
         public async Task<bool> SaveAll()

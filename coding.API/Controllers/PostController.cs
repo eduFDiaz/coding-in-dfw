@@ -12,8 +12,6 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.AspNetCore.Authorization;
 
 
-
-
 namespace coding.API.Controllers
 {
     [ApiController]
@@ -26,11 +24,12 @@ namespace coding.API.Controllers
 
         public PostController(IPostRepo repo, IConfiguration config, IMapper mapper)
         {
-            this._repo = repo;
-            this._config = config;
-            this._mapper = mapper;
+            _repo = repo;
+            _config = config;
+            _mapper = mapper;
         }
 
+        [Authorize]
         [HttpPost("create")]
         public async Task<Post> Create([FromBody] PostForCreateDto postForCreateDto)
         {   
@@ -65,6 +64,7 @@ namespace coding.API.Controllers
 
         }
 
+        [Authorize]
         [HttpGet("foruser/{id}", Name = "GetPost")]
         public async Task<IActionResult> GetAllUserPost(int id)
         {
@@ -80,7 +80,7 @@ namespace coding.API.Controllers
             return Ok(postsToReturn);
         }
 
-        // [Authorize]
+        [Authorize]
         [HttpDelete("{postid}/delete", Name = "DetelePost")]
         public async Task<IActionResult> DeletePost(int postid)
         {
@@ -97,12 +97,14 @@ namespace coding.API.Controllers
         [HttpPut("{postid}/update", Name = "Update Post")]
         public async Task<IActionResult> UpdatePost(int postid, [FromBody] PostForUpdateDto postForUpdateDto)
         {
-            var postFromRepo = await _repo.GetPost(postid);
+            var postToUpdateFromRepo = await _repo.GetPost(postid);
 
-            if (postFromRepo == null)
+            // var postTag = new PostTagForCreateDto();
+            
+            if (postToUpdateFromRepo == null)
                 return NotFound();
                 
-            _mapper.Map(postForUpdateDto, postFromRepo);
+            _mapper.Map(postForUpdateDto, postToUpdateFromRepo);
 
             if (await _repo.SaveAll())
                 return NoContent();
