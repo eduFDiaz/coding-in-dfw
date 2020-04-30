@@ -40,8 +40,6 @@ namespace coding.API.Models
         {
             _context.PostTags.Remove(postTag);
 
-            _context.PostTags.Update(postTag);
-
             return true;
         }
 
