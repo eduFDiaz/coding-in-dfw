@@ -1,13 +1,18 @@
 using Microsoft.EntityFrameworkCore;
-using coding.API.Models.Products;
-using coding.API.Models.WorkExperiences;
-using coding.API.Models.Skills;
-using coding.API.Models.Educations;
-using coding.API.Models.Awards;
-using coding.API.Models.Languages;
-using coding.API.Models.Projects;
+using coding.API.Models.Entities.Products;
+using coding.API.Models.Entities.WorkExperiences;
+using coding.API.Models.Entities.Users;
+using coding.API.Models.Entities.Posts;
+using coding.API.Models.Entities.Educations;
+using coding.API.Models.Entities.Awards;
+using coding.API.Models.Entities.Languages;
+using coding.API.Models.Entities.Projects;
+using coding.API.Models.Entities.Skills;
+using coding.API.Models.Entities.Photos;
+using coding.API.Models.Entities.PostTags;
+using coding.API.Models.Entities.Tags;
 
-namespace coding.API.Models
+namespace coding.API.Data
 {
     public class DataContext : DbContext
     {

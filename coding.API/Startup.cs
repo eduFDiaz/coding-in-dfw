@@ -4,7 +4,6 @@ using System.Linq;
 using System.Net;
 using System.Text;
 using System.Threading.Tasks;
-using coding.API.Models;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -22,8 +21,9 @@ using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using AutoMapper;
 using Microsoft.OpenApi.Models;
-using coding.API.Models.Products;
 using coding.API.Helpers;
+using coding.API.Models.Interfaces;
+using coding.API.Data;
 
 namespace coding.API
 {
@@ -70,11 +70,11 @@ namespace coding.API
             services.AddMvc(options => options.EnableEndpointRouting = false).SetCompatibilityVersion(CompatibilityVersion.Version_3_0);
             services.AddControllers().AddNewtonsoftJson(options =>
                   options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore
-                );  /* 
-            .AddJsonOptions( options => {
-                options.SerializerSettings.ReferenceLoopHandling
-                = Newtonsoft.Json.ReferenceLoopHandling.Ignore;
-            }) */
+                );   
+            // .AddJsonOptions( options => {
+            //     options.SerializerSettings.ReferenceLoopHandling
+            //     = Newtonsoft.Json.ReferenceLoopHandling.Ignore;
+            // }) */
             services.AddAutoMapper(typeof(Startup));
 
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)

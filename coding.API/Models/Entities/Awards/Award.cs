@@ -1,4 +1,4 @@
-namespace coding.API.Models.Awards
+namespace coding.API.Models.Entities.Awards
 {
     public class Award
     {

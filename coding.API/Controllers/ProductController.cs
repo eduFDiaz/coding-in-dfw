@@ -1,4 +1,4 @@
-using coding.API.Models.Products;
+using coding.API.Models.Entities.Products;
 using System.Collections.Generic;
 using System;
 using System.Security.Claims;
@@ -10,6 +10,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.AspNetCore.Authorization;
+
+using coding.API.Models.Interfaces;
 
 
 

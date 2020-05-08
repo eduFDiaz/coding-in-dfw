@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using coding.API.Models.Products;
+using coding.API.Models.Entities.Products;
 
 namespace coding.API.Dtos.Products
 {

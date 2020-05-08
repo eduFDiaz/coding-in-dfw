@@ -12,6 +12,9 @@ using CloudinaryDotNet.Actions;
 using System.Linq;
 using coding.API.Helpers;
 using Microsoft.Extensions.Options;
+using coding.API.Models.Interfaces;
+
+using coding.API.Models.Entities.Photos;
 
 namespace coding.API.Controllers
 {

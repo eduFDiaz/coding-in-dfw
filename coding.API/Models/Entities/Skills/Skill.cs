@@ -1,4 +1,4 @@
-namespace coding.API.Models.Skills
+namespace coding.API.Models.Entities.Skills
 {
     public class Skill
     {

@@ -11,6 +11,9 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using System.Security.Claims;
+using coding.API.Models.Interfaces;
+using coding.API.Models.Entities.Users;
+
 
 namespace coding.API.Controllers
 {

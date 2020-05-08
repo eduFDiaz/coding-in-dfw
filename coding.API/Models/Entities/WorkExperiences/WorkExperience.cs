@@ -1,4 +1,4 @@
-namespace coding.API.Models.WorkExperiences
+namespace coding.API.Models.Entities.WorkExperiences
 {
     public class WorkExperience
     {

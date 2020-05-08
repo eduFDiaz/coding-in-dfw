@@ -3,10 +3,14 @@ using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using System.Linq;
 using Microsoft.AspNetCore.Mvc;
+using coding.API.Models.Entities.Users;
+using coding.API.Models.Entities.Photos;
 
 
+using coding.API.Models.Interfaces;
 
-namespace coding.API.Models
+
+namespace coding.API.Data
 {
     public class Repo : IRepo
     {

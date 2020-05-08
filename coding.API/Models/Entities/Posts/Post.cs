@@ -3,11 +3,13 @@ using System.Collections.Generic;
 using System.Collections;
 using System.ComponentModel.DataAnnotations;
 using coding.API.Models;
-namespace coding.API.Models
+using coding.API.Models.Entities.PostTags;
+
+namespace coding.API.Models.Entities.Posts 
 {
-    public class Post
+    public class Post : BaseEntity
     {
-        public int Id { get; set; }
+        // public int Id { get; set; }
         [Required]
         public string Title { get; set; }
         [Required]

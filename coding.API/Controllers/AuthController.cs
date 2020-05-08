@@ -1,4 +1,4 @@
-using coding.API.Models;
+using coding.API.Models.Entities;
 using System;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
@@ -10,6 +10,9 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
+using coding.API.Models.Interfaces;
+
+using coding.API.Models.Entities.Users;
 
 namespace coding.API.Controllers
 {

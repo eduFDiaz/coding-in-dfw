@@ -4,8 +4,12 @@ using System.Linq;
 using System.Collections.Generic;
 
 using Microsoft.Extensions.Options;
+using coding.API.Models.Entities.Photos;
+using coding.API.Models.Entities.Users;
 
-namespace coding.API.Models
+using coding.API.Models.Interfaces;
+
+namespace coding.API.Data
 {
     public class PhotoRepo : IPhotoRepo
     {

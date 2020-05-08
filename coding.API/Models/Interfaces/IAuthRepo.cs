@@ -1,6 +1,7 @@
 using System.Threading.Tasks;
+using coding.API.Models.Entities.Users;
 
-namespace coding.API.Models
+namespace coding.API.Models.Interfaces
 {
     public interface IAuthRepo
     {

@@ -1,8 +1,9 @@
 using System.Threading.Tasks;
 using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc;
+using coding.API.Models.Entities.Tags;
 
-namespace coding.API.Models
+namespace coding.API.Models.Interfaces
 {
     public interface ITagRepo
     {

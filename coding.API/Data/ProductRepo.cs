@@ -2,8 +2,12 @@ using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using System.Linq;
 using System.Collections.Generic;
+using coding.API.Models.Interfaces;
+using coding.API.Models.Entities.Products;
 
-namespace coding.API.Models.Products
+
+
+namespace coding.API.Data
 {
     public class ProductRepo : IProductRepo
     {

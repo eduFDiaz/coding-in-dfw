@@ -1,7 +1,19 @@
 using System.Linq;
 using AutoMapper;
-using coding.API.Models;
-using coding.API.Models.Products;
+using coding.API.Models.Entities;
+using coding.API.Models.Entities.Products;
+using coding.API.Models.Entities.Users;
+using coding.API.Models.Entities.Photos;
+using coding.API.Models.Entities.Awards;
+using coding.API.Models.Entities.Skills;
+using coding.API.Models.Entities.Projects;
+using coding.API.Models.Entities.WorkExperiences;
+using coding.API.Models.Entities.Educations;
+using coding.API.Models.Entities.Tags;
+using coding.API.Models.Entities.Posts;
+using coding.API.Models.Entities.PostTags;
+
+
 using coding.API.Dtos.Products;
 
 

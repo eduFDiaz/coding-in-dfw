@@ -10,6 +10,10 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.AspNetCore.Authorization;
+using coding.API.Models.Entities.Posts;
+using coding.API.Models.Entities.PostTags;
+
+using coding.API.Models.Interfaces;
 
 
 namespace coding.API.Controllers

@@ -1,4 +1,4 @@
-namespace coding.API.Models.Educations
+namespace coding.API.Models.Entities.Educations
 {
     public class Education
     {

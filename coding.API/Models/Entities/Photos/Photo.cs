@@ -1,6 +1,7 @@
 using System;
+using coding.API.Models.Entities.Users;
 
-namespace coding.API.Models
+namespace coding.API.Models.Entities.Photos
 {
     public class Photo
     {

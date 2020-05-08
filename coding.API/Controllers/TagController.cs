@@ -1,4 +1,4 @@
-using coding.API.Models;
+using coding.API.Models.Entities.Tags;
 using System.Collections.Generic;
 using System;
 using System.Security.Claims;
@@ -10,8 +10,9 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.AspNetCore.Authorization;
+ 
 
-
+using coding.API.Models.Interfaces;
 
 namespace coding.API.Controllers
 {

@@ -1,5 +1,7 @@
 using System.Collections.Generic;
-namespace coding.API.Models
+using coding.API.Models.Entities.PostTags;
+
+namespace coding.API.Models.Entities.Tags
 {
     public class Tag
     {

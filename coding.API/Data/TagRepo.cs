@@ -2,8 +2,10 @@ using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using System.Linq;
 using System.Collections.Generic;
+using coding.API.Models.Entities.Tags;
+using coding.API.Models.Interfaces;
 
-namespace coding.API.Models
+namespace coding.API.Data
 {
     public class TagRepo : ITagRepo
     {

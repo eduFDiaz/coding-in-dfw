@@ -3,9 +3,12 @@ using Microsoft.EntityFrameworkCore;
 using System.Linq;
 using System.Collections.Generic;
 using coding.API.Dtos;
+using coding.API.Models.Entities.Posts;
+using coding.API.Models.Entities.PostTags;
+using coding.API.Models.Interfaces;
 
 
-namespace coding.API.Models
+namespace coding.API.Data
 {
     public class PostRepo : IPostRepo
     {
@@ -38,7 +41,7 @@ namespace coding.API.Models
 
         public async Task<bool> UpdateTagsForPost(PostTag postTag)
         {
-            _context.PostTags.Remove(postTag);
+             _context.PostTags.Remove(postTag);
 
             return true;
         }

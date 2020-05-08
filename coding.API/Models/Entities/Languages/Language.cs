@@ -1,4 +1,4 @@
-namespace coding.API.Models.Languages
+namespace coding.API.Models.Entities.Languages
 {
     public class Language
     {

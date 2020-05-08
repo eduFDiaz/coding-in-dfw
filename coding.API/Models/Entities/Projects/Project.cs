@@ -1,4 +1,4 @@
-namespace coding.API.Models.Projects
+namespace coding.API.Models.Entities.Projects
 {
     public class Project
     {
