@@ -11,6 +11,8 @@ using coding.API.Models.Entities.Skills;
 using coding.API.Models.Entities.Photos;
 using coding.API.Models.Entities.PostTags;
 using coding.API.Models.Entities.Tags;
+using coding.API.Models.Entities.Products.Requirements;
+using coding.API.Models.Entities.Products.ProductsRequirements;
 
 namespace coding.API.Data
 {
@@ -29,6 +31,9 @@ namespace coding.API.Data
         public DbSet<Award> Awards { get; set; }
         public DbSet<Language> Languages { get; set; }
         public DbSet<Project> Projects { get; set; }
+        public DbSet<Requirement> Requirements { get; set; }
+        public DbSet<ProductRequirement> ProductRequirements { get; set; }
+
         protected override void OnModelCreating(ModelBuilder builder){
 
             builder.Entity<PostTag>()

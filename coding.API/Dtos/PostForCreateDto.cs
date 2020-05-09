@@ -10,8 +10,9 @@ namespace coding.API.Dtos
         public PostForCreateDto()
         {
             this.CreatedAt = DateTime.Now;
-            // this.LastActive = DateTime.Now;
+             
         }
+        
         [Required]
         public string Title { get; set; }
         [Required]

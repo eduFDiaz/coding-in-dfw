@@ -1,4 +1,5 @@
 using coding.API.Models.Entities.Products;
+using coding.API.Models.Entities.Products.Requirements;
 using System.Collections.Generic;
 using System;
 using System.Security.Claims;
@@ -10,10 +11,13 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.AspNetCore.Authorization;
+using coding.API.Dtos.Requirements;
+
 
 using coding.API.Models.Interfaces;
-
-
+using coding.API.Models.Entities.Products.ProductsRequirements;
+using coding.API.Dtos;
+using coding.API.Models.Presenter;
 
 namespace coding.API.Controllers
 {
@@ -33,14 +37,42 @@ namespace coding.API.Controllers
         }
 
         [HttpPost("create")]
-        public async Task<Product> Create([FromBody] ProductForCreateDto productForCreateDto)
+        public async Task<IActionResult> Create([FromBody] ProductForCreateDto productForCreateDto)
         {
 
+            // Creo una nueva instancia de PostTag asociandola con un Dto.
+            var pr = new ProductRequirementForCreateDto();
+
+            //Lo mismo pero con el post que voy a crear
             var productToCreate = _mapper.Map<Product>(productForCreateDto);
 
+            //Creo el post (sin los tags ni nada)
             var createdProduct = await _repo.Create(productToCreate);
 
-            return createdProduct;
+            // Itero por los ids que recibo del usuario
+            foreach (var Requirement in productForCreateDto.RequirementId)
+            {
+                // Asigno el TagId
+                pr.RequirementId = Requirement;
+                // Asigno el PostId
+                pr.ProductId = createdProduct.Id;
+
+                pr.Requirement = await _repo.GetRequirementById(Requirement);
+
+                pr.Product = await _repo.GetProduct(createdProduct.Id);
+                // Mapeo a postTag
+                var productRequirementToCreate = _mapper.Map<ProductRequirement>(pr);
+                // Guardo
+                await _repo.addRequirementToProduct(productRequirementToCreate);
+                             
+                
+            }
+            //Guardo todo
+            await _repo.SaveAll();
+
+            // var postToReturn = _mapper.Map<PostForDetailDto>(createdPost);
+            //Retorno el post que recien se creo.                   
+            return Ok(new ProductPresenter(createdProduct));
             
         }
 
@@ -96,5 +128,21 @@ namespace coding.API.Controllers
 
             return Ok(allproducts);
         }
+
+        [HttpPost("addRequirement")]
+        public async Task<IActionResult> NewRequeriment([FromBody] RequirementForCreationDto request)
+        {
+            var requirementToCreate = _mapper.Map<Requirement>(request);
+
+            var createdRequirement = await _repo.CreateRequirement(requirementToCreate);
+
+            // var requirementToShow = _mapper.Map<RequirementForDetailDto>(createdRequirement);
+
+            if (await _repo.SaveAll())
+                return Ok(new RequirementPresenter(createdRequirement));
+            
+            return BadRequest();
+        }
+    
     }
 }

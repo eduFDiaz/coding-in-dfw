@@ -4,8 +4,8 @@ using System.Linq;
 using System.Collections.Generic;
 using coding.API.Models.Interfaces;
 using coding.API.Models.Entities.Products;
-
-
+using coding.API.Models.Entities.Products.ProductsRequirements;
+using coding.API.Models.Entities.Products.Requirements;
 
 namespace coding.API.Data
 {
@@ -34,7 +34,7 @@ namespace coding.API.Data
                 return null;
 
             await _context.Products.AddAsync(product);
-            
+
             await _context.SaveChangesAsync();
 
             return product;
@@ -43,6 +43,7 @@ namespace coding.API.Data
         public async Task<List<Product>> GetAllUserProducts(int userid)
         {
            var products = await _context.Products.Where(p => p.UserId == userid).ToListAsync();
+           var requirements = await _context.Requirements.Include(t => t.ProductRequirements).ToListAsync();
             
            return products;
         }
@@ -85,6 +86,26 @@ namespace coding.API.Data
             var allproducts = await _context.Products.ToListAsync();
 
             return allproducts;
+        }
+
+        public async Task<bool> addRequirementToProduct(ProductRequirement productRequirement)
+        {
+            await _context.ProductRequirements.AddAsync(productRequirement);
+
+            return true;
+        }
+
+        public async Task<Requirement> CreateRequirement(Requirement requirement)
+        {
+                  
+            var reqnew = await _context.Requirements.AddAsync(requirement);
+           
+            return requirement;
+        }
+
+        public async Task<Requirement> GetRequirementById(int requirementId)
+        {
+            return await _context.Requirements.Where(r => r.Id == requirementId).SingleOrDefaultAsync();
         }
     }
 }

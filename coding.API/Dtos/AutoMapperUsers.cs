@@ -12,10 +12,14 @@ using coding.API.Models.Entities.Educations;
 using coding.API.Models.Entities.Tags;
 using coding.API.Models.Entities.Posts;
 using coding.API.Models.Entities.PostTags;
+using coding.API.Models.Entities.Languages;
+using coding.API.Models.Entities.Products.Requirements;
+using coding.API.Models.Entities.Products.ProductsRequirements;
+
 
 
 using coding.API.Dtos.Products;
-
+using coding.API.Dtos.Requirements;
 
 namespace coding.API.Dtos
 {
@@ -59,6 +63,40 @@ namespace coding.API.Dtos
             // PostsTags Mappings
             CreateMap<PostTagForCreateDto, PostTag>();
             CreateMap<PostTag, PostTagForDetailDto>();
+
+
+            // ProductRequirment Mappings
+            CreateMap<ProductRequirementForCreateDto, ProductRequirement>();
+            
+
+             // Projects Mappings
+            CreateMap<CreateProjectDto, Project>();
+            CreateMap<UpdateProjectDto, Project>();        
+
+
+            // Education Mappings
+            CreateMap<CreateEducationDto, Education>();
+            CreateMap<UpdateEducationDto, Education>();        
+
+            // Award Mappings
+            CreateMap<CreateAwardDto, Award>();
+            CreateMap<UpdateAwardDto, Award>(); 
+            
+
+            // Skill Mappings
+            CreateMap<CreateSkillDto, Skill>();
+            CreateMap<UpdateSkillDto, Skill>(); 
+            
+            // WE mappings
+            CreateMap<CreateWorkExperienceDto, WorkExperience>();
+            CreateMap<UpdateWorkExperienceDto, WorkExperience>();
+
+            // Language Mappings
+            CreateMap<UpdateLanguageDto, Language>();
+            CreateMap<CreateLanguageDto, Language>();
+
+            CreateMap<RequirementForCreationDto, Requirement>();
+            CreateMap<Requirement, RequirementForDetailDto>();
         }
     
     }

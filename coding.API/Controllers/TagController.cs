@@ -31,7 +31,7 @@ namespace coding.API.Controllers
             this._mapper = mapper;
         }
 
-        [Authorize]
+        
         [HttpPost("create")]
         public async Task<Tag> Create([FromBody] TagForCreateDto tagForCreateDto)
         {

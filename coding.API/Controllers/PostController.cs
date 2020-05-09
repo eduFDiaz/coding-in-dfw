@@ -33,7 +33,7 @@ namespace coding.API.Controllers
             _mapper = mapper;
         }
 
-        [Authorize]
+        
         [HttpPost("create")]
         public async Task<Post> Create([FromBody] PostForCreateDto postForCreateDto)
         {   
