@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace coding.API.Migrations
 {
-    public partial class @new : Migration
+    public partial class j : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -302,14 +302,13 @@ namespace coding.API.Migrations
                 name: "ProductRequirements",
                 columns: table => new
                 {
-                    Id = table.Column<int>(nullable: false)
-                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
                     ProductId = table.Column<int>(nullable: false),
-                    RequirementId = table.Column<int>(nullable: false)
+                    RequirementId = table.Column<int>(nullable: false),
+                    Id = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_ProductRequirements", x => x.Id);
+                    table.PrimaryKey("PK_ProductRequirements", x => new { x.ProductId, x.RequirementId });
                     table.ForeignKey(
                         name: "FK_ProductRequirements_Products_ProductId",
                         column: x => x.ProductId,
@@ -353,11 +352,6 @@ namespace coding.API.Migrations
                 name: "IX_PostTags_TagId",
                 table: "PostTags",
                 column: "TagId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_ProductRequirements_ProductId",
-                table: "ProductRequirements",
-                column: "ProductId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_ProductRequirements_RequirementId",

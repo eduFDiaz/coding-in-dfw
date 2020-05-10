@@ -22,7 +22,9 @@ namespace coding.API.Dtos.Products
         public string BodyText { get; set; }
         public string Industry { get; set; }
         public int Size { get; set; }
-        public ICollection<int> RequirementId { get; set; }
-        public ICollection<RequirementForDetailDto> Requirements { get; set; }
+        // public ICollection<int> RequirementId { get; set; }
+        // public ICollection<RequirementForDetailDto> Requirements { get; set; }
+
+        public List<ProductRequirementForDetailDto> ProductRequirements {get; set;}
     }
 }

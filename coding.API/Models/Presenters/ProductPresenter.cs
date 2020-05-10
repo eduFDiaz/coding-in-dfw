@@ -27,11 +27,11 @@ namespace coding.API.Models.Presenter
         [JsonProperty("text")]
         public string Description => _product.BodyText;
 
-        // [JsonProperty("requirements")]
-        // public ICollection<int> Requirements => _product.ProductRequirements.Select(t => t.RequirementId).ToList();
-
         [JsonProperty("requirements")]
-        public ICollection<string> Requirements => _product.ProductRequirements.Select(t => t.Requirement.Description).ToList();
+        public ICollection<string> Requirements => _product.ProductRequirements.Select(pr => pr.Requirement.Description).ToList();
+
+        // [JsonProperty("requirements")]
+        // public ICollection<Requirement> Requirements => _product.ProductRequirements.Select(a => a.Requirement).ToList();
 
         [JsonProperty("industry")]
         public string Industry => _product.Industry;

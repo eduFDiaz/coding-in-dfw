@@ -81,14 +81,14 @@ namespace coding.API.Controllers
         {
             var productsFromRepo = await _repo.GetAllUserProducts(userid);
 
-            var productsToReturn = _mapper.Map<List<ProductForDetailDto>>(productsFromRepo);
+            // var productsToReturn = _mapper.Map<List<ProductForDetailDto>>(productsFromRepo);
 
-            var Size = productsToReturn.Count;
+            var Size = productsFromRepo.Count;
 
             if (Size == 0)
                 return NotFound();
 
-            return Ok(productsToReturn);
+            return Ok(productsFromRepo);
         }
 
         // [Authorize]

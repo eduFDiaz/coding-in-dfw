@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using coding.API.Models.Entities.Products.ProductsRequirements;
+using coding.API.Models.Entities.Products.Requirements;
 
 namespace coding.API.Models.Entities.Products
 {
@@ -20,6 +21,9 @@ namespace coding.API.Models.Entities.Products
         public int Size { get; set; }
         public int UserId { get; set; }
         public ICollection<ProductRequirement> ProductRequirements { get; set; }
+
+        // public List<Requirement> Requirements { get; set; }
+        
         
     }
 }

@@ -20,6 +20,7 @@ using coding.API.Models.Entities.Products.ProductsRequirements;
 
 using coding.API.Dtos.Products;
 using coding.API.Dtos.Requirements;
+using System.Collections.Generic;
 
 namespace coding.API.Dtos
 {
@@ -52,6 +53,7 @@ namespace coding.API.Dtos
             CreateMap<ProductForUpdateDto, Product>();
             CreateMap<Product, ProductForDetailDto>();
             CreateMap<ProductForDetailDto, User>();
+            
 
             //Photo Mapings
             CreateMap<PhotoForCreationDto, Photo>();

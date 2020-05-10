@@ -43,7 +43,7 @@ namespace coding.API.Data
         public async Task<List<Product>> GetAllUserProducts(int userid)
         {
            var products = await _context.Products.Where(p => p.UserId == userid).ToListAsync();
-           var requirements = await _context.Requirements.Include(t => t.ProductRequirements).ToListAsync();
+        //    var requirements = await _context.Requirements.Include(t => t.ProductRequirements).ToListAsync();
             
            return products;
         }

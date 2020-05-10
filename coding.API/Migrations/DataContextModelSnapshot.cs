@@ -220,19 +220,16 @@ namespace coding.API.Migrations
 
             modelBuilder.Entity("coding.API.Models.Entities.Products.ProductsRequirements.ProductRequirement", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
                     b.Property<int>("ProductId")
                         .HasColumnType("int");
 
                     b.Property<int>("RequirementId")
                         .HasColumnType("int");
 
-                    b.HasKey("Id");
+                    b.Property<int>("Id")
+                        .HasColumnType("int");
 
-                    b.HasIndex("ProductId");
+                    b.HasKey("ProductId", "RequirementId");
 
                     b.HasIndex("RequirementId");
 

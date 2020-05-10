@@ -39,6 +39,9 @@ namespace coding.API.Data
             builder.Entity<PostTag>()
             .HasKey(pt => new { pt.PostId, pt.TagId });
 
+            builder.Entity<ProductRequirement>()
+            .HasKey(pr => new { pr.ProductId , pr.RequirementId } );
+
             // builder.Entity<PostTag>()
             // .HasOne(pt => pt.Post)
             // .WithMany(p => p.PostTags)
@@ -47,6 +50,8 @@ namespace coding.API.Data
             // .HasOne(pt => pt.Tag)
             // .WithMany(t => t.PostTags)
             // .HasForeignKey(pt => pt.TagId);
+
+           
             
         }
     }
