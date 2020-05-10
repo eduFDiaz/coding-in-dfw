@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 using coding.API.Dtos.Requirements;
-
+using coding.API.Models.Entities.Products.Requirements;
 
 namespace coding.API.Dtos.Products
 {
@@ -23,8 +23,9 @@ namespace coding.API.Dtos.Products
         public string Industry { get; set; }
         public int Size { get; set; }
         // public ICollection<int> RequirementId { get; set; }
-        // public ICollection<RequirementForDetailDto> Requirements { get; set; }
-
+        public ICollection<RequirementForDetailDto> Requirements { get; set; }
         public List<ProductRequirementForDetailDto> ProductRequirements {get; set;}
+
+      
     }
 }

@@ -126,7 +126,9 @@ namespace coding.API.Controllers
         {
             var allproducts = await _repo.GetAll();
 
-            return Ok(allproducts);
+            var asd = _mapper.Map<List<ProductForDetailDto>>(allproducts);           
+
+            return Ok(asd);
         }
 
         [HttpPost("addRequirement")]
@@ -142,6 +144,16 @@ namespace coding.API.Controllers
                 return Ok(new RequirementPresenter(createdRequirement));
             
             return BadRequest();
+        }
+
+        [HttpGet("getSingleProductById")]
+        public async Task<IActionResult> getsingle(int prodid)
+        {
+            var prod = await _repo.GetProduct(prodid);
+
+            var po = _mapper.Map<ProductForDetailDto>(prod);
+
+            return Ok(po);
         }
     
     }

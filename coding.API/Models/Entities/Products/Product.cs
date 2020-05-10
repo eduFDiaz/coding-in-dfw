@@ -21,6 +21,7 @@ namespace coding.API.Models.Entities.Products
         public int Size { get; set; }
         public int UserId { get; set; }
         public ICollection<ProductRequirement> ProductRequirements { get; set; }
+       
 
         // public List<Requirement> Requirements { get; set; }
         

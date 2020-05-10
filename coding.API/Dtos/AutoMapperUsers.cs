@@ -52,7 +52,11 @@ namespace coding.API.Dtos
             CreateMap<ProductForDetailDto, Product>();
             CreateMap<ProductForUpdateDto, Product>();
             CreateMap<Product, ProductForDetailDto>();
+            CreateMap<Product, List<ProductForDetailDto>>();
             CreateMap<ProductForDetailDto, User>();
+            CreateMap<Product, ProductRequirementForDetailDto>();
+            CreateMap<ProductRequirement, ProductForDetailDto>();
+             
             
 
             //Photo Mapings
@@ -69,6 +73,7 @@ namespace coding.API.Dtos
 
             // ProductRequirment Mappings
             CreateMap<ProductRequirementForCreateDto, ProductRequirement>();
+            CreateMap<ProductRequirement, ProductRequirementForDetailDto>();
             
 
              // Projects Mappings

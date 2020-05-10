@@ -23,7 +23,9 @@ namespace coding.API.Data
             if (productid == 0)
                 return null;
 
-            var product = await _context.Products.FirstOrDefaultAsync(prod => prod.Id == productid);
+            var product = _context.Products.FirstOrDefault(pr => pr.Id == productid);    
+
+            var require = await _context.ProductRequirements.Include(p => p.Requirement).Where(pr => pr.ProductId == productid).ToListAsync();
 
             return product;
         }
@@ -42,8 +44,10 @@ namespace coding.API.Data
 
         public async Task<List<Product>> GetAllUserProducts(int userid)
         {
-           var products = await _context.Products.Where(p => p.UserId == userid).ToListAsync();
-        //    var requirements = await _context.Requirements.Include(t => t.ProductRequirements).ToListAsync();
+           var products = await _context.Products.Include(p => p.ProductRequirements).Where(p => p.UserId == userid).ToListAsync();
+        //    var requirements = await _context.ProductRequirements.Include(t => t.Requirement.Description).ToListAsync();
+
+        //    var require = await _context.ProductRequirements.Include(p => p.Requirement).ToListAsync();
             
            return products;
         }
@@ -85,6 +89,9 @@ namespace coding.API.Data
         {
             var allproducts = await _context.Products.ToListAsync();
 
+            var requirements = await _context.ProductRequirements.Include(pr => pr.Requirement).ToListAsync();
+            
+          
             return allproducts;
         }
 
