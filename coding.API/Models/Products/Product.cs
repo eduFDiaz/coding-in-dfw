@@ -2,12 +2,15 @@ using System;
 using System.Collections.Generic;
 using coding.API.Models.Products.ProductsRequirements;
 using coding.API.Models.Products.Requirements;
+using System.ComponentModel.DataAnnotations.Schema;
+using System.ComponentModel.DataAnnotations;
 
 namespace coding.API.Models.Products
 {
-    public class Product : BaseEntity
+    [Table("Product")]
+    public partial class Product : BaseEntity
     {
-        
+        [Key]
         public string Name { get; set; }
         public string ProjectIntro { get; set; }
         public string ShortResume { get; set; }
@@ -20,7 +23,7 @@ namespace coding.API.Models.Products
         public string ProductDescription { get; set; }
         public int Size { get; set; }
         public Guid UserId { get; set; }
-        public ICollection<ProductRequirement> ProductRequirements { get; set; }
+        public List<ProductRequirement> ProductRequirements { get; set; }
 
         public Requirement Requirement { get; set; }
         

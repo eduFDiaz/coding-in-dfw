@@ -7,7 +7,7 @@ namespace coding.API.Models.Products.Requirements
     public class Requirement : BaseEntity
     {
         public string Description { get; set; }
-        public ICollection<ProductRequirement> ProductRequirements { get; set; }
+        public List<ProductRequirement> ProductRequirements { get; set; }
 
         
         

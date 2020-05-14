@@ -15,6 +15,7 @@ using coding.API.Models.Awards;
 using Microsoft.EntityFrameworkCore;
 using coding.API.Models.Products.Requirements;
 using coding.API.Models.Products.ProductsRequirements;
+using coding.API.Models.Interests;
 
 namespace coding.API.Models
 {
@@ -35,6 +36,7 @@ namespace coding.API.Models
         public DbSet<WorkExperience> WorkExperiences { get; set; }
         public DbSet<Education> Educations { get; set; }
         public DbSet<Award> Awards { get; set; }
+        public DbSet<Interest> Interests {get; set; }
         public DbSet<Skill> Skills { get; set; }
         public DbSet<Requirement> Requirements { get; set; }
         public DbSet <ProductRequirement> ProductRequirements { get; set; }
