@@ -20,5 +20,6 @@ export interface User {
     linkedInProfile: string,
     stackOverflowProfile: string,
     redditProfile: string
-    codepenProfile: string
+    codepenProfile: string,
+    customUserTitle: string
 }

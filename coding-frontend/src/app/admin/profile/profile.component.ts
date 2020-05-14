@@ -23,6 +23,7 @@ export class ProfileComponent implements OnInit {
   profileSpinner = false;
   userid: number
   myuser: any
+  
   @ViewChild('dialogRef', { static: true }) dialogRef: TemplateRef<any>;
 
   @ViewChild('editProfileForm', { static: false }) editProfileForm: NgForm;

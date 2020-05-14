@@ -89,6 +89,7 @@
         <nb-card [nbSpinner]="spinner">
             <nb-card-header>
                 Edit Resume:
+                <button nbButton status="primary" size="tiny">*/</button>
             </nb-card-header>
             <nb-card-body>
                 <div class="row">
@@ -98,9 +99,11 @@
                             size="tiny">+</button>
                         <nb-list>
                             <nb-list-item *ngFor="let lang of langs">
-                                <div class="col-md-8">{{ lang.name }}</div>
-                                <div class="col-md-4">
-                                    <div class="row">
+                                <div class="col-md-11">{{ lang.name }}</div>
+
+                                <div class="row ">
+                                    <div class="col-md-1">
+
                                         <button (click)="openDeleteDialog(dialogDelete, lang, 'language')" nbButton
                                             status="danger" size="tiny">
                                             <nb-icon icon="trash"></nb-icon>
@@ -109,8 +112,10 @@
                                             status="success" size="tiny">
                                             <nb-icon icon="edit"></nb-icon>
                                         </button>
+
                                     </div>
                                 </div>
+
                             </nb-list-item>
                         </nb-list>
 
@@ -118,29 +123,33 @@
                     </div>
                 </div>
                 <div class="row">
-                    <b>Your education:</b>
-                    <button nbButton status="success"
-                        (click)="createDialogGeneric(addGeneric, newEducation, 'education')" size="tiny">+</button>
-                    <nb-list>
-                        <nb-list-item *ngFor="let education of educations">
-                            <div class="col-md-8">Title: {{ education?.title }}<br>
-                                School Name: {{ education?.schoolName }}<br>
-                                Years: {{ education?.dateRange }}</div>
-                            <div class="col-md-4">
-                                <div class="row">
-                                    <button (click)="openDeleteDialog(dialogDelete, education, 'education')" nbButton
-                                        status="danger" size="tiny">
-                                        <nb-icon icon="trash"></nb-icon>
-                                    </button>
-                                    <button (click)="openEditDialog(dialogEdit, education, 'education')" nbButton
-                                        status="success" size="tiny">
-                                        <nb-icon icon="edit"></nb-icon>
-                                    </button>
+                    <div class="col-md-12">
+                        <label for="language"><b>Your Education:</b></label>
+                        <button nbButton status="success"
+                            (click)="createDialogGeneric(addGeneric, newEducation, 'education')" size="tiny">+</button>
+                        <nb-list>
+                            <nb-list-item *ngFor="let education of educations">
+                                <div class="col-md-11">Title: {{ education?.title }}<br>
+                                    School Name: {{ education?.schoolName }}<br>
+                                    Years: {{ education?.dateRange }}
                                 </div>
-                            </div>
-                        </nb-list-item>
-                    </nb-list>
 
+                                <div class="row">
+                                    <div class="col-md-1">
+                                        <button (click)="openDeleteDialog(dialogDelete, education, 'education')"
+                                            nbButton status="danger" size="tiny">
+                                            <nb-icon icon="trash"></nb-icon>
+                                        </button>
+                                        <button (click)="openEditDialog(dialogEdit, education, 'education')" nbButton
+                                            status="success" size="tiny">
+                                            <nb-icon icon="edit"></nb-icon>
+                                        </button>
+                                    </div>
+                                </div>
+
+                            </nb-list-item>
+                        </nb-list>
+                    </div>
 
                 </div>
                 <div class="row">
@@ -150,10 +159,11 @@
                             size="tiny">+</button>
                         <nb-list>
                             <nb-list-item *ngFor="let skill of skills">
-                                <div class="col-md-8">{{ skill.title }}<br>
+                                <div class="col-md-11">{{ skill.title }}<br>
                                 </div>
-                                <div class="col-md-4">
-                                    <div class="row">
+
+                                <div class="row">
+                                    <div class="col-md-1">
                                         <button (click)="openDeleteDialog(dialogDelete, skill, 'skill')" nbButton
                                             status="danger" size="tiny">
                                             <nb-icon icon="trash"></nb-icon>
@@ -164,6 +174,7 @@
                                         </button>
                                     </div>
                                 </div>
+
                             </nb-list-item>
                         </nb-list>
                     </div>
@@ -175,12 +186,13 @@
                             (click)="createDialogGeneric(addGeneric, newProject, 'project')" size="tiny">+</button>
                         <nb-list>
                             <nb-list-item *ngFor="let project of projects">
-                                <div class="col-md-8">Title: {{ project.title }}<br>
+                                <div class="col-md-11">Title: {{ project.title }}<br>
                                     Resume: {{ project.resume }}<br>
                                     Type: {{ project.type }}<br>
                                 </div>
-                                <div class="col-md-4">
-                                    <div class="row">
+
+                                <div class="row">
+                                    <div class="col-md-1">
                                         <button (click)="openDeleteDialog(dialogDelete, project, 'project')" nbButton
                                             status="danger" size="tiny">
                                             <nb-icon icon="trash"></nb-icon>
@@ -191,6 +203,7 @@
                                         </button>
                                     </div>
                                 </div>
+
                             </nb-list-item>
                         </nb-list>
                     </div>
@@ -202,12 +215,13 @@
                             size="tiny">+</button>
                         <nb-list>
                             <nb-list-item *ngFor="let award of awards">
-                                <div class="col-md-8">Title: {{ award.title }}<br>
+                                <div class="col-md-11">Title: {{ award.title }}<br>
                                     Company: {{ award.company }}<br>
                                     Year: {{ award.year }}<br>
                                 </div>
-                                <div class="col-md-4">
-                                    <div class="row">
+
+                                <div class="row">
+                                    <div class="col-md-1">
                                         <button (click)="openDeleteDialog(dialogDelete, award, 'award')" nbButton
                                             status="danger" size="tiny">
                                             <nb-icon icon="trash"></nb-icon>
@@ -218,6 +232,7 @@
                                         </button>
                                     </div>
                                 </div>
+
                             </nb-list-item>
                         </nb-list>
                     </div>
@@ -229,13 +244,14 @@
                             size="tiny">+</button>
                         <nb-list>
                             <nb-list-item *ngFor="let we of workExperiences">
-                                <div class="col-md-8">Position: {{ we.title }}<br>
+                                <div class="col-md-11">Position: {{ we.title }}<br>
                                     Company: {{ we.company }}<br>
                                     Resume: {{ we.resume }}<br>
                                     Date Range: {{ we.dateRange }}<br>
                                 </div>
-                                <div class="col-md-4">
-                                    <div class="row">
+
+                                <div class="row">
+                                    <div class="col-md-1">
                                         <button (click)="openDeleteDialog(dialogDelete, we, 'we')" nbButton
                                             status="danger" size="tiny">
                                             <nb-icon icon="trash"></nb-icon>
@@ -246,6 +262,7 @@
                                         </button>
                                     </div>
                                 </div>
+
                             </nb-list-item>
                         </nb-list>
                     </div>
@@ -258,10 +275,11 @@
                             (click)="createDialogGeneric(addGeneric, newInterest, 'interest')" size="tiny">+</button>
                         <nb-list>
                             <nb-list-item *ngFor="let interest of interests">
-                                <div class="col-md-8">Title: {{ interest.title }}<br>
+                                <div class="col-md-11">Title: {{ interest.title }}<br>
                                 </div>
-                                <div class="col-md-4">
-                                    <div class="row">
+
+                                <div class="row">
+                                    <div class="col-md-1">
                                         <button (click)="openDeleteDialog(dialogDelete, interest, 'interest')" nbButton
                                             status="danger" size="tiny">
                                             <nb-icon icon="trash"></nb-icon>
@@ -272,6 +290,7 @@
                                         </button>
                                     </div>
                                 </div>
+
                             </nb-list-item>
                         </nb-list>
 
