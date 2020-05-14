@@ -1,12 +1,9 @@
 export interface Photo {
-    id: string;
-    url: string;
-    description: string;
+    id?: string;
+    url?: string;
+    description?: string;
     dateAdded: Date;
-    isMain: boolean;
-    userId: string,
-    publicId: string
-
+    isMain?: boolean;
 }
 
 

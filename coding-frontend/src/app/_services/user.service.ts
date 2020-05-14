@@ -58,6 +58,10 @@ export class UserService {
     )
   }
 
+  uploadPhoto(data) {
+    return this.http.post(this.baseUrl + '/photo', data)
+  }
+
   getAllUsers() {
     return this.http.get(this.baseUrl + '/users')
   }

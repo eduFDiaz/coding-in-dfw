@@ -9,6 +9,8 @@ import {
 
 import { NgModule } from '@angular/core';
 
+import { FileUploadModule } from 'ng2-file-upload'
+
 import { AdminComponent } from './admin.component';
 import { RouterModule } from '@angular/router';
 import { AdminRoutes } from './admin.routing';
@@ -37,9 +39,9 @@ import { AlertService } from '../_services/alert.service';
   declarations: [AdminComponent, LoginComponent, ProfileComponent, ResumeAdminComponent, PhotoaddComponent],
   imports: [
     CommonModule,
+    FileUploadModule,
     ProductsModule,
     PostModule,
-    AdminRoutes,
     NbRadioModule,
     NbListModule,
     NbUserModule,
@@ -59,6 +61,7 @@ import { AlertService } from '../_services/alert.service';
     NbCheckboxModule,
     FormsModule,
     NbSpinnerModule,
+    AdminRoutes,
     NbMenuModule.forRoot(),
     NbThemeModule.forRoot({ name: 'default' }),
   ], entryComponents: [PhotoaddComponent]

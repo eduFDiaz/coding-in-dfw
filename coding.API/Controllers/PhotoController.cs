@@ -54,7 +54,7 @@ namespace coding.API.Controllers
         }
 
         
-        [HttpPost]
+        [HttpPost("{userId}/create")]
         public async Task<IActionResult> AddPhotoForUser(Guid userId, [FromForm] PhotoForCreationDto photoForCreationDto)
         {
             // Only if the claim is valid the user is retrieved
