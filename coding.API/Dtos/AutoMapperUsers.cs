@@ -13,6 +13,7 @@ using coding.API.Models.Languages;
 using coding.API.Models.Educations;
 using coding.API.Models.Skills;
 using coding.API.Models.Awards;
+using coding.API.Models.Interests;
 using coding.API.Models.WorkExperiences;
 using System.Collections.Generic;
 using coding.API.Dtos.Requirements;
@@ -81,6 +82,10 @@ namespace coding.API.Dtos
             // Award Mappings
             CreateMap<CreateAwardDto, Award>();
             CreateMap<UpdateAwardDto, Award>(); 
+
+            // Interest Mappings
+            CreateMap<CreateInterestDto, Interest>();
+            CreateMap<UpdateInterestDto, Interest>(); 
             
 
             // Skill Mappings
