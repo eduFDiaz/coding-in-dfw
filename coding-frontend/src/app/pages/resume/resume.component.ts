@@ -4,10 +4,12 @@ import { UserService } from 'src/app/_services/user.service';
 import { Language } from 'src/app/_models/Language';
 import { Education } from 'src/app/_models/Education';
 import { Skill } from 'src/app/_models/Skill';
+
 import { Project } from 'src/app/_models/Project';
 import { Award } from 'src/app/_models/Award';
 import { WorkExperience } from 'src/app/_models/WorkExperience';
 import { ProfileData } from 'src/app/_models/ProfileData';
+import { Interest } from 'src/app/_models/Interest';
 
 
 @Component({
@@ -26,6 +28,7 @@ export class ResumeComponent implements OnInit {
   projects: any;
   awards: any;
   workExperiences: any;
+  interests: Interest[]
 
   constructor(private resume: ResumeService) { }
 
@@ -52,6 +55,9 @@ export class ResumeComponent implements OnInit {
     })
     this.resume.getWe(this.userData.id).subscribe((data) => {
       this.workExperiences = data
+    })
+    this.resume.getInterests(this.userData.id).subscribe((data) => {
+      this.interests = data
     })
 
   }
