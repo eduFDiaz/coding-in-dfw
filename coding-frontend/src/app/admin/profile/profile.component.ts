@@ -47,6 +47,14 @@ export class ProfileComponent implements OnInit {
     this.dialogService.open(PhotoaddComponent, { context: 'this is some additional data passed to dialog' });
   }
 
+  openAddTagDialog() {
+    this.dialogService.open(PhotoaddComponent, { closeOnBackdropClick: false }).onClose.subscribe(
+      (data) => {
+        console.log(data)
+      }
+    )
+  }
+
 
   ngOnInit() {
     this.profileSpinner = true

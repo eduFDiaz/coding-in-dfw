@@ -22,7 +22,7 @@ const URL = 'http://localhost:5050/api/photo/6';
 
 export class PhotoaddComponent implements OnInit {
   userdata: any
-  photos: any
+  photos: Photo[]
 
   // public uploader: FileUploader = new FileUploader({ url: URL, method: 'POST' });
 
@@ -31,10 +31,9 @@ export class PhotoaddComponent implements OnInit {
   constructor(private user: UserService, private auth: AuthService) { }
 
   ngOnInit() {
-    this.user.getUser(this.user.getCurrentUserId()).subscribe((result) => {
-      this.userdata = result
-      this.photos = this.userdata.photos
-
+    this.user.getAllUserPhotos().subscribe((photos: any) => {
+      this.photos = photos
+      console.log(this.photos)
     })
 
     // this.uploader.onBeforeUploadItem = (item) => {

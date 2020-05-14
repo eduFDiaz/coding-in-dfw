@@ -8,6 +8,7 @@ import { map, catchError } from 'rxjs/operators';
 
 import { Post } from '../_models/Post';
 import { AuthService } from './auth.service';
+import { Photo } from '../_models/Photo';
 
 @Injectable({
   providedIn: 'root'
@@ -59,6 +60,10 @@ export class UserService {
 
   getAllUsers() {
     return this.http.get(this.baseUrl + '/users')
+  }
+
+  getAllUserPhotos(): Observable<Photo> {
+    return this.http.get<Photo>(this.baseUrl + '/photo/all')
   }
 }
 

@@ -60,7 +60,7 @@ export class LoginComponent implements OnInit {
         console.log("ok")
         this.toast.showToast('bottom-left', 'success', 'You have sign in succefully!', 'Welcome back to your dashboard!')
         console.log("luego del toast")
-        this.router.navigate(['admin/profile']);
+        this.router.navigate(['/admin/profile']);
       }
     );
   }

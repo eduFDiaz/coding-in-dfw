@@ -36,7 +36,7 @@ export class AdminComponent implements OnInit {
   items: NbMenuItem[] = [
     {
       title: 'Home',
-      link: '/',
+      link: '/admin/profile',
       icon: 'home',
     },
     {
@@ -47,17 +47,17 @@ export class AdminComponent implements OnInit {
         {
           title: 'Tags list',
           icon: 'layers',
-          url: 'tag/list'
+          url: '/admin/tag/list'
 
         },
         {
           title: 'Post list',
-          url: 'posts/list',
+          url: '/admin/posts/list',
           icon: 'list'
         },
         {
           title: 'Write new Post',
-          url: 'posts/new',
+          url: 'admin/posts/new',
           icon: 'plus-outline'
         }
 
@@ -72,12 +72,12 @@ export class AdminComponent implements OnInit {
         {
           title: 'Product list',
           icon: 'list',
-          url: 'product/list'
+          url: '/admin/product/list'
         },
         {
           title: 'I have new product',
           icon: 'plus',
-          url: 'product/new'
+          url: '/admin/product/new'
         }
       ]
     },
@@ -85,7 +85,7 @@ export class AdminComponent implements OnInit {
       title: 'Resume',
       icon: 'book-open-outline',
       expanded: false,
-      url: '/resume'
+      url: '/admin/resume'
 
     }
 

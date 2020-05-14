@@ -10,6 +10,7 @@ import { AuthService } from '../../_services//auth.service';
 import { AlertService } from '../../_services/alert.service'
 import { Router } from '@angular/router';
 import { User } from '../../_models/User';
+import { Photo } from 'src/app/_models/Photo';
 
 
 @Component({
@@ -29,6 +30,10 @@ export class HeaderComponent implements OnInit {
 
   currentUser: User
 
+  userPhotos: Photo[]
+
+  currentAvatarUrl = ''
+
   userMenu = [{ title: 'Profile', icon: 'person' }, { title: 'Log out', icon: 'power-outline' }];
 
   constructor(private sidebarService: NbSidebarService, private menuService: NbMenuService,
@@ -42,16 +47,18 @@ export class HeaderComponent implements OnInit {
   ) {
     // this.currentUser = this.auth.getUser()
     this.auth.getUser().subscribe(x => this.currentUser = x)
+    this.user.getAllUserPhotos().subscribe((photo: any) => {
+      this.userPhotos = photo
+      this.currentAvatarUrl = this.userPhotos.filter(photo => photo.isMain == true).map(photo => photo.url).toString()
+    })
 
+    this.auth.currentLoginStatus.pipe(takeUntil(this.destroy$)).
+      subscribe(status => this.isLoggedIn = status)
 
   }
 
 
   ngOnInit() {
-
-    // // Subscribe to login status
-    this.auth.currentLoginStatus.subscribe(status => this.isLoggedIn = status)
-
 
     this.menuService.onItemClick().subscribe((event) => {
       this.onItemSelection(event.item.title);
@@ -91,7 +98,7 @@ export class HeaderComponent implements OnInit {
   logout() {
     this.auth.logout()
     this.toast.showToast('bottom-left', 'info', 'See you soon!', 'You have sucefully logout')
-    this.router.navigate(['/'])
+    this.router.navigate(['/pages/home'])
   }
 
 }

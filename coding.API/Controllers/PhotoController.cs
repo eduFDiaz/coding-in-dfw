@@ -53,7 +53,7 @@ namespace coding.API.Controllers
 
         }
 
-        [Authorize]
+        
         [HttpPost]
         public async Task<IActionResult> AddPhotoForUser(Guid userId, [FromForm] PhotoForCreationDto photoForCreationDto)
         {

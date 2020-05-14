@@ -61,6 +61,6 @@ import { AlertService } from '../_services/alert.service';
     NbSpinnerModule,
     NbMenuModule.forRoot(),
     NbThemeModule.forRoot({ name: 'default' }),
-  ],
+  ], entryComponents: [PhotoaddComponent]
 })
 export class AdminModule { }
