@@ -92,9 +92,9 @@ namespace coding.API.Controllers
 
             // var test2 = (await _productRequirementDal.ListAsync()).Select(pr => pr.Requirement).ToList();
 
-            // var outPut = _mapper.Map<List<ProductForDetailDto>>(allUserProducts);
+             var outPut = _mapper.Map<List<ProductForDetailDto>>(allUserProducts);
        
-            return Ok( allUserProducts);
+            return Ok(outPut);
         }
 
         [HttpGet("product/{productid}")]

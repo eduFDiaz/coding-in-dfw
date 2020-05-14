@@ -8,8 +8,9 @@ namespace coding.API.Models.Products.ProductsRequirements
         
      
         public Guid ProductId { get; set; }
-        public Product Product { get; set; }
         public Guid RequirementId { get; set; }
+        public Product Product { get; set; }
+        
         public Requirement Requirement { get; set; }
     }
 }
