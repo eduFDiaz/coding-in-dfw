@@ -1,0 +1,47 @@
+<div class="row">
+    <div class="col-md-12">
+        <nb-card status="success">
+            <nb-card-header>
+                Add new tag:
+            </nb-card-header>
+            <nb-card-body>
+                <form #adPostFromBlog="ngForm" name="adPostFromBlog">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <label class="label" for="title">Title:</label>
+                            <input #titleTag="ngModel" required minlength="4" [(ngModel)]="newtag.title" nbInput
+                                name="title" type="text" status="success">
+                            <div *ngIf="titleTag.invalid && (titleTag.dirty || titleTag.touched)">
+                                <nb-alert *ngIf="titleTag.errors.required" status="warning">Title is required.
+                                </nb-alert>
+                                <nb-alert *ngIf="titleTag.errors.minlength" status="warning">Title must be at
+                                    least 4
+                                    characters long.</nb-alert>
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <label class="label" for="title">Description:</label>
+                            <input #descTag="ngModel" required minlength="4" nbInput [(ngModel)]="newtag.description"
+                                name="description" type="text" status="success">
+
+                            <div *ngIf="descTag.invalid && (descTag.dirty || descTag.touched)">
+                                <nb-alert *ngIf="descTag.errors.required" status="warning">Title is required.
+                                </nb-alert>
+                                <nb-alert *ngIf="descTag.errors.minlength" status="warning">Title must be at
+                                    least 4
+                                    characters long.</nb-alert>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </nb-card-body>
+            <nb-card-footer>
+                <button [disabled]="!adPostFromBlog.dirty || !adPostFromBlog.valid" type="button" (click)="addNewTag()"
+                    nbButton status="success">Add</button>
+            </nb-card-footer>
+        </nb-card>
+    </div>
+</div>

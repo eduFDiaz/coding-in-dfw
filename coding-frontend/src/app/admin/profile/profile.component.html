@@ -1,0 +1,124 @@
+<div class="row">
+  <div class="col-md-12">
+    <nb-card [nbSpinner]="profileSpinner" nbSpinnerStatus="primary">
+      <nb-card-header>Edit {{ myuser?.username }} profile
+        <button nbButton size="tiny" (click)="open()">New profile pic</button>
+      </nb-card-header>
+      <nb-card-body>
+        <form id="editProfileForm" #editProfileForm="ngForm" *ngIf="myuser"
+          (submit)="updateProfile(editProfileForm.value)">
+          <div class="row">
+            <div class="col-sm-6">
+              <div class="form-group">
+                <label for="fullName" class="label">Full Name</label>
+                <input name="fullName" type="text" [(ngModel)]="myuser.fullName" nbInput fullWidth id="inputFirstName"
+                  placeholder="Full Name">
+              </div>
+            </div>
+            <div class="col-sm-6">
+              <div class="form-group">
+                <label for="inputLastName" class="label">Username</label>
+                <input [(ngModel)]="myuser.username" name="username" type="text" nbInput fullWidth id="inputLastName"
+                  placeholder="Username">
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-sm-6">
+              <div class="form-group">
+                <label for="email" class="label">Email</label>
+                <input name="email" type="email" nbInput fullWidth id="inputEmail" placeholder="Email"
+                  [(ngModel)]="myuser.email">
+              </div>
+            </div>
+            <div class="col-sm-6">
+              <div class="form-group">
+                <label for="inputWebsite" class="label">Location</label>
+                <input name="location" [(ngModel)]="myuser.location" type="text" nbInput fullWidth id="inputWebsite"
+                  placeholder="Website">
+              </div>
+            </div>
+            <div class="col-sm-6">
+              <div class="form-group">
+                <label for="inputWebsite" class="label">Short Resume</label>
+                <textarea cols="30" name="shortResume" [(ngModel)]="myuser.shortResume" nbInput fullWidth
+                  placeholder="Short Resume"></textarea>
+              </div>
+            </div>
+            <div class="col-sm-6">
+              <div class="form-group">
+                <label for="inputWebsite" class="label">Full Resume</label>
+                <textarea cols="30" name="fullResume" [(ngModel)]="myuser.fullResume" nbInput fullWidth
+                  placeholder="Full Resume"></textarea>
+              </div>
+            </div>
+            <div class="col-sm-6">
+              <div class="form-group">
+                <label for="inputWebsite" class="label">Phone Number</label>
+                <input name="phone" [(ngModel)]="myuser.phone" type="text" nbInput fullWidth id="inputWebsite"
+                  placeholder="Phone number">
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-sm-6">
+              <div class="form-group">
+                <label for="inputWebsite" class="label">GitHub Profile</label>
+                <input name="githubUrl" [(ngModel)]="myuser.githubUrl" type="text" nbInput fullWidth id="inputWebsite"
+                  placeholder="GitHub Url">
+              </div>
+            </div>
+            <div class="col-sm-6">
+              <div class="form-group">
+                <label for="inputWebsite" class="label">Stack Overflow Profile</label>
+                <input name="stackOverflowProfile" [(ngModel)]="myuser.stackOverflowProfile" type="text" nbInput
+                  fullWidth id="inputWebsite" placeholder="Stack Overflow Profile">
+              </div>
+            </div>
+            <div class="col-sm-6">
+              <div class="form-group">
+                <label for="inputWebsite" class="label">Facebook Profile</label>
+                <input name="facebookProfile" [(ngModel)]="myuser.facebookProfile" type="text" nbInput fullWidth
+                  id="inputWebsite" placeholder="Facebook Profile">
+              </div>
+            </div>
+            <div class="col-sm-6">
+              <div class="form-group">
+                <label for="inputWebsite" class="label">Twitter Profile</label>
+                <input name="twiterProfile" [(ngModel)]="myuser.twiterProfile" type="text" nbInput fullWidth
+                  id="inputWebsite" placeholder="Twitter Profile">
+              </div>
+            </div>
+            <div class="col-sm-6">
+              <div class="form-group">
+                <label for="inputWebsite" class="label">Linkedin Profile</label>
+                <input name="linkedInProfile" [(ngModel)]="myuser.linkedInProfile" type="text" nbInput fullWidth
+                  id="inputWebsite" placeholder="Linkedin profile">
+              </div>
+            </div>
+            <div class="col-sm-6">
+              <div class="form-group">
+                <label for="inputWebsite" class="label">Reddit Profile</label>
+                <input name="redditProfile" [(ngModel)]="myuser.redditProfile" type="text" nbInput fullWidth
+                  id="inputWebsite" placeholder="Linkedin profile">
+              </div>
+            </div>
+            <div class="col-sm-6">
+              <div class="form-group">
+                <label for="inputWebsite" class="label">Codepen Profile</label>
+                <input name="codepenProfile" [(ngModel)]="myuser.codepenProfile" type="text" nbInput fullWidth
+                  id="inputWebsite" placeholder="Codepen profile">
+              </div>
+            </div>
+            <div>
+              <button [disabled]="!editProfileForm.dirty" [nbSpinner]="updateSpinner" nbSpinnerStatus="info"
+                nbSpinnerSize="small" type="submit" nbButton>Update
+                Profile</button>
+            </div>
+          </div>
+        </form>
+      </nb-card-body>
+
+    </nb-card>
+  </div>
+</div>

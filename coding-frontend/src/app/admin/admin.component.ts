@@ -1,11 +1,9 @@
-import { Component, OnInit, Output, EventEmitter } from '@angular/core';
-import { AuthService } from '../_Services/auth.service';
-import { FormGroup, FormControl } from '@angular/forms';
-import { AlertifyService } from '../_Services/alertify.service';
-import { Router } from '@angular/router';
-import { UserService } from '../_Services/user.service';
-import { User } from '../_Models/User';
-import { JwtHelperService } from '@auth0/angular-jwt';
+import { Component, OnInit } from '@angular/core';
+
+import { AuthService } from '../_services/auth.service'
+import { NbMenuItem } from '@nebular/theme';
+import { User } from '../_models/User';
+import { BehaviorSubject, Observable } from 'rxjs';
 
 
 
@@ -17,61 +15,81 @@ import { JwtHelperService } from '@auth0/angular-jwt';
 })
 export class AdminComponent implements OnInit {
 
-  model: any = {};
-  isAuthenticated = false;
-  currentData: User;
+  currentUser: User
 
-  constructor(public auth: AuthService, private alertify: AlertifyService, private router: Router, private user: UserService) { }
+  constructor(private auth: AuthService) {
+    // this.auth.getUser().subscribe(x => this.currentUser = x)
+    this.auth.changeCurrentDisplayMode()
 
+  }
   ngOnInit() {
-    this.isAuthenticated = this.auth.loggedIn();
-    this.getUserData();
+
 
   }
 
-  login() {
-    this.auth.login(this.model).subscribe(
-      next => {
-        this.alertify.success('Welcome');
-        this.isAuthenticated = true;
-      },
-      error => {
-        this.alertify.error('Errpr' + error.error.message);
-      },
-    );
-  }
 
-  isLoggedin() {
-    return !this.auth.loggedIn();
-  }
 
-  logout() {
-    localStorage.removeItem('token');
-    localStorage.removeItem('user');
-    this.auth.decodedToken = null;
-    this.auth.currentUser = null;
-    // tslint:disable-next-line: quotemark
-    this.alertify.message('Loged out');
-    this.router.navigate(['/home']);
-  }
+  title = 'coding-admin';
 
-  getUserData() {
-    return this.user.getUserInfo().subscribe((userd: User) => {
-      this.currentData = userd;
-      console.log(userd);
-    }, error => {
-      console.log('error' + error.error.message);
-    });
-  }
+  isLoggedIn: boolean;
 
-  updateUserInfo() {
-    return this.user.updateUser(this.currentData).subscribe(next => {
-      this.alertify.success('Perfil actualizado ok');
-      this.user.announceUserChanged(this.currentData);
-    }, error => {
-      console.log(error.error.message);
-    });
-  }
+  items: NbMenuItem[] = [
+    {
+      title: 'Home',
+      link: '/',
+      icon: 'home',
+    },
+    {
+      title: 'Posts',
+      icon: 'book',
+      expanded: false,
+      children: [
+        {
+          title: 'Tags list',
+          icon: 'layers',
+          url: 'tag/list'
+
+        },
+        {
+          title: 'Post list',
+          url: 'posts/list',
+          icon: 'list'
+        },
+        {
+          title: 'Write new Post',
+          url: 'posts/new',
+          icon: 'plus-outline'
+        }
+
+      ]
+    },
+
+    {
+      title: 'Products',
+      icon: 'cube',
+      expanded: false,
+      children: [
+        {
+          title: 'Product list',
+          icon: 'list',
+          url: 'product/list'
+        },
+        {
+          title: 'I have new product',
+          icon: 'plus',
+          url: 'product/new'
+        }
+      ]
+    },
+    {
+      title: 'Resume',
+      icon: 'book-open-outline',
+      expanded: false,
+      url: '/resume'
+
+    }
+
+  ];
 
 
 }

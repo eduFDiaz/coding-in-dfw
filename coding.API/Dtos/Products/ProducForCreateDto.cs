@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using coding.API.Models.Entities.Products;
 
 namespace coding.API.Dtos.Products
 {
@@ -17,8 +16,7 @@ namespace coding.API.Dtos.Products
         [Required]
         public string ProductDescription { get; set; }
         [Required]
-        public int  UserId { get; set; }
-
+        public Guid  UserId { get; set; }
         public string ProjectIntro { get; set; }
         public string ShortResume { get; set; }
         public string ClientName { get; set; }
@@ -26,6 +24,6 @@ namespace coding.API.Dtos.Products
         public string Industry { get; set; }
         public int Size { get; set; }
         
-        public ICollection<int> RequirementId { get; set; }
+        public ICollection<Guid> RequirementId { get; set; }
     }
 }

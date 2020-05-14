@@ -1,149 +1,166 @@
-using coding.API.Models;
-using System.Collections.Generic;
-using System;
-using System.Security.Claims;
-using System.Text;
-using System.Threading.Tasks;
 using AutoMapper;
+using coding.API.Data;
 using coding.API.Dtos;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
+using coding.API.Models;
+using coding.API.Models.Presenter;
 using Microsoft.AspNetCore.Authorization;
-using coding.API.Models.Entities.Posts;
-using coding.API.Models.Entities.PostTags;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Configuration;
+using coding.API.Models.Posts;
+using coding.API.Models.Tags;
+using coding.API.Models.PostTags;
+using System.Linq;
 
-using coding.API.Models.Interfaces;
-
+using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace coding.API.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
-    public class PostController: ControllerBase
+    public class PostController : ControllerBase
     {
-        private readonly IPostRepo _repo;
         private readonly IConfiguration _config;
         private readonly IMapper _mapper;
 
-        public PostController(IPostRepo repo, IConfiguration config, IMapper mapper)
+        private readonly Repository<Post> _postDal;
+        private readonly Repository<Tag> _tagDal;
+        private readonly Repository<PostTag> _postTagDal;
+
+        public PostController(
+            Repository<PostTag> postTagDal, 
+            Repository<Tag> tagDal, 
+            Repository<Post> postDal, 
+            IConfiguration config, IMapper mapper)
         {
-            _repo = repo;
+            
+            _postTagDal = postTagDal;
+            _postDal = postDal;
+            _tagDal = tagDal;
+
             _config = config;
             _mapper = mapper;
         }
 
-        
+        // [Authorize]
         [HttpPost("create")]
-        public async Task<Post> Create([FromBody] PostForCreateDto postForCreateDto)
-        {   
+        public async Task<IActionResult> Create([FromBody] PostForCreateDto request)
+        {
+             // var post = new Post
+             // {
+             //    Text = request.Text,
+             //    Description = request.Description,
+             //    Title = request.Title,
+             //    UserId = request.UserId,
+             //    ReadingTime = request.ReadingTime
+             //    // @Denis el resto de los datos del post faltan aqu�
+             // };
 
-            // Creo una nueva instancia de PostTag asociandola con un Dto.
-            var postTag = new PostTagForCreateDto();
+            var postForCreate = _mapper.Map<Post>(request);
 
-            //Lo mismo pero con el post que voy a crear
-            var postToCreate = _mapper.Map<Post>(postForCreateDto);
-
-            //Creo el post (sin los tags ni nada)
-            var createdPost = await _repo.Create(postToCreate);
+            // crea el post ahora
+            var createdPost = await _postDal.Add(postForCreate);
 
             // Itero por los ids que recibo del usuario
-            foreach (var Tag in postForCreateDto.TagId)
-            {
-                // Asigno el TagId
-                postTag.TagId = Tag;
-                // Asigno el PostId
-                postTag.PostId = createdPost.Id;
-                // Mapeo a postTag
-                var postTagToCreate = _mapper.Map<PostTag>(postTag);
-                // Guardo
-                await _repo.AddTagsForPost(postTagToCreate);
-            }
-            //Guardo todo
-            await _repo.SaveAll();
+            // if (request.TagId.Count > 0) {
+                foreach (var tag in request.PostTagId)
+                {
+                    // crea la tabla m2m
+                    var postag = new PostTag
+                    {
+                        TagId = tag,
+                        PostId = createdPost.Id // dame la id del post creado
+                    };
 
-            // var postToReturn = _mapper.Map<PostForDetailDto>(createdPost);
-            //Retorno el post que recien se creo.                   
-            return createdPost;
+                    // guarda la partida
+                    await _postTagDal.Add(postag);
+                }
+            // }
 
-        }
+            return Ok(new PostPresenter(createdPost));
 
-        
-        [HttpGet("foruser/{id}", Name = "GetPost")]
-        public async Task<IActionResult> GetAllUserPost(int id)
+        } 
+
+
+        [Authorize]
+        [HttpGet("foruser/{userId}", Name = "GetPost")]
+        public async Task<IActionResult> GetAllPostsForUser(Guid userId)
         {
-            var postFromRepo = await _repo.GetAllUserPost(id);
 
-            var postsToReturn = _mapper.Map<List<PostForDetailDto>>(postFromRepo);
+        var allUserPosts = (await _postDal.ListAsync()).Where(p => p.UserId == userId).ToList();
 
-            var postsSize = postFromRepo.Count;
+        var TagsList =  new List<Tag>();
 
-            if (postsSize == 0)
-                return NotFound();
+        // foreach (var post in allUserPosts)
+        // {
+        //     var test = (await _postTagDal.GetById(post.Id)).FirstOrDefault();
 
-            return Ok(postsToReturn);
+        //     if ( test != null ) {
+
+        //     var tag = (await _tagDal.GetById(test.TagId));
+            
+        //     TagsList.Add(tag);
+
+        //     }
+
+
+                    //   
+        // }
+
+         
+            return Ok(allUserPosts);
         }
 
         [Authorize]
         [HttpDelete("{postid}/delete", Name = "DetelePost")]
-        public async Task<IActionResult> DeletePost(int postid)
+        public async Task<IActionResult> DeletePost(Guid postid)
         {
-                           
-            var postFromRepo = await _repo.DeletePost(postid);
+            var postToDelete = (await _postDal.GetById(postid));
 
-            if (!postFromRepo)
-                return NotFound();
-    
-            return NoContent();
-                        
+            if (postToDelete == null)
+                 return NotFound();
+
+            await _postDal.Delete(postToDelete);
+                
+            if (await _postDal.SaveAll())    
+                return NoContent();
+
+            return BadRequest("Catn erase the post");
+
         }
 
+        
         [HttpPut("{postid}/update", Name = "Update Post")]
-        public async Task<IActionResult> UpdatePost(int postid, [FromBody] PostForUpdateDto postForUpdateDto)
+        public async Task<IActionResult> UpdatePost(Guid postid, [FromBody] PostForUpdateDto postForUpdateDto)
         {
-          var postToUpdateFromRepo = await _repo.GetPost(postid);
+            var postToUpdateFromRepo = (await _postDal.GetById(postid));
 
-        //   var postTag = new PostTagForCreateDto();
-            
+            var postTagsFromRepo = (await _postTagDal.ListAsync()).Where(pt => pt.PostId == postid).ToList();
+
             if (postToUpdateFromRepo == null)
                 return NotFound();
-              
-            var tagsForUpdate = await _repo.GetTagsForPost(postToUpdateFromRepo.Id);           
-
-            // foreach (var tag in postForUpdateDto.TagId)
-            // {
-                 
-            //     tagsForUpdate.TagId = tag;
-            //     // Asigno el PostId
-            //     // postToUpdateFromRepo.PostId = createdPost.Id;
-            //     // Mapeo a postTag
-            //     // var postTagToCreate = _mapper.Map<PostTag>(postTag);
-            //     // Guardo
-            //     await _repo.UpdateTagsForPost(tagsForUpdate);
-            // }
 
             _mapper.Map(postForUpdateDto, postToUpdateFromRepo);
 
-            if (await _repo.SaveAll())
-                return NoContent();
+            if (await _postDal.SaveAll())
+                 return NoContent();
 
-            throw new Exception($"Failed update");
+            return BadRequest("cant update the post!");
         }
 
-         [HttpGet("{postid}", Name = "Get Single Post")]
-         public async Task<IActionResult> GetPost(int postid)
-         {
-             var postFromRepo = await _repo.GetPost(postid);
+        [HttpGet("{postid}", Name = "Get Single Post")]
+        public async Task<IActionResult> GetPost(Guid postid)
+        {
+            var singlePostFromRepo = (await _postDal.GetById(postid));
 
-             if (postFromRepo == null)
+            if (singlePostFromRepo == null)
                 return NotFound();
 
-            var postToReturn = _mapper.Map<PostForDetailDto>(postFromRepo);
+            return Ok(singlePostFromRepo);
 
-            return Ok(postToReturn);
-            
-         }
+        }
 
-        
+
     }
 }

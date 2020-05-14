@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using coding.API.Models;
+using coding.API.Models.PostTags;
 
 namespace coding.API.Dtos
 {
@@ -15,8 +15,8 @@ namespace coding.API.Dtos
         public string Text { get; set; }
         public int ReadingTime { get; set; } // In minutes
         // public ICollection<Tag> Tags { get; set; }
-        //public ICollection<int> TagId { get; set; }
-        // public ICollection<PostTag> PostTags { get; set; }
+        // public ICollection<int> TagId { get; set; }
+        public ICollection<Guid> PostTags { get; set; }
                 
     }
 }

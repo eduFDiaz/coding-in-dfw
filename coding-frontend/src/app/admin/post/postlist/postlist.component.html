@@ -1,0 +1,61 @@
+<nb-card [nbSpinner]="spinner" nbSpinnerStatus="primary" nbSpinnerMessage="Loading your posts">
+    <nb-card-header>My posts
+        <button (click)="goToAddPost()" nbTooltip="Add new post" nbTooltipStatus="success" nbButton size="tiny"
+            type="button" status="success">
+            <nb-icon icon="plus"></nb-icon>
+        </button>
+    </nb-card-header>
+    <nb-card-body>
+        <table class="table" *ngIf="userposts">
+            <thead>
+                <tr>
+                    <th scope="col">Post Title</th>
+                    <th scope="col">Post Description</th>
+                    <th scope="col">Published Date</th>
+                    <th scope="col">Post Tags</th>
+                    <th scope="col">Options</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let post of pageOfItems" name="posts">
+                    <td>{{ post.title }}</td>
+                    <td>{{ post.description }}</td>
+                    <td>{{ post.dateCreated | date: 'medium' }} </td>
+                    <td>
+                        <span class="subtitle" *ngFor="let tag of post.tags ">
+                            <!-- <div *ngIf="!tag.tag.title">
+                                There is no tags :(
+                            </div> -->
+                            <div *ngIf="!tag">
+                                There is no tags :(
+                            </div>
+                            {{ tag }},
+                        </span>
+                    </td>
+
+                    <td>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <button (click)="openEditDialog(post)" nbTooltip="Edit this product"
+                                    nbTooltipStatus="success" nbButton size="tiny" type="button" status="success">
+                                    <nb-icon icon="edit"></nb-icon>
+                                </button>
+                            </div>
+                            <div class="col-md6">
+                                <button (click)="openDeleteDialog(post)" nbTooltip="Delete this product!"
+                                    nbTooltipStatus="danger" nbButton size="tiny" type="button" status="danger">
+                                    <nb-icon icon="trash"></nb-icon>
+                                </button>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+    </nb-card-body>
+    <nb-card-footer>
+        <jw-pagination [items]="userposts" (changePage)="onChangePage($event)"></jw-pagination>
+    </nb-card-footer>
+
+</nb-card>

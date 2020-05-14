@@ -1,160 +1,163 @@
-using coding.API.Models.Entities.Products;
-using coding.API.Models.Entities.Products.Requirements;
-using System.Collections.Generic;
-using System;
-using System.Security.Claims;
-using System.Text;
-using System.Threading.Tasks;
 using AutoMapper;
+using coding.API.Data;
 using coding.API.Dtos.Products;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
-using Microsoft.AspNetCore.Authorization;
-using coding.API.Dtos.Requirements;
-
-
-using coding.API.Models.Interfaces;
-using coding.API.Models.Entities.Products.ProductsRequirements;
 using coding.API.Dtos;
+using coding.API.Models;
 using coding.API.Models.Presenter;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Configuration;
+using coding.API.Models.Products;
+using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
+using System.Linq;
+using coding.API.Dtos.Requirements;
+using coding.API.Models.Products.Requirements;
+using coding.API.Models.Products.ProductsRequirements;
 
 namespace coding.API.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
-    public class ProductController: ControllerBase
+    public class ProductController : ControllerBase
     {
-        private readonly IProductRepo _repo;
         private readonly IConfiguration _config;
         private readonly IMapper _mapper;
 
-        public ProductController(IProductRepo repo, IConfiguration config, IMapper mapper)
+        private readonly Repository<Product> _productDal;
+
+        private readonly Repository<Requirement> _requirementDal;
+
+        private readonly Repository<ProductRequirement> _productRequirementDal;
+        
+
+        public ProductController(
+            Repository<Product> productDal, 
+            IConfiguration config, IMapper mapper,
+            Repository<Requirement> requirementDal,
+            Repository<ProductRequirement> productRequirementDal )
         {
-            this._repo = repo;
-            this._config = config;
-            this._mapper = mapper;
+            
+            _productDal = productDal;
+            _config = config;
+            _mapper = mapper;
+            _requirementDal = requirementDal;
+            _productRequirementDal = productRequirementDal;
         }
 
+        
         [HttpPost("create")]
-        public async Task<IActionResult> Create([FromBody] ProductForCreateDto productForCreateDto)
+        public async Task<IActionResult> Create([FromBody] ProductForCreateDto request)
         {
 
-            // Creo una nueva instancia de PostTag asociandola con un Dto.
-            var pr = new ProductRequirementForCreateDto();
+            var product = _mapper.Map<Product>(request);
+            
+            var pr = new ProductRequirementForCreateDto();              
 
-            //Lo mismo pero con el post que voy a crear
-            var productToCreate = _mapper.Map<Product>(productForCreateDto);
+            var createdProduct = await _productDal.Add(product);
 
-            //Creo el post (sin los tags ni nada)
-            var createdProduct = await _repo.Create(productToCreate);
-
-            // Itero por los ids que recibo del usuario
-            foreach (var Requirement in productForCreateDto.RequirementId)
+             foreach (var Requirement in request.RequirementId)
             {
-                // Asigno el TagId
+               
                 pr.RequirementId = Requirement;
-                // Asigno el PostId
+               
                 pr.ProductId = createdProduct.Id;
 
-                pr.Requirement = await _repo.GetRequirementById(Requirement);
+                pr.Requirement = await _requirementDal.GetById(Requirement);
 
-                pr.Product = await _repo.GetProduct(createdProduct.Id);
-                // Mapeo a postTag
                 var productRequirementToCreate = _mapper.Map<ProductRequirement>(pr);
-                // Guardo
-                await _repo.addRequirementToProduct(productRequirementToCreate);
-                             
+               
+                await _productRequirementDal.Add(productRequirementToCreate);
                 
             }
-            //Guardo todo
-            await _repo.SaveAll();
 
-            // var postToReturn = _mapper.Map<PostForDetailDto>(createdPost);
-            //Retorno el post que recien se creo.                   
-            return Ok(new ProductPresenter(createdProduct));
-            
+           return Ok(new ProductPresenter(createdProduct));
+           
+        } 
+
+        
+        [HttpGet("{userid}")]
+        public async Task<IActionResult> GetAllProductsForuser(Guid userid)
+        {
+            var allUserProducts = (await _productDal.ListAsync()).Where(p => p.UserId == userid).ToList();
+
+            var producCount = allUserProducts.Count;
+
+            if (producCount == 0)
+                return NotFound("There is no products here");
+
+            var requirement = (await _productDal.GetProductRequirementIncluded()).Select(pr => pr.Requirement.Description).ToList();
+            // var requirement = (await _productDal.GetProductRequirementIncluded()).ToList();
+
+            // var test2 = (await _productRequirementDal.ListAsync()).Select(pr => pr.Requirement).ToList();
+
+            // var outPut = _mapper.Map<List<ProductForDetailDto>>(allUserProducts);
+       
+            return Ok( allUserProducts);
         }
 
-        [HttpGet("{userid}", Name = "GetProduct")]
-        public async Task<IActionResult> GetAllUserProducts(int userid)
+        [HttpGet("product/{productid}")]
+        public async Task<IActionResult> GetSingleProduct(Guid productid)
         {
-            var productsFromRepo = await _repo.GetAllUserProducts(userid);
+            var product = (await _productDal.GetById(productid));
 
-            // var productsToReturn = _mapper.Map<List<ProductForDetailDto>>(productsFromRepo);
-
-            var Size = productsFromRepo.Count;
-
-            if (Size == 0)
-                return NotFound();
-
-            return Ok(productsFromRepo);
+            return Ok( new ProductPresenter(product));
         }
 
-        // [Authorize]
-        [HttpDelete("{productid}/delete", Name = "DeteleProduct")]
-        public async Task<IActionResult> DeleteProduct(int productid)
+        
+        [HttpDelete("{productid}/delete")]
+        public async Task<IActionResult> DeleteTag(Guid productid)
         {
-                           
-            var productsFromRepo = await _repo.DeleteProduct(productid);
+            var productToDelete = (await _productDal.GetById(productid));
 
-            if (!productsFromRepo)
-                return NotFound();
-    
-            return NoContent();
-                        
-        }
+            await _productDal.Delete(productToDelete);
 
-        [HttpPut("{productid}/update", Name = "Update Product")]
-        public async Task<IActionResult> UpdatePost(int productid, [FromBody] ProductForUpdateDto productForUpdateDto)
-        {
-            var productFromRepo = await _repo.GetProduct(productid);
-
-            if (productFromRepo == null)
-                return NotFound();
-                
-            _mapper.Map(productForUpdateDto, productFromRepo);
-
-            if (await _repo.SaveAll())
+            if (await _productDal.SaveAll())
                 return NoContent();
 
-            throw new Exception($"Failed update Product");
+            return BadRequest("cant delete the Product");
+
         }
 
-        [HttpGet]
-        public async Task<IActionResult> GetAllProducts()
+        
+        [HttpPut("{productid}/update")]
+        public async Task<IActionResult> UpdateTag(Guid productId, [FromBody] ProductForUpdateDto request)
         {
-            var allproducts = await _repo.GetAll();
+            var productToEdit = (await _productDal.GetById(productId));
 
-            var asd = _mapper.Map<List<ProductForDetailDto>>(allproducts);           
+        //     productToEdit.Name = request.Name;
+        //  productToEdit.Type = request.Type;
+        // productToEdit.Url = request.Url;
+        // productToEdit.ProductDescription = request.ProductDescription;
+            
+           var toUpd = _mapper.Map(request, productToEdit);
+            
+            await _productDal.Update(toUpd);
 
-            return Ok(asd);
+            if (await _productDal.SaveAll())
+                return NoContent();
+            
+            return BadRequest("Catn uptade product");
+
         }
 
-        [HttpPost("addRequirement")]
+         [HttpPost("addRequirement")]
         public async Task<IActionResult> NewRequeriment([FromBody] RequirementForCreationDto request)
         {
-            var requirementToCreate = _mapper.Map<Requirement>(request);
+            var requirementToCreate = new Requirement()
+            {
+                Description = request.Description
+            };
 
-            var createdRequirement = await _repo.CreateRequirement(requirementToCreate);
+            var createdRequirement = await _requirementDal.Add(requirementToCreate);
 
             // var requirementToShow = _mapper.Map<RequirementForDetailDto>(createdRequirement);
 
-            if (await _repo.SaveAll())
-                return Ok(new RequirementPresenter(createdRequirement));
-            
-            return BadRequest();
+            return Ok(new RequirementPresenter(createdRequirement));
+                        
         }
+        
 
-        [HttpGet("getSingleProductById")]
-        public async Task<IActionResult> getsingle(int prodid)
-        {
-            var prod = await _repo.GetProduct(prodid);
-
-            var po = _mapper.Map<ProductForDetailDto>(prod);
-
-            return Ok(po);
-        }
-    
     }
 }

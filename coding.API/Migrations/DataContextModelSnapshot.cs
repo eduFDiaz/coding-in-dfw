@@ -3,7 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using coding.API.Data;
+using coding.API.Models;
 
 namespace coding.API.Migrations
 {
@@ -17,36 +17,46 @@ namespace coding.API.Migrations
                 .HasAnnotation("ProductVersion", "3.0.0")
                 .HasAnnotation("Relational:MaxIdentifierLength", 64);
 
-            modelBuilder.Entity("coding.API.Models.Entities.Awards.Award", b =>
+            modelBuilder.Entity("coding.API.Models.Awards.Award", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
+                        .HasColumnType("char(36)");
 
                     b.Property<string>("Company")
                         .HasColumnType("longtext CHARACTER SET utf8mb4");
 
+                    b.Property<DateTime>("DateCreated")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<DateTime>("DateModified")
+                        .HasColumnType("datetime(6)");
+
                     b.Property<string>("Title")
                         .HasColumnType("longtext CHARACTER SET utf8mb4");
 
-                    b.Property<int>("UserId")
-                        .HasColumnType("int");
+                    b.Property<Guid>("UserId")
+                        .HasColumnType("char(36)");
 
                     b.Property<int>("Year")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("UserId");
-
                     b.ToTable("Awards");
                 });
 
-            modelBuilder.Entity("coding.API.Models.Entities.Educations.Education", b =>
+            modelBuilder.Entity("coding.API.Models.Educations.Education", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
+                        .HasColumnType("char(36)");
+
+                    b.Property<DateTime>("DateCreated")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<DateTime>("DateModified")
+                        .HasColumnType("datetime(6)");
 
                     b.Property<string>("DateRange")
                         .HasColumnType("longtext CHARACTER SET utf8mb4");
@@ -57,42 +67,50 @@ namespace coding.API.Migrations
                     b.Property<string>("Title")
                         .HasColumnType("longtext CHARACTER SET utf8mb4");
 
-                    b.Property<int>("UserId")
-                        .HasColumnType("int");
+                    b.Property<Guid>("UserId")
+                        .HasColumnType("char(36)");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("UserId");
 
                     b.ToTable("Educations");
                 });
 
-            modelBuilder.Entity("coding.API.Models.Entities.Languages.Language", b =>
+            modelBuilder.Entity("coding.API.Models.Languages.Language", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
+                        .HasColumnType("char(36)");
+
+                    b.Property<DateTime>("DateCreated")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<DateTime>("DateModified")
+                        .HasColumnType("datetime(6)");
 
                     b.Property<string>("Name")
                         .HasColumnType("longtext CHARACTER SET utf8mb4");
 
-                    b.Property<int>("UserId")
-                        .HasColumnType("int");
+                    b.Property<Guid>("UserId")
+                        .HasColumnType("char(36)");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("UserId");
-
-                    b.ToTable("Languages");
+                    b.ToTable("Langagues");
                 });
 
-            modelBuilder.Entity("coding.API.Models.Entities.Photos.Photo", b =>
+            modelBuilder.Entity("coding.API.Models.Photos.Photo", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
+                        .HasColumnType("char(36)");
 
                     b.Property<DateTime>("DateAdded")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<DateTime>("DateCreated")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<DateTime>("DateModified")
                         .HasColumnType("datetime(6)");
 
                     b.Property<string>("Description")
@@ -107,8 +125,8 @@ namespace coding.API.Migrations
                     b.Property<string>("Url")
                         .HasColumnType("longtext CHARACTER SET utf8mb4");
 
-                    b.Property<int>("UserId")
-                        .HasColumnType("int");
+                    b.Property<Guid>("UserId")
+                        .HasColumnType("char(36)");
 
                     b.HasKey("Id");
 
@@ -117,13 +135,22 @@ namespace coding.API.Migrations
                     b.ToTable("Photos");
                 });
 
-            modelBuilder.Entity("coding.API.Models.Entities.PostTags.PostTag", b =>
+            modelBuilder.Entity("coding.API.Models.PostTags.PostTag", b =>
                 {
-                    b.Property<int>("PostId")
-                        .HasColumnType("int");
+                    b.Property<Guid>("PostId")
+                        .HasColumnType("char(36)");
 
-                    b.Property<int>("TagId")
-                        .HasColumnType("int");
+                    b.Property<Guid>("TagId")
+                        .HasColumnType("char(36)");
+
+                    b.Property<DateTime>("DateCreated")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<DateTime>("DateModified")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<Guid>("Id")
+                        .HasColumnType("char(36)");
 
                     b.HasKey("PostId", "TagId");
 
@@ -132,13 +159,19 @@ namespace coding.API.Migrations
                     b.ToTable("PostTags");
                 });
 
-            modelBuilder.Entity("coding.API.Models.Entities.Posts.Post", b =>
+            modelBuilder.Entity("coding.API.Models.Posts.Post", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
+                        .HasColumnType("char(36)");
 
                     b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<DateTime>("DateCreated")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<DateTime>("DateModified")
                         .HasColumnType("datetime(6)");
 
                     b.Property<string>("Description")
@@ -159,8 +192,8 @@ namespace coding.API.Migrations
                         .IsRequired()
                         .HasColumnType("longtext CHARACTER SET utf8mb4");
 
-                    b.Property<int>("UserId")
-                        .HasColumnType("int");
+                    b.Property<Guid>("UserId")
+                        .HasColumnType("char(36)");
 
                     b.HasKey("Id");
 
@@ -169,17 +202,23 @@ namespace coding.API.Migrations
                     b.ToTable("Posts");
                 });
 
-            modelBuilder.Entity("coding.API.Models.Entities.Products.Product", b =>
+            modelBuilder.Entity("coding.API.Models.Products.Product", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
+                        .HasColumnType("char(36)");
 
                     b.Property<string>("BodyText")
                         .HasColumnType("longtext CHARACTER SET utf8mb4");
 
                     b.Property<string>("ClientName")
                         .HasColumnType("longtext CHARACTER SET utf8mb4");
+
+                    b.Property<DateTime>("DateCreated")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<DateTime>("DateModified")
+                        .HasColumnType("datetime(6)");
 
                     b.Property<string>("Industry")
                         .HasColumnType("longtext CHARACTER SET utf8mb4");
@@ -196,6 +235,9 @@ namespace coding.API.Migrations
                     b.Property<string>("ProjectIntro")
                         .HasColumnType("longtext CHARACTER SET utf8mb4");
 
+                    b.Property<Guid?>("RequirementId")
+                        .HasColumnType("char(36)");
+
                     b.Property<string>("ShortResume")
                         .HasColumnType("longtext CHARACTER SET utf8mb4");
 
@@ -208,26 +250,34 @@ namespace coding.API.Migrations
                     b.Property<string>("Url")
                         .HasColumnType("longtext CHARACTER SET utf8mb4");
 
-                    b.Property<int>("UserId")
-                        .HasColumnType("int");
+                    b.Property<Guid>("UserId")
+                        .HasColumnType("char(36)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("RequirementId");
 
                     b.HasIndex("UserId");
 
                     b.ToTable("Products");
                 });
 
-            modelBuilder.Entity("coding.API.Models.Entities.Products.ProductsRequirements.ProductRequirement", b =>
+            modelBuilder.Entity("coding.API.Models.Products.ProductsRequirements.ProductRequirement", b =>
                 {
-                    b.Property<int>("ProductId")
-                        .HasColumnType("int");
+                    b.Property<Guid>("ProductId")
+                        .HasColumnType("char(36)");
 
-                    b.Property<int>("RequirementId")
-                        .HasColumnType("int");
+                    b.Property<Guid>("RequirementId")
+                        .HasColumnType("char(36)");
 
-                    b.Property<int>("Id")
-                        .HasColumnType("int");
+                    b.Property<DateTime>("DateCreated")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<DateTime>("DateModified")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<Guid>("Id")
+                        .HasColumnType("char(36)");
 
                     b.HasKey("ProductId", "RequirementId");
 
@@ -236,11 +286,17 @@ namespace coding.API.Migrations
                     b.ToTable("ProductRequirements");
                 });
 
-            modelBuilder.Entity("coding.API.Models.Entities.Products.Requirements.Requirement", b =>
+            modelBuilder.Entity("coding.API.Models.Products.Requirements.Requirement", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
+                        .HasColumnType("char(36)");
+
+                    b.Property<DateTime>("DateCreated")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<DateTime>("DateModified")
+                        .HasColumnType("datetime(6)");
 
                     b.Property<string>("Description")
                         .HasColumnType("longtext CHARACTER SET utf8mb4");
@@ -250,11 +306,17 @@ namespace coding.API.Migrations
                     b.ToTable("Requirements");
                 });
 
-            modelBuilder.Entity("coding.API.Models.Entities.Projects.Project", b =>
+            modelBuilder.Entity("coding.API.Models.Projects.Project", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
+                        .HasColumnType("char(36)");
+
+                    b.Property<DateTime>("DateCreated")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<DateTime>("DateModified")
+                        .HasColumnType("datetime(6)");
 
                     b.Property<string>("Resume")
                         .HasColumnType("longtext CHARACTER SET utf8mb4");
@@ -265,40 +327,48 @@ namespace coding.API.Migrations
                     b.Property<string>("Type")
                         .HasColumnType("longtext CHARACTER SET utf8mb4");
 
-                    b.Property<int>("UserId")
-                        .HasColumnType("int");
+                    b.Property<Guid>("UserId")
+                        .HasColumnType("char(36)");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("UserId");
 
                     b.ToTable("Projects");
                 });
 
-            modelBuilder.Entity("coding.API.Models.Entities.Skills.Skill", b =>
+            modelBuilder.Entity("coding.API.Models.Skills.Skill", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
+                        .HasColumnType("char(36)");
+
+                    b.Property<DateTime>("DateCreated")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<DateTime>("DateModified")
+                        .HasColumnType("datetime(6)");
 
                     b.Property<string>("Title")
                         .HasColumnType("longtext CHARACTER SET utf8mb4");
 
-                    b.Property<int>("UserId")
-                        .HasColumnType("int");
+                    b.Property<Guid>("UserId")
+                        .HasColumnType("char(36)");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("UserId");
 
                     b.ToTable("Skills");
                 });
 
-            modelBuilder.Entity("coding.API.Models.Entities.Tags.Tag", b =>
+            modelBuilder.Entity("coding.API.Models.Tags.Tag", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
+                        .HasColumnType("char(36)");
+
+                    b.Property<DateTime>("DateCreated")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<DateTime>("DateModified")
+                        .HasColumnType("datetime(6)");
 
                     b.Property<string>("Description")
                         .HasColumnType("longtext CHARACTER SET utf8mb4");
@@ -311,11 +381,11 @@ namespace coding.API.Migrations
                     b.ToTable("Tags");
                 });
 
-            modelBuilder.Entity("coding.API.Models.Entities.Users.User", b =>
+            modelBuilder.Entity("coding.API.Models.Users.User", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
+                        .HasColumnType("char(36)");
 
                     b.Property<string>("CodepenProfile")
                         .HasColumnType("longtext CHARACTER SET utf8mb4");
@@ -323,8 +393,11 @@ namespace coding.API.Migrations
                     b.Property<DateTime>("Created")
                         .HasColumnType("datetime(6)");
 
-                    b.Property<string>("CurrentOcupation")
-                        .HasColumnType("longtext CHARACTER SET utf8mb4");
+                    b.Property<DateTime>("DateCreated")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<DateTime>("DateModified")
+                        .HasColumnType("datetime(6)");
 
                     b.Property<string>("Email")
                         .HasColumnType("longtext CHARACTER SET utf8mb4");
@@ -379,14 +452,20 @@ namespace coding.API.Migrations
                     b.ToTable("Users");
                 });
 
-            modelBuilder.Entity("coding.API.Models.Entities.WorkExperiences.WorkExperience", b =>
+            modelBuilder.Entity("coding.API.Models.WorkExperiences.WorkExperience", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
+                        .HasColumnType("char(36)");
 
                     b.Property<string>("Company")
                         .HasColumnType("longtext CHARACTER SET utf8mb4");
+
+                    b.Property<DateTime>("DateCreated")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<DateTime>("DateModified")
+                        .HasColumnType("datetime(6)");
 
                     b.Property<string>("DateRange")
                         .HasColumnType("longtext CHARACTER SET utf8mb4");
@@ -397,123 +476,71 @@ namespace coding.API.Migrations
                     b.Property<string>("Title")
                         .HasColumnType("longtext CHARACTER SET utf8mb4");
 
-                    b.Property<int>("UserId")
-                        .HasColumnType("int");
+                    b.Property<Guid>("UserId")
+                        .HasColumnType("char(36)");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("UserId");
 
                     b.ToTable("WorkExperiences");
                 });
 
-            modelBuilder.Entity("coding.API.Models.Entities.Awards.Award", b =>
+            modelBuilder.Entity("coding.API.Models.Photos.Photo", b =>
                 {
-                    b.HasOne("coding.API.Models.Entities.Users.User", null)
-                        .WithMany("Awards")
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("coding.API.Models.Entities.Educations.Education", b =>
-                {
-                    b.HasOne("coding.API.Models.Entities.Users.User", null)
-                        .WithMany("Educations")
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("coding.API.Models.Entities.Languages.Language", b =>
-                {
-                    b.HasOne("coding.API.Models.Entities.Users.User", null)
-                        .WithMany("Languages")
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("coding.API.Models.Entities.Photos.Photo", b =>
-                {
-                    b.HasOne("coding.API.Models.Entities.Users.User", "User")
+                    b.HasOne("coding.API.Models.Users.User", "User")
                         .WithMany("Photos")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("coding.API.Models.Entities.PostTags.PostTag", b =>
+            modelBuilder.Entity("coding.API.Models.PostTags.PostTag", b =>
                 {
-                    b.HasOne("coding.API.Models.Entities.Posts.Post", "Post")
+                    b.HasOne("coding.API.Models.Posts.Post", "Post")
                         .WithMany("PostTags")
                         .HasForeignKey("PostId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("coding.API.Models.Entities.Tags.Tag", "Tag")
+                    b.HasOne("coding.API.Models.Tags.Tag", "Tag")
                         .WithMany("PostTags")
                         .HasForeignKey("TagId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("coding.API.Models.Entities.Posts.Post", b =>
+            modelBuilder.Entity("coding.API.Models.Posts.Post", b =>
                 {
-                    b.HasOne("coding.API.Models.Entities.Users.User", null)
+                    b.HasOne("coding.API.Models.Users.User", null)
                         .WithMany("Posts")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("coding.API.Models.Entities.Products.Product", b =>
+            modelBuilder.Entity("coding.API.Models.Products.Product", b =>
                 {
-                    b.HasOne("coding.API.Models.Entities.Users.User", null)
+                    b.HasOne("coding.API.Models.Products.Requirements.Requirement", "Requirement")
+                        .WithMany()
+                        .HasForeignKey("RequirementId");
+
+                    b.HasOne("coding.API.Models.Users.User", null)
                         .WithMany("Products")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("coding.API.Models.Entities.Products.ProductsRequirements.ProductRequirement", b =>
+            modelBuilder.Entity("coding.API.Models.Products.ProductsRequirements.ProductRequirement", b =>
                 {
-                    b.HasOne("coding.API.Models.Entities.Products.Product", "Product")
+                    b.HasOne("coding.API.Models.Products.Product", "Product")
                         .WithMany("ProductRequirements")
                         .HasForeignKey("ProductId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("coding.API.Models.Entities.Products.Requirements.Requirement", "Requirement")
+                    b.HasOne("coding.API.Models.Products.Requirements.Requirement", "Requirement")
                         .WithMany("ProductRequirements")
                         .HasForeignKey("RequirementId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("coding.API.Models.Entities.Projects.Project", b =>
-                {
-                    b.HasOne("coding.API.Models.Entities.Users.User", null)
-                        .WithMany("Projects")
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("coding.API.Models.Entities.Skills.Skill", b =>
-                {
-                    b.HasOne("coding.API.Models.Entities.Users.User", null)
-                        .WithMany("Skills")
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("coding.API.Models.Entities.WorkExperiences.WorkExperience", b =>
-                {
-                    b.HasOne("coding.API.Models.Entities.Users.User", null)
-                        .WithMany("WorkExperiences")
-                        .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });

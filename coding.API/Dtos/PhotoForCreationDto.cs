@@ -20,6 +20,7 @@ namespace coding.API.Dtos
         public string Description { get; set; }
         public DateTime DateAdded { get; set; }
         public string PublicId { get; set; }
+        public Guid UserId {get; set;}
         
     }
 }

@@ -7,25 +7,18 @@ namespace coding.API.Dtos
 {
     public class PostForCreateDto
     {
-        public PostForCreateDto()
-        {
-            this.CreatedAt = DateTime.Now;
-             
-        }
-        
+       
         [Required]
         public string Title { get; set; }
         [Required]
         public string Description { get; set; }
         [Required]
         public string Text { get; set; }
-        public DateTime CreatedAt { get; set; }
+       
         public DateTime PublishedAt { get; set; }
         public int ReadingTime { get; set; } // In minutes
-        // public ICollection<Tag> Tags { get; set; }
-        // public User User { get; set; }
-        public int UserId { get; set; }
-        public ICollection<int> TagId { get; set; }
+        public Guid UserId { get; set; }
+        public ICollection<Guid> PostTagId { get; set; }
          
     }
 }

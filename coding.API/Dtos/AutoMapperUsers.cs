@@ -1,26 +1,23 @@
 using System.Linq;
 using AutoMapper;
-using coding.API.Models.Entities;
-using coding.API.Models.Entities.Products;
-using coding.API.Models.Entities.Users;
-using coding.API.Models.Entities.Photos;
-using coding.API.Models.Entities.Awards;
-using coding.API.Models.Entities.Skills;
-using coding.API.Models.Entities.Projects;
-using coding.API.Models.Entities.WorkExperiences;
-using coding.API.Models.Entities.Educations;
-using coding.API.Models.Entities.Tags;
-using coding.API.Models.Entities.Posts;
-using coding.API.Models.Entities.PostTags;
-using coding.API.Models.Entities.Languages;
-using coding.API.Models.Entities.Products.Requirements;
-using coding.API.Models.Entities.Products.ProductsRequirements;
-
-
-
+using coding.API.Models;
+using coding.API.Models.Products;
 using coding.API.Dtos.Products;
-using coding.API.Dtos.Requirements;
+using coding.API.Models.Users;
+using coding.API.Models.Tags;
+using coding.API.Models.Posts;
+using coding.API.Models.Photos;
+using coding.API.Models.PostTags;
+using coding.API.Models.Projects;
+using coding.API.Models.Languages;
+using coding.API.Models.Educations;
+using coding.API.Models.Skills;
+using coding.API.Models.Awards;
+using coding.API.Models.WorkExperiences;
 using System.Collections.Generic;
+using coding.API.Dtos.Requirements;
+using coding.API.Models.Products.Requirements;
+using coding.API.Models.Products.ProductsRequirements;
 
 namespace coding.API.Dtos
 {
@@ -36,8 +33,9 @@ namespace coding.API.Dtos
 
             //Posts Maps
             CreateMap<PostForCreateDto, Post>();
+            CreateMap<Post, PostForCreateDto>();
             CreateMap<PostForDetailDto, Post>();
-            CreateMap<Post, PostForDetailDto>();
+            CreateMap<List<Post>, PostForDetailDto>();
             CreateMap<PostForUpdateDto, Post>().ForMember(post => post.Id, y => y.Ignore());
             // CreateMap<Post, PostForUpdateDto>();
 
@@ -47,17 +45,17 @@ namespace coding.API.Dtos
             CreateMap<TagForUpdateDto, Tag>();
             CreateMap<Tag, TagForDetailDto>();
              
+
+
             //Products Maps
             CreateMap<ProductForCreateDto, Product>();
-            CreateMap<ProductForDetailDto, Product>();
             CreateMap<ProductForUpdateDto, Product>();
             CreateMap<Product, ProductForDetailDto>();
-            CreateMap<Product, List<ProductForDetailDto>>();
             CreateMap<ProductForDetailDto, User>();
             CreateMap<Product, ProductRequirementForDetailDto>();
             CreateMap<ProductRequirement, ProductForDetailDto>();
-             
-            
+            CreateMap<ProductRequirement, ProductRequirementForDetailDto>();
+            CreateMap<ProductRequirement, List<RequirementForDetailDto>>();
 
             //Photo Mapings
             CreateMap<PhotoForCreationDto, Photo>();
@@ -69,14 +67,9 @@ namespace coding.API.Dtos
             // PostsTags Mappings
             CreateMap<PostTagForCreateDto, PostTag>();
             CreateMap<PostTag, PostTagForDetailDto>();
-
-
-            // ProductRequirment Mappings
-            CreateMap<ProductRequirementForCreateDto, ProductRequirement>();
-            CreateMap<ProductRequirement, ProductRequirementForDetailDto>();
             
 
-             // Projects Mappings
+            // Projects Mappings
             CreateMap<CreateProjectDto, Project>();
             CreateMap<UpdateProjectDto, Project>();        
 
@@ -102,9 +95,17 @@ namespace coding.API.Dtos
             CreateMap<UpdateLanguageDto, Language>();
             CreateMap<CreateLanguageDto, Language>();
 
+            // CreateMap<RequirementForCreation, Requirement>();
+            // CreateMap<Requirement, RequirementForDetailDto>();
             CreateMap<RequirementForCreationDto, Requirement>();
             CreateMap<Requirement, RequirementForDetailDto>();
+
+            CreateMap<ProductRequirementForCreateDto, ProductRequirement>();
+            CreateMap<ProductRequirement, RequirementForDetailDto>();
+            
         }
-    
+
+        
+        
     }
 }

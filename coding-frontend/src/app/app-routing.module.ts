@@ -1,41 +1,19 @@
 
-import { ProjectsListComponent } from './projects/projects-list/projects-list.component';
-import { PostListComponent } from './blog/post-list/post-list.component';
-import { ServicesComponent } from './services/services.component';
-import { ContactComponent } from './contact/contact.component';
-import { ProjectsComponent } from './projects/projects.component';
-import { ResumeComponent } from './resume/resume.component';
-import { PortfolioComponent } from './portfolio/portfolio.component';
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { HomeComponent } from './home/home.component';
-import { PostComponent } from './blog/post/post.component';
-
-
+import { HomeComponent } from './pages/home/home.component';
+import { AppPagesComponent } from './pages/app-pages.component';
+import { AppComponent } from './app.component';
 
 const routes: Routes = [
-  { path: '', redirectTo: 'home', pathMatch: 'full' },
+  { path: '', redirectTo: 'pages/home', pathMatch: 'full' },
+  { path: 'pages', loadChildren: './pages/pages.module#PagesModule' },
   { path: 'admin', loadChildren: './admin/admin.module#AdminModule' },
-  {
-    path: '',
-    children: [
-      { path: 'home', component: HomeComponent },
-      { path: 'portfolio', component: PortfolioComponent },
-      { path: 'services', component: ServicesComponent },
-      { path: 'resume', component: ResumeComponent },
-      { path: 'blog', component: PostListComponent },
-      { path: 'blog/:id', component: PostComponent },
-      { path: 'projects', component: ProjectsListComponent },
-      { path: 'projects/:id', component: ProjectsComponent },
-      { path: 'contact', component: ContactComponent },
-
-    ]
-  },
-  { path: '**', redirectTo: 'home', pathMatch: 'full' },
+  { path: '**', component: AppComponent }
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes, { enableTracing: true })],
+  imports: [RouterModule.forRoot(routes, { enableTracing: false })],
   exports: [RouterModule]
 })
 export class AppRoutingModule { }

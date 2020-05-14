@@ -1,0 +1,73 @@
+<nb-card status="success">
+    <nb-card-header>Edit product: {{ product.name }}</nb-card-header>
+    <nb-card-body>
+        <form #editProduct="ngForm" name="editProduct">
+            <div class="row">
+                <div class="col-md-6">
+                    <label for="productname" class="label">Product Name:</label>
+                    <input #prodName="ngModel" required minlength="4" [(ngModel)]="product.name" nbInput
+                        name="productname" type="text" placeholder="Product Name">
+
+                    <div *ngIf="prodName.invalid && (prodName.dirty || prodName.touched)">
+                        <nb-alert *ngIf="prodName.errors.required" status="warning">Name is required.
+                        </nb-alert>
+                        <nb-alert *ngIf="prodName.errors.minlength" status="warning">Name must be at
+                            least 4
+                            characters long.</nb-alert>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <label for="product" class="label">Product Descrption:</label>
+                    <input #prodD="ngModel" required minlength="4" [(ngModel)]="product.productDescription" nbInput
+                        name="productdescription" type="text" placeholder="Product Descrption">
+
+                    <div *ngIf="prodD.invalid && (prodD.dirty || prodD.touched)">
+                        <nb-alert *ngIf="prodD.errors.required" status="warning">Description is required.
+                        </nb-alert>
+                        <nb-alert *ngIf="prodD.errors.minlength" status="warning">Description must be at
+                            least 4
+                            characters long.</nb-alert>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <label for="type" class="label">Type:</label>
+                    <div class="form-group">
+                        <nb-select required name="type" [(ngModel)]="product.type" placeholder="Select Product Type">
+                            <nb-option value="desktop">Desktop</nb-option>
+                            <nb-option value="mobile">Mobile</nb-option>
+                            <nb-option value="backend">Backend</nb-option>
+                            <nb-option value="frontend">Frontend</nb-option>
+                        </nb-select>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="url" class="label">Product Url:</label>
+                        <input required [(ngModel)]="product.url" nbInput name="producturl" type="text"
+                            placeholder="Product Url">
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    Requirements
+                </div>
+                <div *ngFor="let req of product.productRequirements">
+                    {{ req.requirement.description}}
+                </div>
+            </div>
+
+        </form>
+    </nb-card-body>
+    <nb-card-footer>
+        <button [disabled]="!editProduct.dirty || !editProduct.valid" [nbSpinner]="deleteSpinner"
+            nbSpinnerStatus="success" nbSpinnerSize="small" nbButton status="success"
+            (click)="editItem(product.id, product)">
+            <!-- <button nbButton status="danger" (click)="ref.close()"> -->
+            <nb-icon icon="edit"></nb-icon>Edit!
+        </button>
+
+    </nb-card-footer>
+</nb-card>

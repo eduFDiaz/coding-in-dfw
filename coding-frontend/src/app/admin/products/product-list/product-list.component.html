@@ -1,0 +1,60 @@
+<nb-card [nbSpinner]="spinner" nbSpinnerStatus="primary" nbSpinnerMessage="Loading your products">
+    <nb-card-header>My products
+        <button (click)="goToAddProduct()" nbTooltip="Add new product" nbTooltipStatus="success" nbButton size="tiny"
+            type="button" status="success">
+            <nb-icon icon="plus"></nb-icon>
+        </button>
+    </nb-card-header>
+    <nb-card-body>
+        <table class="table" *ngIf="products">
+            <thead>
+                <tr>
+                    <th scope="col">Name</th>
+                    <th scope="col">Size</th>
+                    <th scope="col">Type</th>
+                    <th scope="col">Description</th>
+                    <th scope="col">Requirements</th>
+                    <th scope="col">Industry</th>
+                    <th scope="col">Url</th>
+                    <th scope="col">Options</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let product of products" name="product">
+                    <td>{{ product.name }}</td>
+                    <td>{{ product.size }}</td>
+                    <td>{{ product.type }}</td>
+                    <td>{{ product.productDescription}}</td>
+                    <td><div class="col" >
+                            <ul>
+                                <li *ngFor="let req of product.productRequirements">
+                                    {{ req.requirement.description }}
+                                </li>
+                            </ul>
+                        </div>
+                    </td>
+                    <td>{{ product.industry }}</td>
+                    <th><a href="{{ product.url }}">Visit product</a></th>
+                    <td>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <button (click)="openEditDialog(product)" nbTooltip="Edit this product"
+                                    nbTooltipStatus="success" nbButton size="tiny" type="button" status="success">
+                                    <nb-icon icon="edit"></nb-icon>
+                                </button>
+                            </div>
+                            <div class="col-md6">
+                                <button (click)="openDeleteDialog(product)" nbTooltip="Delete this product!"
+                                    nbTooltipStatus="danger" nbButton size="tiny" type="button" status="danger">
+                                    <nb-icon icon="trash"></nb-icon>
+                                </button>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+    </nb-card-body>
+
+</nb-card>

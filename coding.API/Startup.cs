@@ -4,6 +4,7 @@ using System.Linq;
 using System.Net;
 using System.Text;
 using System.Threading.Tasks;
+using coding.API.Models;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -21,8 +22,8 @@ using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using AutoMapper;
 using Microsoft.OpenApi.Models;
+using coding.API.Models.Products;
 using coding.API.Helpers;
-using coding.API.Models.Interfaces;
 using coding.API.Data;
 
 namespace coding.API
@@ -43,19 +44,12 @@ namespace coding.API
         {
             services.AddControllers();
 
-            services.AddDbContext<DataContext>(x => x.UseMySql(Configuration.GetConnectionString("MySqlConnection")));
-            //services.AddDbContext<DataContext>(x => x.UseSqlite(Configuration.GetConnectionString("DefaultConnection")));
-            //services.AddDbContext<DataContext>(options => options.UseSqlServer(Configuration.GetConnectionString("AzureSqlConnection")));
-            //services.AddDbContext<DataContext>(options => options.UseSqlServer(Configuration.GetConnectionString("SqliteConnection")));
+            // @Denis as� se inyecta el repositorio porque es gen�rico.
+            services.AddTransient(typeof(Repository<>));
 
-            // Scoped services are created one per request but uses the same for scope of the request
-            // with these you make the interfaces and its implementations available for Dependency Injection to the controllers
-            services.AddScoped<IRepo, Repo>();
-            services.AddScoped<IAuthRepo, AuthRepo>();
-            services.AddScoped<IPostRepo, PostRepo>();
-            services.AddScoped<ITagRepo, TagRepo>();
-            services.AddScoped<IProductRepo, ProductRepo>();
-            services.AddScoped<IPhotoRepo, PhotoRepo>();
+            // Data Context
+            services.AddDbContext<DataContext>(x => x.UseMySql(Configuration.GetConnectionString("MySqlConnection")));
+          
 
             services.AddSwaggerGen(c => {
                 c.SwaggerDoc("v1", new OpenApiInfo { 
@@ -70,11 +64,11 @@ namespace coding.API
             services.AddMvc(options => options.EnableEndpointRouting = false).SetCompatibilityVersion(CompatibilityVersion.Version_3_0);
             services.AddControllers().AddNewtonsoftJson(options =>
                   options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore
-                );   
-            // .AddJsonOptions( options => {
-            //     options.SerializerSettings.ReferenceLoopHandling
-            //     = Newtonsoft.Json.ReferenceLoopHandling.Ignore;
-            // }) */
+                );  /* 
+            .AddJsonOptions( options => {
+                options.SerializerSettings.ReferenceLoopHandling
+                = Newtonsoft.Json.ReferenceLoopHandling.Ignore;
+            }) */
             services.AddAutoMapper(typeof(Startup));
 
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)

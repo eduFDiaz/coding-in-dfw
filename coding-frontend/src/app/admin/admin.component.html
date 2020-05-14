@@ -1,9 +1,20 @@
 <nb-layout>
-    <nb-layout-header fixed>Company Name</nb-layout-header>
 
-    <nb-sidebar state="fixed">Sidebar Content</nb-sidebar>
+    <nb-layout-header fixed>
+        <app-header class="test" fixed></app-header>
+    </nb-layout-header>
+
+    <nb-sidebar responsive>
+        <nb-menu [items]="items">
+        </nb-menu>
+    </nb-sidebar>
 
     <nb-layout-column>
-        Page Content <button nbButton (click)="logout()">Hello World</button>
+        <router-outlet></router-outlet>
     </nb-layout-column>
+
+    <nb-layout-footer fixed>
+        Coding in DFW is a personal blog / 2020 made with Nebular Admin
+    </nb-layout-footer>
+
 </nb-layout>

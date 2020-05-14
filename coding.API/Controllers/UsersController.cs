@@ -11,9 +11,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using System.Security.Claims;
-using coding.API.Models.Interfaces;
-using coding.API.Models.Entities.Users;
-
+using coding.API.Data;
+using coding.API.Models.Users;
 
 namespace coding.API.Controllers
 {
@@ -22,46 +21,53 @@ namespace coding.API.Controllers
     [Route("api/[controller]")]
     public class UsersController : ControllerBase
     {
-        private readonly IRepo _repo;
+        
         private readonly IMapper _mapper;
+         private readonly Repository<User> _userDal;
 
-        public UsersController(IRepo repo, IMapper mapper)
+        public UsersController(Repository<User> userDal, IMapper mapper)
         {
-            this._mapper = mapper;
-            this._repo = repo;
+          _mapper = mapper;
+          _userDal = userDal;
+            
         }
 
         [HttpGet]
         public async Task<ActionResult<IEnumerable>> GetUsers()
         {
-            var users = await this._repo.GetUsers();
+            var users = (await _userDal.ListAsync());
+            
             var usersToReturn = _mapper.Map<List<UserForDetailedDto>>(users); 
+            
             return Ok(usersToReturn);
         }
 
         [HttpGet("{userId}", Name = "GetUser")]
-        public async Task<ActionResult<User>> GetUser(int userId)
+        public async Task<ActionResult<User>> GetUser(Guid userId)
         {
-            var user = await this._repo.GetUser(userId);
+            var user = await _userDal.GetById(userId);
+            
             var userToReturn = _mapper.Map<UserForDetailedDto>(user);
+            
             return Ok(userToReturn);
+            
         }
 
-        [Authorize]
+        
         [HttpPut("{id}")]
-        public async Task<IActionResult> UpdateUser(int id, UserForUpdateDto userForUpdateDto)
+        public async Task<IActionResult> UpdateUser(Guid id, UserForUpdateDto userForUpdateDto)
         {
-            if (id != int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value))
-                return Unauthorized();
-                
-            var userFromRepo = await _repo.GetUser(id);
+            var userFromRepo =  await _userDal.GetById(id);
 
             _mapper.Map(userForUpdateDto, userFromRepo);
 
-            if (await _repo.SaveAll())
-                return NoContent();
+            _userDal.Update(userFromRepo);
 
-            throw new Exception($"Failed update");
+            if (await _userDal.SaveAll())
+                 return Ok(userForUpdateDto);
+
+            // throw new Exception($"Failed update");
+            return BadRequest("Cant update the user");
         }
 
     }

@@ -1,0 +1,133 @@
+<div class="row">
+    <div class="col-md-12">
+        <nb-card [nbSpinner]="productaddSpinner" nbSpinnerStatus="primary">
+            <nb-card-header>Add a new product</nb-card-header>
+            <nb-card-body>
+                <form #addProductForm="ngForm" name="addProductForm" id="addProductForm" (submit)="newProduct()">
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label for="name" class="label">Product Name</label>
+                                <input #productName="ngModel" minlength="4" required [(ngModel)]="product.name"
+                                    name="name" type="text" nbInput fullWidth id="productname"
+                                    placeholder="Product Name">
+
+                                <div *ngIf="productName.invalid && (productName.dirty || productName.touched)">
+                                    <nb-alert *ngIf="productName.errors.required" status="warning">Name is required.
+                                    </nb-alert>
+                                    <nb-alert *ngIf="productName.errors.minlength" status="warning">Name must be at
+                                        least 4
+                                        characters long.</nb-alert>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label for="description" class="label">Description</label>
+                                <input required minlength="4" #productDesc="ngModel"
+                                    [(ngModel)]="product.productDescription" name="description" type="text" nbInput
+                                    fullWidth id="productDescription" placeholder="Describe the product">
+
+                                <div *ngIf="productDesc.invalid && (productDesc.dirty || productDesc.touched)">
+                                    <nb-alert *ngIf="productDesc.errors.required" status="warning">Description is
+                                        required.
+                                    </nb-alert>
+                                    <nb-alert *ngIf="productDesc.errors.minlength" status="warning">Description must
+                                        be
+                                        at
+                                        least 4
+                                        characters long.</nb-alert>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label for="url" class="label">Url</label>
+                                <input required [(ngModel)]="product.url" name="url" type="text" nbInput fullWidth
+                                    id="url" placeholder="Url">
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label for="type" class="label">Type:</label><br>
+                                <nb-select required name="type" [(ngModel)]="product.type" [(selected)]="selected"
+                                    placeholder="Select Product Type">
+                                    <nb-option value="desktop">Desktop</nb-option>
+                                    <nb-option value="mobile">Mobile</nb-option>
+                                    <nb-option value="backend">Backend</nb-option>
+                                    <nb-option value="frontend">Frontend</nb-option>
+                                </nb-select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label for="industry" class="label">Industry</label>
+                                <input required [(ngModel)]="product.industry" name="industry" type="text" nbInput
+                                    fullWidth id="industry" placeholder="Industry">
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <label for="type" class="label">Requirements:</label><br>
+                            <nb-select #prodReq="ngModel" multiple name="requirementId"
+                                [(ngModel)]="product.requirementId" placeholder="Select Requirements">
+                                <nb-option *ngFor="let req of requirements" value="{{ req.id }}">
+                                    {{ req.description }}
+                                </nb-option>
+                            </nb-select>
+                            <button (click)="openAddRequirementDialog()" nbButton type="button" size="tiny"
+                                status="success">
+                                <nb-icon icon="plus"></nb-icon>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <label for="industry" class="label">Client Name:</label>
+                            <input required [(ngModel)]="product.clientName" name="client" type="text" nbInput fullWidth
+                                id="client" placeholder="Client Name">
+                        </div>
+                        <div class="col-md-6">
+                            <label for="industry" class="label">Size:</label>
+                            <input required [(ngModel)]="product.size" name="size" type="number" nbInput fullWidth
+                                id="size" placeholder="Size in numbers">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <label for="industry" class="label">Project Intro:</label>
+                            <ckeditor [editor]="Editor" #mytext name="text" data="<p>Hello, world!</p>"
+                                [(ngModel)]="product.projectIntro">
+                            </ckeditor>
+                        </div>
+                        <div class="col-md-6">
+                            <label for="industry" class="label">Short Resume:</label>
+                            <ckeditor [editor]="Editor" #mytext name="text" data="<p>Hello, world!</p>"
+                                [(ngModel)]="product.shortResume">
+                            </ckeditor>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12">
+                            <label for="text" class="label">Product Text Body:</label>
+                            <ckeditor [editor]="Editor" #mytext name="text" data="<p>Hello, world!</p>"
+                                [(ngModel)]="product.text">
+                            </ckeditor>
+                        </div>
+                    </div>
+                </form>
+                <br>
+                <div class="col-md-6">
+                    <button [disabled]="!addProductForm.dirty || !addProductForm.valid" (click)="newProduct()"
+                        [nbSpinner]="spinner" nbSpinnerStatus="success" nbSpinnerSize="small" status="success"
+                        type="submit" nbButton>Add
+                        Product to my Portfolio</button>
+                </div>
+            </nb-card-body>
+        </nb-card>
+    </div>
+</div>
