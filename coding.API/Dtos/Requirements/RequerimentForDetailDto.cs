@@ -6,6 +6,7 @@ namespace coding.API.Dtos.Requirements
     {
         public Guid Id { get; set; }
         public string Description { get; set; }
+        
         // public int ProductId { get; set; }
         
     }

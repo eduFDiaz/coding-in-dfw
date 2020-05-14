@@ -28,7 +28,7 @@ namespace coding.API.Dtos.Products
         // public List<ProductRequirementForDetailDto> Requirements { get; set; }
         // public RequirementForDetailDto Requirements { get; set; }
 
-        public List<RequirementForDetailDto> Requirements { get; set; } 
+        public List<ProductRequirementForDetailDto> ProductRequirements { get; set; } 
         // public List<ProductRequirementForDetailDto> ProductRequirements {get; set;} this works
 
         

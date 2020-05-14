@@ -2,15 +2,17 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using coding.API.Models;
 
 namespace coding.API.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20200514200859_UserFieldAdded")]
+    partial class UserFieldAdded
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -258,6 +260,9 @@ namespace coding.API.Migrations
                     b.Property<string>("ProjectIntro")
                         .HasColumnType("longtext CHARACTER SET utf8mb4");
 
+                    b.Property<Guid?>("RequirementId")
+                        .HasColumnType("char(36)");
+
                     b.Property<string>("ShortResume")
                         .HasColumnType("longtext CHARACTER SET utf8mb4");
 
@@ -274,6 +279,8 @@ namespace coding.API.Migrations
                         .HasColumnType("char(36)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("RequirementId");
 
                     b.HasIndex("UserId");
 
@@ -540,6 +547,10 @@ namespace coding.API.Migrations
 
             modelBuilder.Entity("coding.API.Models.Products.Product", b =>
                 {
+                    b.HasOne("coding.API.Models.Products.Requirements.Requirement", "Requirement")
+                        .WithMany()
+                        .HasForeignKey("RequirementId");
+
                     b.HasOne("coding.API.Models.Users.User", null)
                         .WithMany("Products")
                         .HasForeignKey("UserId")
