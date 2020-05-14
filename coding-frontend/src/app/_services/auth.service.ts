@@ -13,13 +13,13 @@ import { Subject, BehaviorSubject, throwError, Observable } from 'rxjs';
 })
 export class AuthService {
 
+  // The service will use a behavior subject so any component can subscribe to changes emitted by it
+  photoUrl = new BehaviorSubject<string>('https://www.bsn.eu/wp-content/uploads/2016/12/user-icon-image-placeholder-300-grey.jpg');
+  currentPhotoUrl = this.photoUrl.asObservable();
+
   private currentUserSubject: BehaviorSubject<User>
 
   public currentUser: Observable<User>
-
-  private currentDisplayModeSubject: BehaviorSubject<boolean>
-
-  private currentDisplayMode: Observable<boolean>
 
   private isLogedIn = new BehaviorSubject(true);
 
@@ -37,8 +37,6 @@ export class AuthService {
     this.currentUserSubject = new BehaviorSubject<User>(JSON.parse(localStorage.getItem('data')));
     this.currentUser = this.currentUserSubject.asObservable();
 
-    this.currentDisplayModeSubject = new BehaviorSubject<boolean>(true)
-    this.currentDisplayMode = this.currentDisplayModeSubject.asObservable()
   }
 
   public get currentUserValue(): User {
@@ -65,10 +63,6 @@ export class AuthService {
 
   changeCurrentLoginStatus(status: boolean) {
     this.isLogedIn.next(status)
-  }
-
-  changeCurrentDisplayMode() {
-    this.currentDisplayModeSubject.next(true)
   }
 
   changeCurrentUser(user: User) {
@@ -102,14 +96,6 @@ export class AuthService {
   getUser(): Observable<User> {
     return this.currentUserSubject.asObservable()
   }
-
-  getDisplayMode(): Observable<boolean> {
-    return this.currentDisplayModeSubject.asObservable()
-  }
-
-  // The service will use a behavior subject so any component can subscribe to changes emitted by it
-  photoUrl = new BehaviorSubject<string>('https://www.bsn.eu/wp-content/uploads/2016/12/user-icon-image-placeholder-300-grey.jpg');
-  currentPhotoUrl = this.photoUrl.asObservable();
 
 
   changeMemberPhoto(photoUrl: string) {

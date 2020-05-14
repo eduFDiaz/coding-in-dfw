@@ -2,7 +2,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 
@@ -14,6 +14,7 @@ import { UserService } from './_services/user.service';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NbSidebarModule, NbToastrModule } from '@nebular/theme';
 import { PagesModule } from './pages/pages.module';
+import { ErrorInterceptorService } from './_services/error-interceptor.service';
 
 
 @NgModule({
@@ -32,7 +33,7 @@ import { PagesModule } from './pages/pages.module';
     AdminModule,
     AppRoutingModule,
   ],
-  providers: [AuthService, UserService],
+  providers: [AuthService, UserService, ErrorInterceptorService, { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptorService, multi: true }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

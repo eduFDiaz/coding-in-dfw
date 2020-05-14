@@ -9,8 +9,8 @@ using coding.API.Models;
 namespace coding.API.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20200514185437_interest")]
-    partial class interest
+    [Migration("20200514200043_initial")]
+    partial class initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -75,6 +75,29 @@ namespace coding.API.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Educations");
+                });
+
+            modelBuilder.Entity("coding.API.Models.Interests.Interest", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("char(36)");
+
+                    b.Property<DateTime>("DateCreated")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<DateTime>("DateModified")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<string>("Title")
+                        .HasColumnType("longtext CHARACTER SET utf8mb4");
+
+                    b.Property<Guid>("UserId")
+                        .HasColumnType("char(36)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Interests");
                 });
 
             modelBuilder.Entity("coding.API.Models.Languages.Language", b =>
@@ -237,9 +260,6 @@ namespace coding.API.Migrations
                     b.Property<string>("ProjectIntro")
                         .HasColumnType("longtext CHARACTER SET utf8mb4");
 
-                    b.Property<Guid?>("RequirementId")
-                        .HasColumnType("char(36)");
-
                     b.Property<string>("ShortResume")
                         .HasColumnType("longtext CHARACTER SET utf8mb4");
 
@@ -256,8 +276,6 @@ namespace coding.API.Migrations
                         .HasColumnType("char(36)");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("RequirementId");
 
                     b.HasIndex("UserId");
 
@@ -521,10 +539,6 @@ namespace coding.API.Migrations
 
             modelBuilder.Entity("coding.API.Models.Products.Product", b =>
                 {
-                    b.HasOne("coding.API.Models.Products.Requirements.Requirement", "Requirement")
-                        .WithMany()
-                        .HasForeignKey("RequirementId");
-
                     b.HasOne("coding.API.Models.Users.User", null)
                         .WithMany("Products")
                         .HasForeignKey("UserId")

@@ -258,9 +258,6 @@ namespace coding.API.Migrations
                     b.Property<string>("ProjectIntro")
                         .HasColumnType("longtext CHARACTER SET utf8mb4");
 
-                    b.Property<Guid?>("RequirementId")
-                        .HasColumnType("char(36)");
-
                     b.Property<string>("ShortResume")
                         .HasColumnType("longtext CHARACTER SET utf8mb4");
 
@@ -277,8 +274,6 @@ namespace coding.API.Migrations
                         .HasColumnType("char(36)");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("RequirementId");
 
                     b.HasIndex("UserId");
 
@@ -545,10 +540,6 @@ namespace coding.API.Migrations
 
             modelBuilder.Entity("coding.API.Models.Products.Product", b =>
                 {
-                    b.HasOne("coding.API.Models.Products.Requirements.Requirement", "Requirement")
-                        .WithMany()
-                        .HasForeignKey("RequirementId");
-
                     b.HasOne("coding.API.Models.Users.User", null)
                         .WithMany("Products")
                         .HasForeignKey("UserId")

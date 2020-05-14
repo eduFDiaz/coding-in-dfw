@@ -44,6 +44,10 @@ export class ErrorInterceptorService implements HttpInterceptor {
               this.alert.showToast('top-right', 'success', 'Update Success', ' Ok')
               break;
 
+            case 404:
+              console.log("errrrrrrrrrrr")
+              break
+
           }
         }
         return event;
