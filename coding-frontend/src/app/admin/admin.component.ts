@@ -19,7 +19,6 @@ export class AdminComponent implements OnInit {
 
   constructor(private auth: AuthService) {
     // this.auth.getUser().subscribe(x => this.currentUser = x)
-    this.auth.changeCurrentDisplayMode()
 
   }
   ngOnInit() {

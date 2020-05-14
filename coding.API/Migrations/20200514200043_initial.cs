@@ -42,6 +42,21 @@ namespace coding.API.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Interests",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(nullable: false),
+                    DateCreated = table.Column<DateTime>(nullable: false),
+                    DateModified = table.Column<DateTime>(nullable: false),
+                    Title = table.Column<string>(nullable: true),
+                    UserId = table.Column<Guid>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Interests", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Langagues",
                 columns: table => new
                 {
@@ -279,29 +294,27 @@ namespace coding.API.Migrations
                 name: "ProductRequirements",
                 columns: table => new
                 {
-                    ProductId = table.Column<int>(nullable: false),
-                    RequirementId = table.Column<int>(nullable: false),
+                    ProductId = table.Column<Guid>(nullable: false),
+                    RequirementId = table.Column<Guid>(nullable: false),
                     Id = table.Column<Guid>(nullable: false),
                     DateCreated = table.Column<DateTime>(nullable: false),
-                    DateModified = table.Column<DateTime>(nullable: false),
-                    ProductId1 = table.Column<Guid>(nullable: true),
-                    RequirementId1 = table.Column<Guid>(nullable: true)
+                    DateModified = table.Column<DateTime>(nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_ProductRequirements", x => new { x.ProductId, x.RequirementId });
                     table.ForeignKey(
-                        name: "FK_ProductRequirements_Products_ProductId1",
-                        column: x => x.ProductId1,
+                        name: "FK_ProductRequirements_Products_ProductId",
+                        column: x => x.ProductId,
                         principalTable: "Products",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_ProductRequirements_Requirements_RequirementId1",
-                        column: x => x.RequirementId1,
+                        name: "FK_ProductRequirements_Requirements_RequirementId",
+                        column: x => x.RequirementId,
                         principalTable: "Requirements",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateIndex(
@@ -320,14 +333,9 @@ namespace coding.API.Migrations
                 column: "TagId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_ProductRequirements_ProductId1",
+                name: "IX_ProductRequirements_RequirementId",
                 table: "ProductRequirements",
-                column: "ProductId1");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_ProductRequirements_RequirementId1",
-                table: "ProductRequirements",
-                column: "RequirementId1");
+                column: "RequirementId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Products_UserId",
@@ -342,6 +350,9 @@ namespace coding.API.Migrations
 
             migrationBuilder.DropTable(
                 name: "Educations");
+
+            migrationBuilder.DropTable(
+                name: "Interests");
 
             migrationBuilder.DropTable(
                 name: "Langagues");

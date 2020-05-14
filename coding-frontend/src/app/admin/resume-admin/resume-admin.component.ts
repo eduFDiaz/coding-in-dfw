@@ -140,11 +140,11 @@ export class ResumeAdminComponent implements OnInit {
           this.langs = this.langs.filter((obj: any) => obj.id !== data.id)
           break;
 
-        case 'interest':
+        case 'deleteinterest':
           this.resume.deleteInterest(data.id).subscribe((result) => {
             this.alert.showToast('bottom-left', 'info', 'Delete Ok', 'Your interest was deleted')
           })
-          this.langs = this.interests.filter((obj: any) => obj.id !== data.id)
+          this.interests = this.interests.filter((obj: any) => obj.id !== data.id)
           break;
 
         case 'deleteeducation':

@@ -9,6 +9,7 @@ import { AddpostComponent } from './post/addpost/addpost.component';
 import { ProductListComponent } from './products/product-list/product-list.component';
 import { TaglistComponent } from './post/taglist/taglist.component';
 import { ProductAddComponent } from './products/product-add/product-add.component';
+import { PhotoaddComponent } from './profile/photoadd/photoadd.component';
 
 
 
@@ -18,6 +19,7 @@ const routes: Routes = [
       { path: 'login', component: LoginComponent, pathMatch: 'full' },
       { path: 'resume', component: ResumeAdminComponent, pathMatch: 'full', canActivate: [AuthGuardService] },
       { path: 'profile', component: ProfileComponent, pathMatch: 'full', canActivate: [AuthGuardService] },
+      { path: 'profile/profilepics', component: PhotoaddComponent, pathMatch: 'full' },
       {
         path: 'posts/list',
         component: PostlistComponent,
