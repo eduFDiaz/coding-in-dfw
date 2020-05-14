@@ -106,6 +106,16 @@ export class AuthService {
   getDisplayMode(): Observable<boolean> {
     return this.currentDisplayModeSubject.asObservable()
   }
+
+  // The service will use a behavior subject so any component can subscribe to changes emitted by it
+  photoUrl = new BehaviorSubject<string>('https://www.bsn.eu/wp-content/uploads/2016/12/user-icon-image-placeholder-300-grey.jpg');
+  currentPhotoUrl = this.photoUrl.asObservable();
+
+
+  changeMemberPhoto(photoUrl: string) {
+    // localStorage.setItem('user', JSON.stringify(this.loggedInUser));
+    this.photoUrl.next(photoUrl);
+  }
 }
 
 

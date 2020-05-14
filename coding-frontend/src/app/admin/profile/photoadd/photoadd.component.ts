@@ -69,10 +69,6 @@ export class PhotoaddComponent implements OnInit {
       removeAfterUpload: true,
       autoUpload: false,
       maxFileSize: 15 * 1024 * 1024,
-      // additionalParameter: {
-      //   UserId: this.user.getCurrentUserId(),
-      //   DateAdded: "2020-05-14T14:22:30.950Z"
-      // },
 
     });
     // This fixes a CORS bug
@@ -91,11 +87,41 @@ export class PhotoaddComponent implements OnInit {
         };
         this.photos.push(photo);
         if (photo.isMain) {
-          // this.authService.changeMemberPhoto(photo.url);
-          // this.authService.loggedInUser.photoUrl = photo.url;
+          this.auth.changeMemberPhoto(photo.url);
+          // this.auth.loggedInUser.photoUrl = photo.url;
         }
       }
     };
+  }
+
+  setAsMainPhoto(photo: Photo) {
+    this.user.setAsMainPhoto(photo.id)
+      .subscribe(() => {
+        this.currentMainPhoto = this.photos.filter(p => p.isMain === true)[0];
+        this.currentMainPhoto.isMain = false;
+        photo.isMain = true;
+        this.auth.changeMemberPhoto(photo.url);
+      }, error => { console.log(error); }
+        , () => { });
+  }
+
+  DeletePhoto(photo: Photo) {
+    // this.alertify.confirm('Are you sure you want to delete the photo with id: ' + photo.id.toString() + '?',
+    //   () => {
+    //     return this.deletePicture(photo);
+    //   });
+    return this.deletePicture(photo)
+  }
+
+  deletePicture(photo: Photo) {
+    this.user.DeletePhoto(photo.id)
+      .subscribe(() => {
+        const id = this.photos.indexOf(photo);
+        this.photos = this.photos.filter((data, idx) => idx !== id);
+        // this.alertify.success('Photo deleted successfully!');
+        console.log("OK borrada la foto")
+      }, error => { console.log("Error no se pudo borrar la foto") }
+        , () => { });
   }
 
 

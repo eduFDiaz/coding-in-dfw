@@ -62,12 +62,20 @@ export class UserService {
     return this.http.post(this.baseUrl + '/photo', data)
   }
 
+  DeletePhoto(photoId: string) {
+    return this.http.delete(this.baseUrl + '/photo/' + photoId, { headers: { 'authorization': 'Bearer ' + localStorage.getItem('token') } });
+  }
+
   getAllUsers() {
     return this.http.get(this.baseUrl + '/users')
   }
 
   getAllUserPhotos(): Observable<Photo> {
     return this.http.get<Photo>(this.baseUrl + '/photo/all')
+  }
+
+  setAsMainPhoto(photoId: string) {
+    return this.http.post(this.baseUrl + '/photo/' + photoId + '/setMain', {}, { headers: { 'authorization': 'Bearer ' + localStorage.getItem('token') } })
   }
 }
 
