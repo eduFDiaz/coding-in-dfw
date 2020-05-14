@@ -24,7 +24,7 @@ namespace coding.API.Models.Products
         public Guid UserId { get; set; }
         public List<ProductRequirement> ProductRequirements { get; set; }
 
-        //public Requirement Requirement { get; set; }
+        public Requirement Requirement { get; set; }
         
     }
 }

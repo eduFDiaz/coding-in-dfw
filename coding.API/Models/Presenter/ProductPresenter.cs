@@ -31,7 +31,7 @@ namespace coding.API.Models.Presenter
         // public ICollection<int> Requirements => _product.ProductRequirements.Select(t => t.RequirementId).ToList();
 
         [JsonProperty("requirements")]
-        public ICollection<string> Requirements => _product.ProductRequirements.Select(t => t.Requirement).Select(t => t.Description).ToList();
+        public List<string> Requirements => _product.ProductRequirements.Select(t => t.Requirement).Select(t => t.Description).ToList();
 
         [JsonProperty("industry")]
         public string Industry => _product.Industry;
