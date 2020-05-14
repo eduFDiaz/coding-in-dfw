@@ -6,6 +6,7 @@ import { map, catchError } from 'rxjs/operators';
 import { UserService } from './user.service';
 import { Language } from '../_models/Language';
 import { Skill } from '../_models/Skill';
+import { Interest } from '../_models/Interest';
 
 
 
@@ -371,6 +372,66 @@ export class ResumeService {
       )
     )
   }
+
+  getInterests(userid: string): Observable<Interest[]> {
+    return this.http.get<any>(this.baseUrl + '/interest/foruser/' + userid).pipe(
+      map((interest) => {
+        return interest
+      }, catchError(err => {
+        return err
+      }))
+    )
+  }
+
+  addInterest(data: Interest): Observable<Interest> {
+    return this.http.post<any>(this.baseUrl + '/interest/create', data, {
+      headers: {
+        'Content-Type': 'application/json',
+        // tslint:disable-next-line: object-literal-key-quotes
+        'authorization': 'Bearer ' + localStorage.getItem('token')
+      }
+    }).pipe(
+      map(
+        (result) => {
+          return result
+        }
+      ))
+  }
+
+  deleteInterest(id: string) {
+    return this.http.delete(this.baseUrl + '/interest/' + id + '/delete', {
+      headers: {
+        'Content-Type': 'application/json',
+        // tslint:disable-next-line: object-literal-key-quotes
+        'authorization': 'Bearer ' + localStorage.getItem('token')
+      }
+    }).pipe(map(
+      (result) => {
+        return result
+      }, catchError(err => {
+        return err
+      })
+    ))
+  }
+
+  updateInterest(id: string, data: string) {
+    return this.http.put(this.baseUrl + '/interest/' + id + '/update', data, {
+      headers: {
+        'Content-Type': 'application/json-patch+json',
+        // tslint:disable-next-line: object-literal-key-quotes
+        'authorization': 'Bearer ' + localStorage.getItem('token')
+      }
+    }).pipe(
+      map(
+        (result) => {
+          return result
+        }, catchError(err => {
+          return err
+        })
+      )
+    )
+  }
+
 
 
 

@@ -246,6 +246,32 @@
                     </div>
 
                 </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <b> Your Interests:</b>
+                        <button nbButton status="success"
+                            (click)="createDialogGeneric(addGeneric, newInterest, 'interest')" size="tiny">+</button>
+                        <nb-list>
+                            <nb-list-item *ngFor="let interest of interests">
+                                <div class="col-md-8">Title: {{ interest.title }}<br>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="row">
+                                        <button (click)="openDeleteDialog(dialogDelete, interest, 'interest')" nbButton
+                                            status="danger" size="tiny">
+                                            <nb-icon icon="trash"></nb-icon>
+                                        </button>
+                                        <button (click)="openEditDialog(dialogEdit, interest, 'interest')" nbButton
+                                            status="success" size="tiny">
+                                            <nb-icon icon="edit"></nb-icon>
+                                        </button>
+                                    </div>
+                                </div>
+                            </nb-list-item>
+                        </nb-list>
+
+                    </div>
+                </div>
 
 
             </nb-card-body>

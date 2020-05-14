@@ -11,6 +11,7 @@ import { ResumeService } from 'src/app/_services/resume.service';
 import { UserService } from 'src/app/_services/user.service';
 
 import resolvePropsSimple from '../../_helpers/resolveProps'
+import { Interest } from 'src/app/_models/Interest';
 
 
 
@@ -27,6 +28,7 @@ export class ResumeAdminComponent implements OnInit {
   skills: Skill[]
   projects: any
   workExperiences: any
+  interests: Interest[]
 
   newWe: WorkExperience = {
     title: '',
@@ -64,6 +66,11 @@ export class ResumeAdminComponent implements OnInit {
 
 
   newSkill: Skill = {
+    title: '',
+    userId: this.user.getCurrentUserId()
+  }
+
+  newInterest: Interest = {
     title: '',
     userId: this.user.getCurrentUserId()
   }
@@ -108,6 +115,10 @@ export class ResumeAdminComponent implements OnInit {
     this.resume.getWe(this.user.getCurrentUserId()).subscribe((data) => {
       this.workExperiences = data;
     })
+    this.resume.getInterests(this.user.getCurrentUserId()).subscribe((interests) => {
+      this.interests = interests
+    })
+
 
 
   }
@@ -127,6 +138,13 @@ export class ResumeAdminComponent implements OnInit {
             this.alert.showToast('bottom-left', 'info', 'Delete Ok', 'Your language was deleted')
           })
           this.langs = this.langs.filter((obj: any) => obj.id !== data.id)
+          break;
+
+        case 'interest':
+          this.resume.deleteInterest(data.id).subscribe((result) => {
+            this.alert.showToast('bottom-left', 'info', 'Delete Ok', 'Your interest was deleted')
+          })
+          this.langs = this.interests.filter((obj: any) => obj.id !== data.id)
           break;
 
         case 'deleteeducation':
@@ -194,6 +212,18 @@ export class ResumeAdminComponent implements OnInit {
           this.educations[Educpos] = info.body
           break;
 
+        case 'interest':
+          this.resume.updateInterest(info.body.id, info.body).subscribe(
+            result => {
+              this.alert.showToast('top-right', 'success', 'Update', 'Interests Updated')
+            }
+          )
+          const Interestpos = this.interests.map((item) => {
+            return item.id
+          }).indexOf(info.body.id)
+          this.interests[Interestpos] = info.body
+          break;
+
         case 'language':
           this.resume.updateLanguage(info.body.id, info.body).subscribe(
             result => {
@@ -254,6 +284,8 @@ export class ResumeAdminComponent implements OnInit {
           this.workExperiences[wePos] = info.body
           break;
 
+
+
         default:
           break;
       }
@@ -280,6 +312,15 @@ export class ResumeAdminComponent implements OnInit {
             }
           )
           break;
+        case 'interest':
+          this.resume.addInterest(result.body).subscribe(
+            result => {
+              this.alert.showToast('top-right', 'success', 'Created', 'Interest added!')
+              this.interests.push(result)
+            }
+          )
+          break;
+
         case 'language':
           this.resume.addLanguage(result.body).subscribe(
             result => {
