@@ -87,14 +87,15 @@ namespace coding.API.Controllers
             if (producCount == 0)
                 return NotFound("There is no products here");
 
-            var Requirement = (await _productDal.GetProductRequirementIncluded()).Select(pr => pr.Requirement.Description).ToList();
+            var requirement = (await _productDal.GetProductRequirementIncluded()).Select(pr => pr.Requirement.Description).ToList();
             // var requirement = (await _productDal.GetProductRequirementIncluded()).ToList();
 
             // var test2 = (await _productRequirementDal.ListAsync()).Select(pr => pr.Requirement).ToList();
 
              var outPut = _mapper.Map<List<ProductForDetailDto>>(allUserProducts);
        
-            return Ok(outPut);
+            
+           return Ok(outPut);
         }
 
         [HttpGet("product/{productid}")]
