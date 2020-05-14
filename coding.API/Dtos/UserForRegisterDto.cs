@@ -13,6 +13,7 @@ namespace coding.API.Dtos
         }
         [Required]
         public string Username { get; set; }
+        public string CustomUserTitle {get; set;}
         [Required]
         [DataType(DataType.Password)]
         [RegularExpression(@"^(?=.*[0-9])(?=.*[a-z])(?=.*?[#?!@$%^&*-])(?=.*[A-Z]).{8,20}$",
