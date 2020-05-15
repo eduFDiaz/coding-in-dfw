@@ -15,6 +15,7 @@ using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
+
 namespace coding.API.Controllers
 {
     [ApiController]
@@ -49,16 +50,16 @@ namespace coding.API.Controllers
 
 
         
-        // [HttpGet("forpost/{postId}", Name = "Get comment for User")]
-        // public async Task<IActionResult> GetskillForUser(Guid postId)
-        // {
+         [HttpGet("forpost/{postId}", Name = "Get comment for User")]
+         public async Task<IActionResult> GetskillForUser(Guid postId)
+         {
 
-        //     var allPostComments = (await _commentDal.ListAsync()).Select(p => p.Post).
-        //     Where(p => p.PostId == postId).ToList();
-
-        //      return Ok(allPostComments);
+            var allPostComments = (await _commentDal.ListAsync()).Where(p => p.PostId == postId).ToList();
+            var outPut = _mapper.Map<List<CommentForDetailDto>>(allPostComments);
+            
+            return Ok(outPut);
         
-        // }
+         }
 
         
         [HttpDelete("{commentId}/delete", Name = "DeleteComment")]
@@ -74,7 +75,7 @@ namespace coding.API.Controllers
             if (await _commentDal.SaveAll())    
                  return NoContent();
 
-            return BadRequest("Catn erase the Comment");
+            return BadRequest("Cant erase the Comment");
             
 
         }

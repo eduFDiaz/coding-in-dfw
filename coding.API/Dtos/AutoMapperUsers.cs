@@ -1,12 +1,11 @@
 using System.Linq;
 using AutoMapper;
-using coding.API.Models;
+using coding.API.Models.Posts.Comments;
 using coding.API.Models.Products;
 using coding.API.Dtos.Products;
 using coding.API.Models.Users;
 using coding.API.Models.Tags;
 using coding.API.Models.Posts;
-using coding.API.Models.Posts.Comments;
 using coding.API.Models.Photos;
 using coding.API.Models.PostTags;
 using coding.API.Models.Projects;
@@ -21,6 +20,7 @@ using coding.API.Dtos.Requirements;
 using coding.API.Dtos.Comments;
 using coding.API.Models.Products.Requirements;
 using coding.API.Models.Products.ProductsRequirements;
+
 
 namespace coding.API.Dtos
 {
@@ -112,6 +112,7 @@ namespace coding.API.Dtos
 
             
             CreateMap<CreateCommentDto, Comment>();
+            CreateMap< Comment, CommentForDetailDto>();
             
             
         }

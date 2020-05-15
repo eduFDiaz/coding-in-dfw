@@ -18,6 +18,10 @@ namespace coding.API.Dtos.Comments
 
         public string Body { get; set; }
         public string CommenterName { get; set; }
+        [Required]
+        [DataType(DataType.EmailAddress)]
+        [EmailAddress]
+        public string Email { get; set; }
         public Guid PostId { get; set; }   
         public Boolean Published { get; set; }
         
