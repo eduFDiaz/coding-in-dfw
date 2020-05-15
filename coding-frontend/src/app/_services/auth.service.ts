@@ -7,6 +7,7 @@ import { User } from '../_models/User';
 
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { Subject, BehaviorSubject, throwError, Observable } from 'rxjs';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -27,8 +28,6 @@ export class AuthService {
 
   jwtHelper = new JwtHelperService();
 
-  apiUrl = 'http://localhost:5050/api/'
-
   decodedToken: any;
 
 
@@ -44,7 +43,7 @@ export class AuthService {
   }
 
   login(model: any) {
-    return this.http.post(this.apiUrl + 'auth/login', model).pipe(
+    return this.http.post(environment.apiUrl + '/auth/login', model).pipe(
       map((response: any, ) => {
         const user = response;
         if (user) {

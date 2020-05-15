@@ -7,6 +7,7 @@ import { UserService } from './user.service';
 import { Language } from '../_models/Language';
 import { Skill } from '../_models/Skill';
 import { Interest } from '../_models/Interest';
+import { environment } from 'src/environments/environment';
 
 
 
@@ -15,12 +16,10 @@ import { Interest } from '../_models/Interest';
 })
 export class ResumeService {
 
-  baseUrl = 'http://localhost:5050/api'
-
   constructor(private http: HttpClient, private user: UserService) { }
 
   getLanguages(userid: string): Observable<any> {
-    return this.http.get<any>(this.baseUrl + '/language/foruser/' + userid).pipe(
+    return this.http.get<any>(environment.apiUrl + '/language/foruser/' + userid).pipe(
       map((languages) => {
         return languages
       }, catchError(err => {
@@ -30,7 +29,7 @@ export class ResumeService {
   }
 
   addLanguage(langdata: any): Observable<any> {
-    return this.http.post(this.baseUrl + '/language/create', langdata, {
+    return this.http.post(environment.apiUrl + '/language/create', langdata, {
       headers: {
         'Content-Type': 'application/json',
         // tslint:disable-next-line: object-literal-key-quotes
@@ -45,7 +44,7 @@ export class ResumeService {
   }
 
   deleteLanguage(languageid: string) {
-    return this.http.delete(this.baseUrl + '/language/' + languageid + '/delete', {
+    return this.http.delete(environment.apiUrl + '/language/' + languageid + '/delete', {
       headers: {
         'Content-Type': 'application/json',
         // tslint:disable-next-line: object-literal-key-quotes
@@ -61,7 +60,7 @@ export class ResumeService {
   }
 
   updateLanguage(lanid: any, langdata: string) {
-    return this.http.put(this.baseUrl + '/language/' + lanid + '/update', langdata, {
+    return this.http.put(environment.apiUrl + '/language/' + lanid + '/update', langdata, {
       headers: {
         'Content-Type': 'application/json-patch+json',
         // tslint:disable-next-line: object-literal-key-quotes
@@ -79,7 +78,7 @@ export class ResumeService {
   }
 
   getEducation(userid: string): Observable<any> {
-    return this.http.get<any>(this.baseUrl + '/education/foruser/' + userid).pipe(
+    return this.http.get<any>(environment.apiUrl + '/education/foruser/' + userid).pipe(
       map((education) => {
         return education
       }, catchError(err => {
@@ -89,7 +88,7 @@ export class ResumeService {
   }
 
   addEducation(data: any): Observable<any> {
-    return this.http.post(this.baseUrl + '/education/create', data, {
+    return this.http.post(environment.apiUrl + '/education/create', data, {
       headers: {
         'Content-Type': 'application/json',
         // tslint:disable-next-line: object-literal-key-quotes
@@ -104,7 +103,7 @@ export class ResumeService {
   }
 
   deleteEducation(educationid: string) {
-    return this.http.delete(this.baseUrl + '/education/' + educationid + '/delete', {
+    return this.http.delete(environment.apiUrl + '/education/' + educationid + '/delete', {
       headers: {
         'Content-Type': 'application/json',
         // tslint:disable-next-line: object-literal-key-quotes
@@ -120,7 +119,7 @@ export class ResumeService {
   }
 
   updateEducation(eduid: any, data: string) {
-    return this.http.put(this.baseUrl + '/education/' + eduid + '/update', data, {
+    return this.http.put(environment.apiUrl + '/education/' + eduid + '/update', data, {
       headers: {
         'Content-Type': 'application/json-patch+json',
         // tslint:disable-next-line: object-literal-key-quotes
@@ -138,7 +137,7 @@ export class ResumeService {
   }
 
   getSkills(userid: string): Observable<Skill[]> {
-    return this.http.get<Skill[]>(this.baseUrl + '/skill/foruser/' + userid).pipe(
+    return this.http.get<Skill[]>(environment.apiUrl + '/skill/foruser/' + userid).pipe(
       map((skills) => {
         return skills
       }, catchError(err => {
@@ -148,7 +147,7 @@ export class ResumeService {
   }
 
   addSkill(data: any): Observable<Skill> {
-    return this.http.post<Skill>(this.baseUrl + '/skill/create', data, {
+    return this.http.post<Skill>(environment.apiUrl + '/skill/create', data, {
       headers: {
         'Content-Type': 'application/json',
         // tslint:disable-next-line: object-literal-key-quotes
@@ -163,7 +162,7 @@ export class ResumeService {
   }
 
   deleteSkill(id: string) {
-    return this.http.delete(this.baseUrl + '/skill/' + id + '/delete', {
+    return this.http.delete(environment.apiUrl + '/skill/' + id + '/delete', {
       headers: {
         'Content-Type': 'application/json',
         // tslint:disable-next-line: object-literal-key-quotes
@@ -179,7 +178,7 @@ export class ResumeService {
   }
 
   updateSkill(id: any, data: string) {
-    return this.http.put(this.baseUrl + '/skill/' + id + '/update', data, {
+    return this.http.put(environment.apiUrl + '/skill/' + id + '/update', data, {
       headers: {
         'Content-Type': 'application/json-patch+json',
         // tslint:disable-next-line: object-literal-key-quotes
@@ -197,7 +196,7 @@ export class ResumeService {
   }
 
   getProjects(userid: string): Observable<any> {
-    return this.http.get<any>(this.baseUrl + '/project/foruser/' + userid).pipe(
+    return this.http.get<any>(environment.apiUrl + '/project/foruser/' + userid).pipe(
       map((projects) => {
         return projects
       }, catchError(err => {
@@ -207,7 +206,7 @@ export class ResumeService {
   }
 
   addProject(data: any): Observable<any> {
-    return this.http.post<any>(this.baseUrl + '/project/create', data, {
+    return this.http.post<any>(environment.apiUrl + '/project/create', data, {
       headers: {
         'Content-Type': 'application/json',
         // tslint:disable-next-line: object-literal-key-quotes
@@ -222,7 +221,7 @@ export class ResumeService {
   }
 
   deleteProject(id: string) {
-    return this.http.delete(this.baseUrl + '/project/' + id + '/delete', {
+    return this.http.delete(environment.apiUrl + '/project/' + id + '/delete', {
       headers: {
         'Content-Type': 'application/json',
         // tslint:disable-next-line: object-literal-key-quotes
@@ -238,7 +237,7 @@ export class ResumeService {
   }
 
   updateProject(id: any, data: string) {
-    return this.http.put(this.baseUrl + '/project/' + id + '/update', data, {
+    return this.http.put(environment.apiUrl + '/project/' + id + '/update', data, {
       headers: {
         'Content-Type': 'application/json-patch+json',
         // tslint:disable-next-line: object-literal-key-quotes
@@ -256,7 +255,7 @@ export class ResumeService {
   }
 
   getAwards(userid: string): Observable<any> {
-    return this.http.get<any>(this.baseUrl + '/award/foruser/' + userid).pipe(
+    return this.http.get<any>(environment.apiUrl + '/award/foruser/' + userid).pipe(
       map((awards) => {
         return awards
       }, catchError(err => {
@@ -266,7 +265,7 @@ export class ResumeService {
   }
 
   addAward(data: any): Observable<any> {
-    return this.http.post<any>(this.baseUrl + '/award/create', data, {
+    return this.http.post<any>(environment.apiUrl + '/award/create', data, {
       headers: {
         'Content-Type': 'application/json',
         // tslint:disable-next-line: object-literal-key-quotes
@@ -281,7 +280,7 @@ export class ResumeService {
   }
 
   deleteAward(id: string) {
-    return this.http.delete(this.baseUrl + '/award/' + id + '/delete', {
+    return this.http.delete(environment.apiUrl + '/award/' + id + '/delete', {
       headers: {
         'Content-Type': 'application/json',
         // tslint:disable-next-line: object-literal-key-quotes
@@ -297,7 +296,7 @@ export class ResumeService {
   }
 
   updateAward(id: any, data: string) {
-    return this.http.put(this.baseUrl + '/award/' + id + '/update', data, {
+    return this.http.put(environment.apiUrl + '/award/' + id + '/update', data, {
       headers: {
         'Content-Type': 'application/json-patch+json',
         // tslint:disable-next-line: object-literal-key-quotes
@@ -315,7 +314,7 @@ export class ResumeService {
   }
 
   getWe(userid: string): Observable<any> {
-    return this.http.get<any>(this.baseUrl + '/workexperience/foruser/' + userid).pipe(
+    return this.http.get<any>(environment.apiUrl + '/workexperience/foruser/' + userid).pipe(
       map((awards) => {
         return awards
       }, catchError(err => {
@@ -325,7 +324,7 @@ export class ResumeService {
   }
 
   addWe(data: any): Observable<any> {
-    return this.http.post<any>(this.baseUrl + '/workexperience/create', data, {
+    return this.http.post<any>(environment.apiUrl + '/workexperience/create', data, {
       headers: {
         'Content-Type': 'application/json',
         // tslint:disable-next-line: object-literal-key-quotes
@@ -340,7 +339,7 @@ export class ResumeService {
   }
 
   deleteWe(id: string) {
-    return this.http.delete(this.baseUrl + '/workexperience/' + id + '/delete', {
+    return this.http.delete(environment.apiUrl + '/workexperience/' + id + '/delete', {
       headers: {
         'Content-Type': 'application/json',
         // tslint:disable-next-line: object-literal-key-quotes
@@ -356,7 +355,7 @@ export class ResumeService {
   }
 
   updateWe(id: any, data: string) {
-    return this.http.put(this.baseUrl + '/workexperience/' + id + '/update', data, {
+    return this.http.put(environment.apiUrl + '/workexperience/' + id + '/update', data, {
       headers: {
         'Content-Type': 'application/json-patch+json',
         // tslint:disable-next-line: object-literal-key-quotes
@@ -374,7 +373,7 @@ export class ResumeService {
   }
 
   getInterests(userid: string): Observable<Interest[]> {
-    return this.http.get<any>(this.baseUrl + '/interest/foruser/' + userid).pipe(
+    return this.http.get<any>(environment.apiUrl + '/interest/foruser/' + userid).pipe(
       map((interest) => {
         return interest
       }, catchError(err => {
@@ -384,7 +383,7 @@ export class ResumeService {
   }
 
   addInterest(data: Interest): Observable<Interest> {
-    return this.http.post<any>(this.baseUrl + '/interest/create', data, {
+    return this.http.post<any>(environment.apiUrl + '/interest/create', data, {
       headers: {
         'Content-Type': 'application/json',
         // tslint:disable-next-line: object-literal-key-quotes
@@ -399,7 +398,7 @@ export class ResumeService {
   }
 
   deleteInterest(id: string) {
-    return this.http.delete(this.baseUrl + '/interest/' + id + '/delete', {
+    return this.http.delete(environment.apiUrl + '/interest/' + id + '/delete', {
       headers: {
         'Content-Type': 'application/json',
         // tslint:disable-next-line: object-literal-key-quotes
@@ -415,7 +414,7 @@ export class ResumeService {
   }
 
   updateInterest(id: string, data: string) {
-    return this.http.put(this.baseUrl + '/interest/' + id + '/update', data, {
+    return this.http.put(environment.apiUrl + '/interest/' + id + '/update', data, {
       headers: {
         'Content-Type': 'application/json-patch+json',
         // tslint:disable-next-line: object-literal-key-quotes

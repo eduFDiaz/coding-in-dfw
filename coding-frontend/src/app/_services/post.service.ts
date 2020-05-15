@@ -7,6 +7,7 @@ import { UserService } from './user.service';
 import { Post } from '../_models/Post';
 import { Tag } from '../_models/Tag';
 import { Router } from '@angular/router';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -25,13 +26,10 @@ export class PostService {
     })
   };
 
-  baseUrl = 'http://localhost:5050/api'
-
   constructor(private route: Router, private http: HttpClient, private toast: AlertService, private user: UserService) { }
 
   newPost(postdata) {
-    // tslint:disable-next-line: object-literal-key-quotes
-    return this.http.post(this.baseUrl + '/post/create', postdata, { headers: { 'authorization': 'Bearer ' + localStorage.getItem('token') } }).pipe(
+    return this.http.post(environment.apiUrl + '/post/create', postdata, { headers: { 'authorization': 'Bearer ' + localStorage.getItem('token') } }).pipe(
       map((result: any) => {
         if (result) {
           this.toast.showToast('bottom-left', 'success', 'Post uploaded!', 'Your post was uploaded succesfully')
@@ -51,7 +49,7 @@ export class PostService {
 
   getUserPosts(userid: number): Observable<Post[]> {
     // tslint:disable-next-line: object-literal-key-quotes
-    return this.http.get<Post[]>(this.baseUrl + '/post/foruser/' + userid, { headers: { 'authorization': 'Bearer ' + localStorage.getItem('token') } }).pipe(
+    return this.http.get<Post[]>(environment.apiUrl + '/post/foruser/' + userid, { headers: { 'authorization': 'Bearer ' + localStorage.getItem('token') } }).pipe(
       map((result) => {
         return result
       }, catchError(err => {
@@ -62,7 +60,7 @@ export class PostService {
 
   deletePost(postid: number): Observable<boolean> {
     // tslint:disable-next-line: object-literal-key-quotes
-    return this.http.delete<boolean>(this.baseUrl + '/post/' + postid + '/delete', { headers: { 'authorization': 'Bearer ' + localStorage.getItem('token') } }).pipe(
+    return this.http.delete<boolean>(environment.apiUrl + '/post/' + postid + '/delete', { headers: { 'authorization': 'Bearer ' + localStorage.getItem('token') } }).pipe(
       map((result: boolean) => {
         // tslint:disable-next-line: no-shadowed-variable
         this.getUserPosts(this.user.getCurrentUserId()).subscribe((result) => {
@@ -77,7 +75,7 @@ export class PostService {
 
   editPost(postid: number, newdata: any): Observable<boolean> {
     // tslint:disable-next-line: object-literal-key-quotes
-    return this.http.put<boolean>(this.baseUrl + '/post/' + postid + '/update', newdata, {
+    return this.http.put<boolean>(environment.apiUrl + '/post/' + postid + '/update', newdata, {
       headers: {
         'Content-Type': 'application/json',
         // tslint:disable-next-line: object-literal-key-quotes
@@ -98,7 +96,7 @@ export class PostService {
 
   // If using the newer Backend please use /tag/all
   getAlTags(): Observable<Tag[]> {
-    return this.http.get<Tag[]>(this.baseUrl + '/tag/all', {
+    return this.http.get<Tag[]>(environment.apiUrl + '/tag/all', {
       headers: {
         'Content-Type': 'application/json',
         // tslint:disable-next-line: object-literal-key-quotes
@@ -114,7 +112,7 @@ export class PostService {
   }
 
   addNewTag(newtag: Tag): Observable<Tag> {
-    return this.http.post<Tag>(this.baseUrl + '/tag/create', newtag, {
+    return this.http.post<Tag>(environment.apiUrl + '/tag/create', newtag, {
       headers: {
         'Content-Type': 'application/json',
         // tslint:disable-next-line: object-literal-key-quotes
@@ -133,7 +131,7 @@ export class PostService {
   }
 
   deleteTag(tagid: number) {
-    return this.http.delete(this.baseUrl + '/tag/' + tagid + '/delete', {
+    return this.http.delete(environment.apiUrl + '/tag/' + tagid + '/delete', {
       headers: {
         'Content-Type': 'application/json',
         // tslint:disable-next-line: object-literal-key-quotes
@@ -153,7 +151,7 @@ export class PostService {
 
   editTag(tagid: number, newdata: any): Observable<boolean> {
     // tslint:disable-next-line: object-literal-key-quotes
-    return this.http.put<boolean>(this.baseUrl + '/tag/' + tagid + '/update', newdata, {
+    return this.http.put<boolean>(environment.apiUrl + '/tag/' + tagid + '/update', newdata, {
       headers: {
         'Content-Type': 'application/json',
         // tslint:disable-next-line: object-literal-key-quotes

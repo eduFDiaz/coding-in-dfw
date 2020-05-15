@@ -9,10 +9,11 @@ import { map, catchError } from 'rxjs/operators';
 import { Post } from '../_models/Post';
 import { AuthService } from './auth.service';
 import { Photo } from '../_models/Photo';
-
+import { environment } from 'src/environments/environment'
 @Injectable({
   providedIn: 'root'
 })
+
 
 
 export class UserService {
@@ -21,12 +22,18 @@ export class UserService {
 
   }
 
-  baseUrl = 'http://localhost:5050/api'
+  myheader = {
+    headers: {
+      'authorization': 'Bearer ' + localStorage.getItem('token'),
+      'Content-Type': 'application/json'
+    }
+  }
+
 
   isAuthenticated: boolean
 
-  getUser(id: number): Observable<User[]> {
-    return this.http.get<User[]>(this.baseUrl + '/users/' + id);
+  getUser(id: string): Observable<User> {
+    return this.http.get<User>(environment.apiUrl + '/users/' + id);
   }
 
   getCurrentUserId() {
@@ -37,17 +44,16 @@ export class UserService {
     return JSON.parse(localStorage.getItem('data'))
   }
 
-  getUserPosts(id: number): Observable<Post[]> {
-    return this.http.get<Post[]>(this.baseUrl + /post/ + id)
+  getUserPosts(id: string): Observable<Post[]> {
+    return this.http.get<Post[]>(environment.apiUrl + /post/ + id, this.myheader)
   }
 
-  getCurrentUserPohotos() {
-    return JSON.parse(localStorage.getItem('data')).photos
+  getCurrentUserPohotos(): Observable<Photo[]> {
+    return this.http.get<Photo[]>(environment.apiUrl + '/photo/all')
   }
 
-  updateUser(id: number, userdata: any) {
-    // tslint:disable-next-line: object-literal-key-quotes
-    return this.http.put(this.baseUrl + '/users/' + id, userdata, { headers: { 'authorization': 'Bearer ' + localStorage.getItem('token') } }).pipe(
+  updateUser(id: string, userdata: any) {
+    return this.http.put(environment.apiUrl + '/users/' + id, userdata).pipe(
       map((result: User) => {
         localStorage.setItem('data', JSON.stringify(result))
         this.auth.changeCurrentUser(result)
@@ -59,23 +65,23 @@ export class UserService {
   }
 
   uploadPhoto(data) {
-    return this.http.post(this.baseUrl + '/photo', data)
+    return this.http.post(environment.apiUrl + '/photo', data, this.myheader)
   }
 
   DeletePhoto(photoId: string) {
-    return this.http.delete(this.baseUrl + '/photo/' + photoId, { headers: { 'authorization': 'Bearer ' + localStorage.getItem('token') } });
+    return this.http.delete(environment.apiUrl + '/photo/' + photoId, this.myheader);
   }
 
   getAllUsers() {
-    return this.http.get(this.baseUrl + '/users')
+    return this.http.get(environment.apiUrl + '/users')
   }
 
   getAllUserPhotos(): Observable<Photo> {
-    return this.http.get<Photo>(this.baseUrl + '/photo/all')
+    return this.http.get<Photo>(environment.apiUrl + '/photo/all')
   }
 
   setAsMainPhoto(photoId: string) {
-    return this.http.post(this.baseUrl + '/photo/' + photoId + '/setMain', {}, { headers: { 'authorization': 'Bearer ' + localStorage.getItem('token') } })
+    return this.http.post(environment.apiUrl + '/photo/' + photoId + '/setMain', {}, this.myheader)
   }
 }
 
