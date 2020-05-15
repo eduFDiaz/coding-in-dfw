@@ -10,6 +10,7 @@ using coding.API.Models.Projects;
 using coding.API.Models.WorkExperiences;
 using coding.API.Models.Educations;
 using coding.API.Models.Awards;
+using coding.API.Models.Posts.Comments;
 
 
 using Microsoft.EntityFrameworkCore;
@@ -28,6 +29,7 @@ namespace coding.API.Models
         public DbSet<User> Users { get; set; }
         public DbSet<Photo> Photos { get; set; }
         public DbSet<Post> Posts { get; set; }
+        public DbSet<Comment> Comments { get; set; }
         public DbSet<Tag> Tags { get; set; }
         public DbSet<Product> Products { get; set; }
         public DbSet<PostTag> PostTags { get; set; }

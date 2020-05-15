@@ -47,7 +47,7 @@ export class PostService {
     )
   }
 
-  getUserPosts(userid: number): Observable<Post[]> {
+  getUserPosts(userid: string): Observable<Post[]> {
     // tslint:disable-next-line: object-literal-key-quotes
     return this.http.get<Post[]>(environment.apiUrl + '/post/foruser/' + userid, { headers: { 'authorization': 'Bearer ' + localStorage.getItem('token') } }).pipe(
       map((result) => {
