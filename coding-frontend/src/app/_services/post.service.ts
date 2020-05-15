@@ -170,4 +170,6 @@ export class PostService {
       )
   }
 
+  addComment(comment: Comment)
+
 }
