@@ -8,6 +8,7 @@ import { Post } from '../_models/Post';
 import { Tag } from '../_models/Tag';
 import { Router } from '@angular/router';
 import { environment } from 'src/environments/environment';
+import { Commentary } from '../_models/Comments';
 
 @Injectable({
   providedIn: 'root'
@@ -170,8 +171,8 @@ export class PostService {
       )
   }
 
-  addComment(comment: Comment) {
-    return this.http.post<Comment>(environment.apiUrl + '/comment/create', this.httpOptions)
+  addComment(comment: Commentary) {
+    return this.http.post<Commentary>(environment.apiUrl + '/comment/create', comment, this.httpOptions)
   }
 
 }

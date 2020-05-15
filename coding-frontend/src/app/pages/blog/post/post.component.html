@@ -196,21 +196,25 @@ export $inithighlight;</span></code></pre> -->
                     <div class="form-group col-md-6" data-pg-id="529">
                         <label class="sr-only" for="cname" data-pg-id="530">Name</label>
                         <input [(ngModel)]="newComment.commenterName" type="text" class="form-control" id="cname"
-                            name="name" placeholder="Name" minlength="2" required aria-required="true" data-pg-id="531">
+                            name="CommenterName" placeholder="Name" minlength="2" required aria-required="true"
+                            data-pg-id="531">
                     </div>
                     <div class="form-group col-md-6" data-pg-id="532">
                         <label class="sr-only" for="cemail" data-pg-id="533">Email</label>
-                        <input [(ngModel)]="newComment.email" type="email" class="form-control" id="cemail" name="email"
+                        <input [(ngModel)]="newComment.email" type="email" class="form-control" id="cemail" name="Email"
                             placeholder="Email" required aria-required="true" data-pg-id="534">
                     </div>
                     <div class="form-group col-12" data-pg-id="545">
                         <label class="sr-only" for="cmessage" data-pg-id="546">Your message</label>
-                        <textarea [(ngModel)]="newComment.body" class="form-control" id="cmessage" name="message"
+                        <textarea [(ngModel)]="newComment.Body" class="form-control" id="cmessage" name="Body"
                             placeholder="Enter your message" rows="10" required="" aria-required="true"
                             data-pg-id="547"></textarea>
                     </div>
+
+                    <input type="hidden" [(ngModel)]="newComment.PostId" name="PostId" id="PostId">
                     <div class="form-group col-12" data-pg-id="548">
-                        <button type="button" [disabled]="!commentForm.valid" class="btn btn-block btn-primary py-2"
+                        <button type="button" (click)="postNewComment(commentForm.value)"
+                            [disabled]="!commentForm.valid" class="btn btn-block btn-primary py-2"
                             data-pg-id="549">Comment
                             now!</button>
                     </div>

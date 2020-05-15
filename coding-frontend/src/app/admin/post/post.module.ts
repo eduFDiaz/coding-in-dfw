@@ -17,9 +17,18 @@ import { EditPostComponent } from './postlist/edit-post/edit-post.component';
 import { DeletePostComponent } from './postlist/delete-post/delete-post.component';
 import { AddtagComponent } from './addpost/addtag/addtag.component';
 import { TaglistComponent } from './taglist/taglist.component'
+import { CommentsComponent } from './comments/comments.component';
 
 @NgModule({
-  declarations: [PostlistComponent, AddpostComponent, EditPostComponent, DeletePostComponent, AddtagComponent, TaglistComponent, JwPaginationComponent],
+  declarations: [PostlistComponent,
+    AddpostComponent,
+    EditPostComponent,
+    DeletePostComponent,
+    AddtagComponent,
+    TaglistComponent,
+    JwPaginationComponent,
+    CommentsComponent
+  ],
   imports: [
     CommonModule,
     NbBadgeModule,

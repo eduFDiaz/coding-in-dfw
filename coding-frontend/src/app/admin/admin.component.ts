@@ -62,7 +62,7 @@ export class AdminComponent implements OnInit {
         {
           title: 'Comments',
           url: '/admin/posts/managecomments',
-          icon: 'user'
+          icon: 'heart-outline'
         }
 
       ]
