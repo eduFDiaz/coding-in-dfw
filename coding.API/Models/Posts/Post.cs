@@ -18,6 +18,6 @@ namespace coding.API.Models.Posts
         public int ReadingTime { get; set; } // In minutes
         public ICollection<PostTag> PostTags { get; set; }
         public Guid UserId { get; set; }       
-        public Comment Comments { get; set; }
+        public ICollection<Comment> Comments { get; set; }
     }
 }

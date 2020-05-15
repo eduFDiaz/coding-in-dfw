@@ -33,7 +33,12 @@ namespace coding.API.Data
         public async Task<List<T>> ListAsync()
         {
             return await _dbContext.Set<T>().ToListAsync();
-            
+
+        }
+
+        public List<T> ListAll()
+        {
+            return _dbContext.Set<T>().ToList();
         }
 
         /// <summary>
@@ -64,16 +69,17 @@ namespace coding.API.Data
         {
             entity.DateModified = DateTime.Now;
             _dbContext.Entry(entity).State = EntityState.Modified;
-            
+
             return true;
         }
 
-         /// <summary>
+        /// <summary>
         /// Guarda todos los cambios
         /// </summary>
         public async Task<bool> SaveAll()
         {
-            if (await _dbContext.SaveChangesAsync() > 0) {
+            if (await _dbContext.SaveChangesAsync() > 0)
+            {
                 return true;
             }
             return false;
@@ -81,8 +87,8 @@ namespace coding.API.Data
 
         public async Task<List<ProductRequirement>> GetProductRequirementIncluded()
         {
-           return await _dbContext.Set<ProductRequirement>().Include(p => p.Requirement).ToListAsync();
+            return await _dbContext.Set<ProductRequirement>().Include(p => p.Requirement).ToListAsync();
         }
-              
+
     }
 }

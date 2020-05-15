@@ -110,7 +110,8 @@ namespace coding.API.Dtos
             CreateMap<ProductRequirementForCreateDto, ProductRequirement>();
             CreateMap<ProductRequirement, RequirementForDetailDto>();
 
-            CreateMap<Comment, CreateCommentDto>();
+            
+            CreateMap<CreateCommentDto, Comment>();
             
             
         }

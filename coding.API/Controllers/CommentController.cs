@@ -49,15 +49,16 @@ namespace coding.API.Controllers
 
 
         
-        [HttpGet("forpost/{postId}", Name = "Get skill for User")]
-        public async Task<IActionResult> GetskillForUser(Guid postId)
-        {
+        // [HttpGet("forpost/{postId}", Name = "Get comment for User")]
+        // public async Task<IActionResult> GetskillForUser(Guid postId)
+        // {
 
-            var allPostComments = (await _commentDal.ListAsync()).Where(p => p.PostId == postId).ToList();
+        //     var allPostComments = (await _commentDal.ListAsync()).Select(p => p.Post).
+        //     Where(p => p.PostId == postId).ToList();
 
-             return Ok(allPostComments);
+        //      return Ok(allPostComments);
         
-        }
+        // }
 
         
         [HttpDelete("{commentId}/delete", Name = "DeleteComment")]

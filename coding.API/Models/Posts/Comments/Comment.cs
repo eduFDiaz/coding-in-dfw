@@ -8,10 +8,10 @@ namespace coding.API.Models.Posts.Comments
     {
         [Required]
         public string Body { get; set; }
-        [Required]
         public string CommenterName { get; set; }
-        public Guid PostId { get; set; }     
         public Boolean Published { get; set; }  
+        public Guid PostId { get; set; }
+        public Post Posts { get; set; }
 
     }
 }

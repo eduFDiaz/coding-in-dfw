@@ -11,7 +11,7 @@ namespace coding.API.Dtos.Products
         public Guid  Id { get; set; }
         public string Name { get; set; }
         public string Type { get; set; }
-               public string Url { get; set; }
+        public string Url { get; set; }
         public string ProductPhoto { get; set; }
        
         public string ProductDescription { get; set; }
