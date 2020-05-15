@@ -6,10 +6,10 @@ using coding.API.Models.Products.Requirements;
 
 namespace coding.API.Models.Products
 {
-  
+
     public partial class Product : BaseEntity
     {
-       
+
         public string Name { get; set; }
         public string ProjectIntro { get; set; }
         public string ShortResume { get; set; }
@@ -22,9 +22,8 @@ namespace coding.API.Models.Products
         public string ProductDescription { get; set; }
         public int Size { get; set; }
         public Guid UserId { get; set; }
-        public List<ProductRequirement> ProductRequirements { get; set; }
+        public ICollection<ProductRequirement> ProductRequirements { get; set; }
 
-        public Requirement Requirement { get; set; }
-        
+
     }
 }

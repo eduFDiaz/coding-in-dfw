@@ -8,6 +8,7 @@ import { NgForm } from '@angular/forms';
 
 import { PhotoaddComponent } from './photoadd/photoadd.component'
 import { User } from '../../_models/User';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-profile',
@@ -23,7 +24,7 @@ export class ProfileComponent implements OnInit {
   profileSpinner = false;
   userid: number
   myuser: any
-  
+
   @ViewChild('dialogRef', { static: true }) dialogRef: TemplateRef<any>;
 
   @ViewChild('editProfileForm', { static: false }) editProfileForm: NgForm;
@@ -38,7 +39,14 @@ export class ProfileComponent implements OnInit {
 
 
 
-  constructor(private user: UserService, private auth: AuthService, private alert: AlertService, private dialogService: NbDialogService) { }
+
+  gotToChangePhoto() {
+    this.route.navigate(['profile/profilepics'])
+
+  }
+
+
+  constructor(private route: Router, private user: UserService, private auth: AuthService, private alert: AlertService, private dialogService: NbDialogService) { }
 
   // open(dialog: TemplateRef<any>) {
   //   this.dialogService.open(dialog, { context: 'this is some additional data passed to dialog' });

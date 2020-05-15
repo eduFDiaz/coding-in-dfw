@@ -2,7 +2,7 @@
   <div class="col-md-12">
     <nb-card [nbSpinner]="profileSpinner" nbSpinnerStatus="primary">
       <nb-card-header>Edit {{ myuser?.username }} profile
-        <button nbButton size="tiny" (click)="open()">New profile pic</button>
+        <button nbButton size="tiny" (click)="gotToChangePhoto()">New profile pic</button>
       </nb-card-header>
       <nb-card-body>
         <form id="editProfileForm" #editProfileForm="ngForm" *ngIf="myuser"

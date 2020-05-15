@@ -101,7 +101,9 @@ export class HeaderComponent implements OnInit {
   logout() {
     this.auth.logout()
     this.toast.showToast('bottom-left', 'info', 'See you soon!', 'You have sucefully logout')
+    // location.reload(true);
     this.router.navigate(['/pages/home'])
+
   }
 
 }
