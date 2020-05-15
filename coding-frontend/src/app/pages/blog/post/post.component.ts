@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Commentary } from '../../../_models/Comments'
 
 @Component({
   selector: 'app-post',
@@ -7,9 +8,21 @@ import { Component, OnInit } from '@angular/core';
 })
 export class PostComponent implements OnInit {
 
+
+
   constructor() { }
 
   ngOnInit() {
   }
+
+  newComment: Commentary = {
+    body: '',
+    commenterName: '',
+    published: false,
+    email: ''
+
+  }
+
+
 
 }

@@ -170,6 +170,8 @@ export class PostService {
       )
   }
 
-  addComment(comment: Comment)
+  addComment(comment: Comment) {
+    return this.http.post<Comment>(environment.apiUrl + '/comment/create', this.httpOptions)
+  }
 
 }
