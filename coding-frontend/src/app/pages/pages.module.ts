@@ -19,6 +19,7 @@ import { AppPagesComponent } from './app-pages.component';
 import { FooterComponent } from './footer/footer.component';
 import { AppPagesRoutes } from './app-pages.routing';
 import { FormsModule } from '@angular/forms';
+import { NbToastrModule, NbToastrService } from '@nebular/theme';
 
 
 
@@ -38,7 +39,9 @@ import { FormsModule } from '@angular/forms';
     FooterComponent,
   ],
   imports: [
-    CommonModule, FormsModule, RouterModule, AppPagesRoutes
-  ]
+    CommonModule, FormsModule,
+    NbToastrModule.forRoot(),
+    RouterModule, AppPagesRoutes
+  ], providers: [NbToastrService]
 })
 export class PagesModule { }

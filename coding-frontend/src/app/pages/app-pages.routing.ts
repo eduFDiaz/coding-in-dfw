@@ -18,7 +18,7 @@ const routes: Routes = [
       { path: 'services', component: ServicesComponent, pathMatch: 'full' },
       { path: 'resume', component: ResumeComponent, pathMatch: 'full' },
       { path: 'blog', component: PostListComponent, pathMatch: 'full' },
-      { path: 'blog/:id', component: PostComponent, pathMatch: 'full' },
+      { path: 'blog/post/:id', component: PostComponent, pathMatch: 'full' },
       { path: 'projects', component: ProjectsListComponent, pathMatch: 'full' },
       { path: 'projects/:id', component: ProjectsComponent, pathMatch: 'full' },
       { path: 'contact', component: ContactComponent, pathMatch: 'full' },
