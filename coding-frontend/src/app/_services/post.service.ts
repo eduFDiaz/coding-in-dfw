@@ -52,12 +52,16 @@ export class PostService {
     return this.http.get(environment.apiUrl + 'post' + postId)
   }
 
-  getUnpublishedComments(): Observable<Comment[]> {
-    return this.http.get<Comment[]>(environment.apiUrl + '/comment/unpublished')
+  getUnpublishedComments(): Observable<Commentary[]> {
+    return this.http.get<Commentary[]>(environment.apiUrl + '/comment/unpublished')
   }
 
   publishComment(id: string) {
     return this.http.put(environment.apiUrl + '/comment/' + id + '/publish', { headers: { 'authorization': 'Bearer ' + localStorage.getItem('token') } })
+  }
+
+  deleteComment(id: string) {
+    return this.http.delete(environment.apiUrl + '/comment/' + id + '/delete', { headers: { 'authorization': 'Bearer ' + localStorage.getItem('token') } })
   }
 
   getUserPosts(userid: string): Observable<Post[]> {
