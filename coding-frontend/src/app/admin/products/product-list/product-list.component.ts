@@ -19,7 +19,7 @@ export class ProductListComponent implements OnInit {
 
   @ViewChild('dialogDelete', { static: true }) dialogRef: TemplateRef<any>;
 
-  product: any
+  product: Product[]
 
   test = {
     name: 'test',

@@ -25,10 +25,11 @@
                     <td>{{ product.size }}</td>
                     <td>{{ product.type }}</td>
                     <td>{{ product.productDescription}}</td>
-                    <td><div class="col" >
+                    <td>
+                        <div class="col">
                             <ul>
-                                <li *ngFor="let req of product.productRequirements">
-                                    {{ req.requirement.description }}
+                                <li *ngFor="let req of product?.productRequirements">
+                                    {{ req.requirements?.description }}
                                 </li>
                             </ul>
                         </div>
