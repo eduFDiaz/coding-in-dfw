@@ -1,16 +1,13 @@
 using System;
 using Microsoft.AspNetCore.Http;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using coding.API.Models;
 
 
-namespace coding.API.Dtos
+namespace coding.API.Dtos.Products
 {
-    public class PhotoForCreationDto
+    public class ProductPhotoForCreationDto
     {
 
-        public PhotoForCreationDto()
+        public ProductPhotoForCreationDto()
         {
             this.DateAdded = DateTime.Now;
         }
@@ -20,8 +17,7 @@ namespace coding.API.Dtos
         public string Description { get; set; }
         public DateTime DateAdded { get; set; }
         public string PublicId { get; set; }
-        public Guid UserId {get; set;}
-
+        public Guid ProductId { get; set; }
         
     }
 }

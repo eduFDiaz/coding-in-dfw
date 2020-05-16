@@ -15,8 +15,9 @@ using coding.API.Data;
 using coding.API.Models.Users;
 using coding.API.Models.Photos;
 using coding.API.Models.Presenter;
+using coding.API.Models.Products;
 using Microsoft.AspNetCore.Authorization;
-
+using coding.API.Dtos.Products;
 
 namespace coding.API.Controllers
 {
@@ -27,6 +28,7 @@ namespace coding.API.Controllers
     
         private readonly Repository<Photo> _photoDal;
         private readonly Repository<User> _userDal;
+        private readonly Repository<Product> _productDal;
         private readonly IConfiguration _config;
         private readonly IMapper _mapper;
         private readonly IOptions<CloudinarySettings> _cloudinaryConfig;
@@ -34,10 +36,11 @@ namespace coding.API.Controllers
 
         
                 
-        public PhotoController(Repository<Photo> photoDal,Repository<User> userDal, IConfiguration config, IMapper mapper, IOptions<CloudinarySettings> cloudinaryConfig)
+        public PhotoController(Repository<Photo> photoDal,Repository<User> userDal, Repository<Product> productDal, IConfiguration config, IMapper mapper, IOptions<CloudinarySettings> cloudinaryConfig)
         {
             _photoDal = photoDal;
             _userDal = userDal;
+            _productDal = productDal;
             _config = config;
             _mapper = mapper;
                      
@@ -101,40 +104,49 @@ namespace coding.API.Controllers
             // return BadRequest("Could not add the photo");
 
         }
-
-        // Set main photo using id as the photo id
-        [Authorize]
-        [HttpPost("{photoId}/setMain")]
-        public async Task<IActionResult> SetMain(Guid userId, Guid photoId)
+        [HttpPost("product/{productId}/create")]
+        public async Task<IActionResult> AddPhotoForProduct(Guid productId, [FromForm] ProductPhotoForCreationDto photoForCreationDto)
         {
-            // // // Checks if the picture belongs to the user
-            var userPhotos = (await _photoDal.ListAsync()).Where(p => p.UserId == userId).ToList();
+            // Only if the claim is valid the user is retrieved
+            var productFromRepo = (await _productDal.ListAsync())
+                    .FirstOrDefault(p => p.Id == productId);
 
-            foreach (var photo in userPhotos)
+            var file = photoForCreationDto.File;
+
+            var uploadResults = new ImageUploadResult();
+
+            if(file.Length > 0)
             {
-                if (photo.UserId != userId)
-                    return Unauthorized();
+                using (var stream = file.OpenReadStream())
+                {
+                    var uploadParams = new ImageUploadParams(){
+                        File = new FileDescription(file.Name, stream),
+                        Transformation = new Transformation()
+                            // .Width("500").Height("500").Crop("fill").Gravity("face")
+                            .Width("500").Height("500").Crop("fill")
+                    };
+                    uploadResults = _cloudinary.Upload(uploadParams);
+                }
             }
 
-            // Retrieve photo to be set as main
-             var photoFromRepo = (await _photoDal.GetById(photoId));
-            
-            if (photoFromRepo.IsMain)
-                return BadRequest("This is already the main photo");
-            
-            // Retrieve current main photo
-            var currentMainPhoto = (await _photoDal.ListAsync()).Where(p => p.IsMain).SingleOrDefault();
-            
-            // Set main photo a
-             currentMainPhoto.IsMain = false;
-             photoFromRepo.IsMain = true;
+            photoForCreationDto.Url = uploadResults.Uri.ToString();
+            photoForCreationDto.PublicId = uploadResults.PublicId;
+            photoForCreationDto.ProductId = productFromRepo.Id;
 
-            if (await _photoDal.Update(photoFromRepo))
-                return NoContent();
+            
 
+            
+            var photo = _mapper.Map<Photo>(photoForCreationDto);
+
+            if (await _productDal.SaveAll())
+                return Ok(new PhotoPresenter(photo));
             return BadRequest();
-           
+                               
+
+            // return BadRequest("Could not add the photo");
+
         }
+
 
         // Delete photo using id as the photo id
         [Authorize]
