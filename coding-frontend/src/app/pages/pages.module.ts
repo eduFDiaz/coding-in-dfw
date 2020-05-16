@@ -40,8 +40,7 @@ import { NbToastrModule, NbToastrService } from '@nebular/theme';
   ],
   imports: [
     CommonModule, FormsModule,
-    NbToastrModule.forRoot(),
     RouterModule, AppPagesRoutes
-  ], providers: [NbToastrService]
+  ]
 })
 export class PagesModule { }
