@@ -21,7 +21,8 @@
           <img class="mr-3 img-fluid post-thumb d-none d-md-flex" src="assets/images/blog/blog-post-thumb-1.jpg"
             alt="image">
           <div class="media-body">
-            <h3 class="title mb-1"><a href="blog-post.html">{{ post.title }}</a></h3>
+            <h3 class="title mb-1"><a [routerLink]="[ 'post' , post.id ]">
+                {{ post.title }}</a></h3>
             <div class="meta mb-1"><span class="date">{{ post.dateCreated }}</span>
               <span class="time">{{ post.readingTime }} minute reading </span>
               <span class="comment"><a href="#">8 comments</a></span></div>

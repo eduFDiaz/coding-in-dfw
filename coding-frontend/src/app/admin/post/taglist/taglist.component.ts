@@ -20,7 +20,7 @@ export class TaglistComponent implements OnInit {
 
   pageOfItems: Array<any>;
 
-  tags: any
+  tags: Tag[]
 
   newTag: Tag = {
     title: '',

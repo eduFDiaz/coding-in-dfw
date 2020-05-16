@@ -48,6 +48,18 @@ export class PostService {
     )
   }
 
+  getSinglePost(postId: string) {
+    return this.http.get(environment.apiUrl + 'post' + postId)
+  }
+
+  getUnpublishedComments(): Observable<Comment[]> {
+    return this.http.get<Comment[]>(environment.apiUrl + '/comment/unpublished')
+  }
+
+  publishComment(id: string) {
+    return this.http.put(environment.apiUrl + '/comment/' + id + '/publish', { headers: { 'authorization': 'Bearer ' + localStorage.getItem('token') } })
+  }
+
   getUserPosts(userid: string): Observable<Post[]> {
     // tslint:disable-next-line: object-literal-key-quotes
     return this.http.get<Post[]>(environment.apiUrl + '/post/foruser/' + userid, { headers: { 'authorization': 'Bearer ' + localStorage.getItem('token') } }).pipe(
