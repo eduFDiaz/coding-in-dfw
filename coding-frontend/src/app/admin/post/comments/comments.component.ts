@@ -11,6 +11,8 @@ import { AlertService } from 'src/app/_services/alert.service';
 })
 export class CommentsComponent implements OnInit {
 
+  commentSpinner = false;
+
   pageOfItems: Array<any>;
 
   unpublishedComments: Commentary[]
@@ -18,9 +20,11 @@ export class CommentsComponent implements OnInit {
   constructor(private postService: PostService, private dialogService: NbDialogService, private alert: AlertService) { }
 
   ngOnInit() {
+    this.commentSpinner = true
     this.postService.getUnpublishedComments().subscribe((comments) => {
       this.unpublishedComments = comments
       console.log(this.unpublishedComments)
+      this.commentSpinner = false
     })
   }
 
@@ -35,18 +39,21 @@ export class CommentsComponent implements OnInit {
         object: data
       }
     }).onClose.subscribe(() => {
+      this.commentSpinner = true
       this.postService.deleteComment(data.id).subscribe(() => {
         this.alert.showToast('bottom-left', 'info', 'Delete Ok', 'Bye bye you!')
         this.unpublishedComments = this.unpublishedComments.filter((obj: any) => obj.id !== data.id)
+        this.commentSpinner = false
       })
     })
   }
 
   aproveComment(id: string) {
+    this.commentSpinner = true
     this.postService.publishComment(id).subscribe(() => {
       this.alert.showToast('bottom-left', 'success', 'Publish Ok', 'The comment its visible now!')
       this.unpublishedComments = this.unpublishedComments.filter((obj: any) => obj.id !== id)
-
+      this.commentSpinner = false
     })
   }
 

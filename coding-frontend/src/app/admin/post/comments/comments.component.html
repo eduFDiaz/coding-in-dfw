@@ -10,12 +10,12 @@
     </nb-card>
 </ng-template>
 
-<nb-card>
+<nb-card [nbSpinner]="commentSpinner">
     <nb-card-header>
         Aprove comments
     </nb-card-header>
     <nb-card-body>
-        <table class="table" *ngIf="unpublishedComments">
+        <table class="table">
             <thead>
                 <tr>
                     <th scope="col">Name</th>
