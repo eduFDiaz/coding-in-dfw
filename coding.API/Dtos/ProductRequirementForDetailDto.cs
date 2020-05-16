@@ -12,6 +12,6 @@ namespace coding.API.Dtos
 
         // public Requirement Requirement { get; set; }
 
-        public List<RequirementForDetailDto> Requeriments { get; set; }
+        public  List<RequirementForDetailDto> Requirements { get; set; }
     }
 }

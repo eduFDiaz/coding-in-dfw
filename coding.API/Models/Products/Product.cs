@@ -22,7 +22,7 @@ namespace coding.API.Models.Products
         public string ProductDescription { get; set; }
         public int Size { get; set; }
         public Guid UserId { get; set; }
-        public ICollection<ProductRequirement> ProductRequirements { get; set; }
+        public List<ProductRequirement> ProductRequirements { get; set; }
 
 
     }
