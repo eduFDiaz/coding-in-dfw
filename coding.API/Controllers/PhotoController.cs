@@ -140,7 +140,7 @@ namespace coding.API.Controllers
 
             if (await _productDal.SaveAll())
                 return Ok(new PhotoPresenter(photo));
-            return BadRequest();
+            return BadRequest("Error: Photo not uploaded");
                                
 
             // return BadRequest("Could not add the photo");

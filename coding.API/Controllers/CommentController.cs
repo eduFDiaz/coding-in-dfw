@@ -14,7 +14,7 @@ using coding.API.Models.Posts.Comments;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-
+using coding.API.Dtos;
 
 namespace coding.API.Controllers
 {
@@ -51,7 +51,7 @@ namespace coding.API.Controllers
 
         
          [HttpGet("forpost/{postId}", Name = "Get comment for User")]
-         public async Task<IActionResult> GetskillForUser(Guid postId)
+         public async Task<IActionResult> GetcommentForUser(Guid postId)
          {
 
             var allPostComments = (await _commentDal.ListAsync()).Where(p => p.PostId == postId).ToList();
@@ -61,6 +61,30 @@ namespace coding.API.Controllers
         
          }
 
+         [HttpGet("unpublished", Name = "Get all unpublished comments")]
+         public async Task<IActionResult> GetsAllUnpublishedComments()
+         {
+
+            var allUnpublishedComments = (await _commentDal.ListAsync()).Where(p => p.Published == false).ToList();
+            var outPut = _mapper.Map<List<CommentForDetailDto>>(allUnpublishedComments);
+            
+            return Ok(outPut);
+        
+         }
+
+        [HttpPut("{commentId}/publish")]
+        public async Task<IActionResult> UpdateComment(Guid commentId)
+        {
+            var comment = (await _commentDal.GetById(commentId));
+
+            comment.Published = true;
+
+            if (await _commentDal.SaveAll())
+                return NoContent();
+            
+            return BadRequest("Cant publish the comment");
+
+        }
         
         [HttpDelete("{commentId}/delete", Name = "DeleteComment")]
         public async Task<IActionResult> DeleteLan(Guid commentId)

@@ -81,7 +81,8 @@ namespace coding.API.Controllers
         public async Task<IActionResult> GetAllProductsForuser(Guid userid)
         {
             var allUserProducts = (await _productDal.ListAsync()).Where(p => p.UserId == userid).ToList();
-
+            
+           
             var producCount = allUserProducts.Count;
 
             if (producCount == 0)
@@ -96,6 +97,17 @@ namespace coding.API.Controllers
        
             
            return Ok(outPut);
+        }
+
+
+        [HttpGet("all")]
+        public async Task<ActionResult> GetProducts()
+        {
+            var products = (await _productDal.ListAsync());
+            
+            var productsToReturn = _mapper.Map<List<ProductForDetailDto>>(products); 
+            
+            return Ok(productsToReturn);
         }
 
         [HttpGet("product/{productid}")]

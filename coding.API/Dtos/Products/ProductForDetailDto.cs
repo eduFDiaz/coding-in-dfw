@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using coding.API.Dtos.Requirements;
 using coding.API.Models.Products;
+using coding.API.Models.Products.Requirements;
 
 namespace coding.API.Dtos.Products
 {
@@ -25,10 +26,10 @@ namespace coding.API.Dtos.Products
         
         // public ICollection<Guid> RequirementId { get; set; }
 
-        // public List<ProductRequirementForDetailDto> Requirements { get; set; }
-        // public RequirementForDetailDto Requirements { get; set; }
+         public List<ProductRequirementForDetailDto> ProductRequirements { get; set; }
+        // public List<Requirement> Requirements { get; set; }
 
-        public List<ProductRequirementForDetailDto> ProductRequirements { get; set; } 
+        //public List<ProductRequirementForDetailDto> ProductRequirements { get; set; } 
         // public List<ProductRequirementForDetailDto> ProductRequirements {get; set;} this works
 
         
