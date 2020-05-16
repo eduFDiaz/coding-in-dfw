@@ -86,7 +86,7 @@ namespace coding.API.Controllers
         }
 
 
-        [Authorize]
+       // [Authorize]
         [HttpGet("foruser/{userId}", Name = "GetPost")]
         public async Task<IActionResult> GetAllPostsForUser(Guid userId)
         {

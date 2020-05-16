@@ -27,6 +27,7 @@ namespace coding.API.Dtos.Products
         // public ICollection<Guid> RequirementId { get; set; }
 
          public List<ProductRequirementForDetailDto> ProductRequirements { get; set; }
+        //public List<RequirementForDetailDto> Requirements { get; set; }
         // public List<Requirement> Requirements { get; set; }
 
         //public List<ProductRequirementForDetailDto> ProductRequirements { get; set; } 

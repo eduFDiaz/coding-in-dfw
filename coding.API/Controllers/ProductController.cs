@@ -96,7 +96,7 @@ namespace coding.API.Controllers
              var outPut = _mapper.Map<List<ProductForDetailDto>>(allUserProducts);
        
             
-           return Ok(outPut);
+           return Ok(allUserProducts);
         }
 
 
@@ -151,7 +151,7 @@ namespace coding.API.Controllers
             if (await _productDal.SaveAll())
                 return NoContent();
             
-            return BadRequest("Catn uptade product");
+            return BadRequest("Cant uptade product");
 
         }
 
@@ -169,6 +169,15 @@ namespace coding.API.Controllers
 
             return Ok(new RequirementPresenter(createdRequirement));
                         
+        }
+        [HttpGet("requirements/all")]
+        public async Task<ActionResult> GetRequirements()
+        {
+            var requirements = (await _requirementDal.ListAsync());
+            
+            var requirementsToReturn = _mapper.Map<List<RequirementForDetailDto>>(requirements); 
+            
+            return Ok(requirementsToReturn);
         }
         
 
