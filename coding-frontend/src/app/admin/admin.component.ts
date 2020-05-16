@@ -58,6 +58,11 @@ export class AdminComponent implements OnInit {
           title: 'Write new Post',
           url: 'admin/posts/new',
           icon: 'plus-outline'
+        },
+        {
+          title: 'Comments',
+          url: '/admin/posts/managecomments',
+          icon: 'heart-outline'
         }
 
       ]
@@ -86,7 +91,7 @@ export class AdminComponent implements OnInit {
       expanded: false,
       url: '/admin/resume'
 
-    }
+    },
 
   ];
 

@@ -10,48 +10,25 @@ import { ProductListComponent } from './products/product-list/product-list.compo
 import { TaglistComponent } from './post/taglist/taglist.component';
 import { ProductAddComponent } from './products/product-add/product-add.component';
 import { PhotoaddComponent } from './profile/photoadd/photoadd.component';
+import { CommentsComponent } from './post/comments/comments.component';
 
 
 
 const routes: Routes = [
   {
-    path: '', component: AdminComponent, children: [
-      { path: 'login', component: LoginComponent, pathMatch: 'full' },
-      { path: 'resume', component: ResumeAdminComponent, pathMatch: 'full', canActivate: [AuthGuardService] },
-      { path: 'profile', component: ProfileComponent, pathMatch: 'full', canActivate: [AuthGuardService] },
+    path: '', component: AdminComponent, canActivate: [AuthGuardService], children: [
+      { path: 'resume', component: ResumeAdminComponent, pathMatch: 'full' },
+      { path: 'profile', component: ProfileComponent, pathMatch: 'full' },
       { path: 'profile/profilepics', component: PhotoaddComponent, pathMatch: 'full' },
-      {
-        path: 'posts/list',
-        component: PostlistComponent,
-        pathMatch: 'full',
-        canActivate: [AuthGuardService],
-      },
-      {
-        path: 'posts/new',
-        component: AddpostComponent,
-        pathMatch: 'full',
-        canActivate: [AuthGuardService],
-      },
-      {
-        path: 'product/list',
-        component: ProductListComponent,
-        pathMatch: 'full',
-        canActivate: [AuthGuardService]
-      },
-      {
-        path: 'tag/list',
-        component: TaglistComponent,
-        pathMatch: 'full',
-        canActivate: [AuthGuardService]
-      },
-      {
-        path: 'product/new',
-        component: ProductAddComponent,
-        pathMatch: 'full',
-        canActivate: [AuthGuardService]
-      }
+      { path: 'posts/list', component: PostlistComponent, pathMatch: 'full' },
+      { path: 'posts/new', component: AddpostComponent, pathMatch: 'full' },
+      { path: 'posts/managecomments', component: CommentsComponent, pathMatch: 'full' },
+      { path: 'product/list', component: ProductListComponent, pathMatch: 'full' },
+      { path: 'tag/list', component: TaglistComponent, pathMatch: 'full', },
+      { path: 'product/new', component: ProductAddComponent, pathMatch: 'full' }
     ]
-  }
+  },
+  { path: 'login', component: LoginComponent, pathMatch: 'full' },
 ];
 
 export const AdminRoutes = RouterModule.forChild(routes);

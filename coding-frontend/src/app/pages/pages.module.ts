@@ -18,6 +18,7 @@ import { PostComponent } from './blog/post/post.component';
 import { AppPagesComponent } from './app-pages.component';
 import { FooterComponent } from './footer/footer.component';
 import { AppPagesRoutes } from './app-pages.routing';
+import { FormsModule } from '@angular/forms';
 
 
 
@@ -37,7 +38,7 @@ import { AppPagesRoutes } from './app-pages.routing';
     FooterComponent,
   ],
   imports: [
-    CommonModule, RouterModule, AppPagesRoutes
+    CommonModule, FormsModule, RouterModule, AppPagesRoutes
   ]
 })
 export class PagesModule { }
