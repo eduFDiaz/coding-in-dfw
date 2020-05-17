@@ -18,7 +18,7 @@
 
 
     <nb-action class="user-action" *ngIf="isLoggedIn">
-      <nb-user [name]="theuser?.fullname" [nbContextMenu]="userMenu" [picture]="photoUrl">
+      <nb-user [name]="currentUser?.fullname" [nbContextMenu]="userMenu" [picture]="photoUrl">
       </nb-user>
     </nb-action>
 

@@ -15,14 +15,14 @@ import { BehaviorSubject, Observable } from 'rxjs';
 })
 export class AdminComponent implements OnInit {
 
-  currentUser: User
+  // currentUser: User
 
   constructor(private auth: AuthService) {
-    this.currentUser = this.auth.currentUserValue
+    // this.currentUser = this.auth.currentUserValue
 
   }
   ngOnInit() {
-    console.log(this.currentUser)
+    // console.log(this.currentUser)
 
 
   }

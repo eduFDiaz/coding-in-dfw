@@ -1,8 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { NbMediaBreakpointsService, NbMenuService, NbSidebarService, NbThemeService, } from '@nebular/theme';
 
-
-
 import { map, takeUntil } from 'rxjs/operators';
 import { Subject, Observable } from 'rxjs';
 import { UserService } from '../../_services/user.service'
@@ -61,7 +59,7 @@ export class HeaderComponent implements OnInit {
 
     this.auth.currentPhotoUrl.subscribe(photoUrl => this.photoUrl = photoUrl);
 
-    this.theuser = this.auth.currentUserValue
+    // this.theuser = this.auth.currentUserValue
 
   }
 
