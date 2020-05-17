@@ -15,6 +15,9 @@ export class HomeComponent implements OnInit {
   constructor(private alert: AlertService, private user: UserService) { }
 
   ngOnInit() {
-    this.userData = JSON.parse(localStorage.getItem('userdata'));
+    this.user.getAllUsers().subscribe((userdata) => {
+      this.userData = userdata[0]
+      localStorage.setItem('userdata', JSON.stringify(this.userData))
+    })
   }
 }

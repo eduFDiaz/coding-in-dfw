@@ -5,7 +5,7 @@
                 <h2 class="title mb-2">{{ post?.title }}</h2>
                 <div class="meta mb-3">
                     <span class="date">Published at: {{ post?.createdAt | date: 'medium' }}</span>
-                    <span class="time">{{ post?.readingTime}} minutes reading</span>
+                    <span class="time">{{ post.readingTime }} minutes reading</span>
                     <span class="comment"><a href="#">4 comments</a></span>
                 </div>
             </header>
@@ -18,7 +18,7 @@
                             T-shirts)</a>
                     </figcaption>
                 </figure>
-                <div [innerHTML]="post.text"></div>
+                <div [innerHTML]="post?.text"></div>
                 <code language="javascript">&lt;section&gt;</code>
                 <p>You can get more info at <a href="https://highlightjs.org/"
                         target="_blank">https://highlightjs.org/</a>. Lorem ipsum dolor sit amet, consectetuer
