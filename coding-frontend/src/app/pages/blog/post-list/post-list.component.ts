@@ -18,7 +18,7 @@ export class PostListComponent implements OnInit {
   constructor(private postService: PostService, private auth: AuthService) { }
 
   ngOnInit() {
-    this.currentUser = JSON.parse(localStorage.getItem('data'))
+    this.currentUser = JSON.parse(localStorage.getItem('userdata'))
     this.postService.getUserPosts(this.currentUser.id).subscribe((posts: Post[]) => {
       this.posts = posts
     })

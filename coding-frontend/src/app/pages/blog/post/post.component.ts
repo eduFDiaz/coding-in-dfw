@@ -36,17 +36,15 @@ export class PostComponent implements OnInit {
     commenterName: '',
     published: false,
     email: '',
-    postId: '08d7f9ab-f802-099c-24b1-7c644bb55552'
+    postId: ''
 
   }
 
   postNewComment() {
-    console.log
+    this.newComment.postId = this.post.id
     this.postService.addComment(this.newComment).subscribe((result) => {
       this.alert.success('Thanks for your comment, you have to wait for the blog owner in order to be published')
       this.commentForm.resetForm(this.newComment)
-      this.newComment.postId = '08d7f9ab-f802-099c-24b1-7c644bb55552'
-
     })
   }
 
