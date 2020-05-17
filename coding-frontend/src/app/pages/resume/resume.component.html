@@ -202,7 +202,7 @@
 			<div class="resume-footer text-center">
 				<ul class="resume-social-list list-inline mx-auto mb-0 d-inline-block text-muted">
 					<li class="list-inline-item mb-lg-0 mr-3"><a class="resume-link"
-							href="{{ userData?.githubUrl }}"><svg
+							href="http://github.com/{{ userData?.githubUrl }}"><svg
 								class="svg-inline--fa fa-github-square fa-w-14 fa-2x mr-2" data-fa-transform="down-4"
 								aria-hidden="true" focusable="false" data-prefix="fab" data-icon="github-square"
 								role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" data-fa-i2svg=""
@@ -216,7 +216,7 @@
 								</g>
 							</svg>
 							<!-- <i class="fab fa-github-square fa-2x mr-2" data-fa-transform="down-4"></i> -->
-							<span class="d-none d-lg-inline-block text-muted">github.com/username</span></a></li>
+							<span class="d-none d-lg-inline-block text-muted">@{{ userData?.githubUrl}}</span></a></li>
 
 					<li class="list-inline-item mb-lg-0 mr-3"><a class="resume-link"
 							href="{{ userData?.linkedInProfile}}"><svg
@@ -231,7 +231,8 @@
 											transform="translate(-224 -256)"></path>
 									</g>
 								</g>
-							</svg><!-- <i class="fab fa-linkedin fa-2x mr-2" data-fa-transform="down-4"></i> --><span
+							</svg>
+							<!-- <i class="fab fa-linkedin fa-2x mr-2" data-fa-transform="down-4"></i> --><span
 								class="d-none d-lg-inline-block text-muted">{{ userData?.linkedInProfile }}</span></a>
 					</li>
 					<li class="list-inline-item mb-lg-0 mr-lg-3">

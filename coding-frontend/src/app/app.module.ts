@@ -17,6 +17,7 @@ import { PagesModule } from './pages/pages.module';
 import { ErrorInterceptorService } from './_services/error-interceptor.service';
 
 
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -33,7 +34,8 @@ import { ErrorInterceptorService } from './_services/error-interceptor.service';
     AdminModule,
     AppRoutingModule,
   ],
-  providers: [AuthService, UserService, ErrorInterceptorService, { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptorService, multi: true }],
+  providers: [AuthService, UserService, ErrorInterceptorService, { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptorService, multi: true },
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

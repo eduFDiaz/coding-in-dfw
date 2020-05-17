@@ -22,6 +22,9 @@ export class HeaderComponent implements OnInit {
 
   private destroy$: Subject<void> = new Subject<void>();
 
+
+  theuser: User
+
   userPictureOnly = false;
 
   avatarUrl: any
@@ -57,6 +60,8 @@ export class HeaderComponent implements OnInit {
       subscribe(status => this.isLoggedIn = status)
 
     this.auth.currentPhotoUrl.subscribe(photoUrl => this.photoUrl = photoUrl);
+
+    this.theuser = this.auth.currentUserValue
 
   }
 

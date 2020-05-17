@@ -18,10 +18,11 @@ export class AdminComponent implements OnInit {
   currentUser: User
 
   constructor(private auth: AuthService) {
-    // this.auth.getUser().subscribe(x => this.currentUser = x)
+    this.currentUser = this.auth.currentUserValue
 
   }
   ngOnInit() {
+    console.log(this.currentUser)
 
 
   }

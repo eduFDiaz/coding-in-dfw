@@ -24,6 +24,7 @@ import { NbToastrModule, NbToastrService } from '@nebular/theme';
 
 
 
+
 @NgModule({
   declarations: [HomeComponent,
     ProjectsListComponent,
@@ -41,6 +42,7 @@ import { NbToastrModule, NbToastrService } from '@nebular/theme';
   imports: [
     CommonModule, FormsModule,
     RouterModule, AppPagesRoutes
-  ]
+  ],
+
 })
 export class PagesModule { }

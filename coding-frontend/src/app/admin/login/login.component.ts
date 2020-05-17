@@ -39,11 +39,11 @@ export class LoginComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.loginStatus = this.activatedRouter.snapshot.data;
+    // this.loginStatus = this.activatedRouter.snapshot.data;
 
-    if (this.loginStatus) {
-      this.router.navigate(['/profile'])
-    }
+    // if (this.loginStatus) {
+    //   this.router.navigate(['/profile'])
+    // }
 
   }
 

@@ -4,6 +4,10 @@ import { PostService } from 'src/app/_services/post.service';
 import { AlertService } from 'src/app/_services/alert.service';
 import { AlertifyServiceService } from 'src/app/_services/alertify-service.service';
 import { NgForm } from '@angular/forms';
+import { ActivatedRoute } from '@angular/router';
+import { Post } from 'src/app/_models/Post';
+import { Observable } from 'rxjs';
+import { map, switchMap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-post',
@@ -14,10 +18,18 @@ export class PostComponent implements OnInit {
 
   @ViewChild('commentForm', { static: false }) commentForm: NgForm;
 
-  constructor(private postService: PostService, private alert: AlertifyServiceService) { }
+  constructor(private postService: PostService, private alert: AlertifyServiceService, private route: ActivatedRoute) { }
 
   ngOnInit() {
+    this.route.params.subscribe((data) => {
+      this.postService.getSinglePost(data.id).subscribe((result: Post) => {
+        this.post = result
+        console.log(this.post)
+      })
+    })
   }
+
+  post: Post
 
   newComment: Commentary = {
     body: '',

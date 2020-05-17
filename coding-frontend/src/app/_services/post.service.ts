@@ -48,8 +48,8 @@ export class PostService {
     )
   }
 
-  getSinglePost(postId: string) {
-    return this.http.get(environment.apiUrl + 'post' + postId)
+  getSinglePost(postId: string): Observable<Post> {
+    return this.http.get<Post>(environment.apiUrl + '/post/' + postId)
   }
 
   getUnpublishedComments(): Observable<Commentary[]> {

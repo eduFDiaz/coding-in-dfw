@@ -13,6 +13,7 @@ export class PostListComponent implements OnInit {
 
   currentUser: User
   posts: Post[]
+  postResume: string
 
   constructor(private postService: PostService, private auth: AuthService) { }
 
@@ -21,6 +22,19 @@ export class PostListComponent implements OnInit {
     this.postService.getUserPosts(this.currentUser.id).subscribe((posts: Post[]) => {
       this.posts = posts
     })
+
+  }
+
+  stripHtml(html: string) {
+    var div = document.createElement("DIV");
+
+    div.innerHTML = html;
+
+    let cleanText = div.innerText;
+
+    div = null; // prevent mem leaks
+
+    return cleanText;
   }
 
 }

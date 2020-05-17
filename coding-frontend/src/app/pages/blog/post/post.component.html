@@ -2,10 +2,10 @@
     <article class="blog-post px-3 py-5 p-md-5">
         <div class="container single-col-max-width">
             <header class="blog-post-header">
-                <h2 class="title mb-2">Why Every Developer Should Have A Blog</h2>
+                <h2 class="title mb-2">{{ post?.title }}</h2>
                 <div class="meta mb-3">
-                    <span class="date">Published 2 days ago</span>
-                    <span class="time">5 min read</span>
+                    <span class="date">Published at: {{ post?.createdAt | date: 'medium' }}</span>
+                    <span class="time">{{ post?.readingTime}} minutes reading</span>
                     <span class="comment"><a href="#">4 comments</a></span>
                 </div>
             </header>
@@ -18,13 +18,7 @@
                             T-shirts)</a>
                     </figcaption>
                 </figure>
-                <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean
-                    massa. Cum sociis natoqgggggggue penatibus et magnis dis parturient montes, nascetur ridiculus mus.
-                    Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis
-                    enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut,
-                    imperdiet a, venenatis vitae, justo. Nullam dictum felis eu pede mollis pretium. Integer tincidunt.
-                    Cras dapibus. Vivamus elementum semper nisi. Aenean vulputate eleifend tellus. Aenean leo ligula,
-                    porttitor eu, consequat vitae, eleifend ac, enim.</p>
+                <div [innerHTML]="post.text"></div>
                 <code language="javascript">&lt;section&gt;</code>
                 <p>You can get more info at <a href="https://highlightjs.org/"
                         target="_blank">https://highlightjs.org/</a>. Lorem ipsum dolor sit amet, consectetuer
@@ -102,7 +96,7 @@ export $inithighlight;</span></code></pre> -->
                         </tr>
                     </tbody>
                 </table>
-                <h3 class="mt-5 mb-3">Video Example</h3>
+                <!-- <h3 class="mt-5 mb-3">Video Example</h3>
                 <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean
                     massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec
                     quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. </p>
@@ -110,7 +104,7 @@ export $inithighlight;</span></code></pre> -->
                     <iframe width="560" height="315" src="https://www.youtube.com/embed/hnCmSXCZEpU" frameborder="0"
                         allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
                         allowfullscreen=""></iframe>
-                </div>
+                </div> -->
             </div>
             <nav class="blog-nav nav nav-justified my-5">
                 <a class="nav-link-prev nav-item nav-link rounded-left" href="index.html">Previous<svg
@@ -131,11 +125,11 @@ export $inithighlight;</span></code></pre> -->
                     </svg><!-- <i class="arrow-next fas fa-long-arrow-alt-right"></i> --></a>
             </nav>
             <div class="blog-comments-section">
-                <div id="disqus_thread"><iframe id="dsq-app7490" name="dsq-app7490" allowtransparency="true"
+                <!-- <div id="disqus_thread"><iframe id="dsq-app7490" name="dsq-app7490" allowtransparency="true"
                         frameborder="0" scrolling="no" tabindex="0" title="Disqus" width="100%"
                         src="https://disqus.com/embed/comments/?base=default&amp;f=3wmthemes&amp;t_u=http%3A%2F%2Flocalhost%3A40000%2Ffile%3A%2F%2F%2FC%3A%2FUsers%2Feduardo%2FDownloads%2Fdevcard-v2.1%2Fdevcard-bs4%2Fblog-post.html&amp;t_d=DevCard%20-%20Bootstrap%204%20vCard%20%26%20Portfolio%20Template%20For%20Developers&amp;t_t=DevCard%20-%20Bootstrap%204%20vCard%20%26%20Portfolio%20Template%20For%20Developers&amp;s_o=default#version=049b9d4c8356e0d7fe6487ff57f30ea3"
                         style="width: 1px !important; min-width: 100% !important; border: none !important; overflow: hidden !important; height: 312px !important;"
-                        horizontalscrolling="no" verticalscrolling="no"></iframe></div>
+                        horizontalscrolling="no" verticalscrolling="no"></iframe></div> -->
                 <script>
                     /**
                      *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT
