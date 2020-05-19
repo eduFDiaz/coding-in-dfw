@@ -80,7 +80,7 @@ namespace coding.API.Controllers
         [HttpGet("{userid}")]
         public async Task<IActionResult> GetAllProductsForuser(Guid userid)
         {
-            var allUserProducts = (await _productDal.ListAsync()).Where(p => p.UserId == userid).ToList();
+            var allUserProducts = (await _productDal.GetRelatedField("ProductRequirements.Requirement")).Where(p => p.UserId == userid).ToList();;
             
            
             var producCount = allUserProducts.Count;
@@ -96,7 +96,7 @@ namespace coding.API.Controllers
              var outPut = _mapper.Map<List<ProductForDetailDto>>(allUserProducts);
        
             
-           return Ok(allUserProducts);
+           return Ok(outPut);
         }
 
 
