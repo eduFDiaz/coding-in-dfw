@@ -15,6 +15,7 @@ using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using coding.API.Models.Posts.Comments;
+using coding.API.Dtos.Posts;
 
 namespace coding.API.Controllers
 {
@@ -91,28 +92,10 @@ namespace coding.API.Controllers
         public async Task<IActionResult> GetAllPostsForUser(Guid userId)
         {
 
-            var allUserPosts = (await _postDal.ListAsync()).Where(p => p.UserId == userId).ToList();
+            var allUserPosts = (await _postDal.GetRelatedFields("PostTags.Tag","Comments")).ToList();
+            var outPut = _mapper.Map<List<PostAllCommentDetailDto>>(allUserPosts);
 
-            var TagsList = new List<Tag>();
-
-            // foreach (var post in allUserPosts)
-            // {
-            //     var test = (await _postTagDal.GetById(post.Id)).FirstOrDefault();
-
-            //     if ( test != null ) {
-
-            //     var tag = (await _tagDal.GetById(test.TagId));
-
-            //     TagsList.Add(tag);
-
-            //     }
-
-
-            //   
-            // }
-
-
-            return Ok(allUserPosts);
+            return Ok(outPut);
         }
 
         [Authorize]

@@ -41,6 +41,7 @@ namespace coding.API.Dtos
             CreateMap<List<Post>, PostForDetailDto>();
             CreateMap<PostForUpdateDto, Post>().ForMember(post => post.Id, y => y.Ignore());
             CreateMap<Post, PostInCommentDetailDto>();
+            CreateMap<Post, PostAllCommentDetailDto>();
             // CreateMap<Post, PostForUpdateDto>();
 
             //Tags Maps
@@ -114,6 +115,7 @@ namespace coding.API.Dtos
 
             CreateMap<CreateCommentDto, Comment>();
             CreateMap<Comment, CommentForDetailDto>();
+            CreateMap<Comment, CommentClearForDetailDto>();
 
 
         }
