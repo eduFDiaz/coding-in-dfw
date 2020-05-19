@@ -7,6 +7,7 @@ using Microsoft.EntityFrameworkCore;
 using coding.API.Models.Posts;
 using coding.API.Models.Products;
 using coding.API.Models.Products.ProductsRequirements;
+using coding.API.Models.Posts.Comments;
 
 namespace coding.API.Data
 {
@@ -59,7 +60,7 @@ namespace coding.API.Data
         public async Task Delete(T entity)
         {
             _dbContext.Set<T>().Remove(entity);
-            // await _dbContext.SaveChangesAsync();
+            await this.SaveAll();
         }
 
         /// <summary>
@@ -90,5 +91,16 @@ namespace coding.API.Data
             return await _dbContext.Set<ProductRequirement>().Include(p => p.Requirement).ToListAsync();
         }
 
+
+
+        /// <summary>
+        /// Loads a related field to a given entity
+        /// </summary>
+        public async Task<List<T>> GetRelatedField(string relatedField)
+        {
+            return await _dbContext.Set<T>()
+            .Include(relatedField).ToListAsync();
+
+        }
     }
 }

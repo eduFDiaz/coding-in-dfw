@@ -20,11 +20,11 @@ using coding.API.Dtos.Requirements;
 using coding.API.Dtos.Comments;
 using coding.API.Models.Products.Requirements;
 using coding.API.Models.Products.ProductsRequirements;
-
+using coding.API.Dtos.Posts;
 
 namespace coding.API.Dtos
 {
-    public class AutoMapperProfiles: Profile
+    public class AutoMapperProfiles : Profile
     {
         public AutoMapperProfiles()
         {
@@ -40,6 +40,7 @@ namespace coding.API.Dtos
             CreateMap<PostForDetailDto, Post>();
             CreateMap<List<Post>, PostForDetailDto>();
             CreateMap<PostForUpdateDto, Post>().ForMember(post => post.Id, y => y.Ignore());
+            CreateMap<Post, PostInCommentDetailDto>();
             // CreateMap<Post, PostForUpdateDto>();
 
             //Tags Maps
@@ -47,7 +48,7 @@ namespace coding.API.Dtos
             CreateMap<TagForDetailDto, Tag>();
             CreateMap<TagForUpdateDto, Tag>();
             CreateMap<Tag, TagForDetailDto>();
-             
+
 
 
             //Products Maps
@@ -70,30 +71,30 @@ namespace coding.API.Dtos
             // PostsTags Mappings
             CreateMap<PostTagForCreateDto, PostTag>();
             CreateMap<PostTag, PostTagForDetailDto>();
-            
+
 
             // Projects Mappings
             CreateMap<CreateProjectDto, Project>();
-            CreateMap<UpdateProjectDto, Project>();        
+            CreateMap<UpdateProjectDto, Project>();
 
 
             // Education Mappings
             CreateMap<CreateEducationDto, Education>();
-            CreateMap<UpdateEducationDto, Education>();        
+            CreateMap<UpdateEducationDto, Education>();
 
             // Award Mappings
             CreateMap<CreateAwardDto, Award>();
-            CreateMap<UpdateAwardDto, Award>(); 
+            CreateMap<UpdateAwardDto, Award>();
 
             // Interest Mappings
             CreateMap<CreateInterestDto, Interest>();
-            CreateMap<UpdateInterestDto, Interest>(); 
-            
+            CreateMap<UpdateInterestDto, Interest>();
+
 
             // Skill Mappings
             CreateMap<CreateSkillDto, Skill>();
-            CreateMap<UpdateSkillDto, Skill>(); 
-            
+            CreateMap<UpdateSkillDto, Skill>();
+
             // WE mappings
             CreateMap<CreateWorkExperienceDto, WorkExperience>();
             CreateMap<UpdateWorkExperienceDto, WorkExperience>();
@@ -110,14 +111,14 @@ namespace coding.API.Dtos
             CreateMap<ProductRequirementForCreateDto, ProductRequirement>();
             CreateMap<ProductRequirement, RequirementForDetailDto>();
 
-            
+
             CreateMap<CreateCommentDto, Comment>();
-            CreateMap< Comment, CommentForDetailDto>();
-            
-            
+            CreateMap<Comment, CommentForDetailDto>();
+
+
         }
 
-        
-        
+
+
     }
 }

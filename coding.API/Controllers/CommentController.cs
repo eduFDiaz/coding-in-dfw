@@ -26,13 +26,13 @@ namespace coding.API.Controllers
         private readonly IMapper _mapper;
 
         private readonly Repository<Comment> _commentDal;
-       
+
         public CommentController(
             Repository<Comment> commentDal, IConfiguration config, IMapper mapper)
         {
-            
-             _commentDal = commentDal;
-             _config = config;
+
+            _commentDal = commentDal;
+            _config = config;
             _mapper = mapper;
         }
 
@@ -46,31 +46,39 @@ namespace coding.API.Controllers
 
             return Ok(new CommentPresenter(createdComment));
 
-        } 
+        }
 
 
-        
-         [HttpGet("forpost/{postId}", Name = "Get comment for User")]
-         public async Task<IActionResult> GetcommentForUser(Guid postId)
-         {
+
+        [HttpGet("forpost/{postId}", Name = "Get comment for Post")]
+        public async Task<IActionResult> GetcommentForUser(Guid postId)
+        {
 
             var allPostComments = (await _commentDal.ListAsync()).Where(p => p.PostId == postId).ToList();
             var outPut = _mapper.Map<List<CommentForDetailDto>>(allPostComments);
-            
-            return Ok(outPut);
-        
-         }
 
-         [HttpGet("unpublished", Name = "Get all unpublished comments")]
-         public async Task<IActionResult> GetsAllUnpublishedComments()
-         {
-
-            var allUnpublishedComments = (await _commentDal.ListAsync()).Where(p => p.Published == false).ToList();
-            var outPut = _mapper.Map<List<CommentForDetailDto>>(allUnpublishedComments);
-            
             return Ok(outPut);
-        
-         }
+
+        }
+
+        [HttpGet("unpublished", Name = "Get all unpublished comments")]
+        public async Task<IActionResult> GetsAllUnpublishedComments()
+        {
+
+            // var allUnpublishedComments = _commentDal.ListAll().
+            // Where(comment => comment.Published == false).ToList();
+
+
+
+            var unpublished = (await _commentDal.GetRelatedField("Post")).Where(c => c.Published == false).ToList();
+
+            // var result = unpublished.ToList();
+
+            var outPut = _mapper.Map<List<CommentForDetailDto>>(unpublished);
+
+            return Ok(outPut);
+
+        }
 
         [HttpPut("{commentId}/publish")]
         public async Task<IActionResult> UpdateComment(Guid commentId)
@@ -81,28 +89,28 @@ namespace coding.API.Controllers
 
             if (await _commentDal.SaveAll())
                 return NoContent();
-            
+
             return BadRequest("Cant publish the comment");
 
         }
-        
+
         [HttpDelete("{commentId}/delete", Name = "DeleteComment")]
         public async Task<IActionResult> DeleteLan(Guid commentId)
         {
-           var commentToDelete = (await _commentDal.GetById(commentId));
+            var commentToDelete = (await _commentDal.GetById(commentId));
 
-             if (commentToDelete == null)
-                  return NotFound();
+            if (commentToDelete == null)
+                return NotFound();
 
             await _commentDal.Delete(commentToDelete);
-                
-            if (await _commentDal.SaveAll())    
-                 return NoContent();
+
+            if (await _commentDal.SaveAll())
+                return NoContent();
 
             return BadRequest("Cant erase the Comment");
-            
+
 
         }
-      
+
     }
 }

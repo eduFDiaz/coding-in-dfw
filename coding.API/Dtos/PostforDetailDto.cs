@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using coding.API.Models;
 
 namespace coding.API.Dtos
 {
@@ -21,6 +20,6 @@ namespace coding.API.Dtos
         // public User User { get; set; }
         public int UserId { get; set; }
         // public List<PostTag> PostTags { get; set; }
-        public List<PostTagForDetailDto> PostTags {get; set;}
+        public List<PostTagForDetailDto> PostTags { get; set; }
     }
 }
