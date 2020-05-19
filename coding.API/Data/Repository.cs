@@ -86,12 +86,6 @@ namespace coding.API.Data
             return false;
         }
 
-        public async Task<List<ProductRequirement>> GetProductRequirementIncluded()
-        {
-            return await _dbContext.Set<ProductRequirement>().Include(p => p.Requirement).ToListAsync();
-        }
-
-
 
         /// <summary>
         /// Loads a related field to a given entity
@@ -100,6 +94,15 @@ namespace coding.API.Data
         {
             return await _dbContext.Set<T>()
             .Include(relatedField).ToListAsync();
+
+        }
+        /// <summary>
+        /// Loads a related field to a given entity various levels
+        /// </summary>
+        public async Task<List<T>> GetRelatedFields(string relatedField, string anotherField)
+        {
+            return await _dbContext.Set<T>()
+            .Include(relatedField).Include(anotherField).ToListAsync();
 
         }
     }

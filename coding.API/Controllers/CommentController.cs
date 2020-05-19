@@ -112,5 +112,16 @@ namespace coding.API.Controllers
 
         }
 
+        [HttpGet("comments/all")]
+        public async Task<ActionResult> GetAllComments()
+        {
+            var comments = (await _commentDal.ListAsync()).ToList();
+            
+            /* var productsToReturn = _mapper.Map<List<ProductForDetailDto>>(products);  */
+            
+            return Ok(comments);
+        }
+
+
     }
 }

@@ -6,7 +6,7 @@ using coding.API.Models.Posts;
 
 namespace coding.API.Dtos.Comments
 {
-    public class CommentForDetailDto
+    public class CommentClearForDetailDto
     {
         public Guid Id { get; set; }
         public string CommenterName { get; set; }
@@ -15,7 +15,6 @@ namespace coding.API.Dtos.Comments
         // public Guid PostId { get; set; }
         public virtual DateTime DateCreated { get; set; }
         
-        public PostInCommentDetailDto Post { get; set; }
 
 
 
