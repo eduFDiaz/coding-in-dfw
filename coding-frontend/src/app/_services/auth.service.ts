@@ -18,13 +18,14 @@ export class AuthService {
   photoUrl = new BehaviorSubject<string>('https://www.bsn.eu/wp-content/uploads/2016/12/user-icon-image-placeholder-300-grey.jpg');
   currentPhotoUrl = this.photoUrl.asObservable();
 
+  // User subjects and observable
   private currentUserSubject: BehaviorSubject<User>
-
   public currentUser: Observable<User>
 
-  private isLogedIn = new BehaviorSubject(true);
 
-  currentLoginStatus = this.isLogedIn.asObservable();
+  // Login status subject and observable
+  private currentLoginStatusSubject: BehaviorSubject<boolean>
+  public currentLoginStatus: Observable<boolean>
 
   jwtHelper = new JwtHelperService();
 
@@ -36,14 +37,20 @@ export class AuthService {
     this.currentUserSubject = new BehaviorSubject<User>(JSON.parse(localStorage.getItem('data')));
     this.currentUser = this.currentUserSubject.asObservable();
 
+    // Initialize the login status to false
+
+    this.currentLoginStatusSubject = new BehaviorSubject<boolean>(null)
+    this.currentLoginStatus = this.currentLoginStatusSubject.asObservable();
+
   }
 
-  public get currentUserValue(): User {
-    return this.currentUserSubject.value;
-  }
+
+  // public get currentUserValue(): User {
+  //   return this.currentUserSubject.value;
+  // }
 
   login(model: any) {
-    return this.http.post(environment.apiUrl + '/auth/login', model).pipe(
+    this.http.post(environment.apiUrl + '/auth/login', model).pipe(
       map((response: any, ) => {
         const user = response;
         if (user) {
@@ -52,7 +59,7 @@ export class AuthService {
           this.decodedToken = this.jwtHelper.decodeToken(user.token);
           localStorage.setItem('data', JSON.stringify(user.user));
           this.currentUserSubject.next(user.user);
-          this.changeCurrentLoginStatus(true)
+          this.currentLoginStatusSubject.next(true)
 
         }
       },
@@ -61,7 +68,7 @@ export class AuthService {
   }
 
   changeCurrentLoginStatus(status: boolean) {
-    this.isLogedIn.next(status)
+    // this.isLogedIn.next(status)
   }
 
   changeCurrentUser(user: User) {
@@ -94,6 +101,10 @@ export class AuthService {
 
   getUser(): Observable<User> {
     return this.currentUserSubject.asObservable()
+  }
+
+  getLoginStatus(): Observable<boolean> {
+    return this.currentLoginStatusSubject.asObservable()
   }
 
 

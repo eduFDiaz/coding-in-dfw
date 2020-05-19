@@ -37,6 +37,7 @@ export class HeaderComponent implements OnInit {
 
   userMenu = [{ title: 'Profile', icon: 'person' }, { title: 'Log out', icon: 'power-outline' }];
   photoUrl: string;
+  currentAvatarUrl: string;
 
   constructor(private sidebarService: NbSidebarService, private menuService: NbMenuService,
     private themeService: NbThemeService,
@@ -49,13 +50,15 @@ export class HeaderComponent implements OnInit {
   ) {
     // this.currentUser = this.auth.getUser()
     this.auth.getUser().subscribe(x => this.currentUser = x)
+
+    this.auth.getLoginStatus().subscribe(status => this.isLoggedIn = status)
+
     this.user.getAllUserPhotos().subscribe((photo: any) => {
       this.userPhotos = photo
-      // this.currentAvatarUrl = this.userPhotos.filter(photo => photo.isMain == true).map(photo => photo.url).toString()
+      this.currentAvatarUrl = this.userPhotos.filter(photo => photo.isMain == true).map(photo => photo.url).toString()
     })
 
-    this.auth.currentLoginStatus.pipe(takeUntil(this.destroy$)).
-      subscribe(status => this.isLoggedIn = status)
+
 
     this.auth.currentPhotoUrl.subscribe(photoUrl => this.photoUrl = photoUrl);
 
