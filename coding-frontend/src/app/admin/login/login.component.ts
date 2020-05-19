@@ -34,17 +34,7 @@ export class LoginComponent implements OnInit {
     // }
   }
 
-  test() {
-
-  }
-
   ngOnInit() {
-    // this.loginStatus = this.activatedRouter.snapshot.data;
-
-    // if (this.loginStatus) {
-    //   this.router.navigate(['/profile'])
-    // }
-
   }
 
   login() {
@@ -59,7 +49,6 @@ export class LoginComponent implements OnInit {
       () => {
         console.log("ok")
         this.toast.showToast('bottom-left', 'success', 'You have sign in succefully!', 'Welcome back to your dashboard!')
-        console.log("luego del toast")
         this.router.navigate(['/admin/profile']);
       }
     );

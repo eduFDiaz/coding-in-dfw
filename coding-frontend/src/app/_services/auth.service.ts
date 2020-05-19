@@ -50,7 +50,7 @@ export class AuthService {
   // }
 
   login(model: any) {
-    this.http.post(environment.apiUrl + '/auth/login', model).pipe(
+    return this.http.post(environment.apiUrl + '/auth/login', model).pipe(
       map((response: any, ) => {
         const user = response;
         if (user) {

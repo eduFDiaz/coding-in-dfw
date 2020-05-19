@@ -35,7 +35,7 @@ import { AlertService } from '../_services/alert.service';
 
 
 @NgModule({
-  providers: [NbSidebarService, NbMenuService, AuthGuardService, AuthService, UserService, PostService, ResumeService, AlertService],
+  providers: [NbSidebarService, NbMenuService],
   declarations: [AdminComponent, LoginComponent, ProfileComponent, ResumeAdminComponent, PhotoaddComponent],
   imports: [
     CommonModule,
