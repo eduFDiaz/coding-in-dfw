@@ -50,6 +50,18 @@
                         </div>
                         <!-- <ckeditor [config]="{ extraPlugins: 'divarea', height: '320' }"></ckeditor> -->
                     </div>
+                    <div class="row">
+                        <nb-select multiple name="postTag" [(ngModel)]="post.newTagIds" placeholder="Select Tags">
+                            <nb-option *ngFor="let tag of tags" value="{{ tag.id }}">
+                                {{ tag.title }}
+                            </nb-option>
+                        </nb-select>
+
+                        <button (click)="openAddTagDialog()" nbButton type="button" size="tiny" status="success">
+                            <nb-icon icon="plus"></nb-icon>
+                        </button>
+
+                    </div>
                 </form>
                 <br>
                 <div class="row">

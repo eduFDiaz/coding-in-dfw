@@ -86,9 +86,11 @@ export class AddpostComponent implements OnInit {
   }
 
   openAddTagDialog() {
-    this.dialog.open(AddtagComponent, { closeOnBackdropClick: false }).onClose.subscribe(
+    this.dialog.open(AddtagComponent, { closeOnBackdropClick: true }).onClose.subscribe(
       (data) => {
-        this.tags.push(data)
+        if (data) {
+          this.tags.push(data)
+        }
       }
     )
   }

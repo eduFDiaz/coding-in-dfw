@@ -58,7 +58,7 @@ export class ProductListComponent implements OnInit {
     this.dialog.open(ProductDeleteComponent, {
       context: {
         product: productToDelete
-      }, closeOnBackdropClick: true
+      }, closeOnBackdropClick: false
     }).onClose.subscribe((data) => {
       this.spinner = true;
       if (data) {
@@ -89,7 +89,7 @@ export class ProductListComponent implements OnInit {
     this.dialog.open(ProductEditComponent, {
       context: {
         product: productToEdit
-      }, closeOnBackdropClick: false
+      }, closeOnBackdropClick: true
     })
     // .onClose.subscribe((data) => {
     // });

@@ -20,16 +20,16 @@
                 <tr *ngFor="let post of pageOfItems" name="posts">
                     <td>{{ post.title }}</td>
                     <td>{{ post.description }}</td>
-                    <td>{{ post.dateCreated | date: 'medium' }} </td>
+                    <td>{{ post.createdAt | date: 'medium' }} </td>
                     <td>
-                        <span class="subtitle" *ngFor="let tag of post.tags ">
+                        <span class="subtitle" *ngFor="let tag of post.postTags ">
                             <!-- <div *ngIf="!tag.tag.title">
                                 There is no tags :(
                             </div> -->
                             <div *ngIf="!tag">
                                 There is no tags :(
                             </div>
-                            {{ tag }},
+                            {{ tag.tag.description }},
                         </span>
                     </td>
 

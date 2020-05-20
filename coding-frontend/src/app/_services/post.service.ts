@@ -90,7 +90,7 @@ export class PostService {
     )
   }
 
-  editPost(postid: number, newdata: any): Observable<boolean> {
+  editPost(postid: string, newdata: any): Observable<boolean> {
     // tslint:disable-next-line: object-literal-key-quotes
     return this.http.put<boolean>(environment.apiUrl + '/post/' + postid + '/update', newdata, {
       headers: {
@@ -147,7 +147,7 @@ export class PostService {
     )
   }
 
-  deleteTag(tagid: number) {
+  deleteTag(tagid: string) {
     return this.http.delete(environment.apiUrl + '/tag/' + tagid + '/delete', {
       headers: {
         'Content-Type': 'application/json',
@@ -166,7 +166,7 @@ export class PostService {
     )
   }
 
-  editTag(tagid: number, newdata: any): Observable<boolean> {
+  editTag(tagid: string, newdata: any): Observable<boolean> {
     // tslint:disable-next-line: object-literal-key-quotes
     return this.http.put<boolean>(environment.apiUrl + '/tag/' + tagid + '/update', newdata, {
       headers: {

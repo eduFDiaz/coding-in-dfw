@@ -71,7 +71,8 @@ export class PostlistComponent implements OnInit {
     });
   }
 
-  openEditDialog(postToEdit: Object) {
+  openEditDialog(postToEdit: Post) {
+
     this.dialog.open(EditPostComponent, {
       context: {
         post: postToEdit
