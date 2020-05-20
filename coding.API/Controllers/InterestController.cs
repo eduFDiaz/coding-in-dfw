@@ -25,13 +25,13 @@ namespace coding.API.Controllers
         private readonly IMapper _mapper;
 
         private readonly Repository<Interest> _interestDal;
-       
+
         public InterestController(
             Repository<Interest> interestDal, IConfiguration config, IMapper mapper)
         {
-            
+
             _interestDal = interestDal;
-             _config = config;
+            _config = config;
             _mapper = mapper;
         }
 
@@ -45,40 +45,38 @@ namespace coding.API.Controllers
 
             return Ok(new InterestPresenter(createdinterest));
 
-        } 
+        }
 
 
-        
+
         [HttpGet("foruser/{userId}", Name = "Get interest for User")]
         public async Task<IActionResult> GetinterestForUser(Guid userId)
         {
 
             var allUserinterests = (await _interestDal.ListAsync()).Where(p => p.UserId == userId).ToList();
 
-             return Ok(allUserinterests);
-        
+            return Ok(allUserinterests);
+
         }
 
-        
+
         [HttpDelete("{interestid}/delete", Name = "Deleteinterest")]
         public async Task<IActionResult> DeleteLan(Guid interestid)
         {
-           var interestToDelete = (await _interestDal.GetById(interestid));
+            var interestToDelete = (await _interestDal.GetById(interestid));
 
-             if (interestToDelete == null)
-                  return NotFound();
+            if (interestToDelete == null)
+                return NotFound();
 
-            await _interestDal.Delete(interestToDelete);
-                
-            if (await _interestDal.SaveAll())    
-                 return NoContent();
+            if (await _interestDal.Delete(interestToDelete))
+                return NoContent();
 
             return BadRequest("Catn erase the interest");
-            
+
 
         }
 
-        
+
         [HttpPut("{interestid}/update", Name = "Update interest")]
         public async Task<IActionResult> UpdateInterest(Guid interestid, [FromBody] UpdateInterestDto request)
         {
@@ -86,7 +84,7 @@ namespace coding.API.Controllers
 
             if (interestToUpdate == null)
                 return NotFound();
-            
+
             var toUpd = _mapper.Map(request, interestToUpdate);
 
             await _interestDal.Update(toUpd);
@@ -95,7 +93,7 @@ namespace coding.API.Controllers
                 return NoContent();
 
             return BadRequest("cant update the interest!");
-            
+
         }
 
     }

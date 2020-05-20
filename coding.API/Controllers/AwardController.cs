@@ -25,13 +25,13 @@ namespace coding.API.Controllers
         private readonly IMapper _mapper;
 
         private readonly Repository<Award> _awardDal;
-       
+
         public AwardController(
             Repository<Award> awardDal, IConfiguration config, IMapper mapper)
         {
-            
-             _awardDal = awardDal;
-             _config = config;
+
+            _awardDal = awardDal;
+            _config = config;
             _mapper = mapper;
         }
 
@@ -45,40 +45,38 @@ namespace coding.API.Controllers
 
             return Ok(new AwardPresenter(createdaward));
 
-        } 
+        }
 
 
-        
+
         [HttpGet("foruser/{userId}", Name = "Get award for User")]
         public async Task<IActionResult> GetawardForUser(Guid userId)
         {
 
             var allUserawards = (await _awardDal.ListAsync()).Where(p => p.UserId == userId).ToList();
 
-             return Ok(allUserawards);
-        
+            return Ok(allUserawards);
+
         }
 
-        
+
         [HttpDelete("{awardid}/delete", Name = "Deleteaward")]
         public async Task<IActionResult> DeleteLan(Guid awardid)
         {
-           var awardToDelete = (await _awardDal.GetById(awardid));
+            var awardToDelete = (await _awardDal.GetById(awardid));
 
-             if (awardToDelete == null)
-                  return NotFound();
+            if (awardToDelete == null)
+                return NotFound();
 
-            await _awardDal.Delete(awardToDelete);
-                
-            if (await _awardDal.SaveAll())    
-                 return NoContent();
+            if (await _awardDal.Delete(awardToDelete))
+                return NoContent();
 
             return BadRequest("Catn erase the award");
-            
+
 
         }
 
-        
+
         [HttpPut("{awardid}/update", Name = "Update award")]
         public async Task<IActionResult> UpdateAward(Guid awardid, [FromBody] UpdateAwardDto request)
         {
@@ -86,16 +84,14 @@ namespace coding.API.Controllers
 
             if (awardToUpdate == null)
                 return NotFound();
-            
+
             var toUpd = _mapper.Map(request, awardToUpdate);
 
-            _awardDal.Update(toUpd);
-
-            if (await _awardDal.SaveAll())
+            if (await _awardDal.Update(toUpd))
                 return NoContent();
 
             return BadRequest("cant update the award!");
-            
+
         }
 
     }

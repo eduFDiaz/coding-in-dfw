@@ -25,13 +25,13 @@ namespace coding.API.Controllers
         private readonly IMapper _mapper;
 
         private readonly Repository<Project> _projectDal;
-       
+
         public ProjectController(
             Repository<Project> projectDal, IConfiguration config, IMapper mapper)
         {
-            
-             _projectDal = projectDal;
-             _config = config;
+
+            _projectDal = projectDal;
+            _config = config;
             _mapper = mapper;
         }
 
@@ -45,40 +45,36 @@ namespace coding.API.Controllers
 
             return Ok(new ProjectPresenter(projectToCreate));
 
-        } 
+        }
 
 
-        
+
         [HttpGet("foruser/{userId}", Name = "Get project for User")]
         public async Task<IActionResult> GetProjectForUser(Guid userId)
         {
 
             var allUserprojects = (await _projectDal.ListAsync()).Where(p => p.UserId == userId).ToList();
 
-             return Ok(allUserprojects);
-        
+            return Ok(allUserprojects);
+
         }
 
-        
+
         [HttpDelete("{projectid}/delete", Name = "DeleteProject")]
         public async Task<IActionResult> DeleteLan(Guid projectid)
         {
-           var projectToDelete = (await _projectDal.GetById(projectid));
+            var projectToDelete = (await _projectDal.GetById(projectid));
 
-             if (projectToDelete == null)
-                  return NotFound();
+            if (projectToDelete == null)
+                return NotFound();
 
-            await _projectDal.Delete(projectToDelete);
-                
-            if (await _projectDal.SaveAll())    
-                 return NoContent();
+            if (await _projectDal.Delete(projectToDelete))
+                return NoContent();
 
             return BadRequest("Catn erase the project");
-            
-
         }
 
-        
+
         [HttpPut("{projectid}/update", Name = "Update Project")]
         public async Task<IActionResult> UpdateLan(Guid projectid, [FromBody] UpdateProjectDto request)
         {
@@ -86,20 +82,18 @@ namespace coding.API.Controllers
 
             if (prjectToUpdate == null)
                 return NotFound();
-            
+
             // prjectToUpdate.Title = request.Title;
             // prjectToUpdate.Resume = request.Resume;
             // prjectToUpdate.Type = request.Type;
 
             var toUpd = _mapper.Map(request, prjectToUpdate);
 
-            _projectDal.Update(toUpd);
-
-            if (await _projectDal.SaveAll())
+            if (await _projectDal.Update(toUpd))
                 return NoContent();
 
             return BadRequest("cant update the project!");
-            
+
         }
 
     }

@@ -98,7 +98,7 @@ namespace coding.API.Controllers
             return Ok(outPut);
         }
 
-        [Authorize]
+
         [HttpDelete("{postid}/delete", Name = "DetelePost")]
         public async Task<IActionResult> DeletePost(Guid postid)
         {
@@ -107,12 +107,10 @@ namespace coding.API.Controllers
             if (postToDelete == null)
                 return NotFound();
 
-            await _postDal.Delete(postToDelete);
-
-            if (await _postDal.SaveAll())
+            if (await _postDal.Delete(postToDelete))
                 return NoContent();
 
-            return BadRequest("Catn erase the post");
+            return BadRequest("Cant Delete the post!");
 
         }
 

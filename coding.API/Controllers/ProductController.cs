@@ -30,15 +30,15 @@ namespace coding.API.Controllers
         private readonly Repository<Requirement> _requirementDal;
 
         private readonly Repository<ProductRequirement> _productRequirementDal;
-        
+
 
         public ProductController(
-            Repository<Product> productDal, 
+            Repository<Product> productDal,
             IConfiguration config, IMapper mapper,
             Repository<Requirement> requirementDal,
-            Repository<ProductRequirement> productRequirementDal )
+            Repository<ProductRequirement> productRequirementDal)
         {
-            
+
             _productDal = productDal;
             _config = config;
             _mapper = mapper;
@@ -46,57 +46,57 @@ namespace coding.API.Controllers
             _productRequirementDal = productRequirementDal;
         }
 
-        
+
         [HttpPost("create")]
         public async Task<IActionResult> Create([FromBody] ProductForCreateDto request)
         {
 
             var product = _mapper.Map<Product>(request);
-            
-            var pr = new ProductRequirementForCreateDto();              
+
+            var pr = new ProductRequirementForCreateDto();
 
             var createdProduct = await _productDal.Add(product);
 
-             foreach (var Requirement in request.RequirementId)
+            foreach (var Requirement in request.RequirementId)
             {
-               
+
                 pr.RequirementId = Requirement;
-               
+
                 pr.ProductId = createdProduct.Id;
 
                 pr.Requirement = await _requirementDal.GetById(Requirement);
 
                 var productRequirementToCreate = _mapper.Map<ProductRequirement>(pr);
-               
+
                 await _productRequirementDal.Add(productRequirementToCreate);
-                
+
             }
 
-           return Ok(new ProductPresenter(createdProduct));
-           
-        } 
+            return Ok(new ProductPresenter(createdProduct));
 
-        
+        }
+
+
         [HttpGet("{userid}")]
         public async Task<IActionResult> GetAllProductsForuser(Guid userid)
         {
-            var allUserProducts = (await _productDal.GetRelatedField("ProductRequirements.Requirement")).Where(p => p.UserId == userid).ToList();;
-            
-           
+            var allUserProducts = (await _productDal.GetRelatedField("ProductRequirements.Requirement")).Where(p => p.UserId == userid).ToList(); ;
+
+
             var producCount = allUserProducts.Count;
 
             if (producCount == 0)
                 return NotFound("There is no products here");
 
-            
+
             // var requirement = (await _productDal.GetProductRequirementIncluded()).ToList();
 
             // var test2 = (await _productRequirementDal.ListAsync()).Select(pr => pr.Requirement).ToList();
 
-             var outPut = _mapper.Map<List<ProductForDetailDto>>(allUserProducts);
-       
-            
-           return Ok(outPut);
+            var outPut = _mapper.Map<List<ProductForDetailDto>>(allUserProducts);
+
+
+            return Ok(outPut);
         }
 
 
@@ -104,9 +104,9 @@ namespace coding.API.Controllers
         public async Task<ActionResult> GetProducts()
         {
             var products = (await _productDal.ListAsync());
-            
-            var productsToReturn = _mapper.Map<List<ProductForDetailDto>>(products); 
-            
+
+            var productsToReturn = _mapper.Map<List<ProductForDetailDto>>(products);
+
             return Ok(productsToReturn);
         }
 
@@ -115,47 +115,45 @@ namespace coding.API.Controllers
         {
             var product = (await _productDal.GetById(productid));
 
-            return Ok( new ProductPresenter(product));
+            return Ok(new ProductPresenter(product));
         }
 
-        
+
         [HttpDelete("{productid}/delete")]
         public async Task<IActionResult> DeleteTag(Guid productid)
         {
             var productToDelete = (await _productDal.GetById(productid));
 
-            await _productDal.Delete(productToDelete);
-
-            if (await _productDal.SaveAll())
+            if (await _productDal.Delete(productToDelete))
                 return NoContent();
 
             return BadRequest("cant delete the Product");
 
         }
 
-        
+
         [HttpPut("{productid}/update")]
         public async Task<IActionResult> UpdateTag(Guid productId, [FromBody] ProductForUpdateDto request)
         {
             var productToEdit = (await _productDal.GetById(productId));
 
-        //     productToEdit.Name = request.Name;
-        //  productToEdit.Type = request.Type;
-        // productToEdit.Url = request.Url;
-        // productToEdit.ProductDescription = request.ProductDescription;
-            
-           var toUpd = _mapper.Map(request, productToEdit);
-            
+            //     productToEdit.Name = request.Name;
+            //  productToEdit.Type = request.Type;
+            // productToEdit.Url = request.Url;
+            // productToEdit.ProductDescription = request.ProductDescription;
+
+            var toUpd = _mapper.Map(request, productToEdit);
+
             await _productDal.Update(toUpd);
 
             if (await _productDal.SaveAll())
                 return NoContent();
-            
+
             return BadRequest("Cant uptade product");
 
         }
 
-         [HttpPost("addRequirement")]
+        [HttpPost("addRequirement")]
         public async Task<IActionResult> NewRequeriment([FromBody] RequirementForCreationDto request)
         {
             var requirementToCreate = new Requirement()
@@ -168,18 +166,18 @@ namespace coding.API.Controllers
             // var requirementToShow = _mapper.Map<RequirementForDetailDto>(createdRequirement);
 
             return Ok(new RequirementPresenter(createdRequirement));
-                        
+
         }
         [HttpGet("requirements/all")]
         public async Task<ActionResult> GetRequirements()
         {
             var requirements = (await _requirementDal.ListAsync());
-            
-            var requirementsToReturn = _mapper.Map<List<RequirementForDetailDto>>(requirements); 
-            
+
+            var requirementsToReturn = _mapper.Map<List<RequirementForDetailDto>>(requirements);
+
             return Ok(requirementsToReturn);
         }
-        
+
 
     }
 }

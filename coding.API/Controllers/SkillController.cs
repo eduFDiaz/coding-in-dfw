@@ -25,13 +25,13 @@ namespace coding.API.Controllers
         private readonly IMapper _mapper;
 
         private readonly Repository<Skill> _skillDal;
-       
+
         public SkillController(
             Repository<Skill> skillDal, IConfiguration config, IMapper mapper)
         {
-            
-             _skillDal = skillDal;
-             _config = config;
+
+            _skillDal = skillDal;
+            _config = config;
             _mapper = mapper;
         }
 
@@ -45,40 +45,37 @@ namespace coding.API.Controllers
 
             return Ok(new SkillPresenter(createdskill));
 
-        } 
+        }
 
 
-        
+
         [HttpGet("foruser/{userId}", Name = "Get skill for User")]
         public async Task<IActionResult> GetskillForUser(Guid userId)
         {
 
             var allUserSkills = (await _skillDal.ListAsync()).Where(p => p.UserId == userId).ToList();
 
-             return Ok(allUserSkills);
-        
+            return Ok(allUserSkills);
+
         }
 
-        
+
         [HttpDelete("{Skillid}/delete", Name = "DeleteSkill")]
         public async Task<IActionResult> DeleteLan(Guid Skillid)
         {
-           var SkillToDelete = (await _skillDal.GetById(Skillid));
+            var SkillToDelete = (await _skillDal.GetById(Skillid));
 
-             if (SkillToDelete == null)
-                  return NotFound();
+            if (SkillToDelete == null)
+                return NotFound();
 
-            await _skillDal.Delete(SkillToDelete);
-                
-            if (await _skillDal.SaveAll())    
-                 return NoContent();
+            if (await _skillDal.Delete(SkillToDelete))
+                return NoContent();
 
             return BadRequest("Catn erase the Skill");
-            
 
         }
 
-        
+
         [HttpPut("{Skillid}/update", Name = "Update Skill")]
         public async Task<IActionResult> UpdateSkill(Guid Skillid, [FromBody] UpdateSkillDto request)
         {
@@ -86,16 +83,14 @@ namespace coding.API.Controllers
 
             if (SkillToUpdate == null)
                 return NotFound();
-            
+
             var updatedSkill = _mapper.Map(request, SkillToUpdate);
 
-            _skillDal.Update(updatedSkill);
-
-            if (await _skillDal.SaveAll())
+            if (await _skillDal.Update(updatedSkill))
                 return NoContent();
 
             return BadRequest("cant update the Skill!");
-            
+
         }
 
     }

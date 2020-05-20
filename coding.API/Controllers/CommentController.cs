@@ -102,9 +102,7 @@ namespace coding.API.Controllers
             if (commentToDelete == null)
                 return NotFound();
 
-            await _commentDal.Delete(commentToDelete);
-
-            if (await _commentDal.SaveAll())
+            if (await _commentDal.Delete(commentToDelete))
                 return NoContent();
 
             return BadRequest("Cant erase the Comment");
@@ -116,9 +114,9 @@ namespace coding.API.Controllers
         public async Task<ActionResult> GetAllComments()
         {
             var comments = (await _commentDal.ListAsync()).ToList();
-            
+
             /* var productsToReturn = _mapper.Map<List<ProductForDetailDto>>(products);  */
-            
+
             return Ok(comments);
         }
 

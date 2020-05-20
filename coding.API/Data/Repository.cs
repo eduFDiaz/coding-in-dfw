@@ -57,10 +57,14 @@ namespace coding.API.Data
         /// <summary>
         /// Elimina la entidad dada.
         /// </summary>
-        public async Task Delete(T entity)
+        public async Task<bool> Delete(T entity)
         {
             _dbContext.Set<T>().Remove(entity);
-            await this.SaveAll();
+            if (await this.SaveAll())
+                return true;
+
+            return false;
+
         }
 
         /// <summary>
@@ -71,7 +75,10 @@ namespace coding.API.Data
             entity.DateModified = DateTime.Now;
             _dbContext.Entry(entity).State = EntityState.Modified;
 
-            return true;
+            if (await this.SaveAll())
+                return true;
+
+            return false;
         }
 
         /// <summary>

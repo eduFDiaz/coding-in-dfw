@@ -26,13 +26,13 @@ namespace coding.API.Controllers
         private readonly Repository<PostTag> _postTagDal;
 
         public TagController(
-            Repository<PostTag> postTagDal, 
-            Repository<Tag> tagDal, 
+            Repository<PostTag> postTagDal,
+            Repository<Tag> tagDal,
             IConfiguration config, IMapper mapper)
         {
-            
+
             _postTagDal = postTagDal;
-            
+
             _tagDal = tagDal;
 
             _config = config;
@@ -43,11 +43,11 @@ namespace coding.API.Controllers
         [HttpPost("create")]
         public async Task<IActionResult> Create([FromBody] TagForCreateDto request)
         {
-             var tag = new Tag
-             {
+            var tag = new Tag
+            {
                 Title = request.Title,
                 Description = request.Description,
-             };
+            };
 
             // var postForCreate = _mapper.Map<Post>(request);
 
@@ -56,9 +56,9 @@ namespace coding.API.Controllers
 
             return Ok(new TagPresenter(createdTag));
 
-        } 
+        }
 
-        
+
         [HttpGet("all")]
         public async Task<IActionResult> GetAllTags()
         {
@@ -78,9 +78,7 @@ namespace coding.API.Controllers
         {
             var tagToDelete = (await _tagDal.GetById(tagid));
 
-            await _tagDal.Delete(tagToDelete);
-
-            if (await _tagDal.SaveAll())
+            if (await _tagDal.Delete(tagToDelete))
                 return NoContent();
 
             return BadRequest("cant delete the tag");
@@ -94,16 +92,16 @@ namespace coding.API.Controllers
             var tag = (await _tagDal.GetById(tagid));
 
             var toUpd = _mapper.Map(request, tag);
-                        
+
             await _tagDal.Update(toUpd);
 
             if (await _tagDal.SaveAll())
                 return NoContent();
-            
+
             return BadRequest("Cant update the tag");
 
         }
-        
+
 
     }
 }

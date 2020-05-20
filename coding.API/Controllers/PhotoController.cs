@@ -25,7 +25,7 @@ namespace coding.API.Controllers
     [Route("api/[controller]")]
     public class PhotoController : ControllerBase
     {
-    
+
         private readonly Repository<Photo> _photoDal;
         private readonly Repository<User> _userDal;
         private readonly Repository<Product> _productDal;
@@ -34,29 +34,29 @@ namespace coding.API.Controllers
         private readonly IOptions<CloudinarySettings> _cloudinaryConfig;
         private Cloudinary _cloudinary;
 
-        
-                
-        public PhotoController(Repository<Photo> photoDal,Repository<User> userDal, Repository<Product> productDal, IConfiguration config, IMapper mapper, IOptions<CloudinarySettings> cloudinaryConfig)
+
+
+        public PhotoController(Repository<Photo> photoDal, Repository<User> userDal, Repository<Product> productDal, IConfiguration config, IMapper mapper, IOptions<CloudinarySettings> cloudinaryConfig)
         {
             _photoDal = photoDal;
             _userDal = userDal;
             _productDal = productDal;
             _config = config;
             _mapper = mapper;
-                     
-             _cloudinaryConfig = cloudinaryConfig;
+
+            _cloudinaryConfig = cloudinaryConfig;
 
             Account account = new Account(
                 _cloudinaryConfig.Value.CloudName,
                 _cloudinaryConfig.Value.ApiKey,
-                _cloudinaryConfig.Value.ApiSecret 
+                _cloudinaryConfig.Value.ApiSecret
             );
 
             _cloudinary = new Cloudinary(account);
 
         }
 
-        
+
         [HttpPost("{userId}/create")]
         public async Task<IActionResult> AddPhotoForUser(Guid userId, [FromForm] PhotoForCreationDto photoForCreationDto)
         {
@@ -68,11 +68,12 @@ namespace coding.API.Controllers
 
             var uploadResults = new ImageUploadResult();
 
-            if(file.Length > 0)
+            if (file.Length > 0)
             {
                 using (var stream = file.OpenReadStream())
                 {
-                    var uploadParams = new ImageUploadParams(){
+                    var uploadParams = new ImageUploadParams()
+                    {
                         File = new FileDescription(file.Name, stream),
                         Transformation = new Transformation()
                             // .Width("500").Height("500").Crop("fill").Gravity("face")
@@ -89,17 +90,17 @@ namespace coding.API.Controllers
             var photo = _mapper.Map<Photo>(photoForCreationDto);
 
             // simplify expresion
-            var lolo =  (await _photoDal.ListAsync())
+            var lolo = (await _photoDal.ListAsync())
                 .Where(p => p.UserId == userFromRepo.Id)
                 .FirstOrDefault(p => p.IsMain);
 
             photo.IsMain = lolo == default;
 
-      
-            await _photoDal.Add(photo); 
-            
+
+            await _photoDal.Add(photo);
+
             return Ok(new PhotoPresenter(photo));
-                               
+
 
             // return BadRequest("Could not add the photo");
 
@@ -115,11 +116,12 @@ namespace coding.API.Controllers
 
             var uploadResults = new ImageUploadResult();
 
-            if(file.Length > 0)
+            if (file.Length > 0)
             {
                 using (var stream = file.OpenReadStream())
                 {
-                    var uploadParams = new ImageUploadParams(){
+                    var uploadParams = new ImageUploadParams()
+                    {
                         File = new FileDescription(file.Name, stream),
                         Transformation = new Transformation()
                             // .Width("500").Height("500").Crop("fill").Gravity("face")
@@ -133,15 +135,15 @@ namespace coding.API.Controllers
             photoForCreationDto.PublicId = uploadResults.PublicId;
             photoForCreationDto.ProductId = productFromRepo.Id;
 
-            
 
-            
+
+
             var photo = _mapper.Map<Photo>(photoForCreationDto);
 
             if (await _productDal.SaveAll())
                 return Ok(new PhotoPresenter(photo));
             return BadRequest("Error: Photo not uploaded");
-                               
+
 
             // return BadRequest("Could not add the photo");
 
@@ -161,11 +163,11 @@ namespace coding.API.Controllers
                 if (photo.UserId != userId)
                     return Unauthorized();
             }
-             
+
             // Check if photo is set as main, don't delete if that is true
             var photoFromRepo = (await _photoDal.GetById(photoId));
-            
-            if(photoFromRepo.IsMain)
+
+            if (photoFromRepo.IsMain)
                 return BadRequest("Cannot delete the main photo");
 
             // Let's check if the photo is storaged at Cloudinary so it can also be
@@ -176,23 +178,23 @@ namespace coding.API.Controllers
                 var result = _cloudinary.Destroy(deleteParams);
 
                 // The Result from Destroying the cloudinary image is Ok
-                if(result.Result == "ok") {
-                    await _photoDal.Delete(photoFromRepo);
+                if (result.Result == "ok")
+                {
+                    if (await _photoDal.Delete(photoFromRepo))
+                        return NoContent();
                 }
-            
-            } else {
-                 // if the photo is not hosted on cloudinary
-                 await _photoDal.Delete(photoFromRepo);
-            }
-            
-            // Saving changes to repo
-            if(await _photoDal.SaveAll())
-                return Ok();
 
+            }
+            else
+            {
+                // if the photo is not hosted on cloudinary
+                if (await _photoDal.Delete(photoFromRepo))
+                    return NoContent();
+            }
             return BadRequest("Could not delete the photo");
         }
 
-        
+
         [HttpGet("all")]
         public async Task<IActionResult> GetAllPhotos()
         {

@@ -25,13 +25,13 @@ namespace coding.API.Controllers
         private readonly IMapper _mapper;
 
         private readonly Repository<Language> _languageDal;
-       
+
         public LanguageController(
             Repository<Language> languageDal, IConfiguration config, IMapper mapper)
         {
-            
-             _languageDal = languageDal;
-             _config = config;
+
+            _languageDal = languageDal;
+            _config = config;
             _mapper = mapper;
         }
 
@@ -41,50 +41,47 @@ namespace coding.API.Controllers
         {
 
             var lan = new Language
-             {
+            {
                 Name = request.Name,
                 UserId = request.UserId
-                
-             };
+
+            };
 
             var createdLan = await _languageDal.Add(lan);
 
             return Ok(new LanguagePresenter(lan));
 
-        } 
+        }
 
 
-        
+
         [HttpGet("foruser/{userId}", Name = "Get Language for User")]
         public async Task<IActionResult> GetLanForUser(Guid userId)
         {
 
             var allUserLanguages = (await _languageDal.ListAsync()).Where(p => p.UserId == userId).ToList();
 
-             return Ok(allUserLanguages);
-        
+            return Ok(allUserLanguages);
+
         }
 
-        
+
         [HttpDelete("{lanid}/delete", Name = "DeteleLan")]
         public async Task<IActionResult> DeleteLan(Guid lanid)
         {
-           var lanToDelete = (await _languageDal.GetById(lanid));
+            var lanToDelete = (await _languageDal.GetById(lanid));
 
-             if (lanToDelete == null)
-                  return NotFound();
+            if (lanToDelete == null)
+                return NotFound();
 
-            await _languageDal.Delete(lanToDelete);
-                
-            if (await _languageDal.SaveAll())    
-                 return NoContent();
+            if (await _languageDal.Delete(lanToDelete))
+                return NoContent();
 
             return BadRequest("Catn erase the lang");
-            
 
         }
 
-        
+
         [HttpPut("{lanid}/update", Name = "Update Lan")]
         public async Task<IActionResult> UpdateLan(Guid lanid, [FromBody] UpdateLanguageDto request)
         {
@@ -92,16 +89,14 @@ namespace coding.API.Controllers
 
             if (lanToUpdate == null)
                 return NotFound();
-            
+
             var toUpd = _mapper.Map(request, lanToUpdate);
 
-            _languageDal.Update(toUpd);
-
-            if (await _languageDal.SaveAll())
+            if (await _languageDal.Update(toUpd))
                 return NoContent();
 
             return BadRequest("cant update the language!");
-            
+
         }
 
 

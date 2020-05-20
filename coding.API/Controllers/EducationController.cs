@@ -25,13 +25,13 @@ namespace coding.API.Controllers
         private readonly IMapper _mapper;
 
         private readonly Repository<Education> _educationDal;
-       
+
         public EducationController(
             Repository<Education> educationDal, IConfiguration config, IMapper mapper)
         {
-            
-             _educationDal = educationDal;
-             _config = config;
+
+            _educationDal = educationDal;
+            _config = config;
             _mapper = mapper;
         }
 
@@ -45,40 +45,38 @@ namespace coding.API.Controllers
 
             return Ok(new EducationPresenter(createdEducation));
 
-        } 
+        }
 
 
-        
+
         [HttpGet("foruser/{userId}", Name = "Get Education for User")]
         public async Task<IActionResult> GetEducationForUser(Guid userId)
         {
 
             var allUserEducations = (await _educationDal.ListAsync()).Where(p => p.UserId == userId).ToList();
 
-             return Ok(allUserEducations);
-        
+            return Ok(allUserEducations);
+
         }
 
-        
+
         [HttpDelete("{Educationid}/delete", Name = "DeleteEducation")]
         public async Task<IActionResult> DeleteLan(Guid Educationid)
         {
-           var EducationToDelete = (await _educationDal.GetById(Educationid));
+            var EducationToDelete = (await _educationDal.GetById(Educationid));
 
-             if (EducationToDelete == null)
-                  return NotFound();
+            if (EducationToDelete == null)
+                return NotFound();
 
-            await _educationDal.Delete(EducationToDelete);
-                
-            if (await _educationDal.SaveAll())    
-                 return NoContent();
+            if (await _educationDal.Delete(EducationToDelete))
+                return NoContent();
 
             return BadRequest("Catn erase the Education");
-            
+
 
         }
 
-        
+
         [HttpPut("{Educationid}/update", Name = "Update Education")]
         public async Task<IActionResult> UpdateLan(Guid Educationid, [FromBody] UpdateEducationDto request)
         {
@@ -88,18 +86,16 @@ namespace coding.API.Controllers
                 return NotFound();
 
             var toUpd = _mapper.Map(request, educationToUpdate);
-            
+
             // educationToUpdate.Title = request.Title;
             // educationToUpdate.DateRange = request.DateRange;
             // educationToUpdate.SchoolName = request.SchoolName;
 
-            _educationDal.Update(toUpd);
-
-            if (await _educationDal.SaveAll())
+            if (await _educationDal.Update(toUpd))
                 return NoContent();
 
             return BadRequest("cant update the Education!");
-            
+
         }
 
     }

@@ -21,24 +21,24 @@ namespace coding.API.Controllers
     [Route("api/[controller]")]
     public class UsersController : ControllerBase
     {
-        
+
         private readonly IMapper _mapper;
-         private readonly Repository<User> _userDal;
+        private readonly Repository<User> _userDal;
 
         public UsersController(Repository<User> userDal, IMapper mapper)
         {
-          _mapper = mapper;
-          _userDal = userDal;
-            
+            _mapper = mapper;
+            _userDal = userDal;
+
         }
 
         [HttpGet]
         public async Task<ActionResult<IEnumerable>> GetUsers()
         {
             var users = (await _userDal.ListAsync());
-            
-            var usersToReturn = _mapper.Map<List<UserForDetailedDto>>(users); 
-            
+
+            var usersToReturn = _mapper.Map<List<UserForDetailedDto>>(users);
+
             return Ok(usersToReturn);
         }
 
@@ -46,25 +46,23 @@ namespace coding.API.Controllers
         public async Task<ActionResult<User>> GetUser(Guid userId)
         {
             var user = await _userDal.GetById(userId);
-            
+
             var userToReturn = _mapper.Map<UserForDetailedDto>(user);
-            
+
             return Ok(userToReturn);
-            
+
         }
 
-        
+
         [HttpPut("{id}")]
         public async Task<IActionResult> UpdateUser(Guid id, UserForUpdateDto userForUpdateDto)
         {
-            var userFromRepo =  await _userDal.GetById(id);
+            var userFromRepo = await _userDal.GetById(id);
 
             _mapper.Map(userForUpdateDto, userFromRepo);
 
-            _userDal.Update(userFromRepo);
-
-            if (await _userDal.SaveAll())
-                 return Ok(userForUpdateDto);
+            if (await _userDal.Update(userFromRepo))
+                return Ok(userForUpdateDto);
 
             // throw new Exception($"Failed update");
             return BadRequest("Cant update the user");

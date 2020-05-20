@@ -25,13 +25,13 @@ namespace coding.API.Controllers
         private readonly IMapper _mapper;
 
         private readonly Repository<WorkExperience> _workExperienceDal;
-       
+
         public WorkExperienceController(
             Repository<WorkExperience> workExperienceDal, IConfiguration config, IMapper mapper)
         {
-            
-             _workExperienceDal = workExperienceDal;
-             _config = config;
+
+            _workExperienceDal = workExperienceDal;
+            _config = config;
             _mapper = mapper;
         }
 
@@ -45,40 +45,37 @@ namespace coding.API.Controllers
 
             return Ok(new WorkExperiencePresenter(createdworkExperience));
 
-        } 
+        }
 
 
-        
+
         [HttpGet("foruser/{userId}", Name = "Get workExperience for User")]
         public async Task<IActionResult> GetworkExperienceForUser(Guid userId)
         {
 
             var allUserworkExperiences = (await _workExperienceDal.ListAsync()).Where(p => p.UserId == userId).ToList();
 
-             return Ok(allUserworkExperiences);
-        
+            return Ok(allUserworkExperiences);
+
         }
 
-        
+
         [HttpDelete("{workExperienceid}/delete", Name = "DeleteworkExperience")]
         public async Task<IActionResult> DeleteLan(Guid workExperienceid)
         {
-           var workExperienceToDelete = (await _workExperienceDal.GetById(workExperienceid));
+            var workExperienceToDelete = (await _workExperienceDal.GetById(workExperienceid));
 
-             if (workExperienceToDelete == null)
-                  return NotFound();
+            if (workExperienceToDelete == null)
+                return NotFound();
 
-            await _workExperienceDal.Delete(workExperienceToDelete);
-                
-            if (await _workExperienceDal.SaveAll())    
-                 return NoContent();
+            if (await _workExperienceDal.Delete(workExperienceToDelete))
+                return NoContent();
 
             return BadRequest("Catn erase the workExperience");
-            
 
         }
 
-        
+
         [HttpPut("{workExperienceid}/update", Name = "Update workExperience")]
         public async Task<IActionResult> UpdateworkExperience(Guid workExperienceid, [FromBody] UpdateWorkExperienceDto request)
         {
@@ -86,7 +83,7 @@ namespace coding.API.Controllers
 
             if (workExperienceToUpdate == null)
                 return NotFound();
-            
+
             // workExperienceToUpdate.Title = request.Title;
             // workExperienceToUpdate.Resume = request.Resume;
             // workExperienceToUpdate.Company = request.Company;
@@ -94,13 +91,11 @@ namespace coding.API.Controllers
 
             var toUpd = _mapper.Map(request, workExperienceToUpdate);
 
-            _workExperienceDal.Update(toUpd);
-
-            if (await _workExperienceDal.SaveAll())
+            if (await _workExperienceDal.Update(toUpd))
                 return NoContent();
 
             return BadRequest("cant update the workExperience!");
-            
+
         }
 
     }
