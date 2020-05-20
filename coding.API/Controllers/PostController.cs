@@ -87,12 +87,12 @@ namespace coding.API.Controllers
         }
 
 
-       // [Authorize]
+        // [Authorize]
         [HttpGet("foruser/{userId}", Name = "GetPost")]
         public async Task<IActionResult> GetAllPostsForUser(Guid userId)
         {
 
-            var allUserPosts = (await _postDal.GetRelatedFields("PostTags.Tag","Comments")).ToList();
+            var allUserPosts = (await _postDal.GetRelatedFields("PostTags.Tag", "Comments")).ToList();
             var outPut = _mapper.Map<List<PostAllCommentDetailDto>>(allUserPosts);
 
             return Ok(outPut);
@@ -146,20 +146,5 @@ namespace coding.API.Controllers
             return Ok(singlePostFromRepo);
 
         }
-
-        [HttpGet("{postId}/comments")]
-        public async Task<IActionResult> GetComments(Guid postId)
-        {
-            var result = _postDal.ListAll()
-            .SelectMany(p => _commentDal.ListAll(), (p, c) => new
-            {
-                Post = p,
-                Comment = c
-            }).Where(col => col.Post.Id == col.Comment.PostId).ToList();
-
-            return Ok(result);
-        }
-
-
     }
 }
