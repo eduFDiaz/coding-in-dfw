@@ -34,7 +34,7 @@ export class PostService {
       map((result: any) => {
         if (result) {
           this.toast.showToast('bottom-left', 'success', 'Post uploaded!', 'Your post was uploaded succesfully')
-          this.route.navigate(['/posts/list'])
+          this.route.navigate(['admin/posts/list'])
           this.currentPosts.next(result)
         }
         return result;

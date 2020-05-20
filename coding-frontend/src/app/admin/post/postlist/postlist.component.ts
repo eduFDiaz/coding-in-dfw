@@ -47,9 +47,9 @@ export class PostlistComponent implements OnInit {
         post: postToDelete
       }, closeOnBackdropClick: false
     }).onClose.subscribe((data) => {
-      this.spinner = true;
+      console.log(data)
       if (data) {
-        if (data.status === 404) {
+        if (data == 0) {
           this.spinner = false
           this.userposts = []
           this.toast.showToast('top-right', 'info', 'Theres no posts here :(', 'Cant find any product')
@@ -64,6 +64,7 @@ export class PostlistComponent implements OnInit {
         if (data === 'closed') {
           this.postService.getUserPosts(this.user.getCurrentUserId()).subscribe((result) => {
             this.userposts = result
+            this.spinner = false
           }
           )
         }
@@ -88,7 +89,7 @@ export class PostlistComponent implements OnInit {
   }
 
   goToAddPost() {
-    this.route.navigate(['posts/new'])
+    this.route.navigate(['admin/posts/new'])
   }
 
 }

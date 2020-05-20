@@ -26,6 +26,7 @@ import { AlertService } from 'src/app/_services/alert.service';
 })
 export class AddpostComponent implements OnInit {
 
+
   public Editor = ClassicEditor;
 
   now = moment().format('LLLL');
@@ -72,10 +73,9 @@ export class AddpostComponent implements OnInit {
   }
 
   postNow(data: any) {
-    // data.publishedAt = this.now
+    data.publishedAt = this.now
     data.readingTime = this.getReadingTime(data.text)
     data.userid = this.user.getCurrentUserId()
-
     this.postSpinner = true
     this.toPost.newPost(data).subscribe((request) => {
       this.postSpinner = false
