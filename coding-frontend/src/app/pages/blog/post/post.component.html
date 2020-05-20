@@ -4,8 +4,8 @@
             <header class="blog-post-header">
                 <h2 class="title mb-2">{{ post?.title }}</h2>
                 <div class="meta mb-3">
-                    <span class="date">Published at: {{ post?.createdAt | date: 'medium' }}</span>
-                    <span class="time">{{ post.readingTime }} minutes reading</span>
+                    <span class="date">Published at: {{ post?.createdat | date: 'medium' }}</span>
+                    <span class="time">{{ post.readingtime }} minutes reading</span>
                     <span class="comment"><a href="#">4 comments</a></span>
                 </div>
             </header>
@@ -202,16 +202,15 @@ export $inithighlight;</span></code></pre> -->
                     </div>
                     <div class="form-group col-12" data-pg-id="545">
                         <label class="sr-only" for="cmessage" data-pg-id="546">Your message</label>
-                        <textarea [(ngModel)]="newComment.Body" class="form-control" id="cmessage" name="Body"
+                        <textarea [(ngModel)]="newComment.body" class="form-control" id="cmessage" name="Body"
                             placeholder="Enter your message" rows="10" required="" aria-required="true"
                             data-pg-id="547"></textarea>
                     </div>
 
-                    <input type="hidden" [(ngModel)]="newComment.PostId" name="PostId" id="PostId">
+                    <input type="hidden" [(ngModel)]="newComment.postId" name="PostId" id="PostId">
                     <div class="form-group col-12" data-pg-id="548">
-                        <button type="button" (click)="postNewComment(commentForm.value)"
-                            [disabled]="!commentForm.valid" class="btn btn-block btn-primary py-2"
-                            data-pg-id="549">Comment
+                        <button type="button" (click)="postNewComment()" [disabled]="!commentForm.valid"
+                            class="btn btn-block btn-primary py-2" data-pg-id="549">Comment
                             now!</button>
                     </div>
                 </div>

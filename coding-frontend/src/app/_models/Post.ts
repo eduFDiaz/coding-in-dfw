@@ -1,4 +1,5 @@
 import { Tag } from './Tag';
+import { Commentary } from './Comments';
 
 export interface Post {
     id: string,
@@ -8,6 +9,7 @@ export interface Post {
     createdat: Date,
     publishedat: Date,
     tags?: Tag[]
+    comments?: Commentary[]
     readingtime: number,
     userid: number
 }

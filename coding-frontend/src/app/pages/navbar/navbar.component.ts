@@ -1,5 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Subscription } from 'rxjs';
+import { User } from 'src/app/_models/User';
 
 
 
@@ -10,7 +11,7 @@ import { Subscription } from 'rxjs';
 })
 export class NavbarComponent implements OnInit {
 
-  @Input() user: Object
+  @Input() user: User
 
 
   constructor() { }
