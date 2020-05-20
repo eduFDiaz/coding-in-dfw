@@ -21,6 +21,7 @@ export class PostListComponent implements OnInit {
     this.currentUser = JSON.parse(localStorage.getItem('userdata'))
     this.postService.getUserPosts(this.currentUser.id).subscribe((posts: Post[]) => {
       this.posts = posts
+      console.log(this.posts)
     })
 
   }

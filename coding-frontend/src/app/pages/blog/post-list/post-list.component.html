@@ -23,9 +23,9 @@
           <div class="media-body">
             <h3 class="title mb-1"><a [routerLink]="[ 'post' , post.id ]">
                 {{ post.title }}</a></h3>
-            <div class="meta mb-1"><span class="date">{{ post.dateCreated }}</span>
+            <div class="meta mb-1"><span class="date">{{ post.createdAt | date: 'medium' }}</span>
               <span class="time">{{ post.readingTime }} minute reading </span>
-              <span class="comment"><a href="#">8 comments</a></span></div>
+              <span class="comment"><a href="#">{{ post?.comments.length }} comments</a></span></div>
             <div class="intro" [innerHtml]="stripHtml(post.text)"></div>
             <a class="more-link" href="blog-post.html">Read more →</a>
           </div>
