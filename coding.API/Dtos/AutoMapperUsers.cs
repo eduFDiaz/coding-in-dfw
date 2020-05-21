@@ -21,6 +21,7 @@ using coding.API.Dtos.Comments;
 using coding.API.Models.Products.Requirements;
 using coding.API.Models.Products.ProductsRequirements;
 using coding.API.Dtos.Posts;
+using coding.API.Models.Messages;
 
 namespace coding.API.Dtos
 {
@@ -28,12 +29,17 @@ namespace coding.API.Dtos
     {
         public AutoMapperProfiles()
         {
+            // Users Maps
             CreateMap<UserForRegisterDto, User>();
             CreateMap<UserForDetailedDto, User>();
             CreateMap<User, UserForDetailedDto>();
             CreateMap<User, UserForUpdateDto>();
             CreateMap<UserForUpdateDto, User>();
 
+            //Messages Maps
+            CreateMap<CreateMessageDto, Message>();
+            CreateMap<Message, CreateMessageDto>();
+            
             //Posts Maps
             CreateMap<PostForCreateDto, Post>();
             CreateMap<Post, PostForCreateDto>();

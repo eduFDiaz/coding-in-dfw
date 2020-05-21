@@ -140,8 +140,10 @@ namespace coding.API.Controllers
 
             if (singlePostFromRepo == null)
                 return NotFound();
-
-            return Ok(singlePostFromRepo);
+            
+           var outPut = _mapper.Map<PostAllCommentDetailDto>(singlePostFromRepo);
+            
+            return Ok(outPut);
 
         }
     }

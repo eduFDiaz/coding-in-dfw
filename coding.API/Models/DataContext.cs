@@ -17,6 +17,7 @@ using Microsoft.EntityFrameworkCore;
 using coding.API.Models.Products.Requirements;
 using coding.API.Models.Products.ProductsRequirements;
 using coding.API.Models.Interests;
+using coding.API.Models.Messages;
 
 namespace coding.API.Models
 {
@@ -42,6 +43,7 @@ namespace coding.API.Models
         public DbSet<Skill> Skills { get; set; }
         public DbSet<Requirement> Requirements { get; set; }
         public DbSet <ProductRequirement> ProductRequirements { get; set; }
+        public DbSet <Message> Messages { get; set; }
 
 
         protected override void OnModelCreating(ModelBuilder builder)

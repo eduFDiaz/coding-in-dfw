@@ -112,5 +112,10 @@ namespace coding.API.Data
             .Include(relatedField).Include(anotherField).ToListAsync();
 
         }
+
+        public static implicit operator Repository<T>(Repository<Comment> v)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
