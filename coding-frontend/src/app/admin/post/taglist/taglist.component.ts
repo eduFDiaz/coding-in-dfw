@@ -31,10 +31,13 @@ export class TaglistComponent implements OnInit {
   constructor(private user: UserService, private alert: AlertService, private postService: PostService, private dialogService: NbDialogService) { }
 
   ngOnInit() {
+    this.spinner = false
     this.postService.getAlTags().subscribe((result) => {
       console.log(result)
       this.tags = result
+      this.spinner = false
     })
+
   }
 
   onChangePage(pageOfItems: Array<any>) {
@@ -50,7 +53,6 @@ export class TaglistComponent implements OnInit {
         this.spinner = true
         if (result === 'delete') {
           console.log(result)
-
           this.postService.deleteTag(tag.id).subscribe((ok) => {
             this.alert.showToast('bottom-left', 'info', 'Tag deleted!', 'Your tag was deleted!')
             this.spinner = false
@@ -59,9 +61,8 @@ export class TaglistComponent implements OnInit {
             this.tags = freshtags
 
           })
-
         }
-
+        this.spinner = false
       }
     )
   }

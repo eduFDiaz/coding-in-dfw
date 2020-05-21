@@ -20,6 +20,7 @@ import { FooterComponent } from './footer/footer.component';
 import { AppPagesRoutes } from './app-pages.routing';
 import { FormsModule } from '@angular/forms';
 import { NbToastrModule, NbToastrService } from '@nebular/theme';
+import { AllComponent } from './portfolio/all/all.component';
 
 
 
@@ -38,6 +39,7 @@ import { NbToastrModule, NbToastrService } from '@nebular/theme';
     NavbarComponent,
     AppPagesComponent,
     FooterComponent,
+    AllComponent,
   ],
   imports: [
     CommonModule, FormsModule,

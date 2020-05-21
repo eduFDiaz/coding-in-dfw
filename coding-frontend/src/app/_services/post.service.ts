@@ -27,14 +27,12 @@ export class PostService {
     })
   };
 
-  constructor(private route: Router, private http: HttpClient, private toast: AlertService, private user: UserService) { }
+  constructor(private http: HttpClient, private toast: AlertService, private user: UserService) { }
 
   newPost(postdata) {
     return this.http.post(environment.apiUrl + '/post/create', postdata, { headers: { 'authorization': 'Bearer ' + localStorage.getItem('token') } }).pipe(
       map((result: any) => {
         if (result) {
-          this.toast.showToast('bottom-left', 'success', 'Post uploaded!', 'Your post was uploaded succesfully')
-          this.route.navigate(['admin/posts/list'])
           this.currentPosts.next(result)
         }
         return result;

@@ -49,7 +49,7 @@ export class AddpostComponent implements OnInit {
 
 
 
-  constructor(private dialog: NbDialogService, private router: Router, private user: UserService, private toPost: PostService, private toast: AlertService) { }
+  constructor(private dialog: NbDialogService, private route: Router, private user: UserService, private toPost: PostService, private toast: AlertService) { }
 
   ngOnInit() {
     this.toPost.getAlTags().subscribe((result) => {
@@ -78,8 +78,11 @@ export class AddpostComponent implements OnInit {
     data.userid = this.user.getCurrentUserId()
     this.postSpinner = true
     this.toPost.newPost(data).subscribe((request) => {
+      this.toast.showToast('bottom-left', 'success', 'Post uploaded!', 'Your post was uploaded succesfully')
       this.postSpinner = false
-      this.newPostForm.reset()
+      // this.newPostForm.reset()
+      this.route.navigate(['/posts/list'])
+      console.log("luego del router")
     }, error => {
       this.postSpinner = false;
     })

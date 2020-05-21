@@ -35,10 +35,11 @@ import { AlertService } from '../_services/alert.service';
 
 
 @NgModule({
-  providers: [NbSidebarService, NbMenuService],
+  providers: [NbSidebarService, NbMenuService, AlertService],
   declarations: [AdminComponent, LoginComponent, ProfileComponent, ResumeAdminComponent, PhotoaddComponent],
   imports: [
     CommonModule,
+    NbToastrModule.forRoot(),
     FileUploadModule,
     ProductsModule,
     PostModule,
@@ -48,7 +49,6 @@ import { AlertService } from '../_services/alert.service';
     NbLayoutModule,
     NbWindowModule.forRoot(),
     NbDialogModule.forChild(),
-    NbToastrModule.forRoot(),
     NbEvaIconsModule,
     HeaderModule,
     NbInputModule,
@@ -61,9 +61,9 @@ import { AlertService } from '../_services/alert.service';
     NbCheckboxModule,
     FormsModule,
     NbSpinnerModule,
-    AdminRoutes,
     NbMenuModule.forRoot(),
     NbThemeModule.forRoot({ name: 'default' }),
+    AdminRoutes,
   ], entryComponents: [PhotoaddComponent]
 })
 export class AdminModule { }

@@ -25,7 +25,7 @@ export class ProductEditComponent implements OnInit {
 
   }
 
-  editItem(id: number, product: any) {
+  editItem(id: string, product: any) {
     this.editSpinner = true
     this.productService.editProduct(id, product).subscribe(result => {
       this.editSpinner = false

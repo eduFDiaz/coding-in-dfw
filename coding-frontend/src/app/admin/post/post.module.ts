@@ -18,8 +18,11 @@ import { DeletePostComponent } from './postlist/delete-post/delete-post.componen
 import { AddtagComponent } from './addpost/addtag/addtag.component';
 import { TaglistComponent } from './taglist/taglist.component'
 import { CommentsComponent } from './comments/comments.component';
+import { AlertService } from 'src/app/_services/alert.service';
+import { PostListComponent } from 'src/app/pages/blog/post-list/post-list.component';
 
 @NgModule({
+  providers: [AlertService],
   declarations: [PostlistComponent,
     AddpostComponent,
     EditPostComponent,
