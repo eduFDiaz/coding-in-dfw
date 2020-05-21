@@ -27,6 +27,10 @@ namespace coding.API.Data
         {
             return await _dbContext.Set<T>().SingleOrDefaultAsync(e => e.Id == id);
         }
+        public async Task<T> GetByIdWithList(Guid id, string relatedField, string anotherField)
+        {
+            return await _dbContext.Set<T>().Include(relatedField).Include(anotherField).SingleOrDefaultAsync(e => e.Id == id);
+        }
 
         /// <summary>
         /// Lista todas las entidades.

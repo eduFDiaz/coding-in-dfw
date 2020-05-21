@@ -125,9 +125,9 @@ namespace coding.API.Controllers
             if (postToUpdateFromRepo == null)
                 return NotFound();
 
-            _mapper.Map(postForUpdateDto, postToUpdateFromRepo);
+            var toUpd = _mapper.Map(postForUpdateDto, postToUpdateFromRepo);
 
-            if (await _postDal.SaveAll())
+            if (await _postDal.Update(toUpd))
                 return NoContent();
 
             return BadRequest("cant update the post!");
@@ -136,7 +136,7 @@ namespace coding.API.Controllers
         [HttpGet("{postid}", Name = "Get Single Post")]
         public async Task<IActionResult> GetPost(Guid postid)
         {
-            var singlePostFromRepo = (await _postDal.GetById(postid));
+            var singlePostFromRepo = (await _postDal.GetByIdWithList(postid,"PostTags.Tag", "Comments"));
 
             if (singlePostFromRepo == null)
                 return NotFound();
