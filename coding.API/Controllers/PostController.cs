@@ -30,13 +30,11 @@ namespace coding.API.Controllers
         private readonly Repository<Tag> _tagDal;
         private readonly Repository<PostTag> _postTagDal;
 
-        private readonly Repository<Comment> _commentDal;
-
         public PostController(
-            Repository<PostTag> postTagDal,
-            Repository<Tag> tagDal,
-            Repository<Post> postDal,
-            IConfiguration config, IMapper mapper)
+        Repository<PostTag> postTagDal,
+        Repository<Tag> tagDal,
+        Repository<Post> postDal,
+        IConfiguration config, IMapper mapper)
         {
 
             _postTagDal = postTagDal;
@@ -136,13 +134,13 @@ namespace coding.API.Controllers
         [HttpGet("{postid}", Name = "Get Single Post")]
         public async Task<IActionResult> GetPost(Guid postid)
         {
-            var singlePostFromRepo = (await _postDal.GetByIdWithList(postid,"PostTags.Tag", "Comments"));
+            var singlePostFromRepo = (await _postDal.GetByIdWithList(postid, "PostTags.Tag", "Comments"));
 
             if (singlePostFromRepo == null)
                 return NotFound();
-            
-           var outPut = _mapper.Map<PostAllCommentDetailDto>(singlePostFromRepo);
-            
+
+            var outPut = _mapper.Map<PostAllCommentDetailDto>(singlePostFromRepo);
+
             return Ok(outPut);
 
         }

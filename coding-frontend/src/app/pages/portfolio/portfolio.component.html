@@ -23,9 +23,12 @@
     <div class="container">
       <div class="text-center">
         <ul id="filters" class="filters mb-5 mx-auto pl-0">
-          <li class="type active mb-3 mb-lg-0" data-filter="*">All</li>
-          <li class="type  mb-3 mb-lg-0" data-filter=".webapp" (click)="changeFilterTo('web')">Web App</li>
-          <li class="type  mb-3 mb-lg-0" data-filter=".mobileapp">Mobile App</li>
+          <li class="type active mb-3 mb-lg-0" data-filter="*" (click)="filterProducts('')">All</li>
+          <li class="type mb-3 mb-lg-0" data-filter=".webapp" (click)="filterProducts('web')">Web App</li>
+          <li class="type  mb-3 mb-lg-0" data-filter=".mobileapp" (click)="filterProducts('mobile')">Mobile App</li>
+          <li class=" type mb-3 mb-lg-0" data-filter=".mobileapp" [class.active]="active"
+            (click)="filterProducts('desktop')">
+            Desktop</li>
           <li class="type  mb-3 mb-lg-0" data-filter=".frontend">Frontend</li>
           <li class="type  mb-3 mb-lg-0" data-filter=".backend">Backend</li>
         </ul>
@@ -41,10 +44,12 @@
               </div>
               <div class="col-lg-8">
                 <div class="card-body">
-                  <h5 class="card-title"><a href="project.html" class="theme-link">{{ product?.producName}}</a></h5>
-                  <p class="card-text">Project intro lorem ipsum dolor sit amet, consectetuer adipiscing elit. Cum
-                    sociis natoque penatibus et magnis dis parturient montes.</p>
-                  <p class="card-text"><small class="text-muted">Client: Google</small></p>
+                  <h5 class="card-title"><a href="project.html" class="theme-link">{{ product?.name}}</a></h5>
+                  <div class="card-text" [innerHtml]="stripHtml(product.projectIntro)"></div>
+                  <p class="card-text"><small class="text-muted">Client: {{ product?.clientName }}, Type:
+                      {{ product?.type }}</small></p>
+
+
                 </div>
               </div>
             </div>
@@ -58,7 +63,7 @@
                     <path fill="currentColor"
                       d="M572.52 241.4C518.29 135.59 410.93 64 288 64S57.68 135.64 3.48 241.41a32.35 32.35 0 0 0 0 29.19C57.71 376.41 165.07 448 288 448s230.32-71.64 284.52-177.41a32.35 32.35 0 0 0 0-29.19zM288 400a144 144 0 1 1 144-144 143.93 143.93 0 0 1-144 144zm0-240a95.31 95.31 0 0 0-25.31 3.79 47.85 47.85 0 0 1-66.9 66.9A95.78 95.78 0 1 0 288 160z">
                     </path>
-                  </svg><!-- <i class="fas fa-eye mr-2"></i> -->View Case Study
+                  </svg><!-- <i class="fas fa-eye mr-2"></i> -->View Details
                 </a>
               </div>
             </div>
