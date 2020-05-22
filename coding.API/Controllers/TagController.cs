@@ -93,9 +93,9 @@ namespace coding.API.Controllers
 
             var toUpd = _mapper.Map(request, tag);
 
-            await _tagDal.Update(toUpd);
+            
 
-            if (await _tagDal.SaveAll())
+            if (await _tagDal.Update(toUpd))
                 return NoContent();
 
             return BadRequest("Cant update the tag");

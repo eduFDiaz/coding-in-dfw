@@ -132,24 +132,19 @@ namespace coding.API.Controllers
         }
 
 
-        [HttpPut("{productid}/update")]
-        public async Task<IActionResult> UpdateTag(Guid productId, [FromBody] ProductForUpdateDto request)
+        [HttpPut("{productId}/update")]
+        public async Task<IActionResult> UpdateProduct(Guid productId, [FromBody] ProductForUpdateDto request)
         {
             var productToEdit = (await _productDal.GetById(productId));
 
-            //     productToEdit.Name = request.Name;
-            //  productToEdit.Type = request.Type;
-            // productToEdit.Url = request.Url;
-            // productToEdit.ProductDescription = request.ProductDescription;
-
             var toUpd = _mapper.Map(request, productToEdit);
 
-            await _productDal.Update(toUpd);
+            
 
-            if (await _productDal.SaveAll())
-                return NoContent();
+            if (await _productDal.Update(toUpd))
+                return Ok(toUpd);
 
-            return BadRequest("Cant uptade product");
+            return BadRequest("Cant update the product");
 
         }
 

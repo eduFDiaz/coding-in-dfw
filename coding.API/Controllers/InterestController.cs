@@ -87,9 +87,9 @@ namespace coding.API.Controllers
 
             var toUpd = _mapper.Map(request, interestToUpdate);
 
-            await _interestDal.Update(toUpd);
+            
 
-            if (await _interestDal.SaveAll())
+            if (await _interestDal.Update(toUpd))
                 return NoContent();
 
             return BadRequest("cant update the interest!");
