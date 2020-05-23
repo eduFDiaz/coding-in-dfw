@@ -18,6 +18,7 @@ namespace coding.API.Dtos.Products
         [Required]
         public string ProductDescription { get; set; }
         public ICollection<Guid> RequirementId { get; set; }
+        //public List<ProductRequirementForDetailDto> ProductRequirements { get; set; }
  
     }
 }
