@@ -39,16 +39,16 @@ export class ErrorInterceptorService implements HttpInterceptor {
       map((event: HttpEvent<any>) => {
         if (event instanceof HttpResponse) {
 
-          switch (event.status) {
-            case 204:
-              this.alert.showToast('top-right', 'success', 'Update Success', ' Ok')
-              break;
+          // switch (event.status) {
+          //   case 204:
+          //     this.alert.showToast('top-right', 'success', 'Success', 'Ok')
+          //     break;
 
-            case 404:
-              console.log("errrrrrrrrrrr")
-              break
+          //   case 200:
+          //     this.alert.showToast('top-right', 'success', 'Success', 'Ok')
+          //     break
 
-          }
+          // }
         }
         return event;
       }, catchError((error: HttpErrorResponse) => {

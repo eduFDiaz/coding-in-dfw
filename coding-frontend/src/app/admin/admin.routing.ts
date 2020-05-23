@@ -16,7 +16,8 @@ import { CommentsComponent } from './post/comments/comments.component';
 
 const routes: Routes = [
   {
-    path: 'admin', component: AdminComponent, children: [
+    path: '', component: AdminComponent, children: [
+      { path: '', redirectTo: 'login', pathMatch: 'full' },
       { path: 'resume', component: ResumeAdminComponent },
       { path: 'profile', component: ProfileComponent, pathMatch: 'full' },
       { path: 'profile/profilepics', component: PhotoaddComponent },

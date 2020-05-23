@@ -2,7 +2,7 @@
 import {
   NbListModule,
   NbSidebarService, NbWindowModule, NbSidebarModule, NbThemeModule, NbSpinnerModule, NbUserModule, NbRadioModule, NbDialogModule,
-  NbLayoutModule, NbButtonModule, NbCheckboxModule, NbMenuService, NbMenuModule, NbCardModule, NbInputModule, NbAlertModule, NbIconModule, NbToastrModule,
+  NbLayoutModule, NbBadgeModule, NbButtonModule, NbCheckboxModule, NbMenuService, NbMenuModule, NbCardModule, NbInputModule, NbAlertModule, NbIconModule, NbToastrModule,
 } from '@nebular/theme';
 
 // import { BrowserModule } from '@angular/platform-browser';
@@ -35,20 +35,21 @@ import { AlertService } from '../_services/alert.service';
 
 
 @NgModule({
-  providers: [NbSidebarService, NbMenuService],
+  providers: [NbSidebarService, NbMenuService, AlertService],
   declarations: [AdminComponent, LoginComponent, ProfileComponent, ResumeAdminComponent, PhotoaddComponent],
   imports: [
     CommonModule,
+    NbToastrModule.forRoot(),
     FileUploadModule,
     ProductsModule,
     PostModule,
     NbRadioModule,
+    NbBadgeModule,
     NbListModule,
     NbUserModule,
     NbLayoutModule,
     NbWindowModule.forRoot(),
     NbDialogModule.forChild(),
-    NbToastrModule.forRoot(),
     NbEvaIconsModule,
     HeaderModule,
     NbInputModule,
@@ -61,9 +62,9 @@ import { AlertService } from '../_services/alert.service';
     NbCheckboxModule,
     FormsModule,
     NbSpinnerModule,
-    AdminRoutes,
     NbMenuModule.forRoot(),
     NbThemeModule.forRoot({ name: 'default' }),
+    AdminRoutes,
   ], entryComponents: [PhotoaddComponent]
 })
 export class AdminModule { }

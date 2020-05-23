@@ -47,8 +47,8 @@ export class AdminComponent implements OnInit {
         {
           title: 'Tags list',
           icon: 'layers',
-          url: '/admin/tag/list'
-
+          url: '/admin/tag/list',
+          
         },
         {
           title: 'Post list',

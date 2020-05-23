@@ -12,7 +12,8 @@ import { ContactComponent } from './contact/contact.component';
 
 const routes: Routes = [
   {
-    path: 'pages', component: AppPagesComponent, children: [
+    path: '', component: AppPagesComponent, children: [
+      { path: '', redirectTo: 'home', pathMatch: 'full' },
       { path: 'home', component: HomeComponent, pathMatch: 'full' },
       { path: 'portfolio', component: PortfolioComponent, pathMatch: 'full' },
       { path: 'services', component: ServicesComponent, pathMatch: 'full' },

@@ -11,6 +11,8 @@ import { Post } from 'src/app/_models/Post';
 })
 export class PostListComponent implements OnInit {
 
+  loading: boolean
+
   currentUser: User
   posts: Post[]
   postResume: string
@@ -18,9 +20,11 @@ export class PostListComponent implements OnInit {
   constructor(private postService: PostService, private auth: AuthService) { }
 
   ngOnInit() {
+    this.loading = true
     this.currentUser = JSON.parse(localStorage.getItem('userdata'))
     this.postService.getUserPosts(this.currentUser.id).subscribe((posts: Post[]) => {
       this.posts = posts
+      this.loading = false
       console.log(this.posts)
     })
 

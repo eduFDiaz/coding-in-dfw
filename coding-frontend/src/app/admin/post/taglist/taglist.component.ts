@@ -31,10 +31,13 @@ export class TaglistComponent implements OnInit {
   constructor(private user: UserService, private alert: AlertService, private postService: PostService, private dialogService: NbDialogService) { }
 
   ngOnInit() {
+    this.spinner = false
     this.postService.getAlTags().subscribe((result) => {
       console.log(result)
       this.tags = result
+      this.spinner = false
     })
+
   }
 
   onChangePage(pageOfItems: Array<any>) {
@@ -47,21 +50,19 @@ export class TaglistComponent implements OnInit {
       context: 'Do you want to delete this tag?'
     }).onClose.subscribe(
       (result) => {
+        this.spinner = true
         if (result === 'delete') {
-          this.spinner = true
           console.log(result)
-
           this.postService.deleteTag(tag.id).subscribe((ok) => {
             this.alert.showToast('bottom-left', 'info', 'Tag deleted!', 'Your tag was deleted!')
+            this.spinner = false
           })
           this.postService.updatedTags.subscribe((freshtags) => {
             this.tags = freshtags
-            this.spinner = false
-          }
-          )
 
+          })
         }
-
+        this.spinner = false
       }
     )
   }
@@ -71,12 +72,12 @@ export class TaglistComponent implements OnInit {
   }
 
   openEditDialog(dialog: TemplateRef<any>, mycontext: any) {
+    // this.spinner = true
     this.dialogService.open(dialog, {
       context: mycontext
     }).onClose.subscribe(
       (result) => {
         if (result) {
-          this.spinner = true
           console.log(result)
           const tagid = result.id
           const tagbody = {
@@ -84,6 +85,7 @@ export class TaglistComponent implements OnInit {
             description: result.description
           }
           this.alert.showToast('top-right', 'success', 'Update', 'Your tag was updated')
+          // this.spinner = false
           this.postService.editTag(tagid, tagbody).subscribe((ok) => {
             console.log(ok)
           })
@@ -100,11 +102,11 @@ export class TaglistComponent implements OnInit {
   }
 
   openAddDialog(dialog: TemplateRef<any>, data: any) {
-
     this.dialogService.open(dialog, {
       context: data
     }).onClose.subscribe(
       (result) => {
+        this.spinner = true
         this.postService.addNewTag(result).subscribe((data) => {
           this.alert.showToast('top-right', 'success', 'Created', 'Your tag was created!')
           this.postService.updatedTags.subscribe((result) => {
@@ -115,6 +117,8 @@ export class TaglistComponent implements OnInit {
 
             }
           })
+          this.spinner = false
+
 
         })
 

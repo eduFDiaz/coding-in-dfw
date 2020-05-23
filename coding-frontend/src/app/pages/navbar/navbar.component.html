@@ -9,7 +9,7 @@
             <div id="navigation" class="collapse navbar-collapse flex-column">
                 <div class="profile-section pt-3 pt-lg-0">
                     <img class="profile-image mb-3 rounded-circle mx-auto" src="assets/images/profile.png" alt="image">
-                    <div class="bio mb-3">Hi, my name is {{ user?.fullname }} and I'm a senior software engineer.
+                    <div class="bio mb-3">Hi, my name is {{ user?.fullName }} and I'm a senior software engineer.
                         Welcome
                         to my personal website!</div>
                     <!--//bio-->
@@ -36,26 +36,26 @@
                 <!--//profile-section-->
                 <ul class="navbar-nav flex-column text-left">
                     <li class="nav-item" routerLinkActive="active">
-                        <a class="nav-link" [routerLink]="['home']"><i class="fas fa-user fa-fw mr-2"></i>About
+                        <a class="nav-link" [routerLink]="['/home']"><i class="fas fa-user fa-fw mr-2"></i>About
                             Me</a>
                     </li>
                     <li class="nav-item" routerLinkActive="active">
-                        <a class="nav-link" [routerLink]="['portfolio']"><i
+                        <a class="nav-link" [routerLink]="['/portfolio']"><i
                                 class="fas fa-laptop-code fa-fw mr-2"></i>Portfolio</a>
                     </li>
                     <li class="nav-item" routerLinkActive="active">
-                        <a class="nav-link" [routerLink]="['services']"><i
+                        <a class="nav-link" [routerLink]="['/services']"><i
                                 class="fas fa-briefcase fa-fw mr-2"></i>Services &amp; Pricing</a>
                     </li>
                     <li class="nav-item" routerLinkActive="active">
-                        <a class="nav-link" [routerLink]="['resume']"><i
+                        <a class="nav-link" [routerLink]="['/resume']"><i
                                 class="fas fa-file-alt fa-fw mr-2"></i>Resume</a>
                     </li>
                     <li class="nav-item" routerLinkActive="active">
-                        <a class="nav-link" [routerLink]="['blog']"><i class="fas fa-blog fa-fw mr-2"></i>Blog</a>
+                        <a class="nav-link" [routerLink]="['/blog']"><i class="fas fa-blog fa-fw mr-2"></i>Blog</a>
                     </li>
                     <li class="nav-item" routerLinkActive="active">
-                        <a class="nav-link" [routerLink]="['contact']"><i
+                        <a class="nav-link" [routerLink]="['/contact']"><i
                                 class="fas fa-envelope-open-text fa-fw mr-2"></i>Contact</a>
                     </li>
                     <li class="nav-item" routerLinkActive="active">

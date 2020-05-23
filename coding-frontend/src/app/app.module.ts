@@ -34,7 +34,7 @@ import { ErrorInterceptorService } from './_services/error-interceptor.service';
     AdminModule,
     AppRoutingModule,
   ],
-  providers: [AuthService, UserService, ErrorInterceptorService, { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptorService, multi: true },
+  providers: [AlertService, AuthService, UserService, ErrorInterceptorService, { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptorService, multi: true },
   ],
   bootstrap: [AppComponent]
 })

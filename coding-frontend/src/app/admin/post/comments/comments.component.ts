@@ -38,13 +38,15 @@ export class CommentsComponent implements OnInit {
       context: {
         object: data
       }
-    }).onClose.subscribe(() => {
-      this.commentSpinner = true
-      this.postService.deleteComment(data.id).subscribe(() => {
-        this.alert.showToast('bottom-left', 'info', 'Delete Ok', 'Bye bye you!')
-        this.unpublishedComments = this.unpublishedComments.filter((obj: any) => obj.id !== data.id)
-        this.commentSpinner = false
-      })
+    }).onClose.subscribe((result) => {
+      if (result) {
+        this.commentSpinner = true
+        this.postService.deleteComment(data.id).subscribe(() => {
+          this.alert.showToast('bottom-left', 'info', 'Delete Ok', 'Bye bye you!')
+          this.unpublishedComments = this.unpublishedComments.filter((obj: any) => obj.id !== data.id)
+          this.commentSpinner = false
+        })
+      }
     })
   }
 

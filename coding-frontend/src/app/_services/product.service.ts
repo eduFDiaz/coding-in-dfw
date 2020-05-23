@@ -19,7 +19,8 @@ export class ProductService {
 
   constructor(private http: HttpClient, private user: UserService) { }
 
-  getProducts(userid: number): Observable<Product[]> {
+
+  getProducts(userid: string): Observable<Product[]> {
     return this.http.get<Product[]>(environment.apiUrl + '/product/' + userid).pipe(
       map((result) => {
         return result
@@ -29,7 +30,7 @@ export class ProductService {
     )
   }
 
-  deleteProduct(productid: number): Observable<boolean> {
+  deleteProduct(productid: string): Observable<boolean> {
     // tslint:disable-next-line: object-literal-key-quotes
     return this.http.delete<boolean>(environment.apiUrl + '/product/' + productid + '/delete', { headers: { 'authorization': 'Bearer ' + localStorage.getItem('token') } }).pipe(
       map((result: boolean) => {
@@ -44,7 +45,7 @@ export class ProductService {
     )
   }
 
-  editProduct(productid: number, newdata: any): Observable<boolean> {
+  editProduct(productid: string, newdata: any): Observable<boolean> {
     // tslint:disable-next-line: object-literal-key-quotes
     return this.http.put<boolean>(environment.apiUrl + '/product/' + productid + '/update', newdata, {
       headers: {

@@ -4,8 +4,8 @@
             <header class="blog-post-header">
                 <h2 class="title mb-2">{{ post?.title }}</h2>
                 <div class="meta mb-3">
-                    <span class="date">Published at: {{ post?.createdat | date: 'medium' }}</span>
-                    <span class="time">{{ post.readingtime }} minutes reading</span>
+                    <span class="date">Published at: {{ post?.createdAt | date: 'medium' }}</span>
+                    <span class="time">{{ post?.readingTime }} minutes reading</span>
                     <span class="comment"><a href="#">4 comments</a></span>
                 </div>
             </header>
@@ -224,18 +224,21 @@ export $inithighlight;</span></code></pre> -->
 
     </section>
     <section class="comment-show-section px-3 py-5 p-md-5" data-pg-id="525">
-        <h3 class=" mb-3" data-pg-id="527">The people say:</h3>
-        <div class="card" style="width: 40rem;" *ngFor="let comment of post?.comments">
+        <h3 class=" mb-3" data-pg-id="527" *ngIf="post?.comments">The people say:</h3>
+        <article class="comment-wrapper mx-auto theme-bg-light p-5 mb-5 my-5 shadow-lg"
+            *ngFor="let comment of post?.comments">
+
             <div class="card-body">
                 <h5 class="card-title">{{ comment.commenterName }}</h5>
-                <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6>
-                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the
-                    card's content.</p>
-                <a href="#" class="card-link">Card link</a>
-                <a href="#" class="card-link">Another link</a>
+                <a href="mailto:{{comment.email}}">
+                    <h6 class="card-subtitle mb-2 text-muted">{{ comment.email}}</h6>
+                </a>
+                <p class="card-text">{{ comment.body }}</p>
+                <!-- <a href="#" class="card-link">Card link</a>
+                <a href="#" class="card-link">Another link</a> -->
             </div>
-        </div>
 
+        </article>
     </section>
 
 </div>

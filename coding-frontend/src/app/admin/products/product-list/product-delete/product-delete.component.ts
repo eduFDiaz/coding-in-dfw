@@ -27,7 +27,7 @@ export class ProductDeleteComponent implements OnInit {
     this.dialogRef.close(status);
   }
 
-  deleteItem(id: number) {
+  deleteItem(id: string) {
     this.deleteSpinner = true
     this.productService.deleteProduct(id).subscribe(result => {
       this.deleteSpinner = false

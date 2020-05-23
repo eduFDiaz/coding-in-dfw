@@ -26,6 +26,7 @@ import { AlertService } from 'src/app/_services/alert.service';
 })
 export class AddpostComponent implements OnInit {
 
+
   public Editor = ClassicEditor;
 
   now = moment().format('LLLL');
@@ -48,7 +49,7 @@ export class AddpostComponent implements OnInit {
 
 
 
-  constructor(private dialog: NbDialogService, private router: Router, private user: UserService, private toPost: PostService, private toast: AlertService) { }
+  constructor(private dialog: NbDialogService, private route: Router, private user: UserService, private toPost: PostService, private toast: AlertService) { }
 
   ngOnInit() {
     this.toPost.getAlTags().subscribe((result) => {
@@ -72,14 +73,16 @@ export class AddpostComponent implements OnInit {
   }
 
   postNow(data: any) {
-    // data.publishedAt = this.now
+    data.publishedAt = this.now
     data.readingTime = this.getReadingTime(data.text)
     data.userid = this.user.getCurrentUserId()
-
     this.postSpinner = true
     this.toPost.newPost(data).subscribe((request) => {
+      this.toast.showToast('bottom-left', 'success', 'Post uploaded!', 'Your post was uploaded succesfully')
       this.postSpinner = false
-      this.newPostForm.reset()
+      // this.newPostForm.reset()
+      this.route.navigate(['/posts/list'])
+      console.log("luego del router")
     }, error => {
       this.postSpinner = false;
     })
