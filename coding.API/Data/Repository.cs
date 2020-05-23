@@ -36,7 +36,7 @@ namespace coding.API.Data
         /// Lista todas las entidades.
         /// </summary>
         public async Task<List<T>> ListAsync()
-        {
+        {   
             return await _dbContext.Set<T>().ToListAsync();
 
         }
@@ -85,6 +85,7 @@ namespace coding.API.Data
             return false;
         }
 
+
         /// <summary>
         /// Guarda todos los cambios
         /// </summary>
@@ -111,9 +112,13 @@ namespace coding.API.Data
         /// Loads a related field to a given entity various levels
         /// </summary>
         public async Task<List<T>> GetRelatedFields(string relatedField, string anotherField)
-        {
-            return await _dbContext.Set<T>()
-            .Include(relatedField).Include(anotherField).ToListAsync();
+        {   
+            if (anotherField == null) {
+                return await _dbContext.Set<T>().Include(relatedField).ToListAsync();
+            } else {
+                return await _dbContext.Set<T>().Include(relatedField).Include(anotherField).ToListAsync();
+            }
+    
 
         }
 

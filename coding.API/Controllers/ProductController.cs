@@ -24,6 +24,7 @@ namespace coding.API.Controllers
     {
         private readonly IConfiguration _config;
         private readonly IMapper _mapper;
+        private readonly DataContext _dbContext;
 
         private readonly Repository<Product> _productDal;
 
@@ -36,10 +37,12 @@ namespace coding.API.Controllers
             Repository<Product> productDal,
             IConfiguration config, IMapper mapper,
             Repository<Requirement> requirementDal,
-            Repository<ProductRequirement> productRequirementDal)
+            Repository<ProductRequirement> productRequirementDal,
+            DataContext dbContext)
         {
 
             _productDal = productDal;
+            _dbContext = dbContext;
             _config = config;
             _mapper = mapper;
             _requirementDal = requirementDal;
@@ -133,16 +136,33 @@ namespace coding.API.Controllers
 
 
         [HttpPut("{productId}/update")]
-        public async Task<IActionResult> UpdateProduct(Guid productId, [FromBody] ProductForUpdateDto request)
+        public async Task<IActionResult> UpdateProduct(Guid productId, [FromBody] ProductForCreateDto request)
         {
             var productToEdit = (await _productDal.GetById(productId));
+            
+            var pr = new ProductRequirementForCreateDto();
 
             var toUpd = _mapper.Map(request, productToEdit);
 
-            
 
+            foreach (var Requirement in request.RequirementId)
+            {
+
+                pr.RequirementId = Requirement;
+
+                pr.ProductId = toUpd.Id;
+
+                pr.Requirement = await _requirementDal.GetById(Requirement);
+
+                var productRequirementToUpdate = _mapper.Map<ProductRequirement>(pr);
+                
+                await _productRequirementDal.Update(productRequirementToUpdate);
+
+            }
+                 
+                 
             if (await _productDal.Update(toUpd))
-                return Ok(toUpd);
+               return Ok(toUpd);
 
             return BadRequest("Cant update the product");
 

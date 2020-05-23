@@ -22,6 +22,7 @@ using coding.API.Models.Products.Requirements;
 using coding.API.Models.Products.ProductsRequirements;
 using coding.API.Dtos.Posts;
 using coding.API.Models.Messages;
+using coding.API.Models.FAQS;
 
 namespace coding.API.Dtos
 {
@@ -77,6 +78,12 @@ namespace coding.API.Dtos
             // PostsTags Mappings
             CreateMap<PostTagForCreateDto, PostTag>();
             CreateMap<PostTag, PostTagForDetailDto>();
+
+            // FAQS Mappings
+            CreateMap<CreateFAQDto, FAQ>();
+            CreateMap<FAQ, FAQForDetailDto>();
+            CreateMap<UpdateFAQDto, FAQ>();
+            
 
 
             // Projects Mappings
