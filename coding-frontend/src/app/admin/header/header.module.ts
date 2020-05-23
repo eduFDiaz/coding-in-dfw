@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { HeaderComponent } from './header.component';
 
 // tslint:disable-next-line: max-line-length
-import { NbLayoutModule, NbActionsModule, NbUserModule, NbIconModule, NbSearchModule, NbMenuModule, NbContextMenuModule, NbContextMenuComponent } from '@nebular/theme';
+import { NbBadgeModule, NbLayoutModule, NbActionsModule, NbUserModule, NbIconModule, NbSearchModule, NbMenuModule, NbContextMenuModule, NbContextMenuComponent } from '@nebular/theme';
 
 @NgModule({
   imports: [
@@ -14,7 +14,8 @@ import { NbLayoutModule, NbActionsModule, NbUserModule, NbIconModule, NbSearchMo
     NbSearchModule,
     NbMenuModule,
     NbContextMenuModule,
-    NbLayoutModule
+    NbLayoutModule,
+    NbBadgeModule
 
   ],
   exports: [HeaderComponent],
