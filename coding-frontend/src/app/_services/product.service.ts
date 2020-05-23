@@ -19,6 +19,7 @@ export class ProductService {
 
   constructor(private http: HttpClient, private user: UserService) { }
 
+
   getProducts(userid: string): Observable<Product[]> {
     return this.http.get<Product[]>(environment.apiUrl + '/product/' + userid).pipe(
       map((result) => {
