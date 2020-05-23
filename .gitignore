@@ -2,5 +2,4 @@
 .vscode
 coding.API/DatingApp.db
 coding.API/wwwroot.zip
-
-appsettings.json
+coding.API/appsettings.json
