@@ -95,7 +95,7 @@ export class AdminComponent implements OnInit {
     },
     {
       title: 'FAQs',
-      icon: 'book-open-outline',
+      icon: 'message-circle-outline',
       expanded: false,
       url: '/admin/faqs'
     },

@@ -11,6 +11,7 @@ import { TaglistComponent } from './post/taglist/taglist.component';
 import { ProductAddComponent } from './products/product-add/product-add.component';
 import { PhotoaddComponent } from './profile/photoadd/photoadd.component';
 import { CommentsComponent } from './post/comments/comments.component';
+import { FaqsComponent } from './faqs/faqs.component';
 
 
 
@@ -28,6 +29,7 @@ const routes: Routes = [
       { path: 'tag/list', component: TaglistComponent },
       { path: 'product/new', component: ProductAddComponent },
       { path: 'login', component: LoginComponent, pathMatch: 'full' },
+      { path: 'faqs', component: FaqsComponent, pathMatch: 'full' }
     ]
   }
 

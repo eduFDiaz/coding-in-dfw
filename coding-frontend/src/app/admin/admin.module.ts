@@ -32,11 +32,12 @@ import { ResumeAdminComponent } from '../admin/resume-admin/resume-admin.compone
 import { PhotoaddComponent } from './profile/photoadd/photoadd.component';
 import { CommonModule } from '@angular/common';
 import { AlertService } from '../_services/alert.service';
+import { FaqsComponent } from './faqs/faqs.component';
 
 
 @NgModule({
   providers: [NbSidebarService, NbMenuService, AlertService],
-  declarations: [AdminComponent, LoginComponent, ProfileComponent, ResumeAdminComponent, PhotoaddComponent],
+  declarations: [AdminComponent, LoginComponent, ProfileComponent, ResumeAdminComponent, PhotoaddComponent, FaqsComponent],
   imports: [
     CommonModule,
     NbToastrModule.forRoot(),

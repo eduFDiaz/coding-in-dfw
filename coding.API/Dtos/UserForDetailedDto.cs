@@ -29,5 +29,7 @@ namespace coding.API.Dtos
         public string RedditProfile { get; set; }
         public string CodepenProfile { get; set; }
 
+        public string Username { get; set; }
+
     }
 }
