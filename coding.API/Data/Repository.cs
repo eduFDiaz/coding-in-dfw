@@ -70,6 +70,11 @@ namespace coding.API.Data
             return false;
 
         }
+        public  bool DeleteSync(T entity)
+        {
+            _dbContext.Set<T>().Remove(entity);
+            return true;
+        }
 
         /// <summary>
         /// Actualiza la entidad dada.
@@ -122,9 +127,9 @@ namespace coding.API.Data
 
         }
 
-        public static implicit operator Repository<T>(Repository<Comment> v)
-        {
-            throw new NotImplementedException();
-        }
+public ProductRequirement GetRelatedRow (Guid productId, Guid requirementId){
+    return  _dbContext.ProductRequirements.Where(p => p.ProductId == productId && p.RequirementId == requirementId).SingleOrDefault();
+}
+
     }
 }

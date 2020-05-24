@@ -15,6 +15,7 @@ using System.Linq;
 using coding.API.Dtos.Requirements;
 using coding.API.Models.Products.Requirements;
 using coding.API.Models.Products.ProductsRequirements;
+using Microsoft.EntityFrameworkCore;
 
 namespace coding.API.Controllers
 {
@@ -91,11 +92,6 @@ namespace coding.API.Controllers
             if (producCount == 0)
                 return NotFound("There is no products here");
 
-
-            // var requirement = (await _productDal.GetProductRequirementIncluded()).ToList();
-
-            // var test2 = (await _productRequirementDal.ListAsync()).Select(pr => pr.Requirement).ToList();
-
             var outPut = _mapper.Map<List<ProductForDetailDto>>(allUserProducts);
 
 
@@ -106,7 +102,7 @@ namespace coding.API.Controllers
         [HttpGet("all")]
         public async Task<ActionResult> GetProducts()
         {
-            var products = (await _productDal.ListAsync());
+            var products = (await _productDal.GetRelatedField("ProductRequirements.Requirement")).ToList();
 
             var productsToReturn = _mapper.Map<List<ProductForDetailDto>>(products);
 
@@ -136,18 +132,28 @@ namespace coding.API.Controllers
 
 
         [HttpPut("{productId}/update")]
-        public async Task<IActionResult> UpdateProduct(Guid productId, [FromBody] ProductForCreateDto request)
+        public async Task<IActionResult> UpdateProduct(Guid productId, [FromBody] ProductForUpdateDto request)
         {
-            var productToEdit = (await _productDal.GetById(productId));
-            
+            var productToEdit = (await _productDal.GetRelatedField("ProductRequirements.Requirement")).FirstOrDefault(p => p.Id == productId);
+                       
             var pr = new ProductRequirementForCreateDto();
 
             var toUpd = _mapper.Map(request, productToEdit);
 
-
+            foreach (var row in productToEdit.ProductRequirements)
+            {
+                
+               var record = _productRequirementDal.GetRelatedRow(productId, row.RequirementId);
+               if (record != null) {
+                 _productRequirementDal.DeleteSync(record);
+                
+               }
+               
+            }
+           
             foreach (var Requirement in request.RequirementId)
             {
-
+               
                 pr.RequirementId = Requirement;
 
                 pr.ProductId = toUpd.Id;
@@ -156,13 +162,13 @@ namespace coding.API.Controllers
 
                 var productRequirementToUpdate = _mapper.Map<ProductRequirement>(pr);
                 
-                await _productRequirementDal.Update(productRequirementToUpdate);
+                await _productRequirementDal.Add(productRequirementToUpdate);
 
             }
                  
                  
             if (await _productDal.Update(toUpd))
-               return Ok(toUpd);
+               return Ok(new ProductPresenter(toUpd));
 
             return BadRequest("Cant update the product");
 
