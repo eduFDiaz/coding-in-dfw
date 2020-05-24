@@ -8,12 +8,12 @@ namespace coding.API.Dtos
     public class UserForDetailedDto
     {
         public Guid Id { get; set; }
-        public string Username { get; set; }
+
         public string FullName { get; set; }
+        public string CustomUserTitle { get; set; }
         public string Email { get; set; }
         public string Location { get; set; }
-        public DateTime Created { get; set; }
-        public DateTime LastActive { get; set; }
+
         // One to Many relationship
         // public ICollection<PostForDetailDto> Posts { get; set; }
         // public ICollection<PhotoForDetailDto> Photos { get; set; }

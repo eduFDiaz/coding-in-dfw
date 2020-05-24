@@ -48,7 +48,7 @@ export class AdminComponent implements OnInit {
           title: 'Tags list',
           icon: 'layers',
           url: '/admin/tag/list',
-          
+
         },
         {
           title: 'Post list',
@@ -92,6 +92,12 @@ export class AdminComponent implements OnInit {
       expanded: false,
       url: '/admin/resume'
 
+    },
+    {
+      title: 'FAQs',
+      icon: 'book-open-outline',
+      expanded: false,
+      url: '/admin/faqs'
     },
 
   ];
