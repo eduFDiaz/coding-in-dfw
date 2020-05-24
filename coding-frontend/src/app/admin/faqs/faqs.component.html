@@ -34,12 +34,12 @@
 <!-- Generic Delete Dialog -->
 <ng-template #dialogDelete let-data let-ref="dialogRef">
     <nb-card status="danger">
-        <nb-card-header>Do you want to delete this {{ data.type }}</nb-card-header>
+        <nb-card-header>Do you want to delete this FAQ?</nb-card-header>
         <nb-card-body>This action cant be undone!
 
         </nb-card-body>
         <nb-card-footer>
-            <button nbButton (click)="ref.close('delete' + data.type)" status="danger">Delete!</button>
+            <button nbButton (click)="ref.close()" status="danger">Delete!</button>
         </nb-card-footer>
     </nb-card>
 </ng-template>
@@ -47,35 +47,47 @@
 <!-- Generic Edit Dialog -->
 <ng-template #dialogEdit let-data let-ref="dialogRef">
     <nb-card status="success">
-        <nb-card-header>Edit {{ data.type }}</nb-card-header>
+        <nb-card-header>Edit FAQ </nb-card-header>
         <nb-card-body>
+
             <form #editForm="ngForm" name="editForm">
-                <div class="row">
-                    <div class="col-md-6" *ngFor="let item of data.props">
-                        <label for="{{ item.key }}" class="label">{{ item.key  }} </label><br>
-                        <input fullWidth minlength="4" required #editField="ngModel" nbInput [(ngModel)]="item.value"
-                            name="{{ item.key }}" id="{{ item.key }}">
 
-                        <input type="hidden" [(ngModel)]="data.object.id" value="{{ data.object.id }}" name="id">
+                <div class="col-md-6">
+                    <label for="title" class="label">Title:</label><br>
+                    <input fullWidth minlength="4" #title="ngModel" required nbInput name="title" id="title"
+                        [(ngModel)]="data.object.title">
 
-                        <div *ngIf="editField.invalid && (editField.dirty || editField.touched)">
-                            <nb-alert *ngIf="editField.errors.required" status="warning">{{ item.key }} is required.
-                            </nb-alert>
-                            <nb-alert *ngIf="editField.errors.minlength" status="warning">{{ item.key }} must be at
-                                least 4
-                                characters long.</nb-alert>
-                        </div>
+                    <div *ngIf="title.invalid && (title.dirty || title.touched)">
+                        <nb-alert *ngIf="title.errors.required" status="warning">Title is required.
+                        </nb-alert>
+                        <nb-alert *ngIf="title.errors.minlength" status="warning">Title must be at
+                            least 4
+                            characters long.</nb-alert>
                     </div>
                 </div>
+                <div class="col-md-6">
+                    <label for="description" class="label">Description:</label><br>
+                    <!-- <input fullWidth minlength="4" #description="ngModel" [(ngModel)]="data.object.description"
+                            required nbInput name="description" id="description"> -->
+
+                    <textarea #description="ngModel" cols="30" name="description" [(ngModel)]="data.object.description"
+                        nbInput fullWidth placeholder="Description"></textarea>
+
+                    <div *ngIf="description.invalid && (description.dirty || description.touched)">
+                        <nb-alert *ngIf="description.errors.required" status="warning">Description is required.
+                        </nb-alert>
+                        <nb-alert *ngIf="description.errors.minlength" status="warning">Description must be at
+                            least 4
+                            characters long.</nb-alert>
+                    </div>
+                </div>
+
             </form>
         </nb-card-body>
         <nb-card-footer>
-            <!-- <button type="button" nbButton
-                (click)="ref.close({ dt: data.object.id, body: editForm.value,type: data.type})" status="success">Edit
-                {{ data.type }}</button> -->
             <button [disabled]="!editForm.dirty || !editForm.valid" type="button" nbButton
-                (click)="ref.close({ body: editForm.value,type: data.type})" status="success">Edit
-                {{ data.type }}</button>
+                (click)="ref.close({ body: editForm.value, id: data.object.id})" status="success">Save changes</button>
+
 
         </nb-card-footer>
     </nb-card>
@@ -99,18 +111,17 @@
                             size="tiny">+</button>
                         <nb-list>
                             <nb-list-item *ngFor="let faq of faqs">
-                                <div class="col-md-11">{{ faq.Title }}</div>
-                                <div class="col-md-11">{{ faq.Description }}</div>
+                                <div class="col-md-4">{{ faq.title }}</div>
+                                <div class="col-md-4">{{ faq.description }}</div>
 
                                 <div class="row ">
                                     <div class="col-md-1">
-
-                                        <button (click)="openDeleteDialog(dialogDelete, lang, 'language')" nbButton
-                                            status="danger" size="tiny">
+                                        <button (click)="openDeleteDialog(dialogDelete, faq)" nbButton status="danger"
+                                            size="tiny">
                                             <nb-icon icon="trash"></nb-icon>
                                         </button>
-                                        <button (click)="openEditDialog(dialogEdit, lang, 'language')" nbButton
-                                            status="success" size="tiny">
+                                        <button (click)="openEditDialog(dialogEdit, faq)" nbButton status="success"
+                                            size="tiny">
                                             <nb-icon icon="edit"></nb-icon>
                                         </button>
 

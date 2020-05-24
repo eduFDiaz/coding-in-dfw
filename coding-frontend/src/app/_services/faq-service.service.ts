@@ -11,7 +11,7 @@ export class FaqServiceService {
 
   constructor(private http: HttpClient) { }
 
-  getFaqs(userid: string): Observable<Faq> {
+  getFaqs(userid?: string): Observable<Faq> {
     return this.http.get<Faq>(environment.apiUrl + '/faq/all')
   }
 

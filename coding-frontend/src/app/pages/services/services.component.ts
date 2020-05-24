@@ -1,4 +1,6 @@
 import { Component, OnInit } from "@angular/core";
+import { FaqServiceService } from 'src/app/_services/faq-service.service';
+import { Faq } from 'src/app/_models/Faq';
 
 @Component({
   selector: "app-services",
@@ -6,7 +8,13 @@ import { Component, OnInit } from "@angular/core";
   styleUrls: ["./services.component.sass"]
 })
 export class ServicesComponent implements OnInit {
-  constructor() {}
 
-  ngOnInit() {}
+  faqs: Faq[]
+  constructor(private faqService: FaqServiceService) { }
+
+  ngOnInit() {
+    this.faqService.getFaqs().subscribe((result: any) => {
+      this.faqs = result
+    })
+  }
 }
