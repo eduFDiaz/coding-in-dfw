@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using coding.API.Models.PostTags;
 using coding.API.Models.Posts.Comments;
+using coding.API.Models.Photos;
+
 namespace coding.API.Models.Posts
 {
     public class Post: BaseEntity
@@ -17,6 +19,7 @@ namespace coding.API.Models.Posts
         public DateTime? PublishedAt { get; set; }
         public int ReadingTime { get; set; } // In minutes
         public ICollection<PostTag> PostTags { get; set; }
+        public ICollection<PostPhoto> Photos { get; set; }
         public Guid UserId { get; set; }       
         public ICollection<Comment> Comments { get; set; }
     }

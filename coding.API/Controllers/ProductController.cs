@@ -166,9 +166,9 @@ namespace coding.API.Controllers
 
             }
                  
-                 
+            var outPut = _mapper.Map<ProductForDetailDto>(toUpd);
             if (await _productDal.Update(toUpd))
-               return Ok(new ProductPresenter(toUpd));
+               return Ok(outPut);
 
             return BadRequest("Cant update the product");
 
