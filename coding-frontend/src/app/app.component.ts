@@ -7,7 +7,7 @@ import { AuthService } from './_services/auth.service';
   styleUrls: ['./app.component.sass']
 })
 export class AppComponent implements OnInit {
-  title = 'coding-frontend';
+  title = 'Coding in DFW';
   mode = false
 
   constructor() { }
