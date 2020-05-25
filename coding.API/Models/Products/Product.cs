@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using coding.API.Models.Photos;
 using coding.API.Models.Products.ProductsRequirements;
 using coding.API.Models.Products.Requirements;
 
@@ -21,6 +22,7 @@ namespace coding.API.Models.Products
         public string ProductPhoto { get; set; }
         public string ProductDescription { get; set; }
         public int Size { get; set; }
+        public ICollection<ProductPhoto> Photos { get; set; }
         public Guid UserId { get; set; }
         public List<ProductRequirement> ProductRequirements { get; set; }
 

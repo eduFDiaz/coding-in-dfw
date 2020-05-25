@@ -47,6 +47,8 @@ namespace coding.API.Models
         public DbSet<Requirement> Requirements { get; set; }
         public DbSet <ProductRequirement> ProductRequirements { get; set; }
         public DbSet <Message> Messages { get; set; }
+        public DbSet <ProductPhoto> ProductPhotos { get; set; }
+        public DbSet <PostPhoto> PostPhotos { get; set; }
 
 
         protected override void OnModelCreating(ModelBuilder builder)
