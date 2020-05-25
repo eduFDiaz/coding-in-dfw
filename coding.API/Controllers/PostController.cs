@@ -89,6 +89,9 @@ namespace coding.API.Controllers
         {
 
             var allUserPosts = (await _postDal.GetRelatedFields("PostTags.Tag", "Comments")).ToList();
+
+            var photos = (await _postDal.GetRelatedField("Photos")).Where(p => p.UserId == userId).ToList();
+
             var outPut = _mapper.Map<List<PostAllCommentDetailDto>>(allUserPosts);
 
             return Ok(outPut);
