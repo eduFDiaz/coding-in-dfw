@@ -27,8 +27,8 @@ namespace coding.API.Models.Presenter
         [JsonProperty("text")]
         public string Description => _product.BodyText;
 
-       //  [JsonProperty("requirements")]
-       //  public ICollection<string> Requirements => _product.ProductRequirements.Select(t => t.Requirement.Description).ToList();
+        //  [JsonProperty("requirements")]
+        //  public ICollection<string> Requirements => _product.ProductRequirements.Select(t => t.Requirement.Description).ToList();
 
         [JsonProperty("requirements")]
         public List<string> Requirements => _product.ProductRequirements.Select(p => p.Requirement.Description).ToList();
@@ -49,7 +49,7 @@ namespace coding.API.Models.Presenter
         public string Url => _product.Url;
 
         [JsonProperty("photoUrl")]
-        public string ProductPhoto => _product.ProductPhoto;
+        public string PhotoUrl => _product.Photos.Where(p => p.IsMain == true).Select(p => p.Url).SingleOrDefault();
 
         [JsonProperty("description")]
         public string ProductDescription => _product.ProductDescription;

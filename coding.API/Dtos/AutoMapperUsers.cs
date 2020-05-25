@@ -50,6 +50,7 @@ namespace coding.API.Dtos
             CreateMap<Post, PostInCommentDetailDto>();
             CreateMap<Post, PostAllCommentDetailDto>();
             CreateMap<PostPhotoForCreationDto, PostPhoto>();
+            CreateMap<PostPhoto, PostPhotoForDetailDto>();
 
             //Tags Maps
             CreateMap<TagForCreateDto, Tag>();
@@ -65,9 +66,13 @@ namespace coding.API.Dtos
             CreateMap<Product, ProductRequirementForDetailDto>();
             CreateMap<ProductRequirement, ProductForDetailDto>();
             CreateMap<ProductRequirement, ProductRequirementForDetailDto>();
+            CreateMap<Product, ProductForDetailDto>();
 
             // ProductPhoto Mapings
             CreateMap<ProductPhotoForCreationDto, ProductPhoto>();
+            CreateMap<ProductPhoto, List<ProductPhotoForDetailDto>>();
+            CreateMap<ProductPhoto, ProductPhotoForDetailDto>();
+            // CreateMap<Product, ProductPhotoForDetailDto>();
 
             //Photo Mapings
             CreateMap<PhotoForCreationDto, Photo>();

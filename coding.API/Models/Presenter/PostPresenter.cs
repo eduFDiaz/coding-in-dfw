@@ -5,7 +5,7 @@ using System.Linq;
 using System.Threading.Tasks;
 
 using coding.API.Models.Posts;
-
+using coding.API.Models.Tags;
 
 namespace coding.API.Models.Presenter
 {
@@ -37,11 +37,12 @@ namespace coding.API.Models.Presenter
         [JsonProperty("readingTime")]
         public int ReadingTime => _post.ReadingTime;
 
-        // haz un resumen de los tag
-        [JsonProperty("tags")]
-        public ICollection<Guid> Tags => _post.PostTags.Select(t => t.TagId).ToList();
 
-        
+        [JsonProperty("tags")]
+        // public ICollection<Tag> Tags => _post.PostTags.Select(t => t.Tag).ToList();
+        public ICollection<Tag> Tags => _post.PostTags.Select(p => p.Tag).ToList();
+
+
 
 
     }

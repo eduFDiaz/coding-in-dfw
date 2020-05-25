@@ -87,8 +87,7 @@ namespace coding.API.Controllers
         [HttpGet("{userid}")]
         public async Task<IActionResult> GetAllProductsForuser(Guid userid)
         {
-            var allUserProducts = (await _productDal.GetRelatedField("ProductRequirements.Requirement")).Where(p => p.UserId == userid).ToList(); ;
-
+            var allUserProducts = (await _productDal.GetRelatedFields("ProductRequirements.Requirement", "Photos")).Where(p => p.UserId == userid).ToList(); ;
 
             var producCount = allUserProducts.Count;
 
@@ -105,22 +104,19 @@ namespace coding.API.Controllers
         [HttpGet("all")]
         public async Task<ActionResult> GetProducts()
         {
-            var products = (await _productDal.GetRelatedField("ProductRequirements.Requirement")).ToList();
+            var products = (await _productDal.GetRelatedFields("ProductRequirements.Requirement", "Photos")).ToList();
 
             var productsToReturn = _mapper.Map<List<ProductForDetailDto>>(products);
 
             return Ok(productsToReturn);
         }
 
-        [HttpGet("product/{productid}")]
+        [HttpGet("{productid}")]
         public async Task<IActionResult> GetSingleProduct(Guid productid)
         {
-            var product = (await _productDal.GetRelatedField("ProductRequirements.Requirement")).Where(p => p.Id == productid).ToList();
+            var product = (await _productDal.GetRelatedFields("ProductRequirements.Requirement", "Photos")).Where(p => p.Id == productid).SingleOrDefault();
 
-            var productPhotos = (await _productPhotoDal.ListAsync()).Where(pr => pr.ProductId == productid && pr.IsMain == true).ToList();
-
-            return Ok(product);
-            // return Ok(new ProductPresenter(product));
+            return Ok(new ProductPresenter(product));
         }
 
 
