@@ -1,7 +1,9 @@
 <div class="row">
     <div class="col-md-12">
         <nb-card [nbSpinner]="productaddSpinner" nbSpinnerStatus="primary">
-            <nb-card-header>Add a new product</nb-card-header>
+            <nb-card-header>Add a new product
+                <button size="tiny" (click)="addPhotoLink()" nbButton status="info">Add a photo</button>
+            </nb-card-header>
             <nb-card-body>
                 <form #addProductForm="ngForm" name="addProductForm" id="addProductForm" (submit)="newProduct()">
                     <div class="row">

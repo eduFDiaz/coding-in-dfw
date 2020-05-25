@@ -2,7 +2,7 @@ import { Component, OnInit, TemplateRef } from '@angular/core';
 import * as ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 
 
-import { Router } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 
 
 import { NbDialogService } from '@nebular/theme';
@@ -12,6 +12,7 @@ import { Requirement } from 'src/app/_models/Requirement';
 import { ProductService } from 'src/app/_services/product.service';
 import { UserService } from 'src/app/_services/user.service';
 import { AlertService } from 'src/app/_services/alert.service';
+import { ProductphotoAddComponent } from './productphoto-add/productphoto-add.component';
 
 
 @Component({
@@ -75,6 +76,11 @@ export class ProductAddComponent implements OnInit {
     this.productService.addProduct(this.product).subscribe(
       value => {
         this.spinner = false;
+        this.dialogService.open(ProductphotoAddComponent, { closeOnBackdropClick: true })
+          .onClose.subscribe((result) => {
+            console.log(result)
+          })
+
         this.toast.showToast('bottom-left', 'success', 'Product Added!', 'Your product was succefully added')
         this.route.navigate(['/product/list'])
       },
@@ -98,6 +104,13 @@ export class ProductAddComponent implements OnInit {
     return Object.keys(obj).map((key) => {
       return { key: key, value: obj[key] }
     }).filter((field: any) => field.key !== 'id' && field.key !== 'dateCreated' && field.key !== 'dateModified')
+  }
+
+  addPhotoLink() {
+    this.dialogService.open(ProductphotoAddComponent, { closeOnBackdropClick: true })
+      .onClose.subscribe((result) => {
+        console.log(result)
+      })
   }
 
 }
