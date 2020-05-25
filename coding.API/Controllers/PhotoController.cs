@@ -161,7 +161,7 @@ namespace coding.API.Controllers
 
             await _productPhotoDal.Add(photo);
 
-            return Ok(photo);
+            return Ok(new ProductPhotoPresenter(photo));
 
         }
 
@@ -207,7 +207,7 @@ namespace coding.API.Controllers
 
             await _postPhotoDal.Add(photo);
 
-            return Ok(photo);
+            return Ok(new PostPhotoPresenter(photo));
 
         }
 
