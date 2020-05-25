@@ -18,6 +18,8 @@ using coding.API.Models.Presenter;
 using coding.API.Models.Products;
 using Microsoft.AspNetCore.Authorization;
 using coding.API.Dtos.Products;
+using coding.API.Models.Posts;
+using coding.API.Dtos.Posts;
 
 namespace coding.API.Controllers
 {
@@ -29,6 +31,12 @@ namespace coding.API.Controllers
         private readonly Repository<Photo> _photoDal;
         private readonly Repository<User> _userDal;
         private readonly Repository<Product> _productDal;
+
+        private readonly Repository<ProductPhoto> _productPhotoDal;
+
+        private readonly Repository<Post> _postDal;
+
+        private readonly Repository<PostPhoto> _postPhotoDal;
         private readonly IConfiguration _config;
         private readonly IMapper _mapper;
         private readonly IOptions<CloudinarySettings> _cloudinaryConfig;
@@ -36,11 +44,17 @@ namespace coding.API.Controllers
 
 
 
-        public PhotoController(Repository<Photo> photoDal, Repository<User> userDal, Repository<Product> productDal, IConfiguration config, IMapper mapper, IOptions<CloudinarySettings> cloudinaryConfig)
+        public PhotoController(Repository<Post> postDal, Repository<PostPhoto> postPhotoDal, Repository<ProductPhoto> productPhotoDal, Repository<Photo> photoDal, Repository<User> userDal, Repository<Product> productDal, IConfiguration config, IMapper mapper, IOptions<CloudinarySettings> cloudinaryConfig)
         {
             _photoDal = photoDal;
             _userDal = userDal;
+
             _productDal = productDal;
+            _productPhotoDal = productPhotoDal;
+
+            _postDal = postDal;
+            _postPhotoDal = postPhotoDal;
+
             _config = config;
             _mapper = mapper;
 
@@ -135,25 +149,28 @@ namespace coding.API.Controllers
             photoForCreationDto.PublicId = uploadResults.PublicId;
             photoForCreationDto.ProductId = productFromRepo.Id;
 
+            var photo = _mapper.Map<ProductPhoto>(photoForCreationDto);
+
+            // simplify expresion
+            var productPhoto = (await _productPhotoDal.ListAsync())
+                .Where(p => p.ProductId == productFromRepo.Id)
+                .FirstOrDefault(p => p.IsMain);
+
+            photo.IsMain = productPhoto == default;
 
 
+            await _productPhotoDal.Add(photo);
 
-            var photo = _mapper.Map<Photo>(photoForCreationDto);
-
-            if (await _productDal.SaveAll())
-                return Ok(new PhotoPresenter(photo));
-            return BadRequest("Error: Photo not uploaded");
-
-
-            // return BadRequest("Could not add the photo");
+            return Ok(photo);
 
         }
-        [HttpPost("PostPhoto/{PostPhotoId}/create")]
-        public async Task<IActionResult> AddPostPhotoForProduct(Guid productId, [FromForm] ProductPhotoForCreationDto photoForCreationDto)
+
+        [HttpPost("product/{productId}/create")]
+        public async Task<IActionResult> AddPhotoForPost(Guid postId, [FromForm] PostPhotoForCreationDto photoForCreationDto)
         {
             // Only if the claim is valid the user is retrieved
-            var productFromRepo = (await _productDal.ListAsync())
-                    .FirstOrDefault(p => p.Id == productId);
+            var postFromRepo = (await _postDal.ListAsync())
+                    .FirstOrDefault(p => p.Id == postId);
 
             var file = photoForCreationDto.File;
 
@@ -176,63 +193,21 @@ namespace coding.API.Controllers
 
             photoForCreationDto.Url = uploadResults.Uri.ToString();
             photoForCreationDto.PublicId = uploadResults.PublicId;
-            photoForCreationDto.ProductId = productFromRepo.Id;
+            photoForCreationDto.PostId = postFromRepo.Id;
+
+            var photo = _mapper.Map<PostPhoto>(photoForCreationDto);
+
+            // simplify expresion
+            var postPhoto = (await _postPhotoDal.ListAsync())
+                .Where(p => p.PostId == postFromRepo.Id)
+                .FirstOrDefault(p => p.IsMain);
+
+            photo.IsMain = postPhoto == default;
 
 
+            await _postPhotoDal.Add(photo);
 
-
-            var photo = _mapper.Map<Photo>(photoForCreationDto);
-
-            if (await _productDal.SaveAll())
-                return Ok(new PhotoPresenter(photo));
-            return BadRequest("Error: Photo not uploaded");
-
-
-            // return BadRequest("Could not add the photo");
-
-        }
-
-        [HttpPost("ProductPhoto/{ProductPhotoId}/create")]
-        public async Task<IActionResult> AddProductPhotoForProduct(Guid ProductPhotoId, [FromForm] ProductPhotoForCreationDto photoForCreationDto)
-        {
-            // Only if the claim is valid the user is retrieved
-            var ProductPhotoFromRepo = (await _productDal.ListAsync())
-                    .FirstOrDefault(p => p.Id == ProductPhotoId);
-
-            var file = photoForCreationDto.File;
-
-            var uploadResults = new ImageUploadResult();
-
-            if (file.Length > 0)
-            {
-                using (var stream = file.OpenReadStream())
-                {
-                    var uploadParams = new ImageUploadParams()
-                    {
-                        File = new FileDescription(file.Name, stream),
-                        Transformation = new Transformation()
-                            // .Width("500").Height("500").Crop("fill").Gravity("face")
-                            .Width("500").Height("500").Crop("fill")
-                    };
-                    uploadResults = _cloudinary.Upload(uploadParams);
-                }
-            }
-
-            photoForCreationDto.Url = uploadResults.Uri.ToString();
-            photoForCreationDto.PublicId = uploadResults.PublicId;
-            photoForCreationDto.ProductId = ProductPhotoFromRepo.Id;
-
-
-
-
-            var photo = _mapper.Map<Photo>(photoForCreationDto);
-
-            if (await _productDal.SaveAll())
-                return Ok(new PhotoPresenter(photo));
-            return BadRequest("Error: Photo not uploaded");
-
-
-            // return BadRequest("Could not add the photo");
+            return Ok(photo);
 
         }
 

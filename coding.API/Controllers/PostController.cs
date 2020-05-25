@@ -16,6 +16,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using coding.API.Models.Posts.Comments;
 using coding.API.Dtos.Posts;
+using coding.API.Models.Photos;
 
 namespace coding.API.Controllers
 {
@@ -27,17 +28,21 @@ namespace coding.API.Controllers
         private readonly IMapper _mapper;
 
         private readonly Repository<Post> _postDal;
+
+        private readonly Repository<PostPhoto> _postPhotoDal;
         private readonly Repository<Tag> _tagDal;
         private readonly Repository<PostTag> _postTagDal;
 
         public PostController(
         Repository<PostTag> postTagDal,
+        Repository<PostPhoto> postPhotoDal,
         Repository<Tag> tagDal,
         Repository<Post> postDal,
         IConfiguration config, IMapper mapper)
         {
 
             _postTagDal = postTagDal;
+            _postPhotoDal = postPhotoDal;
             _postDal = postDal;
             _tagDal = tagDal;
 
@@ -49,15 +54,6 @@ namespace coding.API.Controllers
         [HttpPost("create")]
         public async Task<IActionResult> Create([FromBody] PostForCreateDto request)
         {
-            // var post = new Post
-            // {
-            //    Text = request.Text,
-            //    Description = request.Description,
-            //    Title = request.Title,
-            //    UserId = request.UserId,
-            //    ReadingTime = request.ReadingTime
-            //    // @Denis el resto de los datos del post faltan aqu�
-            // };
 
             var postForCreate = _mapper.Map<Post>(request);
 
@@ -79,6 +75,8 @@ namespace coding.API.Controllers
                 await _postTagDal.Add(postag);
             }
             // }
+
+
 
             return Ok(new PostPresenter(createdPost));
 
@@ -135,6 +133,8 @@ namespace coding.API.Controllers
         public async Task<IActionResult> GetPost(Guid postid)
         {
             var singlePostFromRepo = (await _postDal.GetByIdWithList(postid, "PostTags.Tag", "Comments"));
+
+            var postPhotos = (await _postPhotoDal.ListAsync()).Where(p => p.PostId == postid).ToList();
 
             if (singlePostFromRepo == null)
                 return NotFound();

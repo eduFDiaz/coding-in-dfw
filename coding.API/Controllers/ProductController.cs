@@ -16,6 +16,7 @@ using coding.API.Dtos.Requirements;
 using coding.API.Models.Products.Requirements;
 using coding.API.Models.Products.ProductsRequirements;
 using Microsoft.EntityFrameworkCore;
+using coding.API.Models.Photos;
 
 namespace coding.API.Controllers
 {
@@ -25,9 +26,10 @@ namespace coding.API.Controllers
     {
         private readonly IConfiguration _config;
         private readonly IMapper _mapper;
-        private readonly DataContext _dbContext;
 
         private readonly Repository<Product> _productDal;
+
+        private readonly Repository<ProductPhoto> _productPhotoDal;
 
         private readonly Repository<Requirement> _requirementDal;
 
@@ -36,14 +38,15 @@ namespace coding.API.Controllers
 
         public ProductController(
             Repository<Product> productDal,
+            Repository<ProductPhoto> productPhotoDal,
             IConfiguration config, IMapper mapper,
             Repository<Requirement> requirementDal,
-            Repository<ProductRequirement> productRequirementDal,
-            DataContext dbContext)
+            Repository<ProductRequirement> productRequirementDal
+            )
         {
 
             _productDal = productDal;
-            _dbContext = dbContext;
+            _productPhotoDal = productPhotoDal;
             _config = config;
             _mapper = mapper;
             _requirementDal = requirementDal;
@@ -112,9 +115,12 @@ namespace coding.API.Controllers
         [HttpGet("product/{productid}")]
         public async Task<IActionResult> GetSingleProduct(Guid productid)
         {
-            var product = (await _productDal.GetById(productid));
+            var product = (await _productDal.GetRelatedField("ProductRequirements.Requirement")).Where(p => p.Id == productid).ToList();
 
-            return Ok(new ProductPresenter(product));
+            var productPhotos = (await _productPhotoDal.ListAsync()).Where(pr => pr.ProductId == productid && pr.IsMain == true).ToList();
+
+            return Ok(product);
+            // return Ok(new ProductPresenter(product));
         }
 
 
@@ -135,25 +141,26 @@ namespace coding.API.Controllers
         public async Task<IActionResult> UpdateProduct(Guid productId, [FromBody] ProductForUpdateDto request)
         {
             var productToEdit = (await _productDal.GetRelatedField("ProductRequirements.Requirement")).FirstOrDefault(p => p.Id == productId);
-                       
+
             var pr = new ProductRequirementForCreateDto();
 
             var toUpd = _mapper.Map(request, productToEdit);
 
             foreach (var row in productToEdit.ProductRequirements)
             {
-                
-               var record = _productRequirementDal.GetRelatedRow(productId, row.RequirementId);
-               if (record != null) {
-                 _productRequirementDal.DeleteSync(record);
-                
-               }
-               
+
+                var record = _productRequirementDal.GetRelatedRow(productId, row.RequirementId);
+                if (record != null)
+                {
+                    _productRequirementDal.DeleteSync(record);
+
+                }
+
             }
-           
+
             foreach (var Requirement in request.RequirementId)
             {
-               
+
                 pr.RequirementId = Requirement;
 
                 pr.ProductId = toUpd.Id;
@@ -161,14 +168,14 @@ namespace coding.API.Controllers
                 pr.Requirement = await _requirementDal.GetById(Requirement);
 
                 var productRequirementToUpdate = _mapper.Map<ProductRequirement>(pr);
-                
+
                 await _productRequirementDal.Add(productRequirementToUpdate);
 
             }
-                 
+
             var outPut = _mapper.Map<ProductForDetailDto>(toUpd);
             if (await _productDal.Update(toUpd))
-               return Ok(outPut);
+                return Ok(outPut);
 
             return BadRequest("Cant update the product");
 
