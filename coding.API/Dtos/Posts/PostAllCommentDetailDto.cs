@@ -2,7 +2,6 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using coding.API.Dtos.Comments;
-using coding.API.Dtos.Products;
 
 namespace coding.API.Dtos.Posts
 {
@@ -20,11 +19,7 @@ namespace coding.API.Dtos.Posts
         public int ReadingTime { get; set; }
 
         public List<CommentClearForDetailDto> Comments { get; set; }
-        // In minutes
-        // public ICollection<Tag> Tags { get; set; }
-        // public User User { get; set; }
-        //  public int UserId { get; set; }
-        // public List<PostTag> PostTags { get; set; }
+
         public List<PostTagForDetailDto> PostTags { get; set; }
 
         public List<PostPhotoForDetailDto> Photos { get; set; }

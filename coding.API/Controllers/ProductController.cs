@@ -188,8 +188,6 @@ namespace coding.API.Controllers
 
             var createdRequirement = await _requirementDal.Add(requirementToCreate);
 
-            // var requirementToShow = _mapper.Map<RequirementForDetailDto>(createdRequirement);
-
             return Ok(new RequirementPresenter(createdRequirement));
 
         }

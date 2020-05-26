@@ -2,7 +2,6 @@
 
 using System;
 using coding.API.Dtos.Posts;
-using coding.API.Models.Posts;
 
 namespace coding.API.Dtos.Comments
 {

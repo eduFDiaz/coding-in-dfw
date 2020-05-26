@@ -12,6 +12,5 @@ namespace coding.API.Dtos
         public string Title { get; set; }
         [Required]
         public string Description { get; set; }
-        // public int PostId { get; set; }
     }
 }

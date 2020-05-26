@@ -20,6 +20,7 @@ using Microsoft.AspNetCore.Authorization;
 using coding.API.Dtos.Products;
 using coding.API.Models.Posts;
 using coding.API.Dtos.Posts;
+using System.Security.Claims;
 
 namespace coding.API.Controllers
 {
@@ -119,6 +120,68 @@ namespace coding.API.Controllers
             // return BadRequest("Could not add the photo");
 
         }
+
+        // Set main photo using id as the photo id
+        [HttpPost("{itemId}/{photoId}/setMain")]
+        public async Task<IActionResult> SetMain(Guid itemId, string type, Guid photoId)
+        {
+            switch (type)
+            {
+                case "product":
+
+                    var ProductPhotoFromRepo = await _productPhotoDal.GetById(photoId);
+                    if (ProductPhotoFromRepo.IsMain)
+                        return BadRequest("This is already the main photo");
+                    var currentMainPhoto = _productPhotoDal.ListAll().Where(p => p.ProductId == itemId).FirstOrDefault(p => p.IsMain);
+
+                    // Set main photo a
+                    currentMainPhoto.IsMain = false;
+                    ProductPhotoFromRepo.IsMain = true;
+                    if (await _productPhotoDal.SaveAll())
+                        return NoContent();
+
+                    return BadRequest("Could not set photo to main");
+
+                case "post":
+
+                    var PostPhotoFromRepo = await _postPhotoDal.GetById(photoId);
+                    if (PostPhotoFromRepo.IsMain)
+                        return BadRequest("This is already the main photo");
+                    var currentMainPostPhoto = _postPhotoDal.ListAll().Where(p => p.PostId == itemId).FirstOrDefault(p => p.IsMain);
+
+                    // Set main photo a
+                    currentMainPostPhoto.IsMain = false;
+                    PostPhotoFromRepo.IsMain = true;
+                    if (await _postPhotoDal.SaveAll())
+                        return NoContent();
+
+                    return BadRequest("Could not set photo to main");
+
+
+
+                default:
+                    var photoFromRepo = await _photoDal.GetById(photoId);
+                    if (photoFromRepo.IsMain)
+                        return BadRequest("This is already the main photo");
+                    var currentMainUserPhoto = _photoDal.ListAll().Where(p => p.UserId == itemId).FirstOrDefault(p => p.IsMain);
+
+                    // Set main photo a
+                    currentMainUserPhoto.IsMain = false;
+                    photoFromRepo.IsMain = true;
+                    if (await _photoDal.SaveAll())
+                        return NoContent();
+
+                    return BadRequest("Could not set photo to main");
+
+
+            }
+
+
+
+
+        }
+
+        // Create photo for product
         [HttpPost("product/{productId}/create")]
         public async Task<IActionResult> AddPhotoForProduct(Guid productId, [FromForm] ProductPhotoForCreationDto photoForCreationDto)
         {

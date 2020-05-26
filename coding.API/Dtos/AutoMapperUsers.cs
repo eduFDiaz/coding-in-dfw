@@ -71,7 +71,7 @@ namespace coding.API.Dtos
             CreateMap<ProductPhotoForCreationDto, ProductPhoto>();
             CreateMap<ProductPhoto, List<ProductPhotoForDetailDto>>();
             CreateMap<ProductPhoto, ProductPhotoForDetailDto>();
-            // CreateMap<Product, ProductPhotoForDetailDto>();
+            
 
             //Photo Mapings
             CreateMap<PhotoForCreationDto, Photo>();

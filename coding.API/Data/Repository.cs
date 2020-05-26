@@ -4,11 +4,9 @@ using System.Linq;
 using System.Threading.Tasks;
 using coding.API.Models;
 using Microsoft.EntityFrameworkCore;
-using coding.API.Models.Posts;
-using coding.API.Models.Products;
 using coding.API.Models.Products.ProductsRequirements;
-using coding.API.Models.Posts.Comments;
 using coding.API.Models.PostTags;
+using coding.API.Models.Photos;
 
 namespace coding.API.Data
 {
@@ -37,7 +35,7 @@ namespace coding.API.Data
         /// Lista todas las entidades.
         /// </summary>
         public async Task<List<T>> ListAsync()
-        {   
+        {
             return await _dbContext.Set<T>().ToListAsync();
 
         }
@@ -71,7 +69,7 @@ namespace coding.API.Data
             return false;
 
         }
-        public  bool DeleteSync(T entity)
+        public bool DeleteSync(T entity)
         {
             _dbContext.Set<T>().Remove(entity);
             return true;
@@ -118,25 +116,26 @@ namespace coding.API.Data
         /// Loads a related field to a given entity various levels
         /// </summary>
         public async Task<List<T>> GetRelatedFields(string relatedField, string anotherField)
-        {   
-            if (anotherField == null) {
-                return await _dbContext.Set<T>().Include(relatedField).ToListAsync();
-            } else {
-                return await _dbContext.Set<T>().Include(relatedField).Include(anotherField).ToListAsync();
-            }
-    
+        {
+            return await _dbContext.Set<T>().Include(relatedField).Include(anotherField).ToListAsync();
+
+
 
         }
 
-public ProductRequirement GetRelatedRowPR (Guid productId, Guid requirementId){
-    return  _dbContext.ProductRequirements.Where(p => p.ProductId == productId && p.RequirementId == requirementId).SingleOrDefault();
-}
 
-    
+        public ProductRequirement GetRelatedRowPR(Guid productId, Guid requirementId)
+        {
+            return _dbContext.ProductRequirements.Where(p => p.ProductId == productId && p.RequirementId == requirementId).SingleOrDefault();
+        }
 
-public  PostTag GetRelatedRowPT (Guid postId, Guid tagId){
-    return  _dbContext.PostTags.Where(pt => pt.PostId == postId && pt.TagId == tagId).SingleOrDefault();
-}
+
+
+        public PostTag GetRelatedRowPT(Guid postId, Guid tagId)
+        {
+            return _dbContext.PostTags.Where(pt => pt.PostId == postId && pt.TagId == tagId).SingleOrDefault();
+        }
+
 
     }
 }
