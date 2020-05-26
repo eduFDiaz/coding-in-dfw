@@ -1,8 +1,12 @@
+using System;
+using coding.API.Models.Tags;
+
 namespace coding.API.Dtos
 {
     public class PostTagForCreateDto
     {
-        public int PostId { get; set; }
-        public int TagId { get; set; }
+        public Guid PostId { get; set; }
+        public Guid TagId { get; set; }
+        public Tag Tag { get; set; }
     }
 }

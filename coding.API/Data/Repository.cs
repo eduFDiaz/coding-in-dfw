@@ -8,6 +8,7 @@ using coding.API.Models.Posts;
 using coding.API.Models.Products;
 using coding.API.Models.Products.ProductsRequirements;
 using coding.API.Models.Posts.Comments;
+using coding.API.Models.PostTags;
 
 namespace coding.API.Data
 {
@@ -127,8 +128,14 @@ namespace coding.API.Data
 
         }
 
-public ProductRequirement GetRelatedRow (Guid productId, Guid requirementId){
+public ProductRequirement GetRelatedRowPR (Guid productId, Guid requirementId){
     return  _dbContext.ProductRequirements.Where(p => p.ProductId == productId && p.RequirementId == requirementId).SingleOrDefault();
+}
+
+    
+
+public  PostTag GetRelatedRowPT (Guid postId, Guid tagId){
+    return  _dbContext.PostTags.Where(pt => pt.PostId == postId && pt.TagId == tagId).SingleOrDefault();
 }
 
     }
