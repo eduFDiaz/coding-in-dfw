@@ -31,7 +31,7 @@ namespace coding.API.Models.Presenter
 
         [JsonProperty("email")]
         public string Email => _user.Email;
-        
+
         [JsonProperty("location")]
         public string Location => _user.Location;
 
@@ -40,7 +40,7 @@ namespace coding.API.Models.Presenter
 
         [JsonProperty("lastActive")]
         public DateTime LastActive => _user.LastActive;
-        
+
         [JsonProperty("phone")]
         public string Phone => _user.Phone;
 
@@ -67,13 +67,15 @@ namespace coding.API.Models.Presenter
 
         [JsonProperty("redditProfile")]
         public string RedditProfile => _user.RedditProfile;
-        
+
         [JsonProperty("codepenProfile")]
         public string CodepenProfile => _user.CodepenProfile;
-        // haz un resumen de los tag
-        //[JsonProperty("tags")]
-        //public string Tags =>
-        //    string.Join(", ",_post.PostTags.Select(t => t.Tag.Title).ToList());
+
+        //     [JsonProperty("photoUrl")]
+        //     public string PhotoUrl => {
+
+        //         if ()
+        // };
 
 
     }

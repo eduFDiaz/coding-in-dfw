@@ -13,6 +13,7 @@ using Microsoft.Extensions.Logging;
 using System.Security.Claims;
 using coding.API.Data;
 using coding.API.Models.Users;
+using coding.API.Models.Presenter;
 
 namespace coding.API.Controllers
 {
@@ -62,9 +63,11 @@ namespace coding.API.Controllers
             _mapper.Map(userForUpdateDto, userFromRepo);
 
             if (await _userDal.Update(userFromRepo))
-                return Ok(userForUpdateDto);
+            {
+                var output = _mapper.Map<UserForDetailedDto>(userFromRepo);
+                return Ok(output);
+            }
 
-            // throw new Exception($"Failed update");
             return BadRequest("Cant update the user");
         }
 

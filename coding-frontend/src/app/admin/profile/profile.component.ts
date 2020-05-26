@@ -67,7 +67,7 @@ export class ProfileComponent implements OnInit {
 
   ngOnInit() {
     this.profileSpinner = true
-
+    // localstorage.getItem('')
     this.user.getUser(this.user.getCurrentUserId()).subscribe((result) => {
       this.myuser = result
       this.profileSpinner = false
