@@ -92,9 +92,15 @@ namespace coding.API.Controllers
         public async Task<IActionResult> GetAllPostsForUser(Guid userId)
         {
 
-            var allUserPosts = (await _postDal.GetRelatedFields("PostTags.Tag", "Comments")).ToList();
+            var allUserPosts = (await _postDal.GetRelatedField("PostTags.Tag")).ToList();
 
-            var photos = (await _postDal.GetRelatedField("Photos")).Where(p => p.UserId == userId).ToList();
+            var photos = (await _postPhotoDal.ListAsync()).Where(p => p.Post.UserId == userId).ToList();
+            // var photos = (await _postDal.GetRelatedField("Photos")).Where(p => p.UserId == userId).ToList();
+
+            foreach (var post in allUserPosts)
+            {
+                post.Comments = (await _commentDal.ListAsync()).Where(c => c.PostId == post.Id && c.Published == true).ToList();
+            }
 
             var outPut = _mapper.Map<List<PostAllCommentDetailDto>>(allUserPosts);
 
