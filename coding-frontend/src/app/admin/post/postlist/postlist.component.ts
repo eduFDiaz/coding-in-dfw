@@ -25,17 +25,26 @@ import { PostService } from 'src/app/_services/post.service';
 
 export class PostlistComponent implements OnInit {
 
+  succes: boolean
+
   pageOfItems: Array<any>;
 
   spinner = false
   data: any
   userposts: Post[]
 
-  constructor(private route: Router, private toast: AlertService, private dialog: NbDialogService, private user: UserService, private auth: AuthService, private postService: PostService) { }
+  constructor(private activeRoute: ActivatedRoute, private route: Router, private toast: AlertService, private dialog: NbDialogService, private user: UserService, private auth: AuthService, private postService: PostService) { }
 
   ngOnInit() {
+    this.activeRoute.queryParams.subscribe((params) => {
+      if (params['success']) {
+        this.toast.showToast('top-right', 'success', 'Test', 'test')
+      }
+    })
+    this.spinner = true
     this.postService.getUserPosts(this.user.getCurrentUserId()).subscribe((result) => {
       this.userposts = result
+      this.spinner = false
       console.log(result)
     }
     )

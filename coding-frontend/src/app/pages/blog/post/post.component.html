@@ -4,9 +4,9 @@
             <header class="blog-post-header">
                 <h2 class="title mb-2">{{ post?.title }}</h2>
                 <div class="meta mb-3">
-                    <span class="date">Published at: {{ post?.createdAt | date: 'medium' }}</span>
+                    <span class="date">Published at: {{ post?.publishedAt | date: 'medium' }}</span>
                     <span class="time">{{ post?.readingTime }} minutes reading</span>
-                    <span class="comment"><a href="#">4 comments</a></span>
+                    <span class="comment"><a href="#">{{ post?.comments.length }} comments</a></span>
                 </div>
             </header>
             <div class="blog-post-body">

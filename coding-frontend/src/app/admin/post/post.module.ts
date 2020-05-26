@@ -19,7 +19,6 @@ import { AddtagComponent } from './addpost/addtag/addtag.component';
 import { TaglistComponent } from './taglist/taglist.component'
 import { CommentsComponent } from './comments/comments.component';
 import { AlertService } from 'src/app/_services/alert.service';
-import { PostListComponent } from 'src/app/pages/blog/post-list/post-list.component';
 import { AddphotopostComponent } from './addpost/addphotopost/addphotopost.component';
 import { FileUploadModule } from 'ng2-file-upload';
 

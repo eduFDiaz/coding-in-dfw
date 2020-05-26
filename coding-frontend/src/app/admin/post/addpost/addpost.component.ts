@@ -17,6 +17,7 @@ import { Tag } from 'src/app/_models/Tag';
 import { UserService } from 'src/app/_services/user.service';
 import { PostService } from 'src/app/_services/post.service';
 import { AlertService } from 'src/app/_services/alert.service';
+import { Post } from 'src/app/_models/Post';
 // import 'ckeditor';
 
 @Component({
@@ -78,11 +79,10 @@ export class AddpostComponent implements OnInit {
     data.userid = this.user.getCurrentUserId()
     this.postSpinner = true
     this.toPost.newPost(data).subscribe((request) => {
-      this.toast.showToast('bottom-left', 'success', 'Post uploaded!', 'Your post was uploaded succesfully')
       this.postSpinner = false
-      // this.newPostForm.reset()
-      this.route.navigate(['/posts/list'])
-      console.log("luego del router")
+      this.toast.showToast('bottom-left', 'success', 'Post uploaded!', 'Your post was uploaded succesfully')
+      this.route.navigate(['admin/posts/new/photo'], { queryParams: { forpost: request.id } })
+
     }, error => {
       this.postSpinner = false;
     })

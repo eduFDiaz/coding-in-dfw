@@ -33,7 +33,10 @@ namespace coding.API.Controllers
         private readonly Repository<Tag> _tagDal;
         private readonly Repository<PostTag> _postTagDal;
 
+        private readonly Repository<Comment> _commentDal;
+
         public PostController(
+            Repository<Comment> commentDal,
         Repository<PostTag> postTagDal,
         Repository<PostPhoto> postPhotoDal,
         Repository<Tag> tagDal,
@@ -45,6 +48,7 @@ namespace coding.API.Controllers
             _postPhotoDal = postPhotoDal;
             _postDal = postDal;
             _tagDal = tagDal;
+            _commentDal = commentDal;
 
             _config = config;
             _mapper = mapper;
@@ -135,9 +139,13 @@ namespace coding.API.Controllers
         [HttpGet("{postid}", Name = "Get Single Post")]
         public async Task<IActionResult> GetPost(Guid postid)
         {
-            var singlePostFromRepo = (await _postDal.GetByIdWithList(postid, "PostTags.Tag", "Comments"));
 
-            var postPhotos = (await _postPhotoDal.ListAsync()).Where(p => p.PostId == postid).ToList();
+            // var singlePostFromRepo = (await _postDal.GetByIdWithList(postid, "PostTags.Tag", "Comments"));
+            var singlePostFromRepo = (await _postDal.GetRelatedField("PostTags.Tag")).SingleOrDefault(p => p.Id == postid);
+
+            singlePostFromRepo.Comments = (await _commentDal.ListAsync()).Where(c => c.PostId == postid && c.Published == true).ToList();
+
+            singlePostFromRepo.Photos = (await _postPhotoDal.ListAsync()).Where(p => p.PostId == postid).ToList();
 
             if (singlePostFromRepo == null)
                 return NotFound();

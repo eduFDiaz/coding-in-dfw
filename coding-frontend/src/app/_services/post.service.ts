@@ -29,7 +29,7 @@ export class PostService {
 
   constructor(private http: HttpClient, private toast: AlertService, private user: UserService) { }
 
-  newPost(postdata) {
+  newPost(postdata): Observable<Post> {
     return this.http.post(environment.apiUrl + '/post/create', postdata, { headers: { 'authorization': 'Bearer ' + localStorage.getItem('token') } }).pipe(
       map((result: any) => {
         if (result) {

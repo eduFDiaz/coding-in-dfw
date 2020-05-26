@@ -13,6 +13,7 @@ import { PhotoaddComponent } from './profile/photoadd/photoadd.component';
 import { CommentsComponent } from './post/comments/comments.component';
 import { FaqsComponent } from './faqs/faqs.component';
 import { ProductphotoComponent } from './products/product-add/productphoto/productphoto.component';
+import { AddphotopostComponent } from './post/addpost/addphotopost/addphotopost.component';
 
 
 
@@ -22,17 +23,18 @@ const routes: Routes = [
     path: '', component: AdminComponent, children: [
       { path: '', redirectTo: 'login', pathMatch: 'full' },
       { path: 'resume', component: ResumeAdminComponent },
-      { path: 'profile', component: ProfileComponent, pathMatch: 'full' },
+      { path: 'profile', component: ProfileComponent },
       { path: 'profile/profilepics', component: PhotoaddComponent },
       { path: 'posts/list', component: PostlistComponent },
       { path: 'posts/new', component: AddpostComponent },
+      { path: 'posts/new/photo', component: AddphotopostComponent },
       { path: 'posts/managecomments', component: CommentsComponent },
       { path: 'product/list', component: ProductListComponent },
       { path: 'tag/list', component: TaglistComponent },
       { path: 'product/new', component: ProductAddComponent },
       { path: 'product/new/photo', component: ProductphotoComponent },
       { path: 'login', component: LoginComponent, pathMatch: 'full' },
-      { path: 'faqs', component: FaqsComponent, pathMatch: 'full' }
+      { path: 'faqs', component: FaqsComponent }
     ]
   }
 

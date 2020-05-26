@@ -20,7 +20,7 @@
                 <tr *ngFor="let post of pageOfItems" name="posts">
                     <td>{{ post.title }}</td>
                     <td>{{ post.description }}</td>
-                    <td>{{ post.createdAt | date: 'medium' }} </td>
+                    <td>{{ post.publishedAt | date: 'medium' }} </td>
                     <td>
                         <span class="subtitle" *ngFor="let tag of post.postTags ">
                             <!-- <div *ngIf="!tag.tag.title">
