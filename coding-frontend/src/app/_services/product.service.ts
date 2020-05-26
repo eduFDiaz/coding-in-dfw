@@ -21,7 +21,7 @@ export class ProductService {
 
 
   getProducts(userid: string): Observable<Product[]> {
-    return this.http.get<Product[]>(environment.apiUrl + '/product/' + userid).pipe(
+    return this.http.get<Product[]>(environment.apiUrl + '/product/foruser/' + userid).pipe(
       map((result) => {
         return result
       }, catchError(err => {

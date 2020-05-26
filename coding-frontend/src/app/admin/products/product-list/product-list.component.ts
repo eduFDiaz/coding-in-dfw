@@ -44,6 +44,7 @@ export class ProductListComponent implements OnInit {
         this.toast.showToast('top-right', 'info', 'Theres no products here :(', 'Cant find any product')
       }
     }, error => {
+      console.log(error)
       this.spinner = false
       this.toast.showToast('top-right', 'info', 'Theres no products here :(', 'Cant find any product')
     })

@@ -3,7 +3,7 @@ import { Component, OnInit, Input } from '@angular/core';
 import { FileUploader } from "ng2-file-upload";
 import { ProductPhoto } from 'src/app/_models/ProductPhoto';
 import { environment } from 'src/environments/environment';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { AlertService } from 'src/app/_services/alert.service';
 
 @Component({
@@ -23,7 +23,7 @@ export class ProductphotoComponent implements OnInit {
 
   hasBaseDropZoneOver: boolean;
 
-  constructor(private route: ActivatedRoute, private alert: AlertService) { }
+  constructor(private route: ActivatedRoute, private alert: AlertService, private router: Router) { }
 
   ngOnInit() {
     this.route.queryParams.subscribe((params) => {
@@ -73,8 +73,13 @@ export class ProductphotoComponent implements OnInit {
           // this.auth.changeMemberPhoto(photo.url);
           // this.auth.loggedInUser.photoUrl = photo.url;
         }
+        this.success()
       }
     };
+  }
+
+  success() {
+    this.router.navigate(['product/list'])
   }
 
 

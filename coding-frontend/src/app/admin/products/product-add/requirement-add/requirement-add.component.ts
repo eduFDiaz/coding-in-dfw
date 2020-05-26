@@ -32,10 +32,10 @@ export class RequirementAddComponent implements OnInit {
     console.log(this.newReq)
     this.productService.addRequirement(this.newReq).subscribe((result) => {
       this.dialogRef.close(result)
-      this.alert.showToast('top-right', 'success', 'Done', 'Your tag was added!')
+      this.alert.showToast('top-right', 'success', 'Please, select it from the requirement selector below', 'Your requirement was added!')
       console.log("ok")
     }, error => {
-      console.log("error")
+      console.log(error)
     })
   }
 }

@@ -82,6 +82,7 @@ export class ProductAddComponent implements OnInit {
     this.productService.addProduct(this.product).subscribe(
       (value) => {
         this.spinner = false;
+        this.toast.showToast('top-right', 'success', 'Please, upload a photo related to the product or just click on Add later', 'Your product was created')
         this.route.navigate(['admin/product/new/photo'], { queryParams: { forproduct: value.id } })
       },
       error => {
