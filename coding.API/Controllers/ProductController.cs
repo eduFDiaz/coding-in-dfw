@@ -84,7 +84,7 @@ namespace coding.API.Controllers
         }
 
 
-        [HttpGet("{userid}")]
+        [HttpGet("foruser/{userid}")]
         public async Task<IActionResult> GetAllProductsForuser(Guid userid)
         {
             var allUserProducts = (await _productDal.GetRelatedFields("ProductRequirements.Requirement", "Photos")).Where(p => p.UserId == userid).ToList(); ;

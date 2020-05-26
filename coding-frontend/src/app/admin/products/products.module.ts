@@ -8,11 +8,14 @@ import { ProductDeleteComponent } from './product-list/product-delete/product-de
 import { ProductEditComponent } from './product-list/product-edit/product-edit.component';
 import { RequirementAddComponent } from './product-add/requirement-add/requirement-add.component'
 import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
-import { ProductphotoAddComponent } from './product-add/productphoto-add/productphoto-add.component';
+import { ProductphotoComponent } from './product-add/productphoto/productphoto.component';
+import { FileUploadModule } from 'ng2-file-upload';
+
 @NgModule({
-  declarations: [ProductListComponent, ProductAddComponent, ProductDeleteComponent, ProductEditComponent, RequirementAddComponent, ProductphotoAddComponent],
+  declarations: [ProductListComponent, ProductAddComponent, ProductDeleteComponent, ProductEditComponent, RequirementAddComponent, ProductphotoComponent],
   imports: [
     CommonModule,
+    FileUploadModule,
     CKEditorModule,
     NbIconModule,
     NbTooltipModule,
@@ -26,7 +29,7 @@ import { ProductphotoAddComponent } from './product-add/productphoto-add/product
     NbAlertModule
   ],
   exports: [ProductAddComponent, ProductListComponent],
-  entryComponents: [ProductDeleteComponent, ProductEditComponent, RequirementAddComponent, ProductphotoAddComponent]
+  entryComponents: [ProductDeleteComponent, ProductEditComponent, RequirementAddComponent, ProductphotoComponent]
 
 })
 export class ProductsModule { }

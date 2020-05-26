@@ -124,9 +124,9 @@
                 </form>
                 <br>
                 <div class="col-md-6">
-                    <button [disabled]="!addProductForm.dirty || !addProductForm.valid" (click)="newProduct()"
-                        [nbSpinner]="spinner" nbSpinnerStatus="success" nbSpinnerSize="small" status="success"
-                        type="submit" nbButton>Add
+                    <button [disabled]="!addProductForm.dirty || !addProductForm.valid"
+                        (click)="newProduct(addPhotoDialog)" [nbSpinner]="spinner" nbSpinnerStatus="success"
+                        nbSpinnerSize="small" status="success" type="submit" nbButton>Add
                         Product to my Portfolio</button>
                 </div>
             </nb-card-body>

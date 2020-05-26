@@ -12,7 +12,8 @@ import { ProductAddComponent } from './products/product-add/product-add.componen
 import { PhotoaddComponent } from './profile/photoadd/photoadd.component';
 import { CommentsComponent } from './post/comments/comments.component';
 import { FaqsComponent } from './faqs/faqs.component';
-import { ProductphotoAddComponent } from './products/product-add/productphoto-add/productphoto-add.component';
+import { ProductphotoComponent } from './products/product-add/productphoto/productphoto.component';
+
 
 
 
@@ -29,7 +30,7 @@ const routes: Routes = [
       { path: 'product/list', component: ProductListComponent },
       { path: 'tag/list', component: TaglistComponent },
       { path: 'product/new', component: ProductAddComponent },
-      { path: 'product/new/picture', component: ProductphotoAddComponent },
+      { path: 'product/new/photo', component: ProductphotoComponent },
       { path: 'login', component: LoginComponent, pathMatch: 'full' },
       { path: 'faqs', component: FaqsComponent, pathMatch: 'full' }
     ]

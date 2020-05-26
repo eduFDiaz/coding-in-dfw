@@ -1,8 +1,10 @@
-import { Component, OnInit, TemplateRef } from '@angular/core';
+import { Component, OnInit, TemplateRef, Input } from '@angular/core';
 import * as ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 
 
 import { Router, RouterLink } from '@angular/router';
+
+
 
 
 import { NbDialogService } from '@nebular/theme';
@@ -12,7 +14,9 @@ import { Requirement } from 'src/app/_models/Requirement';
 import { ProductService } from 'src/app/_services/product.service';
 import { UserService } from 'src/app/_services/user.service';
 import { AlertService } from 'src/app/_services/alert.service';
-import { ProductphotoAddComponent } from './productphoto-add/productphoto-add.component';
+
+
+import { ProductphotoComponent } from './productphoto/productphoto.component';
 
 
 @Component({
@@ -21,6 +25,7 @@ import { ProductphotoAddComponent } from './productphoto-add/productphoto-add.co
   styleUrls: ['./product-add.component.scss']
 })
 export class ProductAddComponent implements OnInit {
+
 
   public Editor = ClassicEditor;
 
@@ -57,9 +62,10 @@ export class ProductAddComponent implements OnInit {
 
   ngOnInit() {
     this.product.userId = this.user.getCurrentUserId()
+
   }
 
-  newProduct() {
+  newProduct(dialog: TemplateRef<any>) {
     let arr = []
     this.spinner = true
     console.log(this.product)
@@ -74,15 +80,9 @@ export class ProductAddComponent implements OnInit {
       this.product.requirementId = this.requirements
     }
     this.productService.addProduct(this.product).subscribe(
-      value => {
+      (value) => {
         this.spinner = false;
-        this.dialogService.open(ProductphotoAddComponent, { closeOnBackdropClick: true })
-          .onClose.subscribe((result) => {
-            console.log(result)
-          })
-
-        this.toast.showToast('bottom-left', 'success', 'Product Added!', 'Your product was succefully added')
-        this.route.navigate(['/product/list'])
+        this.route.navigate(['admin/product/new/photo'], { queryParams: { forproduct: value.id } })
       },
       error => {
         this.spinner = false;
@@ -106,11 +106,11 @@ export class ProductAddComponent implements OnInit {
     }).filter((field: any) => field.key !== 'id' && field.key !== 'dateCreated' && field.key !== 'dateModified')
   }
 
-  addPhotoLink() {
-    this.dialogService.open(ProductphotoAddComponent, { closeOnBackdropClick: true })
-      .onClose.subscribe((result) => {
-        console.log(result)
-      })
-  }
+  // addPhotoLink() {
+  //   this.dialogService.open(ProductphotoAddComponent, { closeOnBackdropClick: true })
+  //     .onClose.subscribe((result) => {
+  //       console.log(result)
+  //     })
+  // }
 
 }
