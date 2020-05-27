@@ -4,18 +4,24 @@
             <header class="blog-post-header">
                 <h2 class="title mb-2">{{ post?.title }}</h2>
                 <div class="meta mb-3">
-                    <span class="date">Published at: {{ post?.publishedAt | date: 'medium' }}</span>
+                    <span class="date">Published at: {{ post?.dateCreated | date: 'medium' }}</span>
                     <span class="time">{{ post?.readingTime }} minutes reading</span>
                     <span class="comment"><a href="#">{{ post?.comments.length }} comments</a></span>
                 </div>
             </header>
             <div class="blog-post-body">
                 <figure class="blog-banner">
-                    <a href="https://made4dev.com"><img class="img-fluid" src="assets/images/blog/blog-post-banner.jpg"
-                            alt="image"></a>
+                    <!-- <a href="https://made4dev.com"> -->
+                    <img *ngIf="post?.photourl; else placeholderPhoto" class="img-fluid" src="{{ post.photourl}}"
+                        alt="image">
+                    <ng-template #placeholderPhoto>
+                        <img class="img-fluid" src="assets/images/blog/blog-post-banner.jpg" alt="image">
+                    </ng-template>
+
+                    <!-- </a> -->
                     <figcaption class="mt-2 text-center image-caption">Image Credit:
-                        <a href="https://made4dev.com?ref=devblog" target="_blank">made4dev.com (Premium Programming
-                            T-shirts)</a>
+                        <!-- <a href="https://made4dev.com?ref=devblog" target="_blank">made4dev.com (Premium Programming
+                            T-shirts)</a> -->
                     </figcaption>
                 </figure>
                 <div [innerHTML]="post?.text"></div>

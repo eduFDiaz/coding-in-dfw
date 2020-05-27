@@ -52,13 +52,14 @@ namespace coding.API.Models.Presenter
         public string PhotoUrl => _post.Photos.Where(p => p.IsMain == true).Select(p => p.Url).SingleOrDefault();
 
         [JsonProperty("comments")]
-        public ICollection<Comment> comments => _post.Comments.
-        Select(c => new Comment
+        public IEnumerable<Object> comments => _post.Comments.
+        Select(c => new
         {
             Id = c.Id,
             CommenterName = c.CommenterName,
             Body = c.Body,
-            Email = c.Email
+            Email = c.Email,
+            Published = c.Published
         }).
         Where(c => c.Published == true).ToList();
 
