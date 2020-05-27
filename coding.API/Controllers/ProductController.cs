@@ -53,7 +53,6 @@ namespace coding.API.Controllers
             _productRequirementDal = productRequirementDal;
         }
 
-
         [HttpPost("create")]
         public async Task<IActionResult> Create([FromBody] ProductForCreateDto request)
         {
@@ -135,19 +134,19 @@ namespace coding.API.Controllers
         }
 
 
-        [HttpPut("{productId}/update")]
+        [HttpPut("{productId}/update")] 
         public async Task<IActionResult> UpdateProduct(Guid productId, [FromBody] ProductForUpdateDto request)
         {
             var productToEdit = (await _productDal.GetRelatedField("ProductRequirements.Requirement")).FirstOrDefault(p => p.Id == productId);
 
-            var pr = new ProductRequirementForCreateDto();
+            var pr = new ProductRequirementForCreateDto(); 
 
             var toUpd = _mapper.Map(request, productToEdit);
 
             foreach (var row in productToEdit.ProductRequirements)
             {
 
-                var record = _productRequirementDal.GetRelatedRow(productId, row.RequirementId);
+                var record = _productRequirementDal.GetRelatedRowPR(productId, row.RequirementId);
                 if (record != null)
                 {
                     _productRequirementDal.DeleteSync(record);
@@ -188,8 +187,6 @@ namespace coding.API.Controllers
             };
 
             var createdRequirement = await _requirementDal.Add(requirementToCreate);
-
-            // var requirementToShow = _mapper.Map<RequirementForDetailDto>(createdRequirement);
 
             return Ok(new RequirementPresenter(createdRequirement));
 

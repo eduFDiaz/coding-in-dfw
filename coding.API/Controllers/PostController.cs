@@ -125,21 +125,43 @@ namespace coding.API.Controllers
 
 
         [HttpPut("{postid}/update", Name = "Update Post")]
-        public async Task<IActionResult> UpdatePost(Guid postid, [FromBody] PostForUpdateDto postForUpdateDto)
+        public async Task<IActionResult> UpdatePost(Guid postid, [FromBody] PostForUpdateDto request)
         {
-            var postToUpdateFromRepo = (await _postDal.GetById(postid));
+            var postToUpdate = (await _postDal.GetRelatedField("PostTags.Tag")).FirstOrDefault(p => p.Id == postid);
+            var pt = new PostTagForCreateDto();
+            var toUpd = _mapper.Map(request, postToUpdate);
 
-            var postTagsFromRepo = (await _postTagDal.ListAsync()).Where(pt => pt.PostId == postid).ToList();
+            foreach (var row in postToUpdate.PostTags)
+            {
 
-            if (postToUpdateFromRepo == null)
-                return NotFound();
+                var record = _postTagDal.GetRelatedRowPT(postid, row.TagId);
+                if (record != null)
+                {
+                    _postTagDal.DeleteSync(record);
 
-            var toUpd = _mapper.Map(postForUpdateDto, postToUpdateFromRepo);
+                }
+            }
 
+                foreach (var Tag in request.TagId)
+                {
+
+                    pt.TagId = Tag;
+
+                    pt.PostId = toUpd.Id;
+
+                    pt.Tag = await _tagDal.GetById(Tag);
+
+                    var postTagToUpdate = _mapper.Map<PostTag>(pt);
+
+                    await _postTagDal.Add(postTagToUpdate);
+
+                }
+            var outPut = _mapper.Map<PostForDetailDto>(toUpd);
             if (await _postDal.Update(toUpd))
-                return NoContent();
+                return Ok(outPut);
 
-            return BadRequest("cant update the post!");
+            return BadRequest("Cant update the post");
+                
         }
 
         [HttpGet("{postid}", Name = "Get Single Post")]

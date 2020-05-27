@@ -42,9 +42,8 @@ namespace coding.API.Dtos
             CreateMap<Message, CreateMessageDto>();
 
             //Posts Maps
-            CreateMap<PostForCreateDto, Post>();
             CreateMap<Post, PostForCreateDto>();
-            CreateMap<PostForDetailDto, Post>();
+            CreateMap<Post, PostForDetailDto >();
             CreateMap<List<Post>, PostForDetailDto>();
             CreateMap<PostForUpdateDto, Post>().ForMember(post => post.Id, y => y.Ignore());
             CreateMap<Post, PostInCommentDetailDto>();
@@ -72,7 +71,7 @@ namespace coding.API.Dtos
             CreateMap<ProductPhotoForCreationDto, ProductPhoto>();
             CreateMap<ProductPhoto, List<ProductPhotoForDetailDto>>();
             CreateMap<ProductPhoto, ProductPhotoForDetailDto>();
-            // CreateMap<Product, ProductPhotoForDetailDto>();
+            
 
             //Photo Mapings
             CreateMap<PhotoForCreationDto, Photo>();

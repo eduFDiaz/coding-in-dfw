@@ -1,9 +1,7 @@
 using AutoMapper;
 using coding.API.Data;
 using coding.API.Dtos;
-using coding.API.Models;
 using coding.API.Models.Presenter;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using System.Linq;
@@ -12,7 +10,6 @@ using coding.API.Models.WorkExperiences;
 
 
 using System;
-using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace coding.API.Controllers
@@ -83,11 +80,6 @@ namespace coding.API.Controllers
 
             if (workExperienceToUpdate == null)
                 return NotFound();
-
-            // workExperienceToUpdate.Title = request.Title;
-            // workExperienceToUpdate.Resume = request.Resume;
-            // workExperienceToUpdate.Company = request.Company;
-            // workExperienceToUpdate.DateRange = request.DateRange;
 
             var toUpd = _mapper.Map(request, workExperienceToUpdate);
 

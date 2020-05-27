@@ -13,11 +13,6 @@ namespace coding.API.Dtos
         public string CustomUserTitle { get; set; }
         public string Email { get; set; }
         public string Location { get; set; }
-
-        // One to Many relationship
-        // public ICollection<PostForDetailDto> Posts { get; set; }
-        // public ICollection<PhotoForDetailDto> Photos { get; set; }
-        // public ICollection<ProductForDetailDto> Products { get; set; }
         public string Phone { get; set; }
         public string ShortResume { get; set; }
         public string FullResume { get; set; }

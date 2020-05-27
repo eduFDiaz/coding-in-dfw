@@ -23,4 +23,4 @@ namespace coding.API.Models.Posts
         public Guid UserId { get; set; }       
         public ICollection<Comment> Comments { get; set; }
     }
-}
+} 
