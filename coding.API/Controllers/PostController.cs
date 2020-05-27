@@ -94,7 +94,7 @@ namespace coding.API.Controllers
 
             var allUserPosts = (await _postDal.GetRelatedField("PostTags.Tag")).ToList();
 
-            var photos = (await _postPhotoDal.ListAsync()).Where(p => p.Post.UserId == userId).ToList();
+            var photos = (await _postPhotoDal.ListAsync()).Where(p => p.Post.UserId == userId).Select(p => p.IsMain).ToList();
             // var photos = (await _postDal.GetRelatedField("Photos")).Where(p => p.UserId == userId).ToList();
 
             foreach (var post in allUserPosts)
@@ -142,26 +142,26 @@ namespace coding.API.Controllers
                 }
             }
 
-                foreach (var Tag in request.TagId)
-                {
+            foreach (var Tag in request.TagId)
+            {
 
-                    pt.TagId = Tag;
+                pt.TagId = Tag;
 
-                    pt.PostId = toUpd.Id;
+                pt.PostId = toUpd.Id;
 
-                    pt.Tag = await _tagDal.GetById(Tag);
+                pt.Tag = await _tagDal.GetById(Tag);
 
-                    var postTagToUpdate = _mapper.Map<PostTag>(pt);
+                var postTagToUpdate = _mapper.Map<PostTag>(pt);
 
-                    await _postTagDal.Add(postTagToUpdate);
+                await _postTagDal.Add(postTagToUpdate);
 
-                }
+            }
             var outPut = _mapper.Map<PostForDetailDto>(toUpd);
             if (await _postDal.Update(toUpd))
                 return Ok(outPut);
 
             return BadRequest("Cant update the post");
-                
+
         }
 
         [HttpGet("{postid}", Name = "Get Single Post")]

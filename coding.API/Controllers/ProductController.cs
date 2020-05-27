@@ -78,7 +78,7 @@ namespace coding.API.Controllers
 
             }
 
-            return Ok(new ProductPresenter(createdProduct));
+            return Ok(new NewProductPresenter(createdProduct));
 
         }
 
@@ -88,15 +88,19 @@ namespace coding.API.Controllers
         {
             var allUserProducts = (await _productDal.GetRelatedFields("ProductRequirements.Requirement", "Photos")).Where(p => p.UserId == userid).ToList(); ;
 
+            List<ProductPresenter> allprods = new List<ProductPresenter>();
+
+            foreach (var product in allUserProducts)
+            {
+                allprods.Add(new ProductPresenter(product));
+            }
+
             var producCount = allUserProducts.Count;
 
             if (producCount == 0)
                 return NotFound("There is no products here");
 
-            var outPut = _mapper.Map<List<ProductForDetailDto>>(allUserProducts);
-
-
-            return Ok(outPut);
+            return Ok(allprods);
         }
 
 
@@ -117,7 +121,7 @@ namespace coding.API.Controllers
 
             var output = _mapper.Map<ProductForDetailDto>(product);
 
-            return Ok(output);
+            return Ok(new ProductPresenter(product));
         }
 
 
@@ -134,12 +138,12 @@ namespace coding.API.Controllers
         }
 
 
-        [HttpPut("{productId}/update")] 
+        [HttpPut("{productId}/update")]
         public async Task<IActionResult> UpdateProduct(Guid productId, [FromBody] ProductForUpdateDto request)
         {
             var productToEdit = (await _productDal.GetRelatedField("ProductRequirements.Requirement")).FirstOrDefault(p => p.Id == productId);
 
-            var pr = new ProductRequirementForCreateDto(); 
+            var pr = new ProductRequirementForCreateDto();
 
             var toUpd = _mapper.Map(request, productToEdit);
 

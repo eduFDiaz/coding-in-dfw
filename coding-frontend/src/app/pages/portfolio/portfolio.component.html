@@ -40,7 +40,11 @@
           <div class="card project-card">
             <div class="row no-gutters">
               <div class="col-lg-4 card-img-holder">
-                <img src="assets/images/project/project-1.jpg" class="card-img" alt="image">
+                <div *ngFor="let photo of product.photos">
+                  <img *ngIf="photo; else placeholderPhoto" src="{{ photo.url}}" class="card-img" alt="image">
+                  <ng-template #placeholderPhoto>Content to render when condition is false.</ng-template>
+                </div>
+                <!-- <img *ngIf="product.photos" src="{{product.photos[0].url}}" class="card-img" alt="image"> -->
               </div>
               <div class="col-lg-8">
                 <div class="card-body">

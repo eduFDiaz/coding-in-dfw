@@ -34,7 +34,7 @@ export class ProductphotoComponent implements OnInit {
     this.uploader.onBeforeUploadItem = (item) => {
       item.withCredentials = false;
     }
-
+    this.photos = []
   }
 
   fileOverBase(e) {

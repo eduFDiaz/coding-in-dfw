@@ -11,11 +11,11 @@ namespace coding.API.Models.Presenter
     /// <summary>
     /// Post baked to render.
     /// </summary>
-    public class ProductPresenter
+    public class NewProductPresenter
     {
         private readonly Product _product;
 
-        public ProductPresenter(Product product)
+        public NewProductPresenter(Product product)
         {
             _product = product;
 
@@ -50,8 +50,8 @@ namespace coding.API.Models.Presenter
         public string Url => _product.Url;
 
 
-        [JsonProperty("photoUrl")]
-        public string PhotoUrl => _product.Photos.Where(p => p.IsMain == true).Select(p => p.Url).SingleOrDefault();
+        // [JsonProperty("photoUrl")]
+        // public string PhotoUrl => _product.Photos.Where(p => p.IsMain == true).Select(p => p.Url).SingleOrDefault();
 
         [JsonProperty("description")]
         public string ProductDescription => _product.ProductDescription;
