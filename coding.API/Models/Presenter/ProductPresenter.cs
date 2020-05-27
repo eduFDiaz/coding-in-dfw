@@ -50,7 +50,7 @@ namespace coding.API.Models.Presenter
         public string Url => _product.Url;
 
 
-        [JsonProperty("photoUrl")]
+        [JsonProperty("photourl")]
         public string PhotoUrl => _product.Photos.Where(p => p.IsMain == true).Select(p => p.Url).SingleOrDefault();
 
         [JsonProperty("description")]
