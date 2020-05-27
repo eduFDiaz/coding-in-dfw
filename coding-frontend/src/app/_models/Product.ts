@@ -16,5 +16,5 @@ export interface Product {
     text: string,
     projectIntro: string,
     shortResume: string
-    
+
 }

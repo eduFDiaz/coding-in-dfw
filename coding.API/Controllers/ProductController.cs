@@ -204,6 +204,16 @@ namespace coding.API.Controllers
             return Ok(requirementsToReturn);
         }
 
+        [HttpDelete("requirement/{requirementId}/delete")]
+        public async Task<IActionResult> DeleteRequirement(Guid requirementId)
+        {
+            var reqtoDel = (await _requirementDal.GetById(requirementId));
+
+            if (await _requirementDal.Delete(reqtoDel))
+                return NoContent();
+
+            return BadRequest("Cant Delete the Requirement");
+        }
 
     }
 }

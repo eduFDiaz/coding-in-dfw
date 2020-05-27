@@ -86,7 +86,7 @@ export class ProductListComponent implements OnInit {
     });
   }
 
-  openEditDialog(productToEdit: Object) {
+  openEditDialog(productToEdit: Product) {
     this.dialog.open(ProductEditComponent, {
       context: {
         product: productToEdit

@@ -5,6 +5,7 @@
             <div class="row">
                 <div class="col-md-6">
                     <label for="productname" class="label">Product Name:</label>
+                    <br>
                     <input #prodName="ngModel" required minlength="4" [(ngModel)]="product.name" nbInput
                         name="productname" type="text" placeholder="Product Name">
 
@@ -53,16 +54,23 @@
             <div class="row">
                 <div class="col-md-6">
                     Requirements
+                    <button (click)="openAddRequirementDialog()" nbButton type="button" size="tiny" status="success">
+                        <nb-icon icon="plus"></nb-icon>
+                    </button>
                 </div>
-                <div *ngFor="let req of product.productRequirements">
+                <div *ngFor="let req of requirements">
                     {{ req.requirement.description}}
+
+                    <button nbButton size="tiny" status="danger"
+                        (click)="removeRequirement(req.requirement.id)">-</button>
                 </div>
+
             </div>
 
         </form>
     </nb-card-body>
     <nb-card-footer>
-        <button [disabled]="!editProduct.dirty || !editProduct.valid" [nbSpinner]="deleteSpinner"
+        <button #editButton [disabled]="!editProduct.dirty || !editProduct.valid" [nbSpinner]="deleteSpinner"
             nbSpinnerStatus="success" nbSpinnerSize="small" nbButton status="success"
             (click)="editItem(product.id, product)">
             <!-- <button nbButton status="danger" (click)="ref.close()"> -->

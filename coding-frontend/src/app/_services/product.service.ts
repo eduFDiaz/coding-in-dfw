@@ -4,7 +4,7 @@ import { Observable, throwError, BehaviorSubject } from 'rxjs';
 import { Product } from '../_models/Product';
 import { map, catchError } from 'rxjs/operators';
 import { UserService } from './user.service';
-import { resolve } from 'url';
+
 import { Requirement } from '../_models/Requirement';
 import { environment } from 'src/environments/environment'
 
@@ -46,11 +46,9 @@ export class ProductService {
   }
 
   editProduct(productid: string, newdata: any): Observable<boolean> {
-    // tslint:disable-next-line: object-literal-key-quotes
     return this.http.put<boolean>(environment.apiUrl + '/product/' + productid + '/update', newdata, {
       headers: {
         'Content-Type': 'application/json',
-        // tslint:disable-next-line: object-literal-key-quotes
         'authorization': 'Bearer ' + localStorage.getItem('token')
       }
     })
@@ -90,7 +88,12 @@ export class ProductService {
     )
   }
 
+  deleteRequirement(id: string) {
+    return this.http.delete(environment.apiUrl + '/Product/requirement/' + id + '/delete')
+  }
 
-
-
+  getRequirement(id: string) {
+    return this.http.get(environment.apiUrl + '/products/requirement' + id)
+  }
 }
+
