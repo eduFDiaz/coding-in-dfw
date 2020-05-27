@@ -42,8 +42,8 @@ namespace coding.API.Dtos
             CreateMap<Message, CreateMessageDto>();
 
             //Posts Maps
-            CreateMap<Post, PostForCreateDto>();
-            CreateMap<Post, PostForDetailDto >();
+            CreateMap<PostForCreateDto, Post>();
+            CreateMap<Post, PostForDetailDto>();
             CreateMap<List<Post>, PostForDetailDto>();
             CreateMap<PostForUpdateDto, Post>().ForMember(post => post.Id, y => y.Ignore());
             CreateMap<Post, PostInCommentDetailDto>();

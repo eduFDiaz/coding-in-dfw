@@ -18,9 +18,9 @@ namespace coding.API.Models.Posts
         public DateTime CreatedAt { get; set; }
         public DateTime? PublishedAt { get; set; }
         public int ReadingTime { get; set; } // In minutes
-        public ICollection<PostTag> PostTags { get; set; }
-        public ICollection<PostPhoto> Photos { get; set; }
+        public List<PostTag> PostTags { get; set; }
+        public List<PostPhoto> Photos { get; set; }
         public Guid UserId { get; set; }       
-        public ICollection<Comment> Comments { get; set; }
+        public List<Comment> Comments { get; set; }
     }
 } 

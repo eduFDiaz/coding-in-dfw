@@ -13,12 +13,12 @@ namespace coding.API.Models.Presenter
     /// <summary>
     /// Post baked to render.
     /// </summary>
-    public class PostPresenter
+    public class NewPostPresenter
     {
         private readonly Post _post;
 
 
-        public PostPresenter(Post post)
+        public NewPostPresenter(Post post)
         {
             _post = post;
         }
@@ -50,21 +50,6 @@ namespace coding.API.Models.Presenter
             Description = p.Tag.Description,
             Title = p.Tag.Title
         }).ToList();
-
-        [JsonProperty("photourl")]
-        public string PhotoUrl => _post.Photos.Where(p => p.IsMain == true).Select(p => p.Url).SingleOrDefault();
- 
-        [JsonProperty("comments")]
-        public IEnumerable<Object> comments => _post.Comments.
-        Select(c => new
-        {
-            Id = c.Id,
-            CommenterName = c.CommenterName,
-            Body = c.Body,
-            Email = c.Email,
-            Published = c.Published
-        }).
-        Where(c => c.Published == true).ToList();
 
 
 

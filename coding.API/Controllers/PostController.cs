@@ -64,10 +64,12 @@ namespace coding.API.Controllers
             foreach (var tag in request.PostTagId)
             {
                 // crea la tabla m2m
-                var postag = new PostTag
+                PostTag postag = new PostTag
                 {
                     TagId = tag,
-                    PostId = createdPost.Id // dame la id del post creado
+                    PostId = createdPost.Id, // dame la id del post creado
+                    Tag = await _tagDal.GetById(tag)
+
                 };
 
                 // guarda la partida
@@ -75,7 +77,7 @@ namespace coding.API.Controllers
             }
             // }
 
-            return Ok(new PostPresenter(createdPost));
+            return Ok(new NewPostPresenter(createdPost));
 
         }
 
