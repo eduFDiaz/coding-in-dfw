@@ -19,13 +19,6 @@ export class ProductListComponent implements OnInit {
 
   @ViewChild('dialogDelete', { static: true }) dialogRef: TemplateRef<any>;
 
-  product: Product[]
-
-  test = {
-    name: 'test',
-    id: 1
-  }
-
   products: Product[]
 
   spinner = false;
@@ -70,7 +63,6 @@ export class ProductListComponent implements OnInit {
         } else {
           this.productService.updatedProduct.subscribe((result) => {
             if (result) {
-
               this.products = result
               this.spinner = false;
             }

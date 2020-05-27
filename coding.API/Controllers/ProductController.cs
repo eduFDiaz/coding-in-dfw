@@ -159,7 +159,7 @@ namespace coding.API.Controllers
 
             }
 
-            foreach (var Requirement in request.RequirementId)
+            foreach (var Requirement in request.Requirements)
             {
 
                 pr.RequirementId = Requirement;

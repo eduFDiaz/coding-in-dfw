@@ -5,6 +5,8 @@ import { ProductService } from 'src/app/_services/product.service';
 import { AlertService } from 'src/app/_services/alert.service';
 import { Product } from 'src/app/_models/Product';
 import { Requirement } from 'src/app/_models/Requirement';
+import { filter } from 'rxjs/operators';
+import * as ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 
 
 @Component({
@@ -13,6 +15,7 @@ import { Requirement } from 'src/app/_models/Requirement';
   styleUrls: ['./product-edit.component.scss']
 })
 export class ProductEditComponent implements OnInit {
+  public Editor = ClassicEditor;
 
   @ViewChild('editButton', { static: true }) editButton: TemplateRef<any>
 
@@ -20,7 +23,7 @@ export class ProductEditComponent implements OnInit {
 
   @Input() product: any
 
-  requirements: Requirement[]
+  requirements: any
 
   deleteSpinner = false;
 
@@ -32,16 +35,20 @@ export class ProductEditComponent implements OnInit {
     private toast: AlertService) { }
 
   ngOnInit() {
-    this.requirements = this.product.productRequirements
+    this.requirements = this.product.requirements
     console.log(this.requirements)
   }
 
   editItem(id: string, product: Product) {
     this.editSpinner = true
-    product.requirementId = this.requirements.filter((item) => {
-      return item.id
-    })
-    console.log(product.requirementId)
+    const reqs = this.requirements.map(
+      (item) => {
+        return item.id
+      }
+    )
+    product = this.product
+    product.requirements = reqs
+    console.log(product)
     this.productService.editProduct(id, product).subscribe(result => {
       this.editSpinner = false
       this.toast.showToast('bottom-left', 'info', 'Update ok', 'Your product has been updated!')

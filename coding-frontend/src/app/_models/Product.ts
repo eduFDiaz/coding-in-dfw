@@ -7,12 +7,12 @@ export interface Product {
     type: string,
     url: string,
     productPhoto?: Photo
-    productDescription: string,
+    description: string,
     userId: number,
     industry: string,
     size: number,
     clientName: string,
-    requirementId: Requirement[],
+    requirements: Requirement[],
     text: string,
     projectIntro: string,
     shortResume: string

@@ -41,13 +41,13 @@ export class ProductAddComponent implements OnInit {
 
   product: Product = {
     name: '',
-    productDescription: '',
+    description: '',
     url: '',
     type: '',
     userId: 0,
     clientName: '',
     industry: '',
-    requirementId: null,
+    requirements: null,
     size: null,
     text: '',
     projectIntro: '',
@@ -77,7 +77,7 @@ export class ProductAddComponent implements OnInit {
         arr.push(result.id)
         this.requirements = arr
       })
-      this.product.requirementId = this.requirements
+      this.product.requirements = this.requirements
     }
     this.productService.addProduct(this.product).subscribe(
       (value) => {

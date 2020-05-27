@@ -45,17 +45,18 @@ export class ProductService {
     )
   }
 
-  editProduct(productid: string, newdata: any): Observable<boolean> {
-    return this.http.put<boolean>(environment.apiUrl + '/product/' + productid + '/update', newdata, {
+  editProduct(productid: string, newdata: any): Observable<Product> {
+    return this.http.put<Product>(environment.apiUrl + '/product/' + productid + '/update', newdata, {
       headers: {
         'Content-Type': 'application/json',
         'authorization': 'Bearer ' + localStorage.getItem('token')
       }
     })
       .pipe(
-        map((response: boolean) => {
+        map((response: Product) => {
           this.getProducts(this.user.getCurrentUserId()).subscribe((result) => {
             this.currentProduct.next(result)
+            console.log(result)
           })
           return response
         }, catchError(err => {

@@ -19,7 +19,7 @@
                 </div>
                 <div class="col-md-6">
                     <label for="product" class="label">Product Descrption:</label>
-                    <input #prodD="ngModel" required minlength="4" [(ngModel)]="product.productDescription" nbInput
+                    <input #prodD="ngModel" required minlength="4" [(ngModel)]="product.description" nbInput
                         name="productdescription" type="text" placeholder="Product Descrption">
 
                     <div *ngIf="prodD.invalid && (prodD.dirty || prodD.touched)">
@@ -45,10 +45,44 @@
                 </div>
                 <div class="col-md-6">
                     <div class="form-group">
-                        <label for="url" class="label">Product Url:</label>
+                        <label for="url" class="label">Product Url:</label> <br>
                         <input required [(ngModel)]="product.url" nbInput name="producturl" type="text"
                             placeholder="Product Url">
                     </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <label for="industry" class="label">Client Name:</label>
+                    <input required [(ngModel)]="product.clientName" name="client" type="text" nbInput fullWidth
+                        id="client" placeholder="Client Name">
+                </div>
+                <div class="col-md-6">
+                    <label for="industry" class="label">Size:</label>
+                    <input required [(ngModel)]="product.size" name="size" type="number" nbInput fullWidth id="size"
+                        placeholder="Size in numbers">
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <label for="industry" class="label">Project Intro:</label>
+                    <ckeditor [editor]="Editor" #mytext name="text" data="<p>Hello, world!</p>"
+                        [(ngModel)]="product.projectIntro">
+                    </ckeditor>
+                </div>
+                <div class="col-md-6">
+                    <label for="industry" class="label">Short Resume:</label>
+                    <ckeditor [editor]="Editor" #mytext name="text" data="<p>Hello, world!</p>"
+                        [(ngModel)]="product.shortResume">
+                    </ckeditor>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12">
+                    <label for="text" class="label">Product Text Body:</label>
+                    <ckeditor [editor]="Editor" #mytext name="text" data="<p>Hello, world!</p>"
+                        [(ngModel)]="product.text">
+                    </ckeditor>
                 </div>
             </div>
             <div class="row">
@@ -58,14 +92,13 @@
                         <nb-icon icon="plus"></nb-icon>
                     </button>
                 </div>
-                <div *ngFor="let req of requirements">
-                    {{ req.requirement.description}}
-
-                    <button nbButton size="tiny" status="danger"
-                        (click)="removeRequirement(req.requirement.id)">-</button>
+                <div *ngFor="let req of product.requirements">
+                    {{ req.description}}
+                    <button nbButton size="tiny" status="danger" (click)="removeRequirement(req.id)">-</button>
                 </div>
 
             </div>
+
 
         </form>
     </nb-card-body>
