@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 using coding.API.Models.Posts;
 using coding.API.Models.Tags;
+using coding.API.Models.Posts.Comments;
 
 namespace coding.API.Models.Presenter
 {
@@ -40,7 +41,26 @@ namespace coding.API.Models.Presenter
 
         [JsonProperty("tags")]
         // public ICollection<Tag> Tags => _post.PostTags.Select(t => t.Tag).ToList();
-        public ICollection<Tag> Tags => _post.PostTags.Select(p => p.Tag).ToList();
+        public IEnumerable<Object> Tags => _post.PostTags.Select(p => new
+        {
+            Id = p.Tag.Id,
+            Description = p.Tag.Description,
+            Title = p.Tag.Title
+        }).ToList();
+
+        [JsonProperty("photourl")]
+        public string PhotoUrl => _post.Photos.Where(p => p.IsMain == true).Select(p => p.Url).SingleOrDefault();
+
+        [JsonProperty("comments")]
+        public ICollection<Comment> comments => _post.Comments.
+        Select(c => new Comment
+        {
+            Id = c.Id,
+            CommenterName = c.CommenterName,
+            Body = c.Body,
+            Email = c.Email
+        }).
+        Where(c => c.Published == true).ToList();
 
 
 

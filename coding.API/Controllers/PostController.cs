@@ -26,17 +26,13 @@ namespace coding.API.Controllers
     {
         private readonly IConfiguration _config;
         private readonly IMapper _mapper;
-
         private readonly Repository<Post> _postDal;
-
         private readonly Repository<PostPhoto> _postPhotoDal;
         private readonly Repository<Tag> _tagDal;
         private readonly Repository<PostTag> _postTagDal;
-
         private readonly Repository<Comment> _commentDal;
-
         public PostController(
-            Repository<Comment> commentDal,
+        Repository<Comment> commentDal,
         Repository<PostTag> postTagDal,
         Repository<PostPhoto> postPhotoDal,
         Repository<Tag> tagDal,
@@ -49,7 +45,6 @@ namespace coding.API.Controllers
             _postDal = postDal;
             _tagDal = tagDal;
             _commentDal = commentDal;
-
             _config = config;
             _mapper = mapper;
         }
@@ -80,8 +75,6 @@ namespace coding.API.Controllers
             }
             // }
 
-
-
             return Ok(new PostPresenter(createdPost));
 
         }
@@ -92,19 +85,18 @@ namespace coding.API.Controllers
         public async Task<IActionResult> GetAllPostsForUser(Guid userId)
         {
 
-            var allUserPosts = (await _postDal.GetRelatedField("PostTags.Tag")).ToList();
+            var allUserPosts = (await _postDal.GetRelatedFields("PostTags.Tag", "Comments")).Where(p => p.UserId == userId).ToList();
 
-            var photos = (await _postPhotoDal.ListAsync()).Where(p => p.Post.UserId == userId).Select(p => p.IsMain).ToList();
-            // var photos = (await _postDal.GetRelatedField("Photos")).Where(p => p.UserId == userId).ToList();
+            var alluserPostsImages = (await _postDal.GetRelatedField("Photos")).Where(p => p.UserId == userId).ToList();
+
+            List<PostPresenter> presentedPosts = new List<PostPresenter>();
 
             foreach (var post in allUserPosts)
             {
-                post.Comments = (await _commentDal.ListAsync()).Where(c => c.PostId == post.Id && c.Published == true).ToList();
+                presentedPosts.Add(new PostPresenter(post));
             }
 
-            var outPut = _mapper.Map<List<PostAllCommentDetailDto>>(allUserPosts);
-
-            return Ok(outPut);
+            return Ok(presentedPosts);
         }
 
 
@@ -180,7 +172,7 @@ namespace coding.API.Controllers
 
             var outPut = _mapper.Map<PostAllCommentDetailDto>(singlePostFromRepo);
 
-            return Ok(outPut);
+            return Ok(new PostPresenter(singlePostFromRepo));
 
         }
     }

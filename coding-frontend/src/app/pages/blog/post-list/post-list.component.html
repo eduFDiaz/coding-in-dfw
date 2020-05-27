@@ -21,8 +21,15 @@
       </div>
       <div class="item mb-5" *ngFor="let post of posts">
         <div class="media">
-          <img class="mr-3 img-fluid post-thumb d-none d-md-flex" src="assets/images/blog/blog-post-thumb-1.jpg"
-            alt="image">
+
+          <div *ngFor="let photo of post.photos">
+            <!-- <img class="mr-3 img-fluid post-thumb d-none d-md-flex" src="assets/images/blog/blog-post-thumb-1.jpg" -->
+            <img class="mr-3 img-fluid post-thumb d-none d-md-flex" src="{{ photo.url }}" alt="image">
+            <!-- <ng-template #placeholderPhoto>asdads<img src="../../../assets/images/blog/blog-post-thumb-1.jpg"
+                class="card-img" alt="image">
+            </ng-template> -->
+          </div>
+
           <div class="media-body">
             <h3 class="title mb-1"><a [routerLink]="[ 'post' , post.id ]">
                 {{ post.title }}</a></h3>
