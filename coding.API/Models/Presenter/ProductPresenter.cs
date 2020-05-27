@@ -12,7 +12,7 @@ namespace coding.API.Models.Presenter
     /// Post baked to render.
     /// </summary>
     public class ProductPresenter
-    {
+    { 
         private readonly Product _product;
 
         public ProductPresenter(Product product)
