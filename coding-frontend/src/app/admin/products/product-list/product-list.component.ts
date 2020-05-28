@@ -84,8 +84,14 @@ export class ProductListComponent implements OnInit {
         product: productToEdit
       }, closeOnBackdropClick: true
     })
-    // .onClose.subscribe((data) => {
-    // });
+      .onClose.subscribe((data) => {
+        this.productService.getProducts(this.user.getCurrentUserId()).subscribe((data) => {
+          this.products = data
+        }, err => {
+          console.log(err)
+
+        })
+      });
   }
 
 }

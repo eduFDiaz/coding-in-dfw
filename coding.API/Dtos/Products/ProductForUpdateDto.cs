@@ -21,7 +21,7 @@ namespace coding.API.Dtos.Products
         public string ProjectIntro { get; set; }
         public string ShortResume { get; set; }
         public string ClientName { get; set; }
-        public string BodyText { get; set; }
+        public string Text { get; set; }
         public string Industry { get; set; }
 
         public ICollection<Guid> Requirements { get; set; }

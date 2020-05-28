@@ -25,7 +25,7 @@ namespace coding.API.Models.Presenter
         public Guid Id => _product.Id;
 
         [JsonProperty("text")]
-        public string Description => _product.BodyText;
+        public string BodyText => _product.BodyText;
 
         [JsonProperty("requirements")]
         public IEnumerable<Object> Requirement => _product.ProductRequirements.Select(p => new

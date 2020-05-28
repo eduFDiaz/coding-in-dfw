@@ -46,23 +46,25 @@ export class ProductService {
   }
 
   editProduct(productid: string, newdata: any): Observable<Product> {
-    return this.http.put<Product>(environment.apiUrl + '/product/' + productid + '/update', newdata, {
+    return this.http.put<Product>(environment.apiUrl
+      + '/product/' + productid + '/update', newdata, {
       headers: {
         'Content-Type': 'application/json',
         'authorization': 'Bearer ' + localStorage.getItem('token')
       }
     })
-      .pipe(
-        map((response: Product) => {
-          this.getProducts(this.user.getCurrentUserId()).subscribe((result) => {
-            this.currentProduct.next(result)
-            console.log(result)
-          })
-          return response
-        }, catchError(err => {
-          return err
-        }))
-      )
+    // })
+    //   .pipe(
+    //     map((response: Product) => {
+    //       this.getProducts(this.user.getCurrentUserId()).subscribe((result) => {
+    //         this.currentProduct.next(result)
+    //         console.log(result)
+    //       })
+    //       return response
+    //     }, catchError(err => {
+    //       return err
+    //     }))
+    //   )
   }
 
   addProduct(data: Product): Observable<Product> {

@@ -145,7 +145,7 @@ namespace coding.API.Controllers
 
             var pr = new ProductRequirementForCreateDto();
 
-            var toUpd = _mapper.Map(request, productToEdit);
+            // var toUpd = _mapper.Map(productToEdit, request);
 
             foreach (var row in productToEdit.ProductRequirements)
             {
@@ -164,7 +164,7 @@ namespace coding.API.Controllers
 
                 pr.RequirementId = Requirement;
 
-                pr.ProductId = toUpd.Id;
+                pr.ProductId = productToEdit.Id;
 
                 pr.Requirement = await _requirementDal.GetById(Requirement);
 
@@ -174,9 +174,22 @@ namespace coding.API.Controllers
 
             }
 
-            var outPut = _mapper.Map<ProductForDetailDto>(toUpd);
-            if (await _productDal.Update(toUpd))
-                return Ok(outPut);
+            // var outPut = _mapper.Map<Product>(toUpd);
+
+            productToEdit.Industry = request.Industry;
+            productToEdit.BodyText = request.Text;
+            productToEdit.ClientName = request.ClientName;
+            productToEdit.Name = request.Name;
+            productToEdit.ProductDescription = request.Description;
+            productToEdit.ProjectIntro = request.ProjectIntro;
+            productToEdit.ShortResume = request.ShortResume;
+            productToEdit.Size = request.Size;
+            productToEdit.Type = request.Type;
+            productToEdit.Url = request.Url;
+
+
+            if (await _productDal.Update(productToEdit))
+                return Ok(new NewProductPresenter(productToEdit));
 
             return BadRequest("Cant update the product");
 

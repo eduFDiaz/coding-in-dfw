@@ -52,16 +52,7 @@ export class ProductEditComponent implements OnInit {
     this.productService.editProduct(id, product).subscribe(result => {
       this.editSpinner = false
       this.toast.showToast('bottom-left', 'info', 'Update ok', 'Your product has been updated!')
-      this.productService.getProducts(this.user.getCurrentUserId()).subscribe((data) => {
-        let productlenght
-        productlenght = data.length
-        this.dialogRef.close(productlenght)
-      }, err => {
-        const myerr = err
-        this.dialogRef.close(myerr)
-      })
       this.dialogRef.close()
-
     })
 
   }

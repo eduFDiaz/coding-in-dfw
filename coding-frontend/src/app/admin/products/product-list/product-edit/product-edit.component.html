@@ -67,7 +67,7 @@
                 <div class="col-md-6">
                     <label for="industry" class="label">Project Intro:</label>
                     <ckeditor [editor]="Editor" #mytext name="text" data="<p>Hello, world!</p>"
-                        [(ngModel)]="product.projectIntro">
+                        [(ngModel)]="product.intro">
                     </ckeditor>
                 </div>
                 <div class="col-md-6">
@@ -96,7 +96,7 @@
                     {{ req.description}}
                     <button nbButton size="tiny" status="danger" (click)="removeRequirement(req.id)">-</button>
                 </div>
-
+                
             </div>
 
 
