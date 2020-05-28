@@ -24,7 +24,7 @@ namespace coding.API.Models.Presenter
         [JsonProperty("id")]
         public Guid Id => _product.Id;
 
-        [JsonProperty("text")]
+        [JsonProperty("bodyText")]
         public string BodyText => _product.BodyText;
 
         [JsonProperty("requirements")]
@@ -56,7 +56,7 @@ namespace coding.API.Models.Presenter
         [JsonProperty("description")]
         public string ProductDescription => _product.ProductDescription;
 
-        [JsonProperty("intro")]
+        [JsonProperty("projectIntro")]
         public string ProjectIntro => _product.ProjectIntro;
 
         [JsonProperty("shortResume")]

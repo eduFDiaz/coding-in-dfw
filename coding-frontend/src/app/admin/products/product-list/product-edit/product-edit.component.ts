@@ -37,6 +37,7 @@ export class ProductEditComponent implements OnInit {
   ngOnInit() {
     this.requirements = this.product.requirements
     console.log(this.requirements)
+    console.log(this.product)
   }
 
   editItem(id: string, product: Product) {

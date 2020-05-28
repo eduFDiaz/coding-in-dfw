@@ -177,7 +177,7 @@ namespace coding.API.Controllers
             // var outPut = _mapper.Map<Product>(toUpd);
 
             productToEdit.Industry = request.Industry;
-            productToEdit.BodyText = request.Text;
+            productToEdit.BodyText = request.BodyText;
             productToEdit.ClientName = request.ClientName;
             productToEdit.Name = request.Name;
             productToEdit.ProductDescription = request.Description;
