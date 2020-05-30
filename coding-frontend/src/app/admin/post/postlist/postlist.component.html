@@ -20,23 +20,26 @@
                 <tr *ngFor="let post of pageOfItems" name="posts">
                     <td>{{ post.title }}</td>
                     <td>{{ post.description }}</td>
-                    <td>{{ post.publishedAt | date: 'medium' }} </td>
+                    <td>{{ post.dateCreated | date: 'medium' }} </td>
                     <td>
-                        <span class="subtitle" *ngFor="let tag of post.postTags ">
+                        <span class="subtitle" *ngFor="let tag of post.tags ">
                             <!-- <div *ngIf="!tag.tag.title">
                                 There is no tags :(
                             </div> -->
-                            <div *ngIf="!tag">
-                                There is no tags :(
+                            <div *ngIf="tag; else noTag">
+                                {{ tag.title }},
                             </div>
-                            {{ tag.tag.description }},
+                            <ng-template #noTag>
+                                There is no tag
+                            </ng-template>
+                            
                         </span>
                     </td>
 
                     <td>
                         <div class="row">
                             <div class="col-md-6">
-                                <button (click)="openEditDialog(post)" nbTooltip="Edit this product"
+                                <button (click)="openEditDialog(post.id)" nbTooltip="Edit this product"
                                     nbTooltipStatus="success" nbButton size="tiny" type="button" status="success">
                                     <nb-icon icon="edit"></nb-icon>
                                 </button>

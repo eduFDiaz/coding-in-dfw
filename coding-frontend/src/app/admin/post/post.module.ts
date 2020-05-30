@@ -50,6 +50,6 @@ import { FileUploadModule } from 'ng2-file-upload';
     FileUploadModule,
   ],
   exports: [PostlistComponent],
-  entryComponents: [EditPostComponent, DeletePostComponent, AddtagComponent, TaglistComponent]
+  entryComponents: [DeletePostComponent, AddtagComponent, TaglistComponent]
 })
 export class PostModule { }

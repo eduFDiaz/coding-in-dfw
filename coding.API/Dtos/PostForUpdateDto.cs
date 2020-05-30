@@ -14,7 +14,7 @@ namespace coding.API.Dtos
         [Required]
         public string Text { get; set; }
         public int ReadingTime { get; set; } // In minutes
-        public ICollection<Guid> TagId { get; set; }
-                
+        public ICollection<Guid> Tags { get; set; }
+
     }
 }

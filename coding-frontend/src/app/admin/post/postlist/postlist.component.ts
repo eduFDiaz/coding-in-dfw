@@ -81,13 +81,15 @@ export class PostlistComponent implements OnInit {
     });
   }
 
-  openEditDialog(postToEdit: Post) {
-
-    this.dialog.open(EditPostComponent, {
-      context: {
-        post: postToEdit
-      }, closeOnBackdropClick: true
-    })
+  openEditDialog(id: string) {
+    this.route.navigate(['posts/edit'], { queryParams: {
+      forpost: id
+    }})
+    // this.dialog.open(EditPostComponent, {
+    //   context: {
+    //     post: postToEdit
+    //   }, closeOnBackdropClick: true
+    // })
     // .onClose.subscribe((data) => {
     // });
   }

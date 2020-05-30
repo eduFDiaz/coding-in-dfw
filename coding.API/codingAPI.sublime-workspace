@@ -4,6 +4,10 @@
 		"selected_items":
 		[
 			[
+				"product",
+				"productToEdit\tproductToEdit"
+			],
+			[
 				"clas",
 				"class\tclass"
 			],
@@ -15,6 +19,14 @@
 	},
 	"buffers":
 	[
+		{
+			"file": "Controllers/PostController.cs",
+			"settings":
+			{
+				"buffer_size": 5726,
+				"line_ending": "Unix"
+			}
+		}
 	],
 	"build_system": "",
 	"build_system_choices":
@@ -66,6 +78,7 @@
 	],
 	"file_history":
 	[
+		"/home/dennisqc/WebApps/Eduardo/DeGithub/coding-in-dfw/coding.API/Controllers/ProductController.cs",
 		"/home/dennisqc/WebApps/Eduardo/DeGithub/coding-in-dfw/coding.API/codingAPI.sublime-project",
 		"/home/dennisqc/WebApps/Eduardo/DeGithub/coding-in-dfw/coding.API/Program.cs",
 		"/home/dennisqc/WebApps/Eduardo/DeGithub/coding-in-dfw/coding.API/Models/Presenter/AwardPresenter.cs",
@@ -172,7 +185,7 @@
 	],
 	"find":
 	{
-		"height": 24.0
+		"height": 26.0
 	},
 	"find_in_files":
 	{
@@ -203,14 +216,45 @@
 	"groups":
 	[
 		{
+			"selected": 0,
 			"sheets":
 			[
+				{
+					"buffer": 0,
+					"file": "Controllers/PostController.cs",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 5726,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								4293,
+								4293
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C#/C#.sublime-syntax",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 1958.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 0,
+					"type": "text"
+				}
 			]
 		}
 	],
 	"incremental_find":
 	{
-		"height": 24.0
+		"height": 26.0
 	},
 	"input":
 	{
@@ -253,13 +297,13 @@
 	},
 	"output.variable_get":
 	{
-		"height": 0.0
+		"height": 121.0
 	},
 	"pinned_build_system": "",
 	"project": "codingAPI.sublime-project",
 	"replace":
 	{
-		"height": 44.0
+		"height": 48.0
 	},
 	"save_all_on_build": true,
 	"select_file":

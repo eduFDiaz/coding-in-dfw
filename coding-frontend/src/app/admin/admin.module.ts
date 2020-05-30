@@ -33,11 +33,12 @@ import { PhotoaddComponent } from './profile/photoadd/photoadd.component';
 import { CommonModule } from '@angular/common';
 import { AlertService } from '../_services/alert.service';
 import { FaqsComponent } from './faqs/faqs.component';
+import { MessagesComponent } from './messages/messages/messages.component';
 
 
 @NgModule({
   providers: [NbSidebarService, NbMenuService, AlertService],
-  declarations: [AdminComponent, LoginComponent, ProfileComponent, ResumeAdminComponent, PhotoaddComponent, FaqsComponent],
+  declarations: [AdminComponent, LoginComponent, ProfileComponent, ResumeAdminComponent, PhotoaddComponent, FaqsComponent, MessagesComponent],
   imports: [
     CommonModule,
     NbToastrModule.forRoot(),

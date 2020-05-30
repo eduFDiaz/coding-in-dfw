@@ -136,7 +136,7 @@ namespace coding.API.Controllers
                 }
             }
 
-            foreach (var Tag in request.TagId)
+            foreach (var Tag in request.Tags)
             {
 
                 pt.TagId = Tag;
