@@ -79,19 +79,24 @@ export class ProductListComponent implements OnInit {
   }
 
   openEditDialog(productToEdit: Product) {
-    this.dialog.open(ProductEditComponent, {
-      context: {
-        product: productToEdit
-      }, closeOnBackdropClick: true
+    this.route.navigate(['product/edit'], {
+      queryParams: {
+        forproduct: productToEdit.id
+      }
     })
-      .onClose.subscribe((data) => {
-        this.productService.getProducts(this.user.getCurrentUserId()).subscribe((data) => {
-          this.products = data
-        }, err => {
-          console.log(err)
+    // this.dialog.open(ProductEditComponent, {
+    //   context: {
+    //     product: productToEdit
+    //   }, closeOnBackdropClick: true
+    // })
+    //   .onClose.subscribe((data) => {
+    //     this.productService.getProducts(this.user.getCurrentUserId()).subscribe((data) => {
+    //       this.products = data
+    //     }, err => {
+    //       console.log(err)
 
-        })
-      });
+    //     })
+    //   });
   }
 
 }

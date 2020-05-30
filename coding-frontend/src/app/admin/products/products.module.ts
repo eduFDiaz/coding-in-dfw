@@ -28,8 +28,8 @@ import { FileUploadModule } from 'ng2-file-upload';
     FormsModule,
     NbAlertModule
   ],
-  exports: [ProductAddComponent, ProductListComponent],
-  entryComponents: [ProductDeleteComponent, ProductEditComponent, RequirementAddComponent, ProductphotoComponent]
+  exports: [ProductAddComponent, ProductListComponent, ProductEditComponent],
+  entryComponents: [ProductDeleteComponent, RequirementAddComponent, ProductphotoComponent]
 
 })
 export class ProductsModule { }

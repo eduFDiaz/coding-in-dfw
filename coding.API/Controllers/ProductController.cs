@@ -147,14 +147,17 @@ namespace coding.API.Controllers
 
             // var toUpd = _mapper.Map(productToEdit, request);
 
+
+
+
             foreach (var row in productToEdit.ProductRequirements)
             {
 
                 var record = _productRequirementDal.GetRelatedRowPR(productId, row.RequirementId);
+
                 if (record != null)
                 {
                     _productRequirementDal.DeleteSync(record);
-
                 }
 
             }
@@ -173,6 +176,8 @@ namespace coding.API.Controllers
                 await _productRequirementDal.Add(productRequirementToUpdate);
 
             }
+
+
 
             // var outPut = _mapper.Map<Product>(toUpd);
 

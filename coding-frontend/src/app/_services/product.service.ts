@@ -30,6 +30,10 @@ export class ProductService {
     )
   }
 
+  getProduct(id: string): Observable<Product> {
+    return this.http.get<Product>(environment.apiUrl + '/product/' + id)
+  }
+
   deleteProduct(productid: string): Observable<boolean> {
     // tslint:disable-next-line: object-literal-key-quotes
     return this.http.delete<boolean>(environment.apiUrl + '/product/' + productid + '/delete', { headers: { 'authorization': 'Bearer ' + localStorage.getItem('token') } }).pipe(

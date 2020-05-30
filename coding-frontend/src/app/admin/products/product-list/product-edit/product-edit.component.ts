@@ -1,5 +1,5 @@
-import { Component, OnInit, Input, ViewChild, TemplateRef } from '@angular/core';
-import { NbDialogRef } from '@nebular/theme';
+import { Component, OnInit, Input, ViewChild, TemplateRef, OnChanges } from '@angular/core';
+import { NbDialogRef, NbDialogService } from '@nebular/theme';
 import { UserService } from 'src/app/_services/user.service';
 import { ProductService } from 'src/app/_services/product.service';
 import { AlertService } from 'src/app/_services/alert.service';
@@ -7,6 +7,8 @@ import { Product } from 'src/app/_models/Product';
 import { Requirement } from 'src/app/_models/Requirement';
 import { filter } from 'rxjs/operators';
 import * as ClassicEditor from '@ckeditor/ckeditor5-build-classic';
+import { ActivatedRoute, Router } from '@angular/router';
+// import { NgForm } from '@angular/forms'
 
 
 @Component({
@@ -17,43 +19,61 @@ import * as ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 export class ProductEditComponent implements OnInit {
   public Editor = ClassicEditor;
 
-  @ViewChild('editButton', { static: true }) editButton: TemplateRef<any>
+  @ViewChild('addRequirement', { static: true }) addRequirementDialog: TemplateRef<any>
 
   editSpinner = false
 
-  @Input() product: any
+  product: any
+  id: string
 
-  requirements: any
+  pepe: boolean
+
+  // requirements: any
 
   deleteSpinner = false;
 
+  // elementAdded: boolean
+
   constructor(
+    private router: Router,
+    private route: ActivatedRoute,
     private alert: AlertService,
     private user: UserService,
-    protected dialogRef: NbDialogRef<any>,
+    // protected dialogRef: NbDialogRef<any>,
+    private dialogService: NbDialogService,
     private productService: ProductService,
-    private toast: AlertService) { }
+  ) { }
+
+
 
   ngOnInit() {
-    this.requirements = this.product.requirements
-    console.log(this.requirements)
-    console.log(this.product)
+
+    this.editSpinner = true
+    this.route.queryParams.subscribe((params) => {
+      this.id = params['forproduct']
+    })
+    this.productService.getProduct(this.id).subscribe((result) => {
+      this.product = result
+      console.log(this.product)
+      this.editSpinner = false
+    })
+    
+
   }
 
   editItem(id: string, product: Product) {
     this.editSpinner = true
-    const reqs = this.requirements.map(
+    product = this.product
+    product.requirements = this.product.requirements.map(
       (item) => {
         return item.id
       }
     )
-    product = this.product
-    product.requirements = reqs
     console.log(product)
     this.productService.editProduct(id, product).subscribe(result => {
       this.editSpinner = false
-      this.toast.showToast('bottom-left', 'info', 'Update ok', 'Your product has been updated!')
-      this.dialogRef.close()
+      this.alert.showToast('bottom-left', 'info', 'Update ok', 'Requirements for this product updated!')
+      this.router.navigate(['product/list'])
     })
 
   }
@@ -61,11 +81,43 @@ export class ProductEditComponent implements OnInit {
   removeRequirement(id: string) {
     this.productService.deleteRequirement(id).subscribe(result => {
       this.alert.showToast('top-right', 'info', 'Deleted', 'Requirement Deleted')
-      this.requirements = this.requirements.filter((item) => {
-        item.id !== id
+    })
+    const index = this.product.requirements.map((item) => {
+      return item.id
+    }).indexOf(id)
+    console.log(index)
+    this.product.requirements.splice(index, 1);
+    this.pepe = true
+  }
 
-      })
+  openAddRequirementDialog() {
+    this.dialogService.open(this.addRequirementDialog, {
+      context: {
+        object: {}
+      }, closeOnBackdropClick: false
+    }).onClose.subscribe((data) => {
+      this.newRequirement(data)
+      // this.elementAdded = true
+      // console.log(this.elementAdded)
+
+
 
     })
   }
+
+
+  newRequirement(item: string) {
+    let newReq = {
+      description: item
+    }
+    this.productService.addRequirement(newReq).subscribe((result) => {
+      this.product.requirements.push(result)
+      this.alert.showToast('bottom-left', 'success', 'Ok', 'Requirements for this product updated!')
+    }, error => {
+      console.log(error)
+    })
+
+
+  }
+
 }

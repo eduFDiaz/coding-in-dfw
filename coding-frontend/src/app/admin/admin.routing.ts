@@ -14,6 +14,7 @@ import { CommentsComponent } from './post/comments/comments.component';
 import { FaqsComponent } from './faqs/faqs.component';
 import { ProductphotoComponent } from './products/product-add/productphoto/productphoto.component';
 import { AddphotopostComponent } from './post/addpost/addphotopost/addphotopost.component';
+import { ProductEditComponent } from './products/product-list/product-edit/product-edit.component';
 
 
 
@@ -30,6 +31,7 @@ const routes: Routes = [
       { path: 'posts/new/photo', component: AddphotopostComponent },
       { path: 'posts/managecomments', component: CommentsComponent },
       { path: 'product/list', component: ProductListComponent },
+      { path: 'product/edit', component: ProductEditComponent },
       { path: 'tag/list', component: TaglistComponent },
       { path: 'product/new', component: ProductAddComponent },
       { path: 'product/new/photo', component: ProductphotoComponent },

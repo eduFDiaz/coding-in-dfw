@@ -1,0 +1,10 @@
+{
+	"folders":
+	[
+		{
+			"path": ".",
+			"follow_symlinks": true
+		}
+	],
+	"solution_file": "./coding.API.sln"
+}

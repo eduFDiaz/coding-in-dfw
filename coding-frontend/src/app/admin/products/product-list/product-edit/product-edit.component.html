@@ -1,5 +1,41 @@
-<nb-card status="success">
-    <nb-card-header>Edit product: {{ product.name }}</nb-card-header>
+<ng-template #addRequirement let-data let-ref="dialogRef">
+    <div class="row">
+        <div class="col-md-12">
+            <nb-card status="success" [nbSpinner]="spinner">
+                <nb-card-header>
+                    Add new requirement: {{ data.newreq }}
+                </nb-card-header>
+                <nb-card-body>
+                    <form #adRequerimentFromProduct="ngForm" name="adRequerimentFromProduct"
+                        id="adRequirementFromProduct">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <label class="label" for="title">Description:</label>
+                                <input #description="ngModel" [(ngModel)]="data.newreq" minlength="4" nbInput
+                                    name="Description" type="text" status="success">
+                                    <div *ngIf="description.invalid && (description.dirty || description.touched)">
+                                    <nb-alert *ngIf="description.errors.required" status="warning">Title is required
+                                    </nb-alert>
+                                    <nb-alert *ngIf="description.errors.minlength" status="warning">Title must be at
+                                        least 4
+                                        characters long.</nb-alert>
+                                </div>
+
+                            </div>
+                        </div>
+                    </form>
+                </nb-card-body>
+                <nb-card-footer>
+                    <button [disabled]="!adRequerimentFromProduct.dirty || !adRequerimentFromProduct.valid"
+                        type="button" (click)="ref.close(data.newreq)" nbButton status="success">Add</button>
+                </nb-card-footer>
+            </nb-card>
+        </div>
+    </div>
+</ng-template>
+
+<nb-card status="success" [nbSpinner]="editSpinner">
+    <nb-card-header>Edit product: {{ product?.name }}</nb-card-header>
     <nb-card-body>
         <form #editProduct="ngForm" name="editProduct">
             <div class="row">
@@ -85,14 +121,26 @@
             <div class="row">
                 <div class="col-md-6">
                     Requirements
-                    <button (click)="openAddRequirementDialog()" nbButton type="button" size="tiny" status="success">
+                    <button (click)="openAddRequirementDialog(addRequirement)" nbButton type="button" size="tiny"
+                        status="success">
                         <nb-icon icon="plus"></nb-icon>
                     </button>
                 </div>
-                <div *ngFor="let req of product.requirements">
-                    {{ req.description}}
-                    <button nbButton size="tiny" status="danger" (click)="removeRequirement(req.id)">-</button>
+                <div class="col-md-6">
+                    <div *ngFor="let req of product.requirements">
+                        {{ req.description}}
+                        <button nbButton size="tiny" status="danger" (click)="removeRequirement(req.id)">-</button>
+                    </div>
                 </div>
+              <!--   <nb-select #prodReq="ngModel" multiple name="requirement" [(ngModel)]="product.requirements"
+                    placeholder="Select Requirements">
+                    <nb-option *ngFor="let req of product.requirements" value="{{ req.id }}">
+                        {{ req.description }}
+                    </nb-option>
+                </nb-select>
+                <button (click)="openAddRequirementDialog()" nbButton type="button" size="tiny" status="success">
+                    <nb-icon icon="plus"></nb-icon>
+                </button> -->
 
             </div>
 
@@ -100,12 +148,14 @@
         </form>
     </nb-card-body>
     <nb-card-footer>
-        <button #editButton [disabled]="!editProduct.dirty || !editProduct.valid" [nbSpinner]="editSpinner"
-            nbSpinnerStatus="success" nbSpinnerSize="small" nbButton status="success"
-            (click)="editItem(product.id, product)">
-            <!-- <button nbButton status="danger" (click)="ref.close()"> -->
+        <button [nbSpinner]="editSpinner" (click)="editItem(product.id, product)" nbSpinnerStatus="success" nbSpinnerSize="small" nbButton status="success">
             <nb-icon icon="edit"></nb-icon>Edit!
         </button>
+        <!-- <button [attr.disabled]="elementAdded" [nbSpinner]="editSpinner" nbSpinnerStatus="success" nbSpinnerSize="small"
+            nbButton status="success" (click)="editItem(product.id, product)">
+
+            <nb-icon icon="edit"></nb-icon>Edit!
+        </button> -->
 
     </nb-card-footer>
 </nb-card>

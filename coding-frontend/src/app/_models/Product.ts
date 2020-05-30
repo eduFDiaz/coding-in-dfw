@@ -12,7 +12,7 @@ export interface Product {
     industry: string,
     size: number,
     clientName: string,
-    requirements: Requirement[],
+    requirements: any,
     text: string,
     projectIntro: string,
     shortResume: string

@@ -12,7 +12,7 @@
                                 type="text" nbInput status="primary" placeholder="Post title" required
                                 [(ngModel)]="postBody.title">
 
-
+   
                             <div *ngIf="postTitle.invalid && (postTitle.dirty || postTitle.touched)">
                                 <nb-alert *ngIf="postTitle.errors.required" status="warning">Title is required.
                                 </nb-alert>

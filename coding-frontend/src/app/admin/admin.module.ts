@@ -2,7 +2,7 @@
 import {
   NbListModule,
   NbSidebarService, NbWindowModule, NbSidebarModule, NbThemeModule, NbSpinnerModule, NbUserModule, NbRadioModule, NbDialogModule,
-  NbLayoutModule, NbBadgeModule, NbButtonModule, NbCheckboxModule, NbMenuService, NbMenuModule, NbCardModule, NbInputModule, NbAlertModule, NbIconModule, NbToastrModule,
+  NbLayoutModule, NbBadgeModule, NbButtonModule, NbCheckboxModule, NbMenuService, NbMenuModule, NbCardModule, NbInputModule, NbAlertModule, NbIconModule, NbToastrModule, NbDialogService, NbDialogRef,
 } from '@nebular/theme';
 
 // import { BrowserModule } from '@angular/platform-browser';
