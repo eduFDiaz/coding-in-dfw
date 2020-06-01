@@ -40,6 +40,7 @@ namespace coding.API.Dtos
             //Messages Maps
             CreateMap<CreateMessageDto, Message>();
             CreateMap<Message, CreateMessageDto>();
+            CreateMap<UpdateMessageDto, Message>();
 
             //Posts Maps
             CreateMap<PostForCreateDto, Post>();
