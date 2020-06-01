@@ -24,22 +24,21 @@
                 <div class="row">
                     <div class="col-md-12">
                         <!-- <label for="language"><b>Your DMs:</b></label> -->
-                       <!--  <button nbButton status="success" (click)="createDialogGeneric(addGeneric, newlang, 'language')"
+                        <!--  <button nbButton status="success" (click)="createDialogGeneric(addGeneric, newlang, 'language')"
                             size="tiny">+</button> -->
                         <nb-list>
                             <nb-list-item *ngFor="let message of messages">
-                                <div class="col-md-4">{{ message.name }}</div>
+                                <div class="col-md-4" [ngStyle]="{'background-color': (message.isRead) ? '#73c7af' : '#ffffff'}" >{{ message.name }}</div>
                                 <div class="col-md-4">{{ message.text }}</div>
 
                                 <div class="row ">
                                     <div class="col-md-1">
-                                        <button (click)="openDeleteDialog(dialogDelete, message.id)" nbButton status="danger"
-                                            size="tiny">
+                                        <button (click)="openDeleteDialog(dialogDelete, message.id)" nbButton
+                                            status="danger" size="tiny">
                                             <nb-icon icon="trash"></nb-icon>
                                         </button>
-                                        <button (click)="markRead(message.id)" nbButton status="success"
-                                            size="tiny">
-                                            <nb-icon icon="check"></nb-icon>
+                                        <button (click)="markRead(message.id)" nbButton status="success" size="tiny">
+                                            <nb-icon icon="checkmark-outline"></nb-icon>
                                         </button>
                                     </div>
                                 </div>

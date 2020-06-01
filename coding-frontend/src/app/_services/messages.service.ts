@@ -29,7 +29,13 @@ export class MessagesService {
    }
 
    deleteMessage(id: string) {
-   	return this.http.delete(environment.apiUrl + '/message/')
+   	return this.http.delete(environment.apiUrl + '/message/' + id + '/delete',
+   	 { headers: { 'authorization': 'Bearer ' + localStorage.getItem('token') } })
+   }
+
+   markRead(id: string) {
+   	return this.http.put(environment.apiUrl + '/message/' + id + '/update',
+   		{ headers: { 'authorization': 'Bearer ' + localStorage.getItem('token') } })
    }
 
 

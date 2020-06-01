@@ -44,7 +44,6 @@ namespace coding.API.Controllers
 
             var createdMessage = await _messageDal.Add(MessageToCreate);
 
-
             return Ok(new MessagePresenter(createdMessage));
 
         }
@@ -75,7 +74,7 @@ namespace coding.API.Controllers
 
             var toUpd = _mapper.Map(request, messageToUpd);
 
-
+            toUpd.isRead = true;
 
             if (await _messageDal.Update(toUpd))
                 return NoContent();
