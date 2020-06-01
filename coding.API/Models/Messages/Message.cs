@@ -12,6 +12,8 @@ namespace coding.API.Models.Messages {
         public string ServiceType { get; set; }
         public string Text { get; set; }
 
+        public bool isRead {get; set;}
+
         }
 
     }     

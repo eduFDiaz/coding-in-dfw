@@ -6,7 +6,6 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using System.Linq;
 
-using coding.API.Models.Posts.Comments;
 
 
 using System;
@@ -30,7 +29,7 @@ namespace coding.API.Controllers
             Repository<Message> messageDal, IConfiguration config, IMapper mapper)
         {
 
-           _messageDal = messageDal;
+            _messageDal = messageDal;
             _config = config;
             _mapper = mapper;
         }
@@ -41,15 +40,51 @@ namespace coding.API.Controllers
         {
             var MessageToCreate = _mapper.Map<Message>(request);
 
+            MessageToCreate.isRead = false;
+
             var createdMessage = await _messageDal.Add(MessageToCreate);
+
 
             return Ok(new MessagePresenter(createdMessage));
 
         }
 
 
+        [HttpDelete("{messageid}/delete", Name = "Delete Message")]
+        public async Task<IActionResult> DeleteMessage(Guid messageid)
+        {
+            var messageToDelete = (await _messageDal.GetById(messageid));
 
-        [HttpGet("all")]
+            if (messageToDelete == null)
+                return NotFound();
+
+            if (await _messageDal.Delete(messageToDelete))
+                return NoContent();
+
+            return BadRequest("Cant delete the message!");
+
+        }
+
+        [HttpPut("{messageid}/update", Name = "Update message")]
+        public async Task<IActionResult> UpdateMessage(Guid messageid, [FromBody] UpdateMessageDto request)
+        {
+            var messageToUpd = (await _messageDal.GetById(messageid));
+
+            if (messageToUpd == null)
+                return NotFound();
+
+            var toUpd = _mapper.Map(request, messageToUpd);
+
+
+
+            if (await _messageDal.Update(toUpd))
+                return NoContent();
+
+            return BadRequest("cant update the message!");
+
+        }
+
+        [HttpGet("all", Name = "Return all messages")]
         public async Task<ActionResult> GetAllMessages()
         {
             var messages = (await _messageDal.ListAsync()).ToList();
@@ -59,4 +94,4 @@ namespace coding.API.Controllers
 
 
     }
-    }
+}
