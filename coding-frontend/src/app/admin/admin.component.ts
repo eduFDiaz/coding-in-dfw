@@ -95,10 +95,16 @@ export class AdminComponent implements OnInit {
     },
     {
       title: 'FAQs',
-      icon: 'message-circle-outline',
+      icon: 'question-mark-outline',
       expanded: false,
       url: '/admin/faqs'
     },
+    {
+      title: 'Direct Messages',
+      icon: 'message-square-outline',
+      expanded: false,
+      url: '/admin/messages'
+    }
 
   ];
 

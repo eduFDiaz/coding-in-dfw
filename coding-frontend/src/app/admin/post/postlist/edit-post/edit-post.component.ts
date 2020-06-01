@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, OnChanges, SimpleChanges } from '@angular/core';
+import { Component, OnInit, Input, OnChanges, SimpleChanges , TemplateRef} from '@angular/core';
 
 import { NbDialogRef } from '@nebular/theme';
 import { UserService } from 'src/app/_services/user.service';
@@ -75,7 +75,6 @@ export class EditPostComponent implements OnInit {
     })
   }
 
-
    removeTag(id: string) {
     this.postService.deleteTag(id).subscribe(result => {
       this.alert.showToast('top-right', 'info', 'Deleted', 'Tag Deleted')
@@ -88,19 +87,14 @@ export class EditPostComponent implements OnInit {
     
   }
 
-  openAddTagDialog(dialog: NbDialogRef<any>) {
+  openAddTagDialog(dialog: TemplateRef<any>) {
     this.dialogService.open(dialog, {
       context: {
         object: {}
-      }, closeOnBackdropClick: false
+      }, closeOnBackdropClick: true
     }).onClose.subscribe((data: any) => {
       console.log(data)
       this.newTag(data)
-      // this.elementAdded = true
-      // console.log(this.elementAdded)
-
-
-
     })
   }
 
