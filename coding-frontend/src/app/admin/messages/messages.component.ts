@@ -45,4 +45,17 @@ export class MessagesComponent implements OnInit {
 		})
 	}
 
+	viewAll() {
+		this.messageService.getMessages().subscribe((result) => {
+			this.messages = result
+		})
+	}
+
+	viewUnread() {
+		this.messageService.getMessages().subscribe((result) => {
+			this.messages = result.filter((item: any) => item.isRead == false)
+			console.log(this.messages)
+		})
+	}
+
 }
