@@ -12,12 +12,12 @@ import { User } from 'src/app/_models/User';
 export class NavbarComponent implements OnInit {
 
   @Input() user: User
+  @Input() avatar: any
 
 
   constructor() { }
 
   ngOnInit() {
-
   }
 
 
