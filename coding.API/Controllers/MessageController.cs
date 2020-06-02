@@ -65,18 +65,14 @@ namespace coding.API.Controllers
         }
 
         [HttpPut("{messageid}/update", Name = "Update message")]
-        public async Task<IActionResult> UpdateMessage(Guid messageid, [FromBody] UpdateMessageDto request)
+        public async Task<IActionResult> UpdateMessage(Guid messageid)
         {
             var messageToUpd = (await _messageDal.GetById(messageid));
-
+            messageToUpd.isRead = true;
             if (messageToUpd == null)
                 return NotFound();
 
-            var toUpd = _mapper.Map(request, messageToUpd);
-
-            toUpd.isRead = true;
-
-            if (await _messageDal.Update(toUpd))
+            if (await _messageDal.Update(messageToUpd))
                 return NoContent();
 
             return BadRequest("cant update the message!");
