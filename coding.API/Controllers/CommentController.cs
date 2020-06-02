@@ -65,17 +65,9 @@ namespace coding.API.Controllers
         public async Task<IActionResult> GetsAllUnpublishedComments()
         {
 
-            // var allUnpublishedComments = _commentDal.ListAll().
-            // Where(comment => comment.Published == false).ToList();
-
-
-
             var unpublished = (await _commentDal.GetRelatedField("Post")).Where(c => c.Published == false).ToList();
 
-            // var result = unpublished.ToList();
-
             var outPut = _mapper.Map<List<CommentForDetailDto>>(unpublished);
-
             return Ok(outPut);
 
         }
@@ -114,9 +106,6 @@ namespace coding.API.Controllers
         public async Task<ActionResult> GetAllComments()
         {
             var comments = (await _commentDal.ListAsync()).ToList();
-
-            /* var productsToReturn = _mapper.Map<List<ProductForDetailDto>>(products);  */
-
             return Ok(comments);
         }
 
