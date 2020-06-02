@@ -22,21 +22,27 @@
   <section class="projects-list px-3 py-5 p-md-5">
     <div class="container">
       <div class="text-center">
-        <ul id="filters" class="filters mb-5 mx-auto pl-0">
-          <li class="type active mb-3 mb-lg-0" data-filter="*" (click)="filterProducts('')">All</li>
-          <li class="type mb-3 mb-lg-0" data-filter=".webapp" (click)="filterProducts('web')">Web App</li>
-          <li class="type  mb-3 mb-lg-0" data-filter=".mobileapp" (click)="filterProducts('mobile')">Mobile App</li>
-          <li class=" type mb-3 mb-lg-0" data-filter=".mobileapp" [class.active]="active"
-            (click)="filterProducts('desktop')">
-            Desktop</li>
-          <li class="type  mb-3 mb-lg-0" data-filter=".frontend">Frontend</li>
-          <li class="type  mb-3 mb-lg-0" data-filter=".backend">Backend</li>
+        <ul id="filters" class="filters mb-5 mx-auto pl-0" routerLinkActive="active">
+          <li routerLinkActive="active" class="type mb-3 mb-lg-0" [routerLink]="['/portfolio/']"
+            [queryParams]="{query: 'all'}" data-filter="*"> All
+          </li>
+          <li routerLinkActive="active" [queryParams]="{query: 'web'}" class="type mb-3 mb-lg-0"
+            [routerLink]="['/portfolio/']">Web App</li>
+          <li routerLinkActive="active" [routerLink]="['/portfolio/']" [queryParams]="{query: 'mobile'}"
+            class="type  mb-3 mb-lg-0">Mobile App</li>
+          <li routerLinkActive="active" [routerLink]="['/portfolio/']" [queryParams]="{query: 'desktop'}"
+            class=" type mb-3 mb-lg-0"> Desktop</li>
+          <li routerLinkActive="active" [routerLink]="['/portfolio/']" [queryParams]="{query: 'frontend'}"
+            class="type  mb-3 mb-lg-0">Frontend</li>
+          <li routerLinkActive="active" [routerLink]="['/portfolio/']" [queryParams]="{query: 'backend'}"
+            class="type  mb-3 mb-lg-0">Backend</li>
         </ul>
         <!--//filters-->
       </div>
+
       <div class="row">
-        <div class="isotope-item col-md-6 mb-5 mobileapp frontend" style="position: relative; left: 0px; top: 0px;"
-          *ngFor="let product of products">
+        <div class="isotope-item col-md-6 mb-5" style="position: relative; left: 0px; top: 0px;"
+          *ngFor="let product of products | sortby: 'type' : getType()">
           <div class="card project-card">
             <div class="row no-gutters">
               <div class="col-lg-4 card-img-holder">

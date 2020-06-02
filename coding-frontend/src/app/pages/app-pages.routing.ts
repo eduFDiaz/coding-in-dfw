@@ -10,6 +10,7 @@ import { ProjectsListComponent } from './projects/projects-list/projects-list.co
 import { ProjectsComponent } from './projects/projects.component';
 import { ContactComponent } from './contact/contact.component';
 
+
 const routes: Routes = [
   {
     path: '', component: AppPagesComponent, children: [

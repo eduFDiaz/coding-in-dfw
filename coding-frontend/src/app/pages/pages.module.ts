@@ -20,6 +20,8 @@ import { FooterComponent } from './footer/footer.component';
 import { AppPagesRoutes } from './app-pages.routing';
 import { FormsModule } from '@angular/forms';
 import { NbToastrModule, NbToastrService } from '@nebular/theme';
+import { ContainerComponent } from './portfolio/container/container.component';
+import { SortByPipe } from '../_pipes/sort-by.pipe';
 
 
 
@@ -39,6 +41,8 @@ import { NbToastrModule, NbToastrService } from '@nebular/theme';
     NavbarComponent,
     AppPagesComponent,
     FooterComponent,
+    ContainerComponent,
+    SortByPipe
 
   ],
   imports: [

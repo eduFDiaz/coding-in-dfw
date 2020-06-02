@@ -2,6 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { ProductService } from 'src/app/_services/product.service';
 import { Product } from 'src/app/_models/Product';
 import { User } from 'src/app/_models/User';
+import { ActivatedRoute } from '@angular/router';
+
+
+
 
 @Component({
   selector: 'app-portfolio',
@@ -14,12 +18,16 @@ export class PortfolioComponent implements OnInit {
 
 
 
-  constructor(private productService: ProductService) { }
+  constructor(
+
+    private activatedRouter: ActivatedRoute,
+    private productService: ProductService) { }
   currentUser: User
 
   products: Product[]
 
   ngOnInit() {
+
     this.currentUser = JSON.parse(localStorage.getItem('userdata'))
     this.productService.getProducts(this.currentUser.id).subscribe((prod) => {
       this.products = prod
@@ -32,9 +40,16 @@ export class PortfolioComponent implements OnInit {
 
   filterProducts(type: string) {
     switch (type) {
+      case 'web':
+        this.products = this.products.filter(item => item.type == 'web')
+        break;
+
+      case 'mobile':
+        this.products = this.products.filter(item => item.type == 'mobile')
+        break;
+
       case 'desktop':
         this.products = this.products.filter(item => item.type == 'desktop')
-        this.active = true
         break;
 
       default:
@@ -52,6 +67,19 @@ export class PortfolioComponent implements OnInit {
     let cleanText = div.innerText;
     div = null; // prevent mem leaks
     return cleanText;
+  }
+
+  getType() {
+    let val
+    this.activatedRouter.queryParams.subscribe((result) => {
+      val = result['query']
+    })
+
+    return val
+  }
+
+  resolveClass(product: Product) {
+    return product.type
   }
 
 
