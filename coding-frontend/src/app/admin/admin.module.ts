@@ -33,7 +33,7 @@ import { PhotoaddComponent } from './profile/photoadd/photoadd.component';
 import { CommonModule } from '@angular/common';
 import { AlertService } from '../_services/alert.service';
 import { FaqsComponent } from './faqs/faqs.component';
-import { MessagesComponent } from './messages/messages/messages.component';
+import { MessagesComponent } from './messages/messages.component';
 
 
 @NgModule({
