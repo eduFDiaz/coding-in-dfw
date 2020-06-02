@@ -1,8 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
-
-
 import { NavbarComponent } from './navbar/navbar.component'
 import { ProjectsListComponent } from './projects/projects-list/projects-list.component';
 import { PostListComponent } from './blog/post-list/post-list.component';
@@ -19,14 +17,7 @@ import { AppPagesComponent } from './app-pages.component';
 import { FooterComponent } from './footer/footer.component';
 import { AppPagesRoutes } from './app-pages.routing';
 import { FormsModule } from '@angular/forms';
-import { NbToastrModule, NbToastrService } from '@nebular/theme';
-import { ContainerComponent } from './portfolio/container/container.component';
 import { SortByPipe } from '../_pipes/sort-by.pipe';
-
-
-
-
-
 
 @NgModule({
   declarations: [HomeComponent,
@@ -41,9 +32,7 @@ import { SortByPipe } from '../_pipes/sort-by.pipe';
     NavbarComponent,
     AppPagesComponent,
     FooterComponent,
-    ContainerComponent,
     SortByPipe
-
   ],
   imports: [
     CommonModule, FormsModule,

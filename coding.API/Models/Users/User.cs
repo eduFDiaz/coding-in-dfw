@@ -8,10 +8,10 @@ namespace coding.API.Models.Users
 {
     public class User : BaseEntity
     {
-        
+
         public string Username { get; set; }
         // public string Password { get; set; }
-        public string CustomUserTitle {get; set;}
+        public string CustomUserTitle { get; set; }
         public string FullName { get; set; }
         public string Email { get; set; }
         public string Location { get; set; }
@@ -33,5 +33,6 @@ namespace coding.API.Models.Users
         public string StackOverflowProfile { get; set; }
         public string RedditProfile { get; set; }
         public string CodepenProfile { get; set; }
+
     }
 }

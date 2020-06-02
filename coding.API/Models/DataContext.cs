@@ -20,6 +20,8 @@ using coding.API.Models.Interests;
 using coding.API.Models.Messages;
 using coding.API.Models.FAQS;
 using System;
+using coding.API.Models.Reviews;
+using coding.API.Models.Services;
 
 namespace coding.API.Models
 {
@@ -42,13 +44,16 @@ namespace coding.API.Models
         public DbSet<Education> Educations { get; set; }
         public DbSet<Award> Awards { get; set; }
         public DbSet<FAQ> FAQs { get; set; }
-        public DbSet<Interest> Interests {get; set; }
+        public DbSet<Interest> Interests { get; set; }
         public DbSet<Skill> Skills { get; set; }
         public DbSet<Requirement> Requirements { get; set; }
-        public DbSet <ProductRequirement> ProductRequirements { get; set; }
-        public DbSet <Message> Messages { get; set; }
-        public DbSet <ProductPhoto> ProductPhotos { get; set; }
-        public DbSet <PostPhoto> PostPhotos { get; set; }
+        public DbSet<ProductRequirement> ProductRequirements { get; set; }
+        public DbSet<Message> Messages { get; set; }
+        public DbSet<ProductPhoto> ProductPhotos { get; set; }
+        public DbSet<PostPhoto> PostPhotos { get; set; }
+        public DbSet<Review> Reviews { get; set; }
+        public DbSet<Service> Services { get; set; }
+
 
 
         protected override void OnModelCreating(ModelBuilder builder)
@@ -56,7 +61,7 @@ namespace coding.API.Models
             builder.Entity<PostTag>()
             .HasKey(pt => new { pt.PostId, pt.TagId });
 
-            builder.Entity<ProductRequirement>().HasKey(pr => new { pr.ProductId, pr.RequirementId});
+            builder.Entity<ProductRequirement>().HasKey(pr => new { pr.ProductId, pr.RequirementId });
 
             // builder.Entity<PostTag>()
             // .HasOne(pt => pt.Post)
