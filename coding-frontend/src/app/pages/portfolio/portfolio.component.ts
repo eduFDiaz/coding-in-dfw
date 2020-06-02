@@ -38,28 +38,28 @@ export class PortfolioComponent implements OnInit {
   // TODO: hacer una funcion que filtre todos los productos por su categoria, igualando el
   // resultado filtrado al mismo array de productos.
 
-  filterProducts(type: string) {
-    switch (type) {
-      case 'web':
-        this.products = this.products.filter(item => item.type == 'web')
-        break;
+  // filterProducts(type: string) {
+  //   switch (type) {
+  //     case 'web':
+  //       this.products = this.products.filter(item => item.type == 'web')
+  //       break;
 
-      case 'mobile':
-        this.products = this.products.filter(item => item.type == 'mobile')
-        break;
+  //     case 'mobile':
+  //       this.products = this.products.filter(item => item.type == 'mobile')
+  //       break;
 
-      case 'desktop':
-        this.products = this.products.filter(item => item.type == 'desktop')
-        break;
+  //     case 'desktop':
+  //       this.products = this.products.filter(item => item.type == 'desktop')
+  //       break;
 
-      default:
-        this.productService.getProducts(this.currentUser.id).subscribe((prod) => {
-          this.products = prod
-          console.log(this.products)
-        })
-        break;
-    }
-  }
+  //     default:
+  //       this.productService.getProducts(this.currentUser.id).subscribe((prod) => {
+  //         this.products = prod
+  //         console.log(this.products)
+  //       })
+  //       break;
+  //   }
+  // }
 
   stripHtml(html: string) {
     var div = document.createElement("DIV");
