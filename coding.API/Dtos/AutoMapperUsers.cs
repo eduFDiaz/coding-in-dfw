@@ -25,6 +25,8 @@ using coding.API.Models.Messages;
 using coding.API.Models.FAQS;
 using coding.API.Dtos.Services;
 using coding.API.Models.Services;
+using coding.API.Models.Reviews;
+using coding.API.Dtos.Reviews;
 
 namespace coding.API.Dtos
 {
@@ -141,6 +143,9 @@ namespace coding.API.Dtos
             // Service Mappings
 
             CreateMap<CreateServiceDto, Service>();
+
+            // Reviews Mappings
+            CreateMap<CreateReviewDto, Review>();
 
 
         }

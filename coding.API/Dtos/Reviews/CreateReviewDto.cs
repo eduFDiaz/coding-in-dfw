@@ -3,7 +3,7 @@ using System;
 namespace coding.API.Dtos.Reviews
 {
 
-    class CreateReviewDto
+    public class CreateReviewDto
     {
         public string Name { get; set; }
         public string Email { get; set; }
