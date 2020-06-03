@@ -18,6 +18,7 @@ import { FooterComponent } from './footer/footer.component';
 import { AppPagesRoutes } from './app-pages.routing';
 import { FormsModule } from '@angular/forms';
 import { SortByPipe } from '../_pipes/sort-by.pipe';
+import { ReviewComponent } from './review/review.component';
 
 @NgModule({
   declarations: [HomeComponent,
@@ -32,7 +33,8 @@ import { SortByPipe } from '../_pipes/sort-by.pipe';
     NavbarComponent,
     AppPagesComponent,
     FooterComponent,
-    SortByPipe
+    SortByPipe,
+    ReviewComponent
   ],
   imports: [
     CommonModule, FormsModule,

@@ -9,6 +9,7 @@ import { PostComponent } from './blog/post/post.component';
 import { ProjectsListComponent } from './projects/projects-list/projects-list.component';
 import { ProjectsComponent } from './projects/projects.component';
 import { ContactComponent } from './contact/contact.component';
+import { ReviewComponent } from './review/review.component'
 
 
 const routes: Routes = [
@@ -24,6 +25,7 @@ const routes: Routes = [
       { path: 'projects', component: ProjectsListComponent, pathMatch: 'full' },
       { path: 'projects/:id', component: ProjectsComponent, pathMatch: 'full' },
       { path: 'contact', component: ContactComponent, pathMatch: 'full' },
+      { path: 'review/:id', component: ReviewComponent, pathMatch: 'full'}
     ]
   }
 

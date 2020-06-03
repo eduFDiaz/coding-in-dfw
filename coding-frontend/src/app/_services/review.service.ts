@@ -23,8 +23,8 @@ export class ReviewService {
 
   constructor(private http: HttpClient, private user: UserService) { }
 
-  newReview(userid: string) {
-    return this.http.post(environment.apiUrl + 'review/create',userid,
+  newReview() {
+    return this.http.post(environment.apiUrl + '/review/create',
      this.myheader  )
   }
 

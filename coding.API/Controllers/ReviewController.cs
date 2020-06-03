@@ -36,9 +36,9 @@ namespace coding.API.Controllers
 
         // [Authorize]
         [HttpPost("create")]
-        public async Task<IActionResult> Create([FromBody] CreateReviewDto request)
+        public async Task<IActionResult> Create()
         {
-            var reviewToCreate = _mapper.Map<Review>(request);
+            var reviewToCreate = new Review();
 
             reviewToCreate.Name = "";
             reviewToCreate.Email = "";
