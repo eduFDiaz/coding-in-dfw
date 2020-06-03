@@ -10,6 +10,7 @@ using coding.API.Models.Posts;
 using coding.API.Models.Tags;
 using coding.API.Models.PostTags;
 using System.Linq;
+using coding.API.Helpers;
 
 using System;
 using System.Collections.Generic;
@@ -29,8 +30,10 @@ namespace coding.API.Controllers
         private readonly Repository<Post> _postDal;
         private readonly Repository<PostPhoto> _postPhotoDal;
         private readonly Repository<Tag> _tagDal;
+
         private readonly Repository<PostTag> _postTagDal;
         private readonly Repository<Comment> _commentDal;
+        string password = "p@SSword";
         public PostController(
         Repository<Comment> commentDal,
         Repository<PostTag> postTagDal,
@@ -55,6 +58,11 @@ namespace coding.API.Controllers
         {
 
             var postForCreate = _mapper.Map<Post>(request);
+            var str = postForCreate.Text;
+            
+            var strEncryptred = Cipher.Encrypt(str, password);
+            postForCreate.Text = strEncryptred;
+            
 
             // crea el post ahora
             var createdPost = await _postDal.Add(postForCreate);
@@ -77,6 +85,7 @@ namespace coding.API.Controllers
             }
             // }
 
+
             return Ok(new NewPostPresenter(createdPost));
 
         }
@@ -88,13 +97,15 @@ namespace coding.API.Controllers
         {
 
             var allUserPosts = (await _postDal.GetRelatedFields("PostTags.Tag", "Comments")).Where(p => p.UserId == userId).ToList();
+            
 
             var alluserPostsImages = (await _postDal.GetRelatedField("Photos")).Where(p => p.UserId == userId).ToList();
 
             List<PostPresenter> presentedPosts = new List<PostPresenter>();
 
             foreach (var post in allUserPosts)
-            {
+            {   var text = post.Text;
+                post.Text = Cipher.Decrypt(text,password); 
                 presentedPosts.Add(new PostPresenter(post));
             }
 
@@ -122,9 +133,10 @@ namespace coding.API.Controllers
         public async Task<IActionResult> UpdatePost(Guid postid, [FromBody] PostForUpdateDto request)
         {
             var postToUpdate = (await _postDal.GetRelatedField("PostTags.Tag")).FirstOrDefault(p => p.Id == postid);
+            var text = request.Text;
             var pt = new PostTagForCreateDto();
             var toUpd = _mapper.Map(request, postToUpdate);
-
+            toUpd.Text = Cipher.Encrypt(text,password);
             foreach (var row in postToUpdate.PostTags)
             {
 
@@ -150,7 +162,9 @@ namespace coding.API.Controllers
                 await _postTagDal.Add(postTagToUpdate);
 
             }
+
             var outPut = _mapper.Map<PostForDetailDto>(toUpd);
+            outPut.Text = Cipher.Decrypt(outPut.Text,password);
             if (await _postDal.Update(toUpd))
                 return Ok(outPut);
 
@@ -164,6 +178,8 @@ namespace coding.API.Controllers
 
             // var singlePostFromRepo = (await _postDal.GetByIdWithList(postid, "PostTags.Tag", "Comments"));
             var singlePostFromRepo = (await _postDal.GetRelatedField("PostTags.Tag")).SingleOrDefault(p => p.Id == postid);
+            var text = singlePostFromRepo.Text;
+            singlePostFromRepo.Text = Cipher.Decrypt(text,password);
 
             singlePostFromRepo.Comments = (await _commentDal.ListAsync()).Where(c => c.PostId == postid && c.Published == true).ToList();
 
