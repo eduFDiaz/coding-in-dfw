@@ -17,8 +17,6 @@ import { AddphotopostComponent } from './post/addpost/addphotopost/addphotopost.
 import { ProductEditComponent } from './products/product-list/product-edit/product-edit.component';
 import { EditPostComponent } from './post/postlist/edit-post/edit-post.component'
 import { MessagesComponent } from './messages/messages.component'
-import { PricingComponent } from './pricing/pricing.component';
-
 
 
 
@@ -42,7 +40,7 @@ const routes: Routes = [
       { path: 'login', component: LoginComponent, pathMatch: 'full' },
       { path: 'faqs', component: FaqsComponent },
       { path: 'messages', component: MessagesComponent },
-      { path: 'services-and-pricing', component: PricingComponent }
+
     ]
   }
 

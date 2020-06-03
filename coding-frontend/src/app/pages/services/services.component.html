@@ -4,8 +4,9 @@
             <h2 class="heading">Services &amp; Pricing</h2>
             <div class="intro">
                 <p>I have 10+ years of development experience building software for the web and mobile devices. You can
-                    take a look at my <a href="portfolio.html" target="_blank">project portfolio</a> and <a
-                        href="resume.html" target="_blank">online resume</a> to find out more about my skills and
+                    take a look at my <a [routerLink]="[ '/pages/portfolio']" target="_blank">project portfolio</a> and
+                    <a [routerLink]="[ '/pages/resume']" target="_blank">online resume</a> to find out more about my
+                    skills and
                     experiences.</p>
                 <p class="mb-0">I'm currently taking on freelance software development work. You're welcome to contact
                     me for a custom quote for your project. I also offer development service packages with fixed
@@ -17,13 +18,14 @@
     <section class="pricing-section py-5">
         <div class="container single-col-max-width">
             <h3 class="text-center mb-4">Service Packages</h3>
-            <div id="pricing-tabs" class="pricing-tabs d-block d-md-none mb-3">
+            <div [innerHtml]="stripHtml(user.serviceAndPricingTable)"></div>
+            <!-- <div id="pricing-tabs" class="pricing-tabs d-block d-md-none mb-3">
                 <a href="#" class="pricing-tab active mb-2" data-target="pricing-1-data">Basic</a>
                 <a href="#" class="pricing-tab mb-2" data-target="pricing-2-data">Standard</a>
                 <a href="#" class="pricing-tab" data-target="pricing-3-data">Premium</a>
-            </div>
+            </div> -->
             <!--//pricing-mobile-tabs-->
-            <table id="pricing-table" class="pricing-table table-bordered">
+            <!-- <table id="pricing-table" class="pricing-table table-bordered">
                 <thead>
                     <tr class="border-0">
                         <th scope="col" class="pricing-0-data theme-bg-light"></th>
@@ -60,8 +62,8 @@
                                 <path fill="currentColor"
                                     d="M173.898 439.404l-166.4-166.4c-9.997-9.997-9.997-26.206 0-36.204l36.203-36.204c9.997-9.998 26.207-9.998 36.204 0L192 312.69 432.095 72.596c9.997-9.997 26.207-9.997 36.204 0l36.203 36.204c9.997 9.997 9.997 26.206 0 36.204l-294.4 294.401c-9.998 9.997-26.207 9.997-36.204-.001z">
                                 </path>
-                            </svg><!-- <i class="fas fa-check text-primary"></i> -->
-                        </td>
+                            </svg><i class="fas fa-check text-primary"></i> -->
+            <!-- </td>
                         <td class="pricing-2-data mobile-is-hidden"><svg
                                 class="svg-inline--fa fa-check fa-w-16 text-primary" aria-hidden="true"
                                 focusable="false" data-prefix="fas" data-icon="check" role="img"
@@ -69,7 +71,7 @@
                                 <path fill="currentColor"
                                     d="M173.898 439.404l-166.4-166.4c-9.997-9.997-9.997-26.206 0-36.204l36.203-36.204c9.997-9.998 26.207-9.998 36.204 0L192 312.69 432.095 72.596c9.997-9.997 26.207-9.997 36.204 0l36.203 36.204c9.997 9.997 9.997 26.206 0 36.204l-294.4 294.401c-9.998 9.997-26.207 9.997-36.204-.001z">
                                 </path>
-                            </svg><!-- <i class="fas fa-check text-primary"></i> -->
+                            </svg>
                         </td>
                         <td class="pricing-3-data mobile-is-hidden"><svg
                                 class="svg-inline--fa fa-check fa-w-16 text-primary" aria-hidden="true"
@@ -78,7 +80,7 @@
                                 <path fill="currentColor"
                                     d="M173.898 439.404l-166.4-166.4c-9.997-9.997-9.997-26.206 0-36.204l36.203-36.204c9.997-9.998 26.207-9.998 36.204 0L192 312.69 432.095 72.596c9.997-9.997 26.207-9.997 36.204 0l36.203 36.204c9.997 9.997 9.997 26.206 0 36.204l-294.4 294.401c-9.998 9.997-26.207 9.997-36.204-.001z">
                                 </path>
-                            </svg><!-- <i class="fas fa-check text-primary"></i> -->
+                            </svg>
                         </td>
                     </tr>
                     <tr class="pricing-feature-row">
@@ -91,7 +93,7 @@
                                 <path fill="currentColor"
                                     d="M173.898 439.404l-166.4-166.4c-9.997-9.997-9.997-26.206 0-36.204l36.203-36.204c9.997-9.998 26.207-9.998 36.204 0L192 312.69 432.095 72.596c9.997-9.997 26.207-9.997 36.204 0l36.203 36.204c9.997 9.997 9.997 26.206 0 36.204l-294.4 294.401c-9.998 9.997-26.207 9.997-36.204-.001z">
                                 </path>
-                            </svg><!-- <i class="fas fa-check text-primary"></i> -->
+                            </svg>
                         </td>
                         <td class="pricing-2-data mobile-is-hidden"><svg
                                 class="svg-inline--fa fa-check fa-w-16 text-primary" aria-hidden="true"
@@ -100,7 +102,7 @@
                                 <path fill="currentColor"
                                     d="M173.898 439.404l-166.4-166.4c-9.997-9.997-9.997-26.206 0-36.204l36.203-36.204c9.997-9.998 26.207-9.998 36.204 0L192 312.69 432.095 72.596c9.997-9.997 26.207-9.997 36.204 0l36.203 36.204c9.997 9.997 9.997 26.206 0 36.204l-294.4 294.401c-9.998 9.997-26.207 9.997-36.204-.001z">
                                 </path>
-                            </svg><!-- <i class="fas fa-check text-primary"></i> -->
+                            </svg>
                         </td>
                         <td class="pricing-3-data mobile-is-hidden"><svg
                                 class="svg-inline--fa fa-check fa-w-16 text-primary" aria-hidden="true"
@@ -109,7 +111,7 @@
                                 <path fill="currentColor"
                                     d="M173.898 439.404l-166.4-166.4c-9.997-9.997-9.997-26.206 0-36.204l36.203-36.204c9.997-9.998 26.207-9.998 36.204 0L192 312.69 432.095 72.596c9.997-9.997 26.207-9.997 36.204 0l36.203 36.204c9.997 9.997 9.997 26.206 0 36.204l-294.4 294.401c-9.998 9.997-26.207 9.997-36.204-.001z">
                                 </path>
-                            </svg><!-- <i class="fas fa-check text-primary"></i> -->
+                            </svg>
                         </td>
                     </tr>
                     <tr class="pricing-feature-row">
@@ -120,7 +122,7 @@
                                 <path fill="currentColor"
                                     d="M173.898 439.404l-166.4-166.4c-9.997-9.997-9.997-26.206 0-36.204l36.203-36.204c9.997-9.998 26.207-9.998 36.204 0L192 312.69 432.095 72.596c9.997-9.997 26.207-9.997 36.204 0l36.203 36.204c9.997 9.997 9.997 26.206 0 36.204l-294.4 294.401c-9.998 9.997-26.207 9.997-36.204-.001z">
                                 </path>
-                            </svg><!-- <i class="fas fa-check text-primary"></i> -->
+                            </svg>
                         </td>
                         <td class="pricing-2-data mobile-is-hidden"><svg
                                 class="svg-inline--fa fa-check fa-w-16 text-primary" aria-hidden="true"
@@ -129,7 +131,7 @@
                                 <path fill="currentColor"
                                     d="M173.898 439.404l-166.4-166.4c-9.997-9.997-9.997-26.206 0-36.204l36.203-36.204c9.997-9.998 26.207-9.998 36.204 0L192 312.69 432.095 72.596c9.997-9.997 26.207-9.997 36.204 0l36.203 36.204c9.997 9.997 9.997 26.206 0 36.204l-294.4 294.401c-9.998 9.997-26.207 9.997-36.204-.001z">
                                 </path>
-                            </svg><!-- <i class="fas fa-check text-primary"></i> -->
+                            </svg>
                         </td>
                         <td class="pricing-3-data mobile-is-hidden"><svg
                                 class="svg-inline--fa fa-check fa-w-16 text-primary" aria-hidden="true"
@@ -138,7 +140,7 @@
                                 <path fill="currentColor"
                                     d="M173.898 439.404l-166.4-166.4c-9.997-9.997-9.997-26.206 0-36.204l36.203-36.204c9.997-9.998 26.207-9.998 36.204 0L192 312.69 432.095 72.596c9.997-9.997 26.207-9.997 36.204 0l36.203 36.204c9.997 9.997 9.997 26.206 0 36.204l-294.4 294.401c-9.998 9.997-26.207 9.997-36.204-.001z">
                                 </path>
-                            </svg><!-- <i class="fas fa-check text-primary"></i> -->
+                            </svg>
                         </td>
                     </tr>
                     <tr class="pricing-feature-row">
@@ -151,7 +153,7 @@
                                 <path fill="currentColor"
                                     d="M173.898 439.404l-166.4-166.4c-9.997-9.997-9.997-26.206 0-36.204l36.203-36.204c9.997-9.998 26.207-9.998 36.204 0L192 312.69 432.095 72.596c9.997-9.997 26.207-9.997 36.204 0l36.203 36.204c9.997 9.997 9.997 26.206 0 36.204l-294.4 294.401c-9.998 9.997-26.207 9.997-36.204-.001z">
                                 </path>
-                            </svg><!-- <i class="fas fa-check text-primary"></i> -->
+                            </svg>
                         </td>
                         <td class="pricing-3-data mobile-is-hidden"><svg
                                 class="svg-inline--fa fa-check fa-w-16 text-primary" aria-hidden="true"
@@ -160,7 +162,7 @@
                                 <path fill="currentColor"
                                     d="M173.898 439.404l-166.4-166.4c-9.997-9.997-9.997-26.206 0-36.204l36.203-36.204c9.997-9.998 26.207-9.998 36.204 0L192 312.69 432.095 72.596c9.997-9.997 26.207-9.997 36.204 0l36.203 36.204c9.997 9.997 9.997 26.206 0 36.204l-294.4 294.401c-9.998 9.997-26.207 9.997-36.204-.001z">
                                 </path>
-                            </svg><!-- <i class="fas fa-check text-primary"></i> -->
+                            </svg>
                         </td>
                     </tr>
                     <tr class="pricing-feature-row">
@@ -175,7 +177,7 @@
                                 <path fill="currentColor"
                                     d="M173.898 439.404l-166.4-166.4c-9.997-9.997-9.997-26.206 0-36.204l36.203-36.204c9.997-9.998 26.207-9.998 36.204 0L192 312.69 432.095 72.596c9.997-9.997 26.207-9.997 36.204 0l36.203 36.204c9.997 9.997 9.997 26.206 0 36.204l-294.4 294.401c-9.998 9.997-26.207 9.997-36.204-.001z">
                                 </path>
-                            </svg><!-- <i class="fas fa-check text-primary"></i> -->
+                            </svg>
                         </td>
                     </tr>
                     <tr class="pricing-feature-row">
@@ -189,7 +191,7 @@
                                 <path fill="currentColor"
                                     d="M173.898 439.404l-166.4-166.4c-9.997-9.997-9.997-26.206 0-36.204l36.203-36.204c9.997-9.998 26.207-9.998 36.204 0L192 312.69 432.095 72.596c9.997-9.997 26.207-9.997 36.204 0l36.203 36.204c9.997 9.997 9.997 26.206 0 36.204l-294.4 294.401c-9.998 9.997-26.207 9.997-36.204-.001z">
                                 </path>
-                            </svg><!-- <i class="fas fa-check text-primary"></i> -->
+                            </svg>
                         </td>
                     </tr>
                     <tr class="pricing-feature-row">
@@ -215,7 +217,7 @@
                         </td>
                     </tr>
                 </tfoot>
-            </table>
+            </table> -->
             <!--//pricing-table-->
         </div>
         <!--//container-->

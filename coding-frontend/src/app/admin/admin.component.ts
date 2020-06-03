@@ -102,10 +102,10 @@ export class AdminComponent implements OnInit {
       link: '/admin/messages'
     },
     {
-      title: 'Services and Pricing',
-      icon: 'shopping-cart-outline',
+      title: 'Reviews',
+      icon: 'file-text-outline',
       expanded: false,
-      link: '/admin/services-and-pricing'
+      link: '/admin/reviews'
     }
 
   ];

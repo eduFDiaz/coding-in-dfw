@@ -34,12 +34,21 @@ import { CommonModule } from '@angular/common';
 import { AlertService } from '../_services/alert.service';
 import { FaqsComponent } from './faqs/faqs.component';
 import { MessagesComponent } from './messages/messages.component';
-import { PricingComponent } from './pricing/pricing.component';
+import { ReviewsComponent } from './reviews/reviews.component';
+
 
 
 @NgModule({
   providers: [NbSidebarService, NbMenuService, AlertService],
-  declarations: [AdminComponent, LoginComponent, ProfileComponent, ResumeAdminComponent, PhotoaddComponent, FaqsComponent, MessagesComponent, PricingComponent],
+  declarations: [AdminComponent,
+    LoginComponent,
+    ProfileComponent,
+    ResumeAdminComponent,
+    PhotoaddComponent,
+    FaqsComponent,
+    MessagesComponent,
+    ReviewsComponent,
+    ],
   imports: [
     CommonModule,
     NbToastrModule.forRoot(),
