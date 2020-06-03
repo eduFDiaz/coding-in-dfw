@@ -15,13 +15,13 @@ import { AdminComponent } from './admin.component';
 import { RouterModule } from '@angular/router';
 import { AdminRoutes } from './admin.routing';
 import { HeaderModule } from './header/header.module';
+import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
 
 import { NbEvaIconsModule } from '@nebular/eva-icons';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { AuthService } from '../_services/auth.service';
 import { UserService } from '../_services/user.service';
-import { PostService } from '../_services/post.service';
 import { ResumeService } from '../_services/resume.service';
 import { AuthGuardService } from '../_services/auth-guard.service';
 import { LoginComponent } from './login/login.component';
@@ -34,11 +34,12 @@ import { CommonModule } from '@angular/common';
 import { AlertService } from '../_services/alert.service';
 import { FaqsComponent } from './faqs/faqs.component';
 import { MessagesComponent } from './messages/messages.component';
+import { PricingComponent } from './pricing/pricing.component';
 
 
 @NgModule({
   providers: [NbSidebarService, NbMenuService, AlertService],
-  declarations: [AdminComponent, LoginComponent, ProfileComponent, ResumeAdminComponent, PhotoaddComponent, FaqsComponent, MessagesComponent],
+  declarations: [AdminComponent, LoginComponent, ProfileComponent, ResumeAdminComponent, PhotoaddComponent, FaqsComponent, MessagesComponent, PricingComponent],
   imports: [
     CommonModule,
     NbToastrModule.forRoot(),
@@ -61,6 +62,7 @@ import { MessagesComponent } from './messages/messages.component';
     NbCardModule,
     NbIconModule,
     NbAlertModule,
+    CKEditorModule,
     NbCheckboxModule,
     FormsModule,
     NbSpinnerModule,

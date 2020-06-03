@@ -23,11 +23,7 @@ export class AdminComponent implements OnInit {
   }
   ngOnInit() {
     // console.log(this.currentUser)
-
-
   }
-
-
 
   title = 'coding-admin';
 
@@ -47,22 +43,22 @@ export class AdminComponent implements OnInit {
         {
           title: 'Tags list',
           icon: 'layers',
-          url: '/admin/tag/list',
+          link: '/admin/tag/list',
 
         },
         {
           title: 'Post list',
-          url: '/admin/posts/list',
+          link: '/admin/posts/list',
           icon: 'list'
         },
         {
           title: 'Write new Post',
-          url: 'admin/posts/new',
+          link: 'admin/posts/new',
           icon: 'plus-outline'
         },
         {
           title: 'Comments',
-          url: '/admin/posts/managecomments',
+          link: '/admin/posts/managecomments',
           icon: 'heart-outline'
         }
 
@@ -77,12 +73,12 @@ export class AdminComponent implements OnInit {
         {
           title: 'Product list',
           icon: 'list',
-          url: '/admin/product/list'
+          link: '/admin/product/list'
         },
         {
           title: 'I have new product',
           icon: 'plus',
-          url: '/admin/product/new'
+          link: '/admin/product/new'
         }
       ]
     },
@@ -90,20 +86,26 @@ export class AdminComponent implements OnInit {
       title: 'Resume',
       icon: 'book-open-outline',
       expanded: false,
-      url: '/admin/resume'
+      link: '/admin/resume'
 
     },
     {
       title: 'FAQs',
       icon: 'question-mark-outline',
       expanded: false,
-      url: '/admin/faqs'
+      link: '/admin/faqs'
     },
     {
       title: 'Direct Messages',
       icon: 'message-square-outline',
       expanded: false,
-      url: '/admin/messages'
+      link: '/admin/messages'
+    },
+    {
+      title: 'Services and Pricing',
+      icon: 'shopping-cart-outline',
+      expanded: false,
+      link: '/admin/services-and-pricing'
     }
 
   ];

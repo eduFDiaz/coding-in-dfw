@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, HostListener, TemplateRef, AfterViewInit } from '@angular/core';
+import { Component, OnInit, ViewChild, TemplateRef } from '@angular/core';
 import { NbDialogService } from '@nebular/theme';
 
 import { UserService } from '../../_services/user.service'
@@ -9,6 +9,8 @@ import { NgForm } from '@angular/forms';
 import { PhotoaddComponent } from './photoadd/photoadd.component'
 import { User } from '../../_models/User';
 import { Router } from '@angular/router';
+
+import * as ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 
 @Component({
   selector: 'app-profile',
@@ -23,21 +25,12 @@ export class ProfileComponent implements OnInit {
   updateSpinner = false
   profileSpinner = false;
   userid: number
-  myuser: any
+  myuser: User
+  public Editor = ClassicEditor;
 
   @ViewChild('dialogRef', { static: true }) dialogRef: TemplateRef<any>;
 
   @ViewChild('editProfileForm', { static: false }) editProfileForm: NgForm;
-
-
-  // @HostListener("window:beforeunload", ["$event"])
-  // unloadNotification($event: any) {
-  //   if (this.editProfileForm.dirty) {
-  //     $event.returnValue = true;
-  //   }
-  // }
-
-
 
 
   gotToChangePhoto() {
@@ -45,12 +38,7 @@ export class ProfileComponent implements OnInit {
 
   }
 
-
   constructor(private route: Router, private user: UserService, private auth: AuthService, private alert: AlertService, private dialogService: NbDialogService) { }
-
-  // open(dialog: TemplateRef<any>) {
-  //   this.dialogService.open(dialog, { context: 'this is some additional data passed to dialog' });
-  // }
 
   open() {
     this.dialogService.open(PhotoaddComponent, { context: 'this is some additional data passed to dialog' });
@@ -74,7 +62,8 @@ export class ProfileComponent implements OnInit {
     })
   }
 
-  updateProfile(userdata: any) {
+  updateProfile(userdata: User) {
+    console.log(userdata)
     this.updateSpinner = true;
     this.user.updateUser(this.user.getCurrentUserId(), userdata).subscribe(
       (value: User) => {

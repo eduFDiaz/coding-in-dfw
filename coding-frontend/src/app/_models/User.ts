@@ -21,5 +21,7 @@ export interface User {
     stackOverflowProfile: string,
     redditProfile: string
     codepenProfile: string,
-    customUserTitle: string
+    customUserTitle: string,
+    serviceAndPricingTable: string
+
 }

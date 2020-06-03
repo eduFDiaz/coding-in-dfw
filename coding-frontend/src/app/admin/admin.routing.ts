@@ -17,6 +17,7 @@ import { AddphotopostComponent } from './post/addpost/addphotopost/addphotopost.
 import { ProductEditComponent } from './products/product-list/product-edit/product-edit.component';
 import { EditPostComponent } from './post/postlist/edit-post/edit-post.component'
 import { MessagesComponent } from './messages/messages.component'
+import { PricingComponent } from './pricing/pricing.component';
 
 
 
@@ -32,7 +33,7 @@ const routes: Routes = [
       { path: 'posts/new', component: AddpostComponent },
       { path: 'posts/new/photo', component: AddphotopostComponent },
       { path: 'posts/managecomments', component: CommentsComponent },
-      { path: 'posts/edit', component: EditPostComponent},
+      { path: 'posts/edit', component: EditPostComponent },
       { path: 'product/list', component: ProductListComponent },
       { path: 'product/edit', component: ProductEditComponent },
       { path: 'tag/list', component: TaglistComponent },
@@ -40,7 +41,8 @@ const routes: Routes = [
       { path: 'product/new/photo', component: ProductphotoComponent },
       { path: 'login', component: LoginComponent, pathMatch: 'full' },
       { path: 'faqs', component: FaqsComponent },
-      { path: 'messages', component: MessagesComponent}
+      { path: 'messages', component: MessagesComponent },
+      { path: 'services-and-pricing', component: PricingComponent }
     ]
   }
 

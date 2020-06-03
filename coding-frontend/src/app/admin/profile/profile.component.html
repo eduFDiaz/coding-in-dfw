@@ -5,8 +5,15 @@
         <button nbButton size="tiny" (click)="gotToChangePhoto()">New profile pic</button>
       </nb-card-header>
       <nb-card-body>
-        <form id="editProfileForm" #editProfileForm="ngForm" *ngIf="myuser"
-          (submit)="updateProfile(editProfileForm.value)">
+        <form id="editProfileForm" #editProfileForm="ngForm" *ngIf="myuser">
+          <div class="row">
+            <div class="col-md-12">
+              <label for="body" class="label">Services and Pricing table:</label>
+              <ckeditor [editor]="Editor" #body name="serviceAndPricingTable"
+                [(ngModel)]="myuser.serviceAndPricingTable" data="{{myuser.serviceAndPricingTable}}">
+              </ckeditor>
+            </div>
+          </div>
           <div class="row">
             <div class="col-sm-6">
               <div class="form-group">
@@ -38,6 +45,8 @@
                   placeholder="Website">
               </div>
             </div>
+          </div>
+          <div class="row">
             <div class="col-sm-6">
               <div class="form-group">
                 <label for="inputWebsite" class="label">Short Resume</label>
@@ -52,6 +61,8 @@
                   placeholder="Full Resume"></textarea>
               </div>
             </div>
+          </div>
+          <div class="row">
             <div class="col-sm-6">
               <div class="form-group">
                 <label for="inputWebsite" class="label">Phone Number</label>
@@ -59,8 +70,6 @@
                   placeholder="Phone number">
               </div>
             </div>
-          </div>
-          <div class="row">
             <div class="col-sm-6">
               <div class="form-group">
                 <label for="inputWebsite" class="label">GitHub Profile</label>
@@ -68,6 +77,8 @@
                   placeholder="GitHub Url">
               </div>
             </div>
+          </div>
+          <div class="row">
             <div class="col-sm-6">
               <div class="form-group">
                 <label for="inputWebsite" class="label">Stack Overflow Profile</label>
@@ -82,6 +93,8 @@
                   id="inputWebsite" placeholder="Facebook Profile">
               </div>
             </div>
+          </div>
+          <div class="row">
             <div class="col-sm-6">
               <div class="form-group">
                 <label for="inputWebsite" class="label">Twitter Profile</label>
@@ -96,6 +109,8 @@
                   id="inputWebsite" placeholder="Linkedin profile">
               </div>
             </div>
+          </div>
+          <div class="row">
             <div class="col-sm-6">
               <div class="form-group">
                 <label for="inputWebsite" class="label">Reddit Profile</label>
@@ -110,15 +125,21 @@
                   id="inputWebsite" placeholder="Codepen profile">
               </div>
             </div>
-            <div>
-              <button [disabled]="!editProfileForm.dirty" [nbSpinner]="updateSpinner" nbSpinnerStatus="info"
-                nbSpinnerSize="small" type="submit" nbButton>Update
+          </div>
+          <div class="row">
+            <div class="col-md-6">
+              <button (click)="updateProfile(editProfileForm.value)" [disabled]="!editProfileForm.dirty"
+                [nbSpinner]="updateSpinner" nbSpinnerStatus="info" nbSpinnerSize="small" type="button" nbButton>Update
                 Profile</button>
+            </div>
+            <div class="col-md-6">
+              <label for="inputWebsite" class="label">Custom User Title</label>
+              <input name="customUserTitle" [(ngModel)]="myuser.customUserTitle" type="text" nbInput fullWidth
+                id="inputWebsite" placeholder="Codepen profile">
             </div>
           </div>
         </form>
       </nb-card-body>
-
     </nb-card>
   </div>
 </div>

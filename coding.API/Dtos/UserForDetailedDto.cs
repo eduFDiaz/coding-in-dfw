@@ -26,5 +26,7 @@ namespace coding.API.Dtos
 
         public string Username { get; set; }
 
+        public string ServiceAndPricingTable { get; set; }
+
     }
 }

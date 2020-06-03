@@ -1,0 +1,26 @@
+<div class="row">
+    <div class="col-md-12">
+        <nb-card [nbSpinner]="profileSpinner" nbSpinnerStatus="primary">
+            <nb-card-header>Edit your services and pricing board
+                <!-- <button nbButton size="tiny">New profile pic</button> -->
+            </nb-card-header>
+            <nb-card-body>
+                <form id="editProfileForm" #servicesAndPricingBoard="ngForm"
+                    (submit)="updateServicesAndPricing(editProfileForm.value)">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <ckeditor [editor]="Editor" #body name="body"
+                                data="<p>Design your services and pricing table here :D</p>">
+                            </ckeditor>
+                        </div>
+                    </div>
+                </form>
+            </nb-card-body>
+            <nb-card-footer>
+                <button [nbSpinner]="updateSpinner" nbSpinnerStatus="info" nbSpinnerSize="small" type="submit"
+                    nbButton>Update Board</button>
+            </nb-card-footer>
+
+        </nb-card>
+    </div>
+</div>

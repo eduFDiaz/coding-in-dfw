@@ -27,4 +27,8 @@ export class FaqServiceService {
     return this.http.delete(environment.apiUrl + '/faq/' + id + '/delete')
   }
 
+  getPricing(userid: string) {
+    return this.http.get(environment.apiUrl + '/service/foruser' + userid)
+  }
+
 }

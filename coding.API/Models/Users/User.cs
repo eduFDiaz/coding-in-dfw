@@ -33,6 +33,6 @@ namespace coding.API.Models.Users
         public string StackOverflowProfile { get; set; }
         public string RedditProfile { get; set; }
         public string CodepenProfile { get; set; }
-
+        public string ServiceAndPricingTable { get; set; }
     }
 }
