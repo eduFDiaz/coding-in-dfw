@@ -1,8 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
 
-import { map, catchError } from 'rxjs/operators';
 import { UserService } from './user.service';
 
 import { environment } from 'src/environments/environment';
@@ -26,6 +24,10 @@ export class ReviewService {
   newReview() {
     return this.http.post(environment.apiUrl + '/review/create',
      this.myheader  )
+  }
+
+  deleteReview(id: string) {
+    return this.http.delete(environment.apiUrl + '/review/' + id + '/delete')
   }
 
 

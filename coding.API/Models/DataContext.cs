@@ -21,7 +21,6 @@ using coding.API.Models.Messages;
 using coding.API.Models.FAQS;
 using System;
 using coding.API.Models.Reviews;
-using coding.API.Models.Services;
 
 namespace coding.API.Models
 {
@@ -52,7 +51,7 @@ namespace coding.API.Models
         public DbSet<ProductPhoto> ProductPhotos { get; set; }
         public DbSet<PostPhoto> PostPhotos { get; set; }
         public DbSet<Review> Reviews { get; set; }
-        public DbSet<Service> Services { get; set; }
+
 
 
 

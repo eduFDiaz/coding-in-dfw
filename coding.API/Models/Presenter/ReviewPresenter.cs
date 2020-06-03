@@ -36,6 +36,9 @@ namespace coding.API.Models.Presenter
         [JsonProperty("body")]
         public string Body => _review.Body;
 
+        [JsonProperty("status")]
+        public string Status => _review.Status;
+
 
 
 

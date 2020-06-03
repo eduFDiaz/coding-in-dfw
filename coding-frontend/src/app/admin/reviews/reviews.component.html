@@ -50,14 +50,13 @@
                         <!--  <button nbButton status="success" (click)="createDialogGeneric(addGeneric, newlang, 'language')"
                             size="tiny">+</button> -->
                         <nb-list>
-                            <nb-list-item *ngFor="let message of messages">
+                            <nb-list-item *ngFor="let review of reviews">
                                 <div class="col-md-4">
-                                    {{ message.name }}</div>
-                                <div class="col-md-4">{{ message.text }}</div>
+                                    {{ review.url }}</div>
 
                                 <div class="row ">
                                     <div class="col-md-1">
-                                        <button (click)="openDeleteDialog(dialogDelete, message.id)" nbButton
+                                        <button (click)="deleteReview(review.id)" nbButton
                                             status="danger" size="tiny">
                                             <nb-icon icon="trash"></nb-icon>
                                         </button>

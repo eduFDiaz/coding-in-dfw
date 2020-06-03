@@ -33,6 +33,15 @@ export class ReviewsComponent implements OnInit {
     console.log(this.reviews)
   }
 
+  deleteReview(id: string) {
+    this.reviewService.deleteReview(id).subscribe((result) => {
+      this.reviews = this.reviews.filter((item: Review) => item.id !== id)
+    })
+  }
+
+
+
+
 
 
 }

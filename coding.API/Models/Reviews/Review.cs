@@ -9,5 +9,6 @@ namespace coding.API.Models.Reviews
         public string Company { get; set; }
         public string Body { get; set; }
         public Guid UserId { get; set; }
+        public string Status { get; set; }
     }
 }

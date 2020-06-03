@@ -36,7 +36,7 @@ namespace coding.API.Controllers
 
         // [Authorize]
         [HttpPost("create")]
-        public async Task<IActionResult> Create()
+        public async Task<IActionResult> Create(Guid userid)
         {
             var reviewToCreate = new Review();
 
@@ -44,6 +44,8 @@ namespace coding.API.Controllers
             reviewToCreate.Email = "";
             reviewToCreate.Body = "";
             reviewToCreate.Company = "";
+            reviewToCreate.UserId = userid;
+            reviewToCreate.Status = "draft";
 
             var createdReview = await _reviewDal.Add(reviewToCreate);
 
@@ -79,6 +81,7 @@ namespace coding.API.Controllers
             reviewToUpdate.Name = request.Name;
             reviewToUpdate.Email = request.Email;
             reviewToUpdate.Company = request.Company;
+            reviewToUpdate.Status = "created";
 
             if (await _reviewDal.Update(reviewToUpdate))
                 return Ok(new ReviewPresenter(reviewToUpdate));
@@ -88,12 +91,40 @@ namespace coding.API.Controllers
         }
 
         [HttpGet("foruser/{userid}", Name = "Return all reviews for given user")]
-        public async Task<ActionResult> GetAllMessages(Guid userid)
+        public async Task<IActionResult> GetAllMessages(Guid userid)
         {
             var reviews = (await _reviewDal.ListAsync()).Where(rw => rw.UserId == userid)
             .ToList();
 
             return Ok(reviews);
+        }
+
+        [HttpGet("{userid}/status/{status}")]
+        public async Task<IActionResult> GetByStatus(Guid userid, string status)
+        {
+          List<ReviewPresenter> presentedReviews = new List<ReviewPresenter>();
+
+          var reviews = (await _reviewDal.ListAsync()).Where(rw => rw.UserId ==
+           userid && rw.Status == status).ToList();
+
+           foreach (var review in reviews) {
+             presentedReviews.Add(new ReviewPresenter(review));
+           }
+
+           return Ok(presentedReviews);
+        }
+
+        [HttpPut("publish/{reviewid}")]
+        public async Task<IActionResult> PublishReview(Guid reviewid)
+        {
+          var toPublish = (await _reviewDal.GetById(reviewid));
+
+          toPublish.Status = "published";
+
+          if (await _reviewDal.Update(toPublish))
+              return NoContent();
+
+          return BadRequest("Cant publish the review");
         }
 
 

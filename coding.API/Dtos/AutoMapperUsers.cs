@@ -23,8 +23,6 @@ using coding.API.Models.Products.ProductsRequirements;
 using coding.API.Dtos.Posts;
 using coding.API.Models.Messages;
 using coding.API.Models.FAQS;
-using coding.API.Dtos.Services;
-using coding.API.Models.Services;
 using coding.API.Models.Reviews;
 using coding.API.Dtos.Reviews;
 
@@ -139,10 +137,6 @@ namespace coding.API.Dtos
             CreateMap<CreateCommentDto, Comment>();
             CreateMap<Comment, CommentForDetailDto>();
             CreateMap<Comment, CommentClearForDetailDto>();
-
-            // Service Mappings
-
-            CreateMap<CreateServiceDto, Service>();
 
             // Reviews Mappings
             CreateMap<CreateReviewDto, Review>();
