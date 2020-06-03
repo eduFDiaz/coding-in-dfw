@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, TemplateRef } from '@angular/core';
+import { NbDialogService  } from "@nebular/theme";
 
 @Component({
   selector: 'app-reviews',
@@ -7,9 +8,15 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ReviewsComponent implements OnInit {
 
-  constructor() { }
+
+
+  constructor(private dialogService: NbDialogService ) { }
 
   ngOnInit() {
+  }
+
+  new() {
+    
   }
 
 }
