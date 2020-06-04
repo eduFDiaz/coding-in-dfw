@@ -25,6 +25,7 @@ export class ReviewsComponent implements OnInit {
   }
 
   new(data: any) {
+    console.log(data)
     data.userid = this.userService.getCurrentUserId();
     this.reviewService.newDraftReview(data)
     .subscribe((review: Review) => {

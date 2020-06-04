@@ -43,7 +43,7 @@ namespace coding.API.Controllers
             reviewToCreate.Name = "";
             reviewToCreate.Email = request.Email;
             reviewToCreate.Body = "";
-            reviewToCreate.Company = "";
+            reviewToCreate.Company = request.Company;
             reviewToCreate.UserId = request.UserId;
             reviewToCreate.Status = "draft";
 
