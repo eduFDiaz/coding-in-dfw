@@ -17,7 +17,6 @@ namespace coding.API.Models.Presenter
         public ReviewPresenter(Review review)
         {
             _review = review;
-
         }
 
         [JsonProperty("id")]
@@ -39,9 +38,8 @@ namespace coding.API.Models.Presenter
         [JsonProperty("status")]
         public string Status => _review.Status;
 
-
-
-
+        [JsonProperty("url")]
+        public string Url => _review.Url;
 
     }
 }

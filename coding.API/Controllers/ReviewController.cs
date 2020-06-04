@@ -23,6 +23,8 @@ namespace coding.API.Controllers
         private readonly IConfiguration _config;
         private readonly IMapper _mapper;
 
+        private string Url = new string("http://localhost:4200/pages/review/referal?id=");
+
         private readonly Repository<Review> _reviewDal;
 
         public ReviewController(
@@ -36,12 +38,12 @@ namespace coding.API.Controllers
 
         // [Authorize]
         [HttpPost("create")]
-        public async Task<IActionResult> Create(Guid userid)
+        public async Task<IActionResult> Create(Guid userid, string email)
         {
             var reviewToCreate = new Review();
 
             reviewToCreate.Name = "";
-            reviewToCreate.Email = "";
+            reviewToCreate.Email = email;
             reviewToCreate.Body = "";
             reviewToCreate.Company = "";
             reviewToCreate.UserId = userid;
@@ -49,7 +51,12 @@ namespace coding.API.Controllers
 
             var createdReview = await _reviewDal.Add(reviewToCreate);
 
-            return Ok(new ReviewPresenter(createdReview));
+            createdReview.Url = Url + reviewToCreate.Id;
+
+            if (await _reviewDal.SaveAll())
+              return Ok(new ReviewPresenter(createdReview));
+
+            return BadRequest("Cant create the review");
 
         }
 

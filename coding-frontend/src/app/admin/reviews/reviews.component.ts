@@ -1,5 +1,5 @@
-import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
-// import { NbDialogService  } from "@nebular/theme";
+import { Component, OnInit, TemplateRef  } from '@angular/core';
+import { NbDialogService  } from "@nebular/theme";
 import { ReviewService } from "../../_services/review.service";
 // import { UserService } from "../../_services/user.service";
 import {  Review } from "../../_models/Review";
@@ -11,20 +11,20 @@ import {  Review } from "../../_models/Review";
 })
 export class ReviewsComponent implements OnInit {
 
-  @ViewChild('dialogAdd',{ static: true }) dialogAdd: TemplateRef<any>
+  // @ViewChild('dialogAdd',{ static: true }) dialogAdd: TemplateRef<any>
 
   reviews: Review[] = []
 
   constructor(
     // private userService: UserService,
-    // private dialogService: NbDialogService,
+    private dialogService: NbDialogService,
     private reviewService: ReviewService ) { }
 
   ngOnInit() {
 
   }
 
-  new() {
+  new(email: string) {
     this.reviewService.newReview()
     .subscribe((review: Review) => {
       review.url = "http://localhost:4200/pages/review/referal?id="+review.id
@@ -33,15 +33,14 @@ export class ReviewsComponent implements OnInit {
     console.log(this.reviews)
   }
 
+  openNewDialog(dialog: TemplateRef<any>) {
+    this.dialogService.open(dialog)
+  }
+
   deleteReview(id: string) {
     this.reviewService.deleteReview(id).subscribe((result) => {
       this.reviews = this.reviews.filter((item: Review) => item.id !== id)
     })
   }
-
-
-
-
-
 
 }

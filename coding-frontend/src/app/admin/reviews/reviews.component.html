@@ -16,13 +16,14 @@
     <nb-card status="success">
         <nb-card-header>Add new review Invitation</nb-card-header>
         <nb-card-body>
-          <form # action="index.html" method="post">
-
+          <form #recipientEmailForm="ngForm" action="index.html" method="post">
+            <label class="label" for="email">Email:</label><br>
+            <input nbInput type="text" name="email" status="success" >
           </form>
-
         </nb-card-body>
         <nb-card-footer>
-            <button nbButton (click)="ref.close()" status="success">Save</button>
+            <button nbButton (click)="ref.close()" status="success">Send!
+            </button>
         </nb-card-footer>
     </nb-card>
 </ng-template>
@@ -36,7 +37,7 @@
                 <div class="row">
                     <div class="col-md-6">
                         Reviews from clients:
-                        <button (click)="new()" nbButton status="success"
+                        <button (click)="openNewDialog(dialogAdd)" nbButton status="success"
                             size="tiny">
                             <nb-icon icon="plus-outline"></nb-icon>
                         </button>
