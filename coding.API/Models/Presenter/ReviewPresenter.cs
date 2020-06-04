@@ -28,7 +28,6 @@ namespace coding.API.Models.Presenter
         [JsonProperty("name")]
         public string Name => _review.Name;
 
-
         [JsonProperty("email")]
         public string Email => _review.Email;
 

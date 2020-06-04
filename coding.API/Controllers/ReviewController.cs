@@ -84,7 +84,6 @@ namespace coding.API.Controllers
 
             reviewToUpdate.Body = request.Body;
             reviewToUpdate.Name = request.Name;
-            reviewToUpdate.Email = request.Email;
             reviewToUpdate.Company = request.Company;
             reviewToUpdate.Status = "created";
 

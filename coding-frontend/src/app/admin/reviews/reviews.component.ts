@@ -26,7 +26,7 @@ export class ReviewsComponent implements OnInit {
 
   new(data: any) {
     data.userid = this.userService.getCurrentUserId();
-    this.reviewService.newReview(data)
+    this.reviewService.newDraftReview(data)
     .subscribe((review: Review) => {
       this.reviews.push(review)
     })
@@ -38,7 +38,7 @@ export class ReviewsComponent implements OnInit {
   }
 
   deleteReview(id: string) {
-    this.reviewService.deleteReview(id).subscribe((result) => {
+    this.reviewService.deleteReview(id).subscribe(() => {
       this.reviews = this.reviews.filter((item: Review) => item.id !== id)
     })
   }
