@@ -56,14 +56,14 @@ namespace coding.API.Controllers
             SmtpClient smtpClient = new SmtpClient("smtp.gmail.com", 587);
 
 
-            smtpClient.Credentials = new System.Net.NetworkCredential("dcruzbv1990@gmail.com", "Oflasgp21!9008");
+            smtpClient.Credentials = new System.Net.NetworkCredential("insertemailaccount", "password");
             // smtpClient.UseDefaultCredentials = true; // uncomment if you don't want to use the network credentials
             smtpClient.DeliveryMethod = SmtpDeliveryMethod.Network;
             smtpClient.EnableSsl = true;
             MailMessage mail = new MailMessage();
 
-            string msg = "Hello, please write a review in this url: " + 
-           "<a href='"+createdReview.Url+"'>" + createdReview.Url + "</a>" + 
+            string msg = "Hello, please write a review in this url: " +
+           "<a href='"+createdReview.Url+"'>" + createdReview.Url + "</a>" +
             " please don't share this url with anyone since this could be used to modify your review of our services.";
             //Setting From , Body,  To and CC
             mail.From = new MailAddress("codingindfw@gmail.com", "Coding in DFW");
@@ -80,7 +80,7 @@ namespace coding.API.Controllers
               return BadRequest(exc);
 
             }
-            
+
             if (await _reviewDal.SaveAll())
                 return Ok(new ReviewPresenter(createdReview));
 
