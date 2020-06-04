@@ -19,10 +19,10 @@ export class ReviewService {
     }
   }
 
-  constructor(private http: HttpClient, private user: UserService) { }
+  constructor(private http: HttpClient) { }
 
-  newReview() {
-    return this.http.post(environment.apiUrl + '/review/create',
+  newReview(data: any) {
+    return this.http.post(environment.apiUrl + '/review/create', data,
      this.myheader  )
   }
 

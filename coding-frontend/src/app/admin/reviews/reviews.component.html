@@ -16,13 +16,13 @@
     <nb-card status="success">
         <nb-card-header>Add new review Invitation</nb-card-header>
         <nb-card-body>
-          <form #recipientEmailForm="ngForm" action="index.html" method="post">
+          <form #recipientEmailForm="ngForm" name="recipientEmailForm">
             <label class="label" for="email">Email:</label><br>
-            <input nbInput type="text" name="email" status="success" >
+            <input [(ngModel)]="email" nbInput type="text" name="email" status="success" >
           </form>
         </nb-card-body>
         <nb-card-footer>
-            <button nbButton (click)="ref.close()" status="success">Send!
+            <button nbButton (click)="ref.close(); new(recipientEmailForm.value)" status="success">Send!
             </button>
         </nb-card-footer>
     </nb-card>

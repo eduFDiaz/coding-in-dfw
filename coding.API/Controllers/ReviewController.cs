@@ -22,9 +22,7 @@ namespace coding.API.Controllers
     {
         private readonly IConfiguration _config;
         private readonly IMapper _mapper;
-
         private string Url = new string("http://localhost:4200/pages/review/referal?id=");
-
         private readonly Repository<Review> _reviewDal;
 
         public ReviewController(
@@ -38,15 +36,15 @@ namespace coding.API.Controllers
 
         // [Authorize]
         [HttpPost("create")]
-        public async Task<IActionResult> Create(Guid userid, string email)
+        public async Task<IActionResult> Create([FromBody] DraftReviewDto request)
         {
             var reviewToCreate = new Review();
 
             reviewToCreate.Name = "";
-            reviewToCreate.Email = email;
+            reviewToCreate.Email = request.Email;
             reviewToCreate.Body = "";
             reviewToCreate.Company = "";
-            reviewToCreate.UserId = userid;
+            reviewToCreate.UserId = request.UserId;
             reviewToCreate.Status = "draft";
 
             var createdReview = await _reviewDal.Add(reviewToCreate);

@@ -1,7 +1,7 @@
 import { Component, OnInit, TemplateRef  } from '@angular/core';
 import { NbDialogService  } from "@nebular/theme";
 import { ReviewService } from "../../_services/review.service";
-// import { UserService } from "../../_services/user.service";
+import { UserService } from "../../_services/user.service";
 import {  Review } from "../../_models/Review";
 
 @Component({
@@ -16,7 +16,7 @@ export class ReviewsComponent implements OnInit {
   reviews: Review[] = []
 
   constructor(
-    // private userService: UserService,
+    private userService: UserService,
     private dialogService: NbDialogService,
     private reviewService: ReviewService ) { }
 
@@ -24,10 +24,10 @@ export class ReviewsComponent implements OnInit {
 
   }
 
-  new(email: string) {
-    this.reviewService.newReview()
+  new(data: any) {
+    data.userid = this.userService.getCurrentUserId();
+    this.reviewService.newReview(data)
     .subscribe((review: Review) => {
-      review.url = "http://localhost:4200/pages/review/referal?id="+review.id
       this.reviews.push(review)
     })
     console.log(this.reviews)
