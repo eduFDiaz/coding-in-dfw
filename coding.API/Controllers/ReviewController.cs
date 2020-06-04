@@ -53,17 +53,17 @@ namespace coding.API.Controllers
             createdReview.Url = url + reviewToCreate.Id;
 
             // logic to send email
-            SmtpClient smtpClient = new SmtpClient("localhost", 25);
+            SmtpClient smtpClient = new SmtpClient("smtp.gmail.com", 587);
 
 
-            //smtpClient.Credentials = new System.Net.NetworkCredential("info@MyWebsiteDomainName.com", "myIDPassword");
+            smtpClient.Credentials = new System.Net.NetworkCredential("dcruzbv1990@gmail.com", "Oflasgp21!9008");
             // smtpClient.UseDefaultCredentials = true; // uncomment if you don't want to use the network credentials
             smtpClient.DeliveryMethod = SmtpDeliveryMethod.Network;
-            //smtpClient.EnableSsl = true;
+            smtpClient.EnableSsl = true;
             MailMessage mail = new MailMessage();
 
             string msg = "Hello, please write a review in this url: " + 
-           "<a>" + createdReview.Url + "</a>" + 
+           "<a href='"+createdReview.Url+"'>" + createdReview.Url + "</a>" + 
             " please don't share this url with anyone since this could be used to modify your review of our services.";
             //Setting From , Body,  To and CC
             mail.From = new MailAddress("codingindfw@gmail.com", "Coding in DFW");
@@ -71,8 +71,16 @@ namespace coding.API.Controllers
             mail.Body = msg;
             mail.Subject = "Review Invitation from Coding in DFW";
             mail.IsBodyHtml = true;
-            smtpClient.Send(mail);
 
+            try {
+                smtpClient.Send(mail);
+            }
+            catch (Exception ex) {
+              Exception  exc = ex;
+              return BadRequest(exc);
+
+            }
+            
             if (await _reviewDal.SaveAll())
                 return Ok(new ReviewPresenter(createdReview));
 
