@@ -6,13 +6,14 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using System.Linq;
 
-using System;
+using System.Net.Mail;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using coding.API.Models.Messages;
 using coding.API.Dtos;
 using coding.API.Models.Reviews;
 using coding.API.Dtos.Reviews;
+using System;
 
 namespace coding.API.Controllers
 {
@@ -22,7 +23,7 @@ namespace coding.API.Controllers
     {
         private readonly IConfiguration _config;
         private readonly IMapper _mapper;
-        private string Url = new string("http://localhost:4200/pages/review/referal?id=");
+        private string url = "http://localhost:4200/pages/review/referal?id=";
         private readonly Repository<Review> _reviewDal;
 
         public ReviewController(
@@ -38,7 +39,7 @@ namespace coding.API.Controllers
         [HttpPost("create")]
         public async Task<IActionResult> Create([FromBody] DraftReviewDto request)
         {
-            var reviewToCreate = new Review();
+            Review reviewToCreate = new Review();
 
             reviewToCreate.Name = "";
             reviewToCreate.Email = request.Email;
@@ -47,12 +48,41 @@ namespace coding.API.Controllers
             reviewToCreate.UserId = request.UserId;
             reviewToCreate.Status = "draft";
 
-            var createdReview = await _reviewDal.Add(reviewToCreate);
+            Review createdReview = await _reviewDal.Add(reviewToCreate);
 
-            createdReview.Url = Url + reviewToCreate.Id;
+            createdReview.Url = url + reviewToCreate.Id;
 
+            // logic to send email
+            SmtpClient smtpClient = new SmtpClient("smtp.gmail.com", 587);
+
+
+            smtpClient.Credentials = new System.Net.NetworkCredential("dcruzbv1990@gmail.com", "Oflasgp21!9008");
+            // smtpClient.UseDefaultCredentials = true; // uncomment if you don't want to use the network credentials
+            smtpClient.DeliveryMethod = SmtpDeliveryMethod.Network;
+            smtpClient.EnableSsl = true;
+            MailMessage mail = new MailMessage();
+
+            string msg = "Hello, please write a review in this url: " + 
+           "<a href='"+createdReview.Url+"'>" + createdReview.Url + "</a>" + 
+            " please don't share this url with anyone since this could be used to modify your review of our services.";
+            //Setting From , Body,  To and CC
+            mail.From = new MailAddress("codingindfw@gmail.com", "Coding in DFW");
+            mail.To.Add(new MailAddress(createdReview.Email));
+            mail.Body = msg;
+            mail.Subject = "Review Invitation from Coding in DFW";
+            mail.IsBodyHtml = true;
+
+            try {
+                smtpClient.Send(mail);
+            }
+            catch (Exception ex) {
+              Exception  exc = ex;
+              return BadRequest(exc);
+
+            }
+            
             if (await _reviewDal.SaveAll())
-              return Ok(new ReviewPresenter(createdReview));
+                return Ok(new ReviewPresenter(createdReview));
 
             return BadRequest("Cant create the review");
 
@@ -106,29 +136,30 @@ namespace coding.API.Controllers
         [HttpGet("{userid}/status/{status}")]
         public async Task<IActionResult> GetByStatus(Guid userid, string status)
         {
-          List<ReviewPresenter> presentedReviews = new List<ReviewPresenter>();
+            List<ReviewPresenter> presentedReviews = new List<ReviewPresenter>();
 
-          var reviews = (await _reviewDal.ListAsync()).Where(rw => rw.UserId ==
-           userid && rw.Status == status).ToList();
+            var reviews = (await _reviewDal.ListAsync()).Where(rw => rw.UserId ==
+             userid && rw.Status == status).ToList();
 
-           foreach (var review in reviews) {
-             presentedReviews.Add(new ReviewPresenter(review));
-           }
+            foreach (var review in reviews)
+            {
+                presentedReviews.Add(new ReviewPresenter(review));
+            }
 
-           return Ok(presentedReviews);
+            return Ok(presentedReviews);
         }
 
         [HttpPut("publish/{reviewid}")]
         public async Task<IActionResult> PublishReview(Guid reviewid)
         {
-          var toPublish = (await _reviewDal.GetById(reviewid));
+            var toPublish = (await _reviewDal.GetById(reviewid));
 
-          toPublish.Status = "published";
+            toPublish.Status = "published";
 
-          if (await _reviewDal.Update(toPublish))
-              return NoContent();
+            if (await _reviewDal.Update(toPublish))
+                return NoContent();
 
-          return BadRequest("Cant publish the review");
+            return BadRequest("Cant publish the review");
         }
 
 
