@@ -14,6 +14,7 @@ using coding.API.Dtos;
 using coding.API.Models.Reviews;
 using coding.API.Dtos.Reviews;
 using System;
+using coding.API.Helpers;
 
 namespace coding.API.Controllers
 {
@@ -33,6 +34,7 @@ namespace coding.API.Controllers
             _reviewDal = reviewDal;
             _config = config;
             _mapper = mapper;
+
         }
 
         // [Authorize]
@@ -52,39 +54,29 @@ namespace coding.API.Controllers
 
             createdReview.Url = url + reviewToCreate.Id;
 
-            // logic to send email
-            SmtpClient smtpClient = new SmtpClient("smtp.gmail.com", 587);
+            //Now send the email
+            EmailConfigurationDev emailConfigurationDev = new EmailConfigurationDev();
+            //EmailConfigurationProd emailConfigurationProd = new EmailConfigurationProd();
+            MailSender mailSender = new MailSender(emailConfigurationDev);
+            string msg = $@"Hello, please write a review in this url: <a href='{createdReview.Url}'> {createdReview.Url} </a> please don't share this url with anyone since this could be used to modify your review of our services.";
+            MailTemplate template = new MailTemplate(createdReview.Email, msg);
 
+            try
+            {
 
-            smtpClient.Credentials = new System.Net.NetworkCredential("dcruzbv1990@gmail.com", "Oflasgp21!9008");
-            // smtpClient.UseDefaultCredentials = true; // uncomment if you don't want to use the network credentials
-            smtpClient.DeliveryMethod = SmtpDeliveryMethod.Network;
-            smtpClient.EnableSsl = true;
-            MailMessage mail = new MailMessage();
-
-            string msg = "Hello, please write a review in this url: " + 
-           "<a href='"+createdReview.Url+"'>" + createdReview.Url + "</a>" + 
-            " please don't share this url with anyone since this could be used to modify your review of our services.";
-            //Setting From , Body,  To and CC
-            mail.From = new MailAddress("codingindfw@gmail.com", "Coding in DFW");
-            mail.To.Add(new MailAddress(createdReview.Email));
-            mail.Body = msg;
-            mail.Subject = "Review Invitation from Coding in DFW";
-            mail.IsBodyHtml = true;
-
-            try {
-                smtpClient.Send(mail);
+                await mailSender.SendEmailAsync(template);
             }
-            catch (Exception ex) {
-              Exception  exc = ex;
-              return BadRequest(exc);
+            catch (Exception ex)
+            {
+                string exMsg = ex.Message;
+                return BadRequest(exMsg);
 
             }
-            
-            if (await _reviewDal.SaveAll())
+
+            if (await _reviewDal.Update(createdReview))
                 return Ok(new ReviewPresenter(createdReview));
 
-            return BadRequest("Cant create the review");
+            return BadRequest("Can't create the review");
 
         }
 
