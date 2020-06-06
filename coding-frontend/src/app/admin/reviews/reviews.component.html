@@ -18,7 +18,9 @@
         <nb-card-body>
           <form #recipientEmailForm="ngForm" name="recipientEmailForm">
             <label class="label" for="email">Email:</label><br>
-            <input [(ngModel)]="email" nbInput type="text" name="email" status="success" >
+            <input [(ngModel)]="email" nbInput type="text" name="email" status="success" ><br>
+            <label class="label" for="workat">Works at:</label><br>
+            <input [(ngModel)]="company" nbInput type="text" name="company" status="success" >
           </form>
         </nb-card-body>
         <nb-card-footer>
@@ -52,10 +54,9 @@
                             size="tiny">+</button> -->
                         <nb-list>
                             <nb-list-item *ngFor="let review of reviews">
-                                <div class="col-md-4">
-                                    {{ review.url }}</div>
+                                <a href="mailto:{{ review.email }}" >Recipient: {{ review.email }}</a>
 
-                                <div class="row ">
+                                <div class="row">
                                     <div class="col-md-1">
                                         <button (click)="deleteReview(review.id)" nbButton
                                             status="danger" size="tiny">

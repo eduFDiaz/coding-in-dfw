@@ -21,13 +21,17 @@ export class ReviewService {
 
   constructor(private http: HttpClient) { }
 
-  newReview(data: any) {
+  newDraftReview(data: any) {
     return this.http.post(environment.apiUrl + '/review/create', data,
      this.myheader  )
   }
 
   deleteReview(id: string) {
     return this.http.delete(environment.apiUrl + '/review/' + id + '/delete')
+  }
+
+  confirmReview(id: string, data: any) {
+      return this.http.put(environment.apiUrl + '/review/' + id + '/update',data, this.myheader )
   }
 
 

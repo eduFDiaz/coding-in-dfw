@@ -1,48 +1,34 @@
 <div class="main-wrapper" data-pg-id="494">
     <section class="cta-section theme-bg-light py-5" data-pg-id="495">
         <div class="container text-center single-col-max-width" data-pg-id="496">
-            <h2 class="heading" data-pg-id="497">Write a review for me ;)</h2>
-            <div class="intro" data-pg-id="498">
-                <p data-pg-id="499">You recive this url by email, please write a review that will be displayed on the blog frontpage</p>
-                <p data-pg-id="501">Please be nice :D</p>
+            <h2 class="heading" data-pg-id="497">Write a review of our services below:</h2>
+            <!-- <div class="intro" data-pg-id="498">
+                <p data-pg-id="499">You receive this url by email, please write a review that will be displayed on the blog frontpage</p>
+                <p data-pg-id="501">Please don't share this url with anyone since it could be used to modify your review of our services</p>
 
-            </div>
+            </div> -->
             <!--//container-->
         </div>
     </section>
     <section class="contact-section px-3 py-5 p-md-5" data-pg-id="524">
         <div class="container" data-pg-id="525">
-            <form #contactForm="ngForm" id="contact-form" class="contact-form col-lg-8 mx-lg-auto" data-pg-id="526" novalidate="novalidate" (submit)="newMessage(contactForm.value)">
-                <h3 class="text-center mb-3" data-pg-id="527">The review:</h3>
+            <form #contactForm="ngForm" id="contact-form" name ="contactForm" class="contact-form col-lg-8 mx-lg-auto" data-pg-id="526" novalidate="novalidate" >
                 <div class="form-row" data-pg-id="528">
-                    <div class="form-group col-md-6" data-pg-id="529">
+                    <div class="form-group col-md-12" data-pg-id="529">
                         <label class="sr-only" for="cname" data-pg-id="530">Name</label>
-                        <input required type="text" class="form-control" id="cname" name="name" placeholder="Name" minlength="2"
+                        <input [(ngModel)]="name" required type="text" class="form-control" id="cname" name="name" placeholder="Name" minlength="2"
                             required="" aria-required="true" data-pg-id="531">
                     </div>
-                    <div class="form-group col-md-6" data-pg-id="532">
-                        <label class="sr-only" for="cemail" data-pg-id="533">Email</label>
-                        <input required  type="email" class="form-control" id="email" name="email" placeholder="Email(won't be public)"
-                            required="" aria-required="true" data-pg-id="534">
-                    </div>
-                    <div class="form-group col-md-12" data-pg-id="532">
-                        <label class="sr-only" for="cemail" data-pg-id="533">Work at:</label>
-                        <input required type="text" class="form-control" id="company" name="company" placeholder="Working at .."
-                             aria-required="true" data-pg-id="534">
-                    </div>
-
                     <div class="form-group col-12" data-pg-id="545">
                         <label class="sr-only" for="cmessage" data-pg-id="546">Write your review here...</label>
-                        <textarea required class="form-control" id="cmessage" name="text" placeholder="Write your review here..."
-                            rows="10" required="" aria-required="true" data-pg-id="547"></textarea>
+                        <textarea [(ngModel)]="body" required class="form-control" id="cmessage" name="body" placeholder="Write your review here..."
+                            rows="10" required aria-required="true" data-pg-id="547"></textarea>
                     </div>
                     <div class="form-group col-12" data-pg-id="548">
-                        <button type="submit" class="btn btn-block btn-primary py-2" data-pg-id="549" [disabled]="!contactForm.valid">Send Now</button>
+                        <button type="button" (click)="sendReview(contactForm.value)" class="btn btn-block btn-primary py-2" data-pg-id="549" [disabled]="!contactForm.valid">Send Now</button>
                     </div>
                 </div>
-                <!--//form-row-->
             </form>
         </div>
-        <!--//container-->
     </section>
 </div>

@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { Commentary } from '../../../_models/Comments'
 import { PostService } from 'src/app/_services/post.service';
-import { AlertService } from 'src/app/_services/alert.service';
+
 import { AlertifyServiceService } from 'src/app/_services/alertify-service.service';
 import { NgForm } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';

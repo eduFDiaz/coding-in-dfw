@@ -46,7 +46,7 @@ namespace coding.API.Controllers
             reviewToCreate.Name = "";
             reviewToCreate.Email = request.Email;
             reviewToCreate.Body = "";
-            reviewToCreate.Company = "";
+            reviewToCreate.Company = request.Company;
             reviewToCreate.UserId = request.UserId;
             reviewToCreate.Status = "draft";
 
@@ -106,7 +106,6 @@ namespace coding.API.Controllers
 
             reviewToUpdate.Body = request.Body;
             reviewToUpdate.Name = request.Name;
-            reviewToUpdate.Email = request.Email;
             reviewToUpdate.Company = request.Company;
             reviewToUpdate.Status = "created";
 
