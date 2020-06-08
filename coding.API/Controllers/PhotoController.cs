@@ -200,9 +200,9 @@ namespace coding.API.Controllers
                     var uploadParams = new ImageUploadParams()
                     {
                         File = new FileDescription(file.Name, stream),
-                        Transformation = new Transformation()
+                        // Transformation = new Transformation()
                             // .Width("500").Height("500").Crop("fill").Gravity("face")
-                            .Width("500").Height("500").Crop("fill")
+                            // .Width("500").Height("500").Crop("fill")
                     };
                     uploadResults = _cloudinary.Upload(uploadParams);
                 }
@@ -245,10 +245,10 @@ namespace coding.API.Controllers
                 {
                     var uploadParams = new ImageUploadParams()
                     {
-                        File = new FileDescription(file.Name, stream),
-                        Transformation = new Transformation()
+                        File = new FileDescription(file.Name, stream)
+                        // Transformation = new Transformation()
                             // .Width("500").Height("500").Crop("fill").Gravity("face")
-                            .Width("500").Height("500").Crop("fill")
+                            // .Width("500").Height("500").Crop("fill")
                     };
                     uploadResults = _cloudinary.Upload(uploadParams);
                 }

@@ -78,10 +78,7 @@ export class UserService {
     return this.http.get<Photo>(environment.apiUrl + '/photo/all')
   }
 
-  setAsMainPhoto(photoId: string) {
-    return this.http.post(environment.apiUrl + '/photo/' + photoId + '/setMain', {}, this.myheader)
+  setAsMainPhoto(item: string, photoId: string) {
+    return this.http.post(environment.apiUrl + '/photo/' + item + '/' + photoId + '/setMain', {}, this.myheader)
   }
 }
-
-
-

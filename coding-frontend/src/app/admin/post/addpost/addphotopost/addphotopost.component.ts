@@ -36,6 +36,7 @@ export class AddphotopostComponent implements OnInit {
     this.uploader.onBeforeUploadItem = (item) => {
       item.withCredentials = false;
     }
+    this.photos = []
 
   }
 

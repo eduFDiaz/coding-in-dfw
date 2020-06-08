@@ -49,7 +49,6 @@ export class PhotoaddComponent implements OnInit {
       this.photos = photos
       console.log(this.photos)
     })
-
     this.uploader.onBeforeUploadItem = (item) => {
       item.withCredentials = false;
     }
@@ -95,7 +94,7 @@ export class PhotoaddComponent implements OnInit {
   }
 
   setAsMainPhoto(photo: Photo) {
-    this.user.setAsMainPhoto(photo.id)
+    this.user.setAsMainPhoto(this.photos[0].userId,photo.id)
       .subscribe(() => {
         this.currentMainPhoto = this.photos.filter(p => p.isMain === true)[0];
         this.currentMainPhoto.isMain = false;
@@ -119,7 +118,7 @@ export class PhotoaddComponent implements OnInit {
         const id = this.photos.indexOf(photo);
         this.photos = this.photos.filter((data, idx) => idx !== id);
         // this.alertify.success('Photo deleted successfully!');
-        console.log("OK borrada la foto")
+
       }, error => { console.log("Error no se pudo borrar la foto") }
         , () => { });
   }
