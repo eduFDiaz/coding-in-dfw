@@ -7,7 +7,7 @@ $(document).ready(function() {
         success: function(result) {
 					// $('#demo').html('<div id="testing" class="owl-carousel"></div>');
             for(var i=0;i<result.length;i++){
-                $(".owl-carousel").append(' <div class="item"><div class="quote-holder"><blockquote class="quote-content">'+ result[i].body + '</blockquote><i class="fas fa-quote-left"></i></div><div class="source-holder"><div class="source-profile"><img src="assets/images/clients/profile-1.png" alt="image" /></div><div class="meta"><div class="name">'+ result[i].name + '</div><div class="info">' + result[i].company + '</div></div></div></div>');
+                $(".owl-carousel").append('<div class="item"><div class="quote-holder"><blockquote class="quote-content" style="height: 50px">'+ result[i].body + '</blockquote><i class="fas fa-quote-left"></i></div><div class="source-holder"><div class="source-profile"><img src="assets/images/clients/profile-1.png" alt="image" /></div><div class="meta"><div class="name">'+ result[i].name + '</div><div class="info">' + result[i].company + '</div></div></div></div>');
             };
             var owl = $(".testimonial-carousel");
             owl.owlCarousel({
