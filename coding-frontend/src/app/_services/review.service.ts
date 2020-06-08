@@ -31,9 +31,19 @@ export class ReviewService {
   }
 
   confirmReview(id: string, data: any) {
-      return this.http.put(environment.apiUrl + '/review/' + id + '/update',data, this.myheader )
+    return this.http.put(environment.apiUrl + '/review/' + id + '/update',data, this.myheader )
   }
 
+  getAllReviews(id: string) {
+    return this.http.get(environment.apiUrl + '/review/foruser/' + id)
+  }
 
+  publishReview(id: string) {
+    return this.http.get(environment.apiUrl + '/review/publish/' + id)
+  }
+
+  getPublishedReviews(id: string) {
+    return this.http.get(environment.apiUrl + '/review/' + id + '/status/published')
+  }
 
 }

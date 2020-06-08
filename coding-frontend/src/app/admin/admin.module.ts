@@ -2,7 +2,7 @@
 import {
   NbListModule,
   NbSidebarService, NbWindowModule, NbSidebarModule, NbThemeModule, NbSpinnerModule, NbUserModule, NbRadioModule, NbDialogModule,
-  NbLayoutModule, NbBadgeModule, NbButtonModule, NbCheckboxModule, NbMenuService, NbMenuModule, NbCardModule, NbInputModule, NbAlertModule, NbIconModule, NbToastrModule, NbDialogService, NbDialogRef,
+  NbLayoutModule,NbSelectModule, NbBadgeModule, NbButtonModule, NbCheckboxModule, NbMenuService, NbMenuModule, NbCardModule, NbInputModule, NbAlertModule, NbIconModule, NbToastrModule, NbDialogService, NbDialogRef,
 } from '@nebular/theme';
 
 // import { BrowserModule } from '@angular/platform-browser';
@@ -36,6 +36,7 @@ import { FaqsComponent } from './faqs/faqs.component';
 import { MessagesComponent } from './messages/messages.component';
 import { ReviewsComponent } from './reviews/reviews.component';
 
+import { FilterByTypePipe } from '../_pipes/filter-by-pipe';
 
 
 @NgModule({
@@ -48,6 +49,7 @@ import { ReviewsComponent } from './reviews/reviews.component';
     FaqsComponent,
     MessagesComponent,
     ReviewsComponent,
+    FilterByTypePipe
     ],
   imports: [
     CommonModule,
@@ -55,6 +57,7 @@ import { ReviewsComponent } from './reviews/reviews.component';
     FileUploadModule,
     ProductsModule,
     PostModule,
+    NbSelectModule,
     NbRadioModule,
     NbBadgeModule,
     NbListModule,
