@@ -21,6 +21,8 @@ using coding.API.Models.Messages;
 using coding.API.Models.FAQS;
 using System;
 using coding.API.Models.Reviews;
+using coding.API.Models.FeatureSkills;
+using System.Collections.Generic;
 
 namespace coding.API.Models
 {
@@ -41,6 +43,7 @@ namespace coding.API.Models
         public DbSet<Project> Projects { get; set; }
         public DbSet<WorkExperience> WorkExperiences { get; set; }
         public DbSet<Education> Educations { get; set; }
+        public DbSet<FeatureSkill> FeatureSkills { get; set; }
         public DbSet<Award> Awards { get; set; }
         public DbSet<FAQ> FAQs { get; set; }
         public DbSet<Interest> Interests { get; set; }
@@ -62,6 +65,12 @@ namespace coding.API.Models
 
             builder.Entity<ProductRequirement>().HasKey(pr => new { pr.ProductId, pr.RequirementId });
 
+            builder.Entity<FeatureSkill>()
+                        .Property(e => e.Icons)
+                        .HasConversion(
+                            v => string.Join(',', v),
+                            v => (v.Split(',', StringSplitOptions.RemoveEmptyEntries)));
+
             // builder.Entity<PostTag>()
             // .HasOne(pt => pt.Post)
             // .WithMany(p => p.PostTags)
@@ -73,9 +82,5 @@ namespace coding.API.Models
 
         }
 
-        internal object Set(Type type)
-        {
-            throw new NotImplementedException();
-        }
     }
 }

@@ -120,7 +120,7 @@ namespace coding.API.Controllers
         public async Task<IActionResult> GetAllReviews()
         {
             var reviews = (await _reviewDal.ListAsync()).Where(rw => rw.Status == "published")
-            .ToList().Take(10);
+            .ToList().OrderByDescending(r => r.DateCreated).Take(10);
 
             return Ok(reviews);
         }
