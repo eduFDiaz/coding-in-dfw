@@ -2,9 +2,6 @@ import { Component, OnInit } from '@angular/core';
 
 import { AuthService } from '../_services/auth.service'
 import { NbMenuItem } from '@nebular/theme';
-import { User } from '../_models/User';
-import { BehaviorSubject, Observable } from 'rxjs';
-
 
 
 @Component({
@@ -22,7 +19,7 @@ export class AdminComponent implements OnInit {
 
   }
   ngOnInit() {
-    // console.log(this.currentUser)
+    this.isLoggedIn = this.auth.loginStatusValue
   }
 
   title = 'coding-admin';

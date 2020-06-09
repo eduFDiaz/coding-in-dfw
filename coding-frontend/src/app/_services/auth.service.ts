@@ -69,19 +69,12 @@ export class AuthService {
     );
   }
 
-  // changeCurrentLoginStatus(status: boolean) {
-  //   // this.isLogedIn.next(status)
-  // }
-
-  // changeCurrentUser(user: User) {
-  //   this.currentUserSubject.next(user);
-  // }
+  changeCurrentUser(user: User) {
+    this.currentUserSubject.next(user);
+  }
 
   loggedIn(): boolean {
     let token = localStorage.getItem('token');
-    let valid = this.jwtHelper.isTokenExpired(token)
-
-    console.log(this.jwtHelper.isTokenExpired(token))
     if (token && !this.jwtHelper.isTokenExpired(token))
       return true
   }
@@ -91,8 +84,6 @@ export class AuthService {
     localStorage.removeItem('data')
     this.currentUserSubject.next(null);
     this.currentLoginStatusSubject.next(false)
-    // this.changeCurrentLoginStatus(false)
-    // this.currentUserSubject.next(null);
   }
 
   handleError(error) {

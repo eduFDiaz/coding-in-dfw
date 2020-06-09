@@ -4,7 +4,7 @@
         <app-header class="test" fixed></app-header>
     </nb-layout-header>
 
-    <nb-sidebar responsive>
+    <nb-sidebar responsive *ngIf="isLoggedIn">
         <nb-menu [items]="items">
         </nb-menu>
     </nb-sidebar>

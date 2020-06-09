@@ -1,30 +1,25 @@
 <!-- Generic Add Dialog -->
 <ng-template #addGeneric let-data let-ref="dialogRef">
     <nb-card status="success">
-        <nb-card-header>Create new {{ data.type }}</nb-card-header>
+        <nb-card-header>Create new FAQ </nb-card-header>
         <nb-card-body>
+              <div class="row">
             <form #newForm="ngForm" name="newForm">
-                <div class="row">
-                    <div class="col-md-6" *ngFor="let item of data.props">
-                        <label for="{{ item.key }}" class="label">{{ item.key  }} </label><br>
-                        <input (fullWidth)="false ? data.props.Count > 1 : true " required minlength="4"
-                            #field="ngModel" nbInput [(ngModel)]="item.value" name="{{ item.key }}" id="item.key">
-
-                        <div *ngIf="field.invalid && (field.dirty || field.touched)">
-                            <nb-alert *ngIf="field.errors.required" status="warning">{{ item.key }} is required.
-                            </nb-alert>
-                            <nb-alert *ngIf="field.errors.minlength" status="warning">{{ item.key }} must be at least 4
-                                characters long.</nb-alert>
-                        </div>
-
-                    </div>
-                    <input type="hidden" [(ngModel)]="data.object.userId" value="{{ data.object.userId }}"
-                        name="userId">
-                </div>
+              <div class="col">
+                  <label for="title" class="label">Title:</label><br>
+                  <input fullWidth minlength="4" [(ngModel)]="title" required nbInput name="title" id="title">
+              </div>
+              <div class="col">
+                  <label for="description" class="label">Description:</label><br>
+                  <!-- <input fullWidth minlength="4" #description="ngModel" [(ngModel)]="data.object.description"
+                          required nbInput name="description" id="description"> -->
+                  <textarea [(ngModel)]="description" cols="30" name="description" nbInput fullWidth placeholder="Description"></textarea>
+              </div>
             </form>
+            </div>
         </nb-card-body>
         <nb-card-footer>
-            <button [disabled]="!newForm.valid" nbButton (click)="ref.close({ body: newForm.value,type: data.type})"
+            <button [disabled]="!newForm.valid" nbButton (click)="ref.close(newForm.value)"
                 status="success">Add!</button>
         </nb-card-footer>
     </nb-card>
@@ -39,7 +34,7 @@
 
         </nb-card-body>
         <nb-card-footer>
-            <button nbButton (click)="ref.close()" status="danger">Delete!</button>
+            <button nbButton (click)="deleteTag(data.id); ref.close()" status="danger">Delete!</button>
         </nb-card-footer>
     </nb-card>
 </ng-template>
@@ -49,6 +44,9 @@
     <nb-card status="success">
         <nb-card-header>Edit FAQ </nb-card-header>
         <nb-card-body>
+          <div class="row">
+
+
 
             <form #editForm="ngForm" name="editForm">
 
@@ -81,8 +79,12 @@
                             characters long.</nb-alert>
                     </div>
                 </div>
+                <div>
+                  <input type="hidden" value="{{data.object.id}}">
+                </div>
 
             </form>
+              </div>
         </nb-card-body>
         <nb-card-footer>
             <button [disabled]="!editForm.dirty || !editForm.valid" type="button" nbButton
@@ -107,7 +109,7 @@
                 <div class="row">
                     <div class="col-md-12">
                         <label for="language"><b>Your FAQs</b></label>
-                        <button nbButton status="success" (click)="createDialogGeneric(addGeneric, newlang, 'language')"
+                        <button nbButton status="success" (click)="createDialogGeneric(addGeneric)"
                             size="tiny">+</button>
                         <nb-list>
                             <nb-list-item *ngFor="let faq of faqs">

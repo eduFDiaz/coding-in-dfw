@@ -53,8 +53,8 @@ export class UserService {
   updateUser(id: string, userdata: any) {
     return this.http.put(environment.apiUrl + '/users/' + id, userdata).pipe(
       map((result: User) => {
-        localStorage.setItem('data', JSON.stringify(result))
-        // this.auth.changeCurrentUser(result)
+        // localStorage.setItem('data', JSON.stringify(result))
+        // this.auth.changeCurrentUser(userdata)
         return result;
       }), catchError(error => {
         return throwError('Something went wrong!');
