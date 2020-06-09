@@ -27,7 +27,7 @@ export class HeaderComponent implements OnInit {
 
   avatarUrl: any
 
-  isLoggedIn = false
+  isLoggedIn: boolean
 
   currentUser: User
 
@@ -49,9 +49,9 @@ export class HeaderComponent implements OnInit {
 
   ) {
     // this.currentUser = this.auth.getUser()
-    this.auth.getUser().subscribe(x => this.currentUser = x)
+    // this.auth.getUser().subscribe(x => this.currentUser = x)
 
-    this.auth.getLoginStatus().subscribe(status => this.isLoggedIn = status)
+    // this.auth.getLoginStatus().subscribe(status => this.isLoggedIn = status)
 
     this.user.getAllUserPhotos().subscribe((photo: any) => {
       this.userPhotos = photo
@@ -62,7 +62,7 @@ export class HeaderComponent implements OnInit {
 
     this.auth.currentPhotoUrl.subscribe(photoUrl => this.photoUrl = photoUrl);
 
-    // this.theuser = this.auth.currentUserValue
+
 
   }
 
@@ -81,6 +81,11 @@ export class HeaderComponent implements OnInit {
         takeUntil(this.destroy$),
       )
       .subscribe((isLessThanXl: boolean) => this.userPictureOnly = isLessThanXl);
+
+    this.theuser = this.auth.currentUserValue
+    this.isLoggedIn = this.auth.loginStatusValue
+    console.log(this.auth.currentUserValue)
+    console.log(this.isLoggedIn)
   }
 
   onItemSelection(title) {
@@ -109,7 +114,6 @@ export class HeaderComponent implements OnInit {
     this.toast.showToast('bottom-left', 'info', 'See you soon!', 'You have sucefully logout')
     // location.reload(true);
     this.router.navigate(['/'])
-
 
   }
 

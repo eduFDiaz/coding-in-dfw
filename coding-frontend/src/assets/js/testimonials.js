@@ -27,24 +27,6 @@ $(document).ready(function() {
 							         }
             } });
 
-            // $('#test').html(result);
-            // var owl = $(".testimonial-carousel");
-            // owl.owlCarousel({
-					  //       margin:30,
-					  //       nav:false,
-						// 			loop: false,
-						// 			rewind: true,
-					  //       responsive:{
-						//         0:{
-						//             items:1,
-						//         },
-						//         768:{
-						//             items:2,
-						//         },
-						//         1200: {
-						// 	        items:3,
-						//         }
-						//     });
         }
     });
 

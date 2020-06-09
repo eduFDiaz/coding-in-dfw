@@ -6,17 +6,17 @@
                     <h2 class="name font-weight-bold mb-1">{{ userData?.fullName }}</h2>
                     <div class="tagline mb-3">{{userData?.customUserTitle}}</div>
                     <div class="bio mb-4"> {{ userData?.shortResume }} I write about software development on
-                        <a class="link-on-bg" href="blog-home.html">my blog</a>. Want to know how I may help your
+                        <a class="link-on-bg" [routerLink]="['/blog']">my blog</a>. Want to know how I may help your
                         project? Check out my project
-                        <a class="link-on-bg" href="pages/projects">portfolio</a> and
-                        <a class="link-on-bg" href="pages/resume">online resume</a>.
+                        <a class="link-on-bg" [routerLink]="['/portfolio']" [queryParams]="{query: 'all'}">portfolio</a> and
+                        <a class="link-on-bg" [routerLink]="['/resume']">online resume</a>.
                     </div>
                     <!--//bio-->
                     <div class="mb-4">
-                        <a class="btn btn-primary mr-2 mb-3" href="pages/portfolio"><i
+                        <a class="btn btn-primary mr-2 mb-3" [routerLink]="['/portfolio']" [queryParams]="{query: 'all'}"><i
                                 class="fas fa-arrow-alt-circle-right mr-2"></i><span
                                 class="d-none d-md-inline">View</span> Portfolio</a>
-                        <a class="btn btn-secondary mb-3" href="pages/resume"><i class="fas fa-file-alt mr-2"></i><span
+                        <a class="btn btn-secondary mb-3" [routerLink]="['/resume']"><i class="fas fa-file-alt mr-2"></i><span
                                 class="d-none d-md-inline">View</span> Resume</a>
                     </div>
                 </div>
@@ -30,8 +30,8 @@
         <div class="container">
             <h2 class="section-title font-weight-bold mb-3">What I do</h2>
             <div class="section-intro mb-5">{{ userData?.fullResume }} Check out my
-                <a href="resume.html">online resume</a> and
-                <a href="portfolio.html">project portfolio</a>.
+                <a [routerLink]="['/resume']">online resume</a> and
+                <a [routerLink]="['/portfolio']" [queryParams]="{query: 'all'}">project portfolio</a>.
             </div>
             <div class="row">
                 <div class="item col-6 col-lg-3">
@@ -163,7 +163,7 @@
             </div>
             <!--//row-->
             <div class="text-center py-3">
-                <a href="services.html" class="btn btn-primary"><i
+                <a [routerLink]="['/services']" class="btn btn-primary"><i
                         class="fas fa-arrow-alt-circle-right mr-2"></i>Services &amp; Pricing </a>
             </div>
         </div>

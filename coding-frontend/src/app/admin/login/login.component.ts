@@ -20,6 +20,7 @@ export class LoginComponent implements OnInit {
     email: '',
     password: ''
   };
+
   currentUser: User;
 
   error: any
@@ -28,13 +29,15 @@ export class LoginComponent implements OnInit {
   loginStatus: any
 
 
+
   constructor(private auth: AuthService, private router: Router, private toast: AlertService, private activatedRouter: ActivatedRoute) {
-    //   if (this.auth.currentUserValue) { 
-    //     this.router.navigate(['/profile']);
-    // }
+
   }
 
   ngOnInit() {
+    // if (this.test) {
+    //   this.router.navigate(['/profile']);
+    // }
   }
 
   login() {

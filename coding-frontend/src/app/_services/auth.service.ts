@@ -39,52 +39,60 @@ export class AuthService {
 
     // Initialize the login status to false
 
-    this.currentLoginStatusSubject = new BehaviorSubject<boolean>(null)
+    this.currentLoginStatusSubject = new BehaviorSubject<boolean>(this.loggedIn())
     this.currentLoginStatus = this.currentLoginStatusSubject.asObservable();
 
   }
 
 
-  // public get currentUserValue(): User {
-  //   return this.currentUserSubject.value;
-  // }
+  public get currentUserValue(): User {
+    return this.currentUserSubject.value;
+  }
+
+  public get loginStatusValue(): boolean {
+    return this.currentLoginStatusSubject.value
+  }
 
   login(model: any) {
     return this.http.post(environment.apiUrl + '/auth/login', model).pipe(
       map((response: any, ) => {
-        const user = response;
-        if (user) {
-          console.log(user.user)
-          localStorage.setItem('token', user.token);
-          this.decodedToken = this.jwtHelper.decodeToken(user.token);
-          localStorage.setItem('data', JSON.stringify(user.user));
-          this.currentUserSubject.next(user.user);
-          this.currentLoginStatusSubject.next(true)
-
-        }
+        console.log(response)
+        localStorage.setItem('token', response.token);
+        // this.decodedToken = this.jwtHelper.decodeToken(user.token);
+        localStorage.setItem('data', JSON.stringify(response.user));
+        this.currentUserSubject.next(response.user);
+        this.currentLoginStatusSubject.next(true)
+        return response.user
       },
-      ), catchError(this.handleError)
+      ),
+      catchError(this.handleError)
     );
   }
 
-  changeCurrentLoginStatus(status: boolean) {
-    // this.isLogedIn.next(status)
-  }
+  // changeCurrentLoginStatus(status: boolean) {
+  //   // this.isLogedIn.next(status)
+  // }
 
-  changeCurrentUser(user: User) {
-    this.currentUserSubject.next(user);
-  }
+  // changeCurrentUser(user: User) {
+  //   this.currentUserSubject.next(user);
+  // }
 
   loggedIn(): boolean {
-    const token = localStorage.getItem('token');
-    return !this.jwtHelper.isTokenExpired(token);
+    let token = localStorage.getItem('token');
+    let valid = this.jwtHelper.isTokenExpired(token)
+
+    console.log(this.jwtHelper.isTokenExpired(token))
+    if (token && !this.jwtHelper.isTokenExpired(token))
+      return true
   }
 
   logout() {
     localStorage.removeItem('token')
     localStorage.removeItem('data')
-    this.changeCurrentLoginStatus(false)
     this.currentUserSubject.next(null);
+    this.currentLoginStatusSubject.next(false)
+    // this.changeCurrentLoginStatus(false)
+    // this.currentUserSubject.next(null);
   }
 
   handleError(error) {
@@ -99,20 +107,17 @@ export class AuthService {
     return throwError(errorMessage);
   }
 
-  getUser(): Observable<User> {
-    return this.currentUserSubject.asObservable()
-  }
+  // getUser(): Observable<User> {
+  //   return this.currentUserSubject.asObservable()
+  // }
 
-  getLoginStatus(): Observable<boolean> {
-    return this.currentLoginStatusSubject.asObservable()
-  }
+  // getLoginStatus(): Observable<boolean> {
+  //   return this.currentLoginStatusSubject.asObservable()
+  // }
 
 
-  changeMemberPhoto(photoUrl: string) {
-    // localStorage.setItem('user', JSON.stringify(this.loggedInUser));
-    this.photoUrl.next(photoUrl);
-  }
+  // changeMemberPhoto(photoUrl: string) {
+  //   // localStorage.setItem('user', JSON.stringify(this.loggedInUser));
+  //   this.photoUrl.next(photoUrl);
+  // }
 }
-
-
-

@@ -86,7 +86,7 @@ export class PhotoaddComponent implements OnInit {
         };
         this.photos.push(photo);
         if (photo.isMain) {
-          this.auth.changeMemberPhoto(photo.url);
+          // this.auth.changeMemberPhoto(photo.url);
           // this.auth.loggedInUser.photoUrl = photo.url;
         }
       }
@@ -94,12 +94,12 @@ export class PhotoaddComponent implements OnInit {
   }
 
   setAsMainPhoto(photo: Photo) {
-    this.user.setAsMainPhoto(this.photos[0].userId,photo.id)
+    this.user.setAsMainPhoto(this.photos[0].userId, photo.id)
       .subscribe(() => {
         this.currentMainPhoto = this.photos.filter(p => p.isMain === true)[0];
         this.currentMainPhoto.isMain = false;
         photo.isMain = true;
-        this.auth.changeMemberPhoto(photo.url);
+        // this.auth.changeMemberPhoto(photo.url);
       }, error => { console.log(error); }
         , () => { });
   }

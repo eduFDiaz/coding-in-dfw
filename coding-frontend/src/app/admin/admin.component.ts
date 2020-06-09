@@ -53,7 +53,7 @@ export class AdminComponent implements OnInit {
         },
         {
           title: 'Write new Post',
-          link: 'admin/posts/new',
+          link: '/admin/posts/new',
           icon: 'plus-outline'
         },
         {

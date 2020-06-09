@@ -54,7 +54,7 @@ export class UserService {
     return this.http.put(environment.apiUrl + '/users/' + id, userdata).pipe(
       map((result: User) => {
         localStorage.setItem('data', JSON.stringify(result))
-        this.auth.changeCurrentUser(result)
+        // this.auth.changeCurrentUser(result)
         return result;
       }), catchError(error => {
         return throwError('Something went wrong!');
