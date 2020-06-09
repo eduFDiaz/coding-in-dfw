@@ -18,10 +18,10 @@ import { ErrorInterceptorService } from './_services/error-interceptor.service';
 
 
 
+
 @NgModule({
   declarations: [
-    AppComponent,
-
+    AppComponent
   ],
   imports: [
     NbSidebarModule.forRoot(),

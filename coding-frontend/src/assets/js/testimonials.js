@@ -3,7 +3,7 @@ $(document).ready(function() {
 	$.ajax({
         type: "GET",
         datatype: "json",
-        url: "http://localhost:5050/api/review/08d8073e-7c82-9a7a-b280-01e1a1f353db/status/published",
+        url: "http://localhost:5050/api/review/all",
         success: function(result) {
 					// $('#demo').html('<div id="testing" class="owl-carousel"></div>');
             for(var i=0;i<result.length;i++){

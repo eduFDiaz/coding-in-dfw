@@ -17,7 +17,8 @@ import { AddphotopostComponent } from './post/addpost/addphotopost/addphotopost.
 import { ProductEditComponent } from './products/product-list/product-edit/product-edit.component';
 import { EditPostComponent } from './post/postlist/edit-post/edit-post.component'
 import { MessagesComponent } from './messages/messages.component'
-import { ReviewsComponent}  from './reviews/reviews.component'
+import { ReviewsComponent } from './reviews/reviews.component'
+import { FeaturedskillsComponent } from './resume-admin/featuredskills/featuredskills.component';
 
 
 
@@ -26,6 +27,7 @@ const routes: Routes = [
     path: '', component: AdminComponent, children: [
       { path: '', redirectTo: 'login', pathMatch: 'full' },
       { path: 'resume', component: ResumeAdminComponent },
+      { path: 'resume/featured-skills', component: FeaturedskillsComponent },
       { path: 'profile', component: ProfileComponent },
       { path: 'profile/profilepics', component: PhotoaddComponent },
       { path: 'posts/list', component: PostlistComponent },

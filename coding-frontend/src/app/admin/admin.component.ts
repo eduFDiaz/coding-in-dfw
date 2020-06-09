@@ -83,7 +83,13 @@ export class AdminComponent implements OnInit {
       title: 'Resume',
       icon: 'book-open-outline',
       expanded: false,
-      link: '/admin/resume'
+      link: '/admin/resume',
+      children: [ {
+        title: 'Featured Skills',
+        icon: 'star',
+        link: '/admin/resume/featured-skills'
+      }
+      ]
 
     },
     {
