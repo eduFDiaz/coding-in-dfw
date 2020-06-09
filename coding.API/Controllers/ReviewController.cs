@@ -116,11 +116,11 @@ namespace coding.API.Controllers
 
         }
 
-        [HttpGet("foruser/{userid}", Name = "Return all reviews for given user")]
-        public async Task<IActionResult> GetAllMessages(Guid userid)
+        [HttpGet("all", Name = "Return all reviews")]
+        public async Task<IActionResult> GetAllReviews()
         {
-            var reviews = (await _reviewDal.ListAsync()).Where(rw => rw.UserId == userid)
-            .ToList();
+            var reviews = (await _reviewDal.ListAsync()).Where(rw => rw.Status == "published")
+            .ToList().Take(10);
 
             return Ok(reviews);
         }
