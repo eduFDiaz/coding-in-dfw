@@ -8,7 +8,6 @@ import { NbDialogService } from '@nebular/theme'
 import { DatePipe } from '@angular/common'
 
 import { DeletePostComponent } from './delete-post/delete-post.component';
-import { EditPostComponent } from './edit-post/edit-post.component';
 import { Post } from 'src/app/_models/Post';
 import { AlertService } from 'src/app/_services/alert.service';
 import { UserService } from 'src/app/_services/user.service';
@@ -38,7 +37,7 @@ export class PostlistComponent implements OnInit {
   ngOnInit() {
     this.activeRoute.queryParams.subscribe((params) => {
       if (params['success']) {
-        this.toast.showToast('top-right', 'success', 'Test', 'test')
+        this.toast.showToast('top-right', 'success', 'Created!', 'Your post was created succesfully')
       }
     })
     this.spinner = true
@@ -104,5 +103,3 @@ export class PostlistComponent implements OnInit {
   }
 
 }
-
-

@@ -38,15 +38,17 @@
                         <nb-list>
                             <nb-list-item *ngFor="let message of messages">
                                 <div class="col-md-4">
-                                    {{ message.name }}</div>
+                                    {{ message.name }}, {{message.email }}</div>
                                 <div class="col-md-4">{{ message.text }}</div>
 
                                 <div class="row ">
-                                    <div class="col-md-1">
+                                    <div class="col">
                                         <button (click)="openDeleteDialog(dialogDelete, message.id)" nbButton
                                             status="danger" size="tiny">
                                             <nb-icon icon="trash"></nb-icon>
                                         </button>
+                                    </div>
+                                  <div class="col">
                                         <button (click)="markRead(message.id)" nbButton status="success" size="tiny">
                                             <nb-icon icon="checkmark-outline"></nb-icon>
                                         </button>
