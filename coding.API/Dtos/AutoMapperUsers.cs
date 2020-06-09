@@ -25,6 +25,7 @@ using coding.API.Models.Messages;
 using coding.API.Models.FAQS;
 using coding.API.Models.Reviews;
 using coding.API.Dtos.Reviews;
+using coding.API.Models.FeatureSkills;
 
 namespace coding.API.Dtos
 {
@@ -59,6 +60,11 @@ namespace coding.API.Dtos
             CreateMap<TagForDetailDto, Tag>();
             CreateMap<TagForUpdateDto, Tag>();
             CreateMap<Tag, TagForDetailDto>();
+            
+            
+            //FeaturesSkills Maps
+            CreateMap<CreateFeatureSkillDto, FeatureSkill>();
+            CreateMap<UpdateFeatureSkillDto, FeatureSkill>();
 
             //Products Maps
             CreateMap<ProductForCreateDto, Product>();
