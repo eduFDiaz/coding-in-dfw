@@ -45,7 +45,7 @@ export class HeaderComponent implements OnInit {
     private user: UserService,
     private auth: AuthService,
     private router: Router,
-    private toast: AlertService
+
 
   ) {
 
@@ -55,8 +55,6 @@ export class HeaderComponent implements OnInit {
       this.currentAvatarUrl = this.userPhotos.filter(photo => photo.isMain == true).map(photo => photo.url).toString()
       console.log(this.currentAvatarUrl)
     })
-
-
 
 
   }
