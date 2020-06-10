@@ -35,7 +35,7 @@ namespace coding.API.Controllers
             _mapper = mapper;
         }
 
-        // [Authorize]
+        [Authorize]
         [HttpPost("create")]
         public async Task<IActionResult> Create([FromBody] CreateAwardDto request)
         {
@@ -48,7 +48,7 @@ namespace coding.API.Controllers
         }
 
 
-
+        
         [HttpGet("foruser/{userId}", Name = "Get award for User")]
         public async Task<IActionResult> GetawardForUser(Guid userId)
         {
@@ -59,7 +59,7 @@ namespace coding.API.Controllers
 
         }
 
-
+        [Authorize]
         [HttpDelete("{awardid}/delete", Name = "Deleteaward")]
         public async Task<IActionResult> DeleteLan(Guid awardid)
         {
@@ -76,7 +76,7 @@ namespace coding.API.Controllers
 
         }
 
-
+        [Authorize]
         [HttpPut("{awardid}/update", Name = "Update award")]
         public async Task<IActionResult> UpdateAward(Guid awardid, [FromBody] UpdateAwardDto request)
         {

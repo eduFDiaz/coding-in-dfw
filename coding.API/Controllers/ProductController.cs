@@ -145,10 +145,6 @@ namespace coding.API.Controllers
 
             var pr = new ProductRequirementForCreateDto();
 
-            // var toUpd = _mapper.Map(productToEdit, request);
-
-
-
 
             foreach (var row in productToEdit.ProductRequirements)
             {
@@ -178,9 +174,6 @@ namespace coding.API.Controllers
             }
 
 
-
-            // var outPut = _mapper.Map<Product>(toUpd);
-
             productToEdit.Industry = request.Industry;
             productToEdit.BodyText = request.BodyText;
             productToEdit.ClientName = request.ClientName;
@@ -199,7 +192,7 @@ namespace coding.API.Controllers
             return BadRequest("Cant update the product");
 
         }
-
+        [Authorize]
         [HttpPost("addRequirement")]
         public async Task<IActionResult> NewRequeriment([FromBody] RequirementForCreationDto request)
         {
@@ -213,6 +206,8 @@ namespace coding.API.Controllers
             return Ok(new RequirementPresenter(createdRequirement));
 
         }
+
+        [Authorize]
         [HttpGet("requirements/all")]
         public async Task<ActionResult> GetRequirements()
         {
@@ -222,7 +217,7 @@ namespace coding.API.Controllers
 
             return Ok(requirementsToReturn);
         }
-
+        [Authorize]
         [HttpDelete("requirement/{requirementId}/delete")]
         public async Task<IActionResult> DeleteRequirement(Guid requirementId)
         {

@@ -12,6 +12,7 @@ using coding.API.Models.Messages;
 using coding.API.Dtos;
 using coding.API.Models.FeatureSkills;
 using System;
+using Microsoft.AspNetCore.Authorization;
 
 namespace coding.API.Controllers
 {
@@ -33,7 +34,7 @@ namespace coding.API.Controllers
 
         }
 
-        // POST api/featureskill
+        [Authorize]
         [HttpPost("Create")]
         public async Task<IActionResult> Create([FromBody] CreateFeatureSkillDto request)
         {
@@ -44,7 +45,7 @@ namespace coding.API.Controllers
             return Ok(new FeatureSkillPresenter(createdfeatureSkill));
 
         }
-
+        [Authorize]
         [HttpPut("{ftid}/update", Name = "Update FeatureSkill")]
         public async Task<IActionResult> UpdateFeatureSkill(Guid ftid, [FromBody] UpdateFeatureSkillDto request)
         {
@@ -69,7 +70,7 @@ namespace coding.API.Controllers
 
             return Ok(featureSkills);
         }
-
+        [Authorize]
         [HttpDelete("{ftid}/delete", Name = "Delete FeatureSkill")]
         public async Task<IActionResult> DeleteFeatureSkill(Guid ftid)
         {

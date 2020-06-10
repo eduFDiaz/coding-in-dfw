@@ -15,6 +15,7 @@ using coding.API.Models.Reviews;
 using coding.API.Dtos.Reviews;
 using System;
 using coding.API.Helpers;
+using Microsoft.AspNetCore.Authorization;
 
 namespace coding.API.Controllers
 {
@@ -37,7 +38,7 @@ namespace coding.API.Controllers
 
         }
 
-        // [Authorize]
+        [Authorize]
         [HttpPost("create")]
         public async Task<IActionResult> Create([FromBody] DraftReviewDto request)
         {
@@ -80,7 +81,7 @@ namespace coding.API.Controllers
 
         }
 
-
+        [Authorize]
         [HttpDelete("{reviewid}/delete", Name = "Delete Review")]
         public async Task<IActionResult> DeleteMessage(Guid reviewid)
         {
@@ -96,8 +97,9 @@ namespace coding.API.Controllers
 
         }
 
+        
         [HttpPut("{reviewid}/update", Name = "Update Review")]
-        public async Task<IActionResult> UpdateMessage(Guid reviewid, [FromBody] CreateReviewDto request)
+        public async Task<IActionResult> UpdateMessage(Guid reviewid, [FromBody] UpdateReviewDto request)
         {
             var reviewToUpdate = (await _reviewDal.GetById(reviewid));
 
@@ -106,7 +108,6 @@ namespace coding.API.Controllers
 
             reviewToUpdate.Body = request.Body;
             reviewToUpdate.Name = request.Name;
-            reviewToUpdate.Company = request.Company;
             reviewToUpdate.Status = "created";
 
             if (await _reviewDal.Update(reviewToUpdate))
@@ -125,6 +126,7 @@ namespace coding.API.Controllers
             return Ok(reviews);
         }
 
+        [Authorize]
         [HttpGet("{userid}/status/{status}")]
         public async Task<IActionResult> GetByStatus(Guid userid, string status)
         {
@@ -141,6 +143,25 @@ namespace coding.API.Controllers
             return Ok(presentedReviews);
         }
 
+        [Authorize]
+        [HttpGet("foruser/{userid}")]
+        public async Task<IActionResult> GetReviewForUser(Guid userid)
+        {
+            List<ReviewPresenter> presentedReviews = new List<ReviewPresenter>();
+
+            var reviews = (await _reviewDal.ListAsync()).Where(rw => rw.UserId ==
+             userid).ToList();
+
+            foreach (var review in reviews)
+            {
+                presentedReviews.Add(new ReviewPresenter(review));
+            }
+
+            return Ok(presentedReviews);
+        }
+        
+
+        [Authorize]
         [HttpPut("publish/{reviewid}")]
         public async Task<IActionResult> PublishReview(Guid reviewid)
         {

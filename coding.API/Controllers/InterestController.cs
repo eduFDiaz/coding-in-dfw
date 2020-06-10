@@ -35,7 +35,7 @@ namespace coding.API.Controllers
             _mapper = mapper;
         }
 
-        // [Authorize]
+        [Authorize]
         [HttpPost("create")]
         public async Task<IActionResult> Create([FromBody] CreateInterestDto request)
         {
@@ -59,7 +59,7 @@ namespace coding.API.Controllers
 
         }
 
-
+        [Authorize]
         [HttpDelete("{interestid}/delete", Name = "Deleteinterest")]
         public async Task<IActionResult> DeleteLan(Guid interestid)
         {
@@ -76,7 +76,7 @@ namespace coding.API.Controllers
 
         }
 
-
+        [Authorize]
         [HttpPut("{interestid}/update", Name = "Update interest")]
         public async Task<IActionResult> UpdateInterest(Guid interestid, [FromBody] UpdateInterestDto request)
         {

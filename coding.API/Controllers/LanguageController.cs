@@ -35,7 +35,7 @@ namespace coding.API.Controllers
             _mapper = mapper;
         }
 
-        // [Authorize]
+        [Authorize]
         [HttpPost("create")]
         public async Task<IActionResult> Create([FromBody] CreateLanguageDto request)
         {
@@ -65,7 +65,7 @@ namespace coding.API.Controllers
 
         }
 
-
+        [Authorize]
         [HttpDelete("{lanid}/delete", Name = "DeteleLan")]
         public async Task<IActionResult> DeleteLan(Guid lanid)
         {
@@ -81,7 +81,7 @@ namespace coding.API.Controllers
 
         }
 
-
+        [Authorize]
         [HttpPut("{lanid}/update", Name = "Update Lan")]
         public async Task<IActionResult> UpdateLan(Guid lanid, [FromBody] UpdateLanguageDto request)
         {

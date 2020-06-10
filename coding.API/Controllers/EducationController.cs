@@ -35,7 +35,7 @@ namespace coding.API.Controllers
             _mapper = mapper;
         }
 
-        // [Authorize]
+        [Authorize]
         [HttpPost("create")]
         public async Task<IActionResult> Create([FromBody] CreateEducationDto request)
         {
@@ -59,7 +59,7 @@ namespace coding.API.Controllers
 
         }
 
-
+        [Authorize]
         [HttpDelete("{Educationid}/delete", Name = "DeleteEducation")]
         public async Task<IActionResult> DeleteLan(Guid Educationid)
         {
@@ -76,7 +76,7 @@ namespace coding.API.Controllers
 
         }
 
-
+        [Authorize]
         [HttpPut("{Educationid}/update", Name = "Update Education")]
         public async Task<IActionResult> UpdateLan(Guid Educationid, [FromBody] UpdateEducationDto request)
         {
@@ -86,10 +86,6 @@ namespace coding.API.Controllers
                 return NotFound();
 
             var toUpd = _mapper.Map(request, educationToUpdate);
-
-            // educationToUpdate.Title = request.Title;
-            // educationToUpdate.DateRange = request.DateRange;
-            // educationToUpdate.SchoolName = request.SchoolName;
 
             if (await _educationDal.Update(toUpd))
                 return NoContent();
