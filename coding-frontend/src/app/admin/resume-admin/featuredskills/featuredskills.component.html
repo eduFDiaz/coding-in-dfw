@@ -19,8 +19,8 @@
             <form #newFeaturedSkill="ngForm" name="newFeaturedSkill" id="newFeaturedSkill">
                 <div class="row">
                     <div class="col">
-                        <nb-select fullWidth [ngModel]="title" name="title" placeholder="Select type of skill"
-                            selected="Vanilla JavaScript">
+                        <nb-select fullWidth [(ngModel)]="newFeatured.title" name="title"
+                            placeholder="Select type of skill" selected="Vanilla JavaScript">
                             <nb-option value="Vanilla Javascript">Vanilla JavaScript</nb-option>
                             <nb-option value="Angular, React & Vue">Angular, React & Vue</nb-option>
                             <nb-option value="NodeJS">NodeJS</nb-option>
@@ -35,7 +35,7 @@
                 <div class="row">
                     <div class="col">
                         <label for="body" class="label"></label>
-                        <textarea cols="30" name="body" [(ngModel)]="body" nbInput fullWidth
+                        <textarea cols="30" name="body" [(ngModel)]="newFeatured.body" nbInput fullWidth
                             placeholder="Describe your skills on that techs"></textarea>
                     </div>
                 </div>

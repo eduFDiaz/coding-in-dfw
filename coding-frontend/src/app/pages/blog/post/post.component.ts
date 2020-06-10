@@ -16,7 +16,7 @@ import { map, switchMap } from 'rxjs/operators';
 })
 export class PostComponent implements OnInit {
 
-  @ViewChild('commentForm', { static: false }) commentForm: NgForm;
+  @ViewChild('commentForm', { static: false }) commentForm;
 
   constructor(private postService: PostService, private alert: AlertifyServiceService, private route: ActivatedRoute) { }
 
@@ -46,7 +46,7 @@ export class PostComponent implements OnInit {
     console.log(this.newComment)
     this.postService.addComment(this.newComment).subscribe((result) => {
       this.alert.success('Thanks for your comment, you have to wait for the blog owner in order to be published')
-      this.commentForm.resetForm(this.newComment)
+      this.commentForm.resetForm({})
     })
   }
 

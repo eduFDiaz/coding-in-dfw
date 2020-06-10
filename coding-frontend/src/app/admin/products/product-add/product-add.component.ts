@@ -1,4 +1,4 @@
-import { Component, OnInit, TemplateRef, Input } from '@angular/core';
+import { Component, OnInit, TemplateRef, Input, ViewChild } from '@angular/core';
 import * as ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 
 
@@ -26,6 +26,8 @@ import { ProductphotoComponent } from './productphoto/productphoto.component';
 })
 export class ProductAddComponent implements OnInit {
 
+
+  @ViewChild('addPhotoDialog', { static: true }) addPhotoDialog: TemplateRef<any>
 
   public Editor = ClassicEditor;
 

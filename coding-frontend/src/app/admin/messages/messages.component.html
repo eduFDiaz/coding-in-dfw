@@ -15,7 +15,7 @@
 <!-- Main structure -->
 <div class="row">
     <div class="col-md-12">
-        <nb-card [nbSpinner]="spinner">
+        <nb-card>
             <nb-card-header>
                 <div class="row">
                     <div class="col-md-6">
@@ -48,7 +48,7 @@
                                             <nb-icon icon="trash"></nb-icon>
                                         </button>
                                     </div>
-                                  <div class="col">
+                                    <div class="col">
                                         <button (click)="markRead(message.id)" nbButton status="success" size="tiny">
                                             <nb-icon icon="checkmark-outline"></nb-icon>
                                         </button>

@@ -11,5 +11,8 @@ export interface Post {
     tags?: Tag[]
     comments?: Commentary[]
     readingtime: number,
-    userid: number
+    userid: number,
+    photourl?: string,
+    dateCreated?: string,
+    readingTime?: string
 }

@@ -12,7 +12,11 @@ import { NgForm } from '@angular/forms';
 })
 export class FeaturedskillsComponent implements OnInit {
 
+  newFeatured = {
+    title: '',
+    body: '',
 
+  }
 
   spinner = false
 

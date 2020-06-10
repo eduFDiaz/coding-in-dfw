@@ -15,6 +15,10 @@ export interface Product {
     requirements: any,
     text: string,
     projectIntro: string,
-    shortResume: string
+    shortResume: string,
+    photourl?: string,
+    bodyText?: string,
+    productDescription?: string,
+    requirementId?: string
 
 }

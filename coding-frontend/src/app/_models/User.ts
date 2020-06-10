@@ -9,7 +9,7 @@ export interface User {
     phone: number;
     email: string;
     shortresume: string;
-    fullresume: string;
+    fullResume: string;
     photos?: Photo[];
     posts?: Post[];
     products?: Product[],
@@ -22,6 +22,8 @@ export interface User {
     redditProfile: string
     codepenProfile: string,
     customUserTitle: string,
-    serviceAndPricingTable: string
+    serviceAndPricingTable: string,
+    fullName?: string,
+    shortResume?: string
 
 }

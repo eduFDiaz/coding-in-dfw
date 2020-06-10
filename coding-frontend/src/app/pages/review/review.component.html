@@ -12,20 +12,25 @@
     </section>
     <section class="contact-section px-3 py-5 p-md-5" data-pg-id="524">
         <div class="container" data-pg-id="525">
-            <form #contactForm="ngForm" id="contact-form" name ="contactForm" class="contact-form col-lg-8 mx-lg-auto" data-pg-id="526" novalidate="novalidate" >
+            <form #contactForm="ngForm" id="contact-form" name="contactForm" class="contact-form col-lg-8 mx-lg-auto"
+                data-pg-id="526" novalidate="novalidate">
                 <div class="form-row" data-pg-id="528">
                     <div class="form-group col-md-12" data-pg-id="529">
                         <label class="sr-only" for="cname" data-pg-id="530">Name</label>
-                        <input [(ngModel)]="name" required type="text" class="form-control" id="cname" name="name" placeholder="Name" minlength="2"
-                            required="" aria-required="true" data-pg-id="531">
+                        <input [(ngModel)]="newRev.name" required type="text" class="form-control" id="cname"
+                            name="name" placeholder="Name" minlength="2" required="" aria-required="true"
+                            data-pg-id="531">
                     </div>
                     <div class="form-group col-12" data-pg-id="545">
                         <label class="sr-only" for="cmessage" data-pg-id="546">Write your review here...</label>
-                        <textarea [(ngModel)]="body" required class="form-control" id="cmessage" name="body" placeholder="Write your review here..."
-                            rows="10" required aria-required="true" data-pg-id="547"></textarea>
+                        <textarea [(ngModel)]="newRev.body " required class="form-control" id="cmessage" name="body"
+                            placeholder="Write your review here..." rows="10" required aria-required="true"
+                            data-pg-id="547"></textarea>
                     </div>
                     <div class="form-group col-12" data-pg-id="548">
-                        <button type="button" (click)="sendReview(contactForm.value)" class="btn btn-block btn-primary py-2" data-pg-id="549" [disabled]="!contactForm.valid">Send Now</button>
+                        <button type="button" (click)="sendReview(contactForm.value)"
+                            class="btn btn-block btn-primary py-2" data-pg-id="549" [disabled]="!contactForm.valid">Send
+                            Now</button>
                     </div>
                 </div>
             </form>

@@ -16,12 +16,12 @@
     <nb-card status="success">
         <nb-card-header>Add new review Invitation</nb-card-header>
         <nb-card-body>
-          <form #recipientEmailForm="ngForm" name="recipientEmailForm">
-            <label class="label" for="email">Email:</label><br>
-            <input [(ngModel)]="email" nbInput type="text" name="email" status="success" ><br>
-            <label class="label" for="workat">Works at:</label><br>
-            <input [(ngModel)]="company" nbInput type="text" name="company" status="success" >
-          </form>
+            <form #recipientEmailForm="ngForm" name="recipientEmailForm">
+                <label class="label" for="email">Email:</label><br>
+                <input [(ngModel)]="data.email" nbInput type="text" name="email" status="success"><br>
+                <label class="label" for="workat">Works at:</label><br>
+                <input [(ngModel)]="data.company" nbInput type="text" name="company" status="success">
+            </form>
         </nb-card-body>
         <nb-card-footer>
             <button nbButton (click)="new(recipientEmailForm.value); ref.close();" status="success">Send!
@@ -39,20 +39,20 @@
                 <div class="row">
                     <div class="col-md-8">
                         Reviews invitations to clients:
-                        <button (click)="openDialog(dialogAdd)" nbButton status="success"
-                            size="tiny">
+                        <button (click)="openDialog(dialogAdd)" nbButton status="success" size="tiny">
                             <nb-icon icon="plus-outline"></nb-icon>
                         </button>
                     </div>
                     <div class="col-md-2">
-                      <form #selectForm="ngForm" name="selectForm" id="selectForm">
-                        <!-- Separate the event and property binding for the select to work -->
-                      <nb-select  [ngModel]="filterType" (ngModelChange)="getType($event)"  name="type" size="small" placeholder="Filter by:" [(selected)]="filterType">
-                          <nb-option value="all">All</nb-option>
-                          <nb-option value="draft">Draft</nb-option>
-                          <nb-option value="created">Created</nb-option>
-                          <nb-option value="published">Published</nb-option>
-                        </nb-select>
+                        <form #selectForm="ngForm" name="selectForm" id="selectForm">
+                            <!-- Separate the event and property binding for the select to work -->
+                            <nb-select [ngModel]="filterType" (ngModelChange)="getType($event)" name="type" size="small"
+                                placeholder="Filter by:" [(selected)]="filterType">
+                                <nb-option value="all">All</nb-option>
+                                <nb-option value="draft">Draft</nb-option>
+                                <nb-option value="created">Created</nb-option>
+                                <nb-option value="published">Published</nb-option>
+                            </nb-select>
                         </form>
                     </div>
                 </div>
@@ -60,28 +60,30 @@
             <nb-card-body>
                 <div class="row">
                     <div class="col-md-12">
-                                    <nb-list>
+                        <nb-list>
                             <nb-list-item *ngFor="let review of reviews | FilterByTypePipe : 'status' : filterType">
                                 <div class="col-md-10">
-                                  <div class="col-md">
-                                    <a href="mailto:{{ review.email }}" >Recipient: {{ review.email }}</a>
-                                  </div>
-                                  <div class="col-md">
-                                    <a href="{{ review.url }}" >Visit Invitation</a>
-                                  </div>
+                                    <div class="col-md">
+                                        <a href="mailto:{{ review.email }}">Recipient: {{ review.email }}</a>
+                                    </div>
+                                    <div class="col-md">
+                                        <a href="{{ review.url }}">Visit Invitation</a>
+                                    </div>
                                 </div>
                                 <div class="col-md-2">
-                                  <div class="row">
+                                    <div class="row">
                                         <div class="col-md">
-                                          <button (click)="openDeleteDialog(dialogDelete, review.id)" nbButton
-                                              status="danger" size="tiny">
-                                              <nb-icon icon="trash"></nb-icon>
-                                          </button>
+                                            <button (click)="openDeleteDialog(dialogDelete, review.id)" nbButton
+                                                status="danger" size="tiny">
+                                                <nb-icon icon="trash"></nb-icon>
+                                            </button>
                                         </div>
-                                        <div class="col-md" *ngIf="review.status !== 'draft' && review.status !== 'published'">
-                                          <button (click)="aproveReview(review.id)" nbButton status="success" size="tiny">
-                                              <nb-icon icon="checkmark-outline"></nb-icon>
-                                          </button>
+                                        <div class="col-md"
+                                            *ngIf="review.status !== 'draft' && review.status !== 'published'">
+                                            <button (click)="aproveReview(review.id)" nbButton status="success"
+                                                size="tiny">
+                                                <nb-icon icon="checkmark-outline"></nb-icon>
+                                            </button>
                                         </div>
                                     </div>
                                 </div>
