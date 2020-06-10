@@ -71,11 +71,10 @@ namespace coding.API.Controllers
 
         }
 
-
+        [Authorize]
         [HttpPost("{userId}/create")]
         public async Task<IActionResult> AddPhotoForUser(Guid userId, [FromForm] PhotoForCreationDto photoForCreationDto)
         {
-            // Only if the claim is valid the user is retrieved
             var userFromRepo = (await _userDal.ListAsync())
                     .SingleOrDefault(u => u.Id == userId);
 
@@ -116,12 +115,9 @@ namespace coding.API.Controllers
 
             return Ok(new PhotoPresenter(photo));
 
-
-            // return BadRequest("Could not add the photo");
-
         }
 
-        // Set main photo using id as the photo id
+        [Authorize]
         [HttpPost("{itemId}/{photoId}/setMain")]
         public async Task<IActionResult> SetMain(Guid itemId, string type, Guid photoId)
         {
@@ -134,7 +130,7 @@ namespace coding.API.Controllers
                         return BadRequest("This is already the main photo");
                     var currentMainPhoto = _productPhotoDal.ListAll().Where(p => p.ProductId == itemId).FirstOrDefault(p => p.IsMain);
 
-                    // Set main photo a
+                    // Set main photo 
                     currentMainPhoto.IsMain = false;
                     ProductPhotoFromRepo.IsMain = true;
                     if (await _productPhotoDal.SaveAll())
@@ -149,7 +145,7 @@ namespace coding.API.Controllers
                         return BadRequest("This is already the main photo");
                     var currentMainPostPhoto = _postPhotoDal.ListAll().Where(p => p.PostId == itemId).FirstOrDefault(p => p.IsMain);
 
-                    // Set main photo a
+                    // Set main photo 
                     currentMainPostPhoto.IsMain = false;
                     PostPhotoFromRepo.IsMain = true;
                     if (await _postPhotoDal.SaveAll())
@@ -165,7 +161,7 @@ namespace coding.API.Controllers
                         return BadRequest("This is already the main photo");
                     var currentMainUserPhoto = _photoDal.ListAll().Where(p => p.UserId == itemId).FirstOrDefault(p => p.IsMain);
 
-                    // Set main photo a
+                    // Set main photo 
                     currentMainUserPhoto.IsMain = false;
                     photoFromRepo.IsMain = true;
                     if (await _photoDal.SaveAll())
@@ -182,10 +178,11 @@ namespace coding.API.Controllers
         }
 
         // Create photo for product
+        [Authorize]
         [HttpPost("product/{productId}/create")]
         public async Task<IActionResult> AddPhotoForProduct(Guid productId, [FromForm] ProductPhotoForCreationDto photoForCreationDto)
         {
-            // Only if the claim is valid the user is retrieved
+            
             var productFromRepo = (await _productDal.ListAsync())
                     .FirstOrDefault(p => p.Id == productId);
 
@@ -200,9 +197,7 @@ namespace coding.API.Controllers
                     var uploadParams = new ImageUploadParams()
                     {
                         File = new FileDescription(file.Name, stream),
-                        // Transformation = new Transformation()
-                            // .Width("500").Height("500").Crop("fill").Gravity("face")
-                            // .Width("500").Height("500").Crop("fill")
+
                     };
                     uploadResults = _cloudinary.Upload(uploadParams);
                 }
@@ -227,7 +222,7 @@ namespace coding.API.Controllers
             return Ok(new ProductPhotoPresenter(photo));
 
         }
-
+        [Authorize]
         [HttpPost("post/{postId}/create")]
         public async Task<IActionResult> AddPhotoForPost(Guid postId, [FromForm] PostPhotoForCreationDto photoForCreationDto)
         {
@@ -246,9 +241,6 @@ namespace coding.API.Controllers
                     var uploadParams = new ImageUploadParams()
                     {
                         File = new FileDescription(file.Name, stream)
-                        // Transformation = new Transformation()
-                            // .Width("500").Height("500").Crop("fill").Gravity("face")
-                            // .Width("500").Height("500").Crop("fill")
                     };
                     uploadResults = _cloudinary.Upload(uploadParams);
                 }

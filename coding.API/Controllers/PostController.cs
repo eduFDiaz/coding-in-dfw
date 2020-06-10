@@ -52,7 +52,7 @@ namespace coding.API.Controllers
             _mapper = mapper;
         }
 
-        // [Authorize]
+        [Authorize]
         [HttpPost("create")]
         public async Task<IActionResult> Create([FromBody] PostForCreateDto request)
         {
@@ -64,26 +64,24 @@ namespace coding.API.Controllers
             postForCreate.Text = strEncryptred;
             
 
-            // crea el post ahora
+
             var createdPost = await _postDal.Add(postForCreate);
 
-            // Itero por los ids que recibo del usuario
-            // if (request.TagId.Count > 0) {
             foreach (var tag in request.PostTagId)
             {
-                // crea la tabla m2m
+
                 PostTag postag = new PostTag
                 {
                     TagId = tag,
-                    PostId = createdPost.Id, // dame la id del post creado
+                    PostId = createdPost.Id, 
                     Tag = await _tagDal.GetById(tag)
 
                 };
 
-                // guarda la partida
+
                 await _postTagDal.Add(postag);
             }
-            // }
+
 
 
             return Ok(new NewPostPresenter(createdPost));
@@ -91,7 +89,7 @@ namespace coding.API.Controllers
         }
 
 
-        // [Authorize]
+        [Authorize]
         [HttpGet("foruser/{userId}", Name = "GetPost")]
         public async Task<IActionResult> GetAllPostsForUser(Guid userId)
         {
@@ -112,7 +110,7 @@ namespace coding.API.Controllers
             return Ok(presentedPosts);
         }
 
-
+        [Authorize]
         [HttpDelete("{postid}/delete", Name = "DetelePost")]
         public async Task<IActionResult> DeletePost(Guid postid)
         {
@@ -128,7 +126,7 @@ namespace coding.API.Controllers
 
         }
 
-
+        [Authorize]
         [HttpPut("{postid}/update", Name = "Update Post")]
         public async Task<IActionResult> UpdatePost(Guid postid, [FromBody] PostForUpdateDto request)
         {
@@ -171,12 +169,10 @@ namespace coding.API.Controllers
             return BadRequest("Cant update the post");
 
         }
-
+        [Authorize]
         [HttpGet("{postid}", Name = "Get Single Post")]
         public async Task<IActionResult> GetPost(Guid postid)
         {
-
-            // var singlePostFromRepo = (await _postDal.GetByIdWithList(postid, "PostTags.Tag", "Comments"));
             var singlePostFromRepo = (await _postDal.GetRelatedField("PostTags.Tag")).SingleOrDefault(p => p.Id == postid);
             var text = singlePostFromRepo.Text;
             singlePostFromRepo.Text = Cipher.Decrypt(text,password);

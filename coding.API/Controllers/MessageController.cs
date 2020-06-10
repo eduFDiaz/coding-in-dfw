@@ -1,6 +1,5 @@
 using AutoMapper;
 using coding.API.Data;
-using coding.API.Dtos.Comments;
 using coding.API.Models.Presenter;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
@@ -9,10 +8,10 @@ using System.Linq;
 
 
 using System;
-using System.Collections.Generic;
 using System.Threading.Tasks;
 using coding.API.Models.Messages;
 using coding.API.Dtos;
+using Microsoft.AspNetCore.Authorization;
 
 namespace coding.API.Controllers
 {
@@ -34,7 +33,7 @@ namespace coding.API.Controllers
             _mapper = mapper;
         }
 
-        // [Authorize]
+        [Authorize]
         [HttpPost("create")]
         public async Task<IActionResult> Create([FromBody] CreateMessageDto request)
         {
@@ -48,7 +47,7 @@ namespace coding.API.Controllers
 
         }
 
-
+        [Authorize]
         [HttpDelete("{messageid}/delete", Name = "Delete Message")]
         public async Task<IActionResult> DeleteMessage(Guid messageid)
         {
@@ -63,7 +62,7 @@ namespace coding.API.Controllers
             return BadRequest("Cant delete the message!");
 
         }
-
+        [Authorize]
         [HttpPut("{messageid}/update", Name = "Update message")]
         public async Task<IActionResult> UpdateMessage(Guid messageid)
         {

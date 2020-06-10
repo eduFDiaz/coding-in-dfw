@@ -36,7 +36,7 @@ namespace coding.API.Controllers
             _mapper = mapper;
         }
 
-        // [Authorize]
+        [Authorize]
         [HttpPost("create")]
         public async Task<IActionResult> Create([FromBody] CreateCommentDto request)
         {
@@ -49,9 +49,9 @@ namespace coding.API.Controllers
         }
 
 
-
+        [Authorize]
         [HttpGet("forpost/{postId}", Name = "Get comment for Post")]
-        public async Task<IActionResult> GetcommentForUser(Guid postId)
+        public async Task<IActionResult> GetcommentForPost(Guid postId)
         {
 
             var allPostComments = (await _commentDal.ListAsync()).Where(p => p.PostId == postId).ToList();
@@ -60,7 +60,7 @@ namespace coding.API.Controllers
             return Ok(outPut);
 
         }
-
+        [Authorize]
         [HttpGet("unpublished", Name = "Get all unpublished comments")]
         public async Task<IActionResult> GetsAllUnpublishedComments()
         {
@@ -71,7 +71,7 @@ namespace coding.API.Controllers
             return Ok(outPut);
 
         }
-
+        [Authorize]
         [HttpPut("{commentId}/publish")]
         public async Task<IActionResult> UpdateComment(Guid commentId)
         {
@@ -85,7 +85,7 @@ namespace coding.API.Controllers
             return BadRequest("Cant publish the comment");
 
         }
-
+        [Authorize]
         [HttpDelete("{commentId}/delete", Name = "DeleteComment")]
         public async Task<IActionResult> DeleteLan(Guid commentId)
         {
@@ -101,7 +101,7 @@ namespace coding.API.Controllers
 
 
         }
-
+        
         [HttpGet("comments/all")]
         public async Task<ActionResult> GetAllComments()
         {
