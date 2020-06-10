@@ -17,7 +17,9 @@ import { AddphotopostComponent } from './post/addpost/addphotopost/addphotopost.
 import { ProductEditComponent } from './products/product-list/product-edit/product-edit.component';
 import { EditPostComponent } from './post/postlist/edit-post/edit-post.component'
 import { MessagesComponent } from './messages/messages.component'
-import { ReviewsComponent}  from './reviews/reviews.component'
+import { ReviewsComponent } from './reviews/reviews.component'
+import { FeaturedskillsComponent } from './resume-admin/featuredskills/featuredskills.component';
+import { GuestGuard } from '../_services/guest-guard.service';
 
 
 
@@ -25,26 +27,28 @@ const routes: Routes = [
   {
     path: '', component: AdminComponent, children: [
       { path: '', redirectTo: 'login', pathMatch: 'full' },
-      { path: 'resume', component: ResumeAdminComponent },
-      { path: 'profile', component: ProfileComponent },
-      { path: 'profile/profilepics', component: PhotoaddComponent },
-      { path: 'posts/list', component: PostlistComponent },
-      { path: 'posts/new', component: AddpostComponent },
-      { path: 'posts/new/photo', component: AddphotopostComponent },
-      { path: 'posts/managecomments', component: CommentsComponent },
-      { path: 'posts/edit', component: EditPostComponent },
-      { path: 'product/list', component: ProductListComponent },
-      { path: 'product/edit', component: ProductEditComponent },
-      { path: 'tag/list', component: TaglistComponent },
-      { path: 'product/new', component: ProductAddComponent },
-      { path: 'product/new/photo', component: ProductphotoComponent },
       { path: 'login', component: LoginComponent, pathMatch: 'full' },
-      { path: 'faqs', component: FaqsComponent },
-      { path: 'messages', component: MessagesComponent },
-      { path: 'reviews', component: ReviewsComponent }
+      { path: 'resume', component: ResumeAdminComponent, canActivate: [AuthGuardService] },
+      { path: 'resume/featured-skills', component: FeaturedskillsComponent, canActivate: [AuthGuardService] },
+      { path: 'profile', component: ProfileComponent, canActivate: [AuthGuardService] },
+      { path: 'profile/profilepics', component: PhotoaddComponent, canActivate: [AuthGuardService] },
+      { path: 'posts/list', component: PostlistComponent, canActivate: [AuthGuardService] },
+      { path: 'posts/new', component: AddpostComponent, canActivate: [AuthGuardService] },
+      { path: 'posts/new/photo', component: AddphotopostComponent, canActivate: [AuthGuardService] },
+      { path: 'posts/managecomments', component: CommentsComponent, canActivate: [AuthGuardService] },
+      { path: 'posts/edit', component: EditPostComponent, canActivate: [AuthGuardService] },
+      { path: 'product/list', component: ProductListComponent, canActivate: [AuthGuardService] },
+      { path: 'product/edit', component: ProductEditComponent, canActivate: [AuthGuardService] },
+      { path: 'tag/list', component: TaglistComponent, canActivate: [AuthGuardService] },
+      { path: 'product/new', component: ProductAddComponent, canActivate: [AuthGuardService] },
+      { path: 'product/new/photo', component: ProductphotoComponent, canActivate: [AuthGuardService] },
+      { path: 'faqs', component: FaqsComponent, canActivate: [AuthGuardService] },
+      { path: 'messages', component: MessagesComponent, canActivate: [AuthGuardService] },
+      { path: 'reviews', component: ReviewsComponent, canActivate: [AuthGuardService] }
 
     ]
   }
+
 
 
 ];

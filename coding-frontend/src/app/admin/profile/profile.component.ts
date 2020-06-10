@@ -67,10 +67,11 @@ export class ProfileComponent implements OnInit {
     this.updateSpinner = true;
     this.user.updateUser(this.user.getCurrentUserId(), userdata).subscribe(
       (value: User) => {
+        console.log(value)
         this.updateSpinner = false;
         this.myuser = value
-        // this.auth.changeCurrentUser(value);
-        // localStorage.setItem('data', JSON.stringify(this.myuser))
+        this.auth.changeCurrentUser(value);
+        localStorage.setItem('data', JSON.stringify(this.myuser))
         this.alert.showToast('bottom-left', 'success', 'Profile Update!', 'Profile updated succefuly')
         this.editProfileForm.reset(this.myuser);
       },

@@ -94,7 +94,7 @@ export class PhotoaddComponent implements OnInit {
   }
 
   setAsMainPhoto(photo: Photo) {
-    this.user.setAsMainPhoto(this.photos[0].userId,photo.id)
+    this.user.setAsMainPhoto(this.photos[0].userId, photo.id)
       .subscribe(() => {
         this.currentMainPhoto = this.photos.filter(p => p.isMain === true)[0];
         this.currentMainPhoto.isMain = false;

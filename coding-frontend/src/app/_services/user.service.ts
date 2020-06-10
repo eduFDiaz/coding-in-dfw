@@ -20,14 +20,6 @@ export class UserService {
 
   }
 
-  myheader = {
-    headers: {
-      'authorization': 'Bearer ' + localStorage.getItem('token'),
-      'Content-Type': 'application/json'
-    }
-  }
-
-
   isAuthenticated: boolean
 
   getUser(id: string): Observable<User> {
@@ -43,7 +35,7 @@ export class UserService {
   }
 
   getUserPosts(id: string): Observable<Post[]> {
-    return this.http.get<Post[]>(environment.apiUrl + /post/ + id, this.myheader)
+    return this.http.get<Post[]>(environment.apiUrl + /post/ + id)
   }
 
   getCurrentUserPohotos(): Observable<Photo[]> {
@@ -53,8 +45,8 @@ export class UserService {
   updateUser(id: string, userdata: any) {
     return this.http.put(environment.apiUrl + '/users/' + id, userdata).pipe(
       map((result: User) => {
-        localStorage.setItem('data', JSON.stringify(result))
-        this.auth.changeCurrentUser(result)
+        // localStorage.setItem('data', JSON.stringify(result))
+        // this.auth.changeCurrentUser(userdata)
         return result;
       }), catchError(error => {
         return throwError('Something went wrong!');
@@ -63,11 +55,11 @@ export class UserService {
   }
 
   uploadPhoto(data) {
-    return this.http.post(environment.apiUrl + '/photo', data, this.myheader)
+    return this.http.post(environment.apiUrl + '/photo', data)
   }
 
   DeletePhoto(photoId: string) {
-    return this.http.delete(environment.apiUrl + '/photo/' + photoId, this.myheader);
+    return this.http.delete(environment.apiUrl + '/photo/' + photoId);
   }
 
   getAllUsers() {
@@ -79,6 +71,6 @@ export class UserService {
   }
 
   setAsMainPhoto(item: string, photoId: string) {
-    return this.http.post(environment.apiUrl + '/photo/' + item + '/' + photoId + '/setMain', {}, this.myheader)
+    return this.http.post(environment.apiUrl + '/photo/' + item + '/' + photoId + '/setMain', {})
   }
 }

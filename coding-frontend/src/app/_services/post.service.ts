@@ -21,16 +21,10 @@ export class PostService {
   updatedPosts = this.currentPosts.asObservable();
   updatedTags = this.currentTags.asObservable();
 
-  httpOptions = {
-    headers: new HttpHeaders({
-      Autorization: 'Bearer ' + localStorage.getItem('token')
-    })
-  };
-
   constructor(private http: HttpClient, private toast: AlertService, private user: UserService) { }
 
   newPost(postdata): Observable<Post> {
-    return this.http.post(environment.apiUrl + '/post/create', postdata, { headers: { 'authorization': 'Bearer ' + localStorage.getItem('token') } }).pipe(
+    return this.http.post(environment.apiUrl + '/post/create', postdata).pipe(
       map((result: any) => {
         if (result) {
           this.currentPosts.next(result)
@@ -55,16 +49,16 @@ export class PostService {
   }
 
   publishComment(id: string) {
-    return this.http.put(environment.apiUrl + '/comment/' + id + '/publish', { headers: { 'authorization': 'Bearer ' + localStorage.getItem('token') } })
+    return this.http.put(environment.apiUrl + '/comment/' + id + '/publish', {})
   }
 
   deleteComment(id: string) {
-    return this.http.delete(environment.apiUrl + '/comment/' + id + '/delete', { headers: { 'authorization': 'Bearer ' + localStorage.getItem('token') } })
+    return this.http.delete(environment.apiUrl + '/comment/' + id + '/delete')
   }
 
   getUserPosts(userid: string): Observable<Post[]> {
     // tslint:disable-next-line: object-literal-key-quotes
-    return this.http.get<Post[]>(environment.apiUrl + '/post/foruser/' + userid, { headers: { 'authorization': 'Bearer ' + localStorage.getItem('token') } }).pipe(
+    return this.http.get<Post[]>(environment.apiUrl + '/post/foruser/' + userid).pipe(
       map((result) => {
         return result
       }, catchError(err => {
@@ -75,7 +69,7 @@ export class PostService {
 
   deletePost(postid: number): Observable<boolean> {
     // tslint:disable-next-line: object-literal-key-quotes
-    return this.http.delete<boolean>(environment.apiUrl + '/post/' + postid + '/delete', { headers: { 'authorization': 'Bearer ' + localStorage.getItem('token') } }).pipe(
+    return this.http.delete<boolean>(environment.apiUrl + '/post/' + postid + '/delete').pipe(
       map((result: boolean) => {
         // tslint:disable-next-line: no-shadowed-variable
         this.getUserPosts(this.user.getCurrentUserId()).subscribe((result) => {
@@ -90,13 +84,7 @@ export class PostService {
 
   editPost(postid: string, newdata: any): Observable<boolean> {
     // tslint:disable-next-line: object-literal-key-quotes
-    return this.http.put<boolean>(environment.apiUrl + '/post/' + postid + '/update', newdata, {
-      headers: {
-        'Content-Type': 'application/json',
-        // tslint:disable-next-line: object-literal-key-quotes
-        'authorization': 'Bearer ' + localStorage.getItem('token')
-      }
-    })
+    return this.http.put<boolean>(environment.apiUrl + '/post/' + postid + '/update', newdata)
       .pipe(
         map((response: boolean) => {
           this.getUserPosts(this.user.getCurrentUserId()).subscribe((result) => {
@@ -111,13 +99,7 @@ export class PostService {
 
   // If using the newer Backend please use /tag/all
   getAlTags(): Observable<Tag[]> {
-    return this.http.get<Tag[]>(environment.apiUrl + '/tag/all', {
-      headers: {
-        'Content-Type': 'application/json',
-        // tslint:disable-next-line: object-literal-key-quotes
-        'authorization': 'Bearer ' + localStorage.getItem('token')
-      }
-    }).pipe(
+    return this.http.get<Tag[]>(environment.apiUrl + '/tag/all').pipe(
       map((result) => {
         return result
       }, catchError(err => {
@@ -127,13 +109,7 @@ export class PostService {
   }
 
   addNewTag(newtag: Tag): Observable<Tag> {
-    return this.http.post<Tag>(environment.apiUrl + '/tag/create', newtag, {
-      headers: {
-        'Content-Type': 'application/json',
-        // tslint:disable-next-line: object-literal-key-quotes
-        'authorization': 'Bearer ' + localStorage.getItem('token')
-      }
-    }).pipe(
+    return this.http.post<Tag>(environment.apiUrl + '/tag/create', newtag).pipe(
       map((result) => {
         this.getAlTags().subscribe((result) => {
           this.currentTags.next(result)
@@ -146,13 +122,7 @@ export class PostService {
   }
 
   deleteTag(tagid: string) {
-    return this.http.delete(environment.apiUrl + '/tag/' + tagid + '/delete', {
-      headers: {
-        'Content-Type': 'application/json',
-        // tslint:disable-next-line: object-literal-key-quotes
-        'authorization': 'Bearer ' + localStorage.getItem('token')
-      }
-    }).pipe(
+    return this.http.delete(environment.apiUrl + '/tag/' + tagid + '/delete').pipe(
       map((result) => {
         this.getAlTags().subscribe((tags) => {
           this.currentTags.next(tags)
@@ -166,13 +136,7 @@ export class PostService {
 
   editTag(tagid: string, newdata: any): Observable<boolean> {
     // tslint:disable-next-line: object-literal-key-quotes
-    return this.http.put<boolean>(environment.apiUrl + '/tag/' + tagid + '/update', newdata, {
-      headers: {
-        'Content-Type': 'application/json',
-        // tslint:disable-next-line: object-literal-key-quotes
-        'authorization': 'Bearer ' + localStorage.getItem('token')
-      }
-    })
+    return this.http.put<boolean>(environment.apiUrl + '/tag/' + tagid + '/update', newdata)
       .pipe(
         map((response: boolean) => {
           this.getAlTags().subscribe((result) => {
@@ -186,7 +150,7 @@ export class PostService {
   }
 
   addComment(comment: Commentary) {
-    return this.http.post<Commentary>(environment.apiUrl + '/comment/create', comment, this.httpOptions)
+    return this.http.post<Commentary>(environment.apiUrl + '/comment/create', comment)
   }
 
 }

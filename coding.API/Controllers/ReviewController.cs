@@ -56,9 +56,9 @@ namespace coding.API.Controllers
             createdReview.Url = url + reviewToCreate.Id;
 
             //Now send the email
-            EmailConfigurationDev emailConfigurationDev = new EmailConfigurationDev();
-            //EmailConfigurationProd emailConfigurationProd = new EmailConfigurationProd();
-            MailSender mailSender = new MailSender(emailConfigurationDev);
+            // EmailConfigurationDev emailConfigurationDev = new EmailConfigurationDev();
+            EmailConfigurationProd emailConfigurationProd = new EmailConfigurationProd();
+            MailSender mailSender = new MailSender(emailConfigurationProd);
             string msg = $@"Hello, please write a review in this url: <a href='{createdReview.Url}'> {createdReview.Url} </a> please don't share this url with anyone since this could be used to modify your review of our services.";
             MailTemplate template = new MailTemplate(createdReview.Email, msg);
 

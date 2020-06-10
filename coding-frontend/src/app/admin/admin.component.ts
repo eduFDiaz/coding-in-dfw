@@ -2,9 +2,6 @@ import { Component, OnInit } from '@angular/core';
 
 import { AuthService } from '../_services/auth.service'
 import { NbMenuItem } from '@nebular/theme';
-import { User } from '../_models/User';
-import { BehaviorSubject, Observable } from 'rxjs';
-
 
 
 @Component({
@@ -22,7 +19,7 @@ export class AdminComponent implements OnInit {
 
   }
   ngOnInit() {
-    // console.log(this.currentUser)
+    this.isLoggedIn = this.auth.loginStatusValue
   }
 
   title = 'coding-admin';
@@ -53,7 +50,7 @@ export class AdminComponent implements OnInit {
         },
         {
           title: 'Write new Post',
-          link: 'admin/posts/new',
+          link: '/admin/posts/new',
           icon: 'plus-outline'
         },
         {
@@ -86,7 +83,13 @@ export class AdminComponent implements OnInit {
       title: 'Resume',
       icon: 'book-open-outline',
       expanded: false,
-      link: '/admin/resume'
+      link: '/admin/resume',
+      children: [ {
+        title: 'Featured Skills',
+        icon: 'star',
+        link: '/admin/resume/featured-skills'
+      }
+      ]
 
     },
     {

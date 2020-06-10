@@ -2,7 +2,7 @@
 import {
   NbListModule,
   NbSidebarService, NbWindowModule, NbSidebarModule, NbThemeModule, NbSpinnerModule, NbUserModule, NbRadioModule, NbDialogModule,
-  NbLayoutModule,NbSelectModule, NbBadgeModule, NbButtonModule, NbCheckboxModule, NbMenuService, NbMenuModule, NbCardModule, NbInputModule, NbAlertModule, NbIconModule, NbToastrModule, NbDialogService, NbDialogRef,
+  NbLayoutModule, NbSelectModule, NbBadgeModule, NbButtonModule, NbCheckboxModule, NbMenuService, NbMenuModule, NbCardModule, NbInputModule, NbAlertModule, NbIconModule, NbToastrModule, NbDialogService, NbDialogRef,
 } from '@nebular/theme';
 
 // import { BrowserModule } from '@angular/platform-browser';
@@ -38,6 +38,8 @@ import { ReviewsComponent } from './reviews/reviews.component';
 
 import { FilterByTypePipe } from '../_pipes/filter-by-pipe';
 
+import { FeaturedskillsComponent } from '../admin/resume-admin/featuredskills/featuredskills.component';
+
 
 @NgModule({
   providers: [NbSidebarService, NbMenuService, AlertService],
@@ -49,8 +51,9 @@ import { FilterByTypePipe } from '../_pipes/filter-by-pipe';
     FaqsComponent,
     MessagesComponent,
     ReviewsComponent,
+    FeaturedskillsComponent,
     FilterByTypePipe
-    ],
+  ],
   imports: [
     CommonModule,
     NbToastrModule.forRoot(),
