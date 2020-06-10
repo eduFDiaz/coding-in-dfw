@@ -28,13 +28,18 @@ export class LoginComponent implements OnInit {
   loginSpinner = false;
   loginStatus: any
 
-
+  logintrigger = false
 
   constructor(private auth: AuthService, private router: Router, private toast: AlertService, private activatedRouter: ActivatedRoute) {
 
   }
 
   ngOnInit() {
+    if (localStorage.getItem('token')) {
+      this.logintrigger = true
+    }
+    if (this.logintrigger)
+      this.router.navigate(['/profile'])
 
   }
 
