@@ -1,4 +1,3 @@
-using System.Linq;
 using AutoMapper;
 using coding.API.Models.Posts.Comments;
 using coding.API.Models.Products;
@@ -130,22 +129,24 @@ namespace coding.API.Dtos
             // Language Mappings
             CreateMap<UpdateLanguageDto, Language>();
             CreateMap<CreateLanguageDto, Language>();
-
-            // CreateMap<RequirementForCreation, Requirement>();
-            // CreateMap<Requirement, RequirementForDetailDto>();
+           
+            //Requirements Mappings
             CreateMap<RequirementForCreationDto, Requirement>();
             CreateMap<Requirement, RequirementForDetailDto>();
-
+            
+            //ProductRequirements Mappings
             CreateMap<ProductRequirementForCreateDto, ProductRequirement>();
             CreateMap<ProductRequirement, RequirementForDetailDto>();
 
-
+            //Comments Mappings
             CreateMap<CreateCommentDto, Comment>();
             CreateMap<Comment, CommentForDetailDto>();
             CreateMap<Comment, CommentClearForDetailDto>();
 
             // Reviews Mappings
             CreateMap<CreateReviewDto, Review>();
+            CreateMap<UpdateReviewDto, Review>();
+
 
 
         }

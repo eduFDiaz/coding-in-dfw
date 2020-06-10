@@ -2,7 +2,6 @@ using AutoMapper;
 using coding.API.Data;
 using coding.API.Dtos.Products;
 using coding.API.Dtos;
-using coding.API.Models;
 using coding.API.Models.Presenter;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -15,7 +14,6 @@ using System.Linq;
 using coding.API.Dtos.Requirements;
 using coding.API.Models.Products.Requirements;
 using coding.API.Models.Products.ProductsRequirements;
-using Microsoft.EntityFrameworkCore;
 using coding.API.Models.Photos;
 
 namespace coding.API.Controllers
@@ -52,7 +50,7 @@ namespace coding.API.Controllers
             _requirementDal = requirementDal;
             _productRequirementDal = productRequirementDal;
         }
-
+        [Authorize]
         [HttpPost("create")]
         public async Task<IActionResult> Create([FromBody] ProductForCreateDto request)
         {
@@ -103,7 +101,7 @@ namespace coding.API.Controllers
             return Ok(allprods);
         }
 
-
+        [Authorize]
         [HttpGet("all")]
         public async Task<ActionResult> GetProducts()
         {
@@ -113,7 +111,8 @@ namespace coding.API.Controllers
 
             return Ok(productsToReturn);
         }
-
+        
+        [Authorize]
         [HttpGet("{productid}")]
         public async Task<IActionResult> GetSingleProduct(Guid productid)
         {
@@ -124,7 +123,7 @@ namespace coding.API.Controllers
             return Ok(new ProductPresenter(product));
         }
 
-
+        [Authorize]
         [HttpDelete("{productid}/delete")]
         public async Task<IActionResult> DeleteTag(Guid productid)
         {
@@ -137,7 +136,7 @@ namespace coding.API.Controllers
 
         }
 
-
+        [Authorize]
         [HttpPut("{productId}/update")]
         public async Task<IActionResult> UpdateProduct(Guid productId, [FromBody] ProductForUpdateDto request)
         {

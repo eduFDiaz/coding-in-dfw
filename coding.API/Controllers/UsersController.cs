@@ -17,7 +17,7 @@ using coding.API.Models.Presenter;
 
 namespace coding.API.Controllers
 {
-    // [Authorize]
+    [Authorize]
     [ApiController]
     [Route("api/[controller]")]
     public class UsersController : ControllerBase
@@ -32,7 +32,7 @@ namespace coding.API.Controllers
             _userDal = userDal;
 
         }
-
+        [Authorize]
         [HttpGet]
         public async Task<ActionResult<IEnumerable>> GetUsers()
         {
@@ -42,7 +42,7 @@ namespace coding.API.Controllers
 
             return Ok(usersToReturn);
         }
-
+        [Authorize]
         [HttpGet("{userId}", Name = "GetUser")]
         public async Task<ActionResult<User>> GetUser(Guid userId)
         {
@@ -54,7 +54,7 @@ namespace coding.API.Controllers
 
         }
 
-
+        [Authorize]
         [HttpPut("{id}")]
         public async Task<IActionResult> UpdateUser(Guid id, UserForUpdateDto userForUpdateDto)
         {

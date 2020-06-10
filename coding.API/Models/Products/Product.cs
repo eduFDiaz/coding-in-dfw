@@ -2,7 +2,6 @@ using System;
 using System.Collections.Generic;
 using coding.API.Models.Photos;
 using coding.API.Models.Products.ProductsRequirements;
-using coding.API.Models.Products.Requirements;
 
 
 namespace coding.API.Models.Products

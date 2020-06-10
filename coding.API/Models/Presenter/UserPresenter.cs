@@ -1,8 +1,5 @@
 ﻿using Newtonsoft.Json;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 using coding.API.Models.Users;
 
@@ -70,14 +67,6 @@ namespace coding.API.Models.Presenter
 
         [JsonProperty("codepenProfile")]
         public string CodepenProfile => _user.CodepenProfile;
-
-        //     [JsonProperty("photoUrl")]
-        //     public string PhotoUrl => {
-
-        //         if ()
-        // };
-
-
 
 
     }

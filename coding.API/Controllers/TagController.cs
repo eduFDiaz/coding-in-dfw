@@ -39,7 +39,7 @@ namespace coding.API.Controllers
             _mapper = mapper;
         }
 
-        /* [Authorize] */
+        [Authorize] 
         [HttpPost("create")]
         public async Task<IActionResult> Create([FromBody] TagForCreateDto request)
         {
@@ -49,9 +49,6 @@ namespace coding.API.Controllers
                 Description = request.Description,
             };
 
-            // var postForCreate = _mapper.Map<Post>(request);
-
-            // crea el post ahora
             var createdTag = await _tagDal.Add(tag);
 
             return Ok(new TagPresenter(createdTag));

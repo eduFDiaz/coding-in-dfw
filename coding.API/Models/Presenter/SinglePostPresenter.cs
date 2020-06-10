@@ -2,11 +2,9 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 
 using coding.API.Models.Posts;
-using coding.API.Models.Tags;
-using coding.API.Models.PostTags;
+
 using coding.API.Models.Posts.Comments;
 
 namespace coding.API.Models.Presenter
@@ -39,7 +37,6 @@ namespace coding.API.Models.Presenter
         [JsonProperty("readingTime")]
         public int ReadingTime => _post.ReadingTime;
 
-        // haz un resumen de los tag
         [JsonProperty("tags")]
         public List<String> Tags => _post.PostTags.Select(t => t.Tag.Title).ToList();
 

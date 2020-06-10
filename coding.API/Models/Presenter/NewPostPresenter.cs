@@ -2,11 +2,10 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
+
 
 using coding.API.Models.Posts;
-using coding.API.Models.Tags;
-using coding.API.Models.Posts.Comments;
+
 
 namespace coding.API.Models.Presenter
 {
@@ -43,7 +42,6 @@ namespace coding.API.Models.Presenter
 
 
         [JsonProperty("tags")]
-        // public ICollection<Tag> Tags => _post.PostTags.Select(t => t.Tag).ToList();
         public IEnumerable<Object> Tags => _post.PostTags.Select(p => new
         {
             Id = p.Tag.Id,

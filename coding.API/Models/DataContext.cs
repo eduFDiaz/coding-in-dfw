@@ -22,7 +22,6 @@ using coding.API.Models.FAQS;
 using System;
 using coding.API.Models.Reviews;
 using coding.API.Models.FeatureSkills;
-using System.Collections.Generic;
 
 namespace coding.API.Models
 {
@@ -70,15 +69,6 @@ namespace coding.API.Models
                         .HasConversion(
                             v => string.Join(',', v),
                             v => (v.Split(',', StringSplitOptions.RemoveEmptyEntries)));
-
-            // builder.Entity<PostTag>()
-            // .HasOne(pt => pt.Post)
-            // .WithMany(p => p.PostTags)
-            // .HasForeignKey(pt => pt.PostId);
-            // builder.Entity<PostTag>()
-            // .HasOne(pt => pt.Tag)
-            // .WithMany(t => t.PostTags)
-            // .HasForeignKey(pt => pt.TagId);
 
         }
 
