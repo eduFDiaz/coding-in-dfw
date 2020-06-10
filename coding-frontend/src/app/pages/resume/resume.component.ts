@@ -29,12 +29,18 @@ export class ResumeComponent implements OnInit {
   awards: any;
   workExperiences: any;
   interests: Interest[]
+  avatar: string
 
-  constructor(private resume: ResumeService) { }
+  constructor(
+    private user: UserService,
+    private resume: ResumeService) { }
 
   ngOnInit() {
     this.userData = JSON.parse(localStorage.getItem('userdata'))
     this.getData()
+    this.user.getAllUserPhotos().subscribe((result: any) => {
+      this.avatar = result.filter((item: any) => item.isMain == true)[0].url
+    })
   }
 
   getData() {

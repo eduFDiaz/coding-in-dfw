@@ -97,7 +97,7 @@ export class HeaderComponent implements OnInit {
       this.logout()
 
     } else if (title === 'Profile') {
-
+      this.router.navigate(['/profile'])
     }
   }
 
