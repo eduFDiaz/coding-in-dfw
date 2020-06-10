@@ -69,9 +69,7 @@
                 </div>
             </div>
             <div class="project-sections py-5">
-                <div class="project-section mb-5">
-                    {{ product?.text }}
-                </div>
+                <div class="project-section mb-5" [innerHTML]="stripHtml(product.bodyText)"></div>
                 <!--//project-section-->
                 <!-- 
                 <div class="project-section mb-5">
