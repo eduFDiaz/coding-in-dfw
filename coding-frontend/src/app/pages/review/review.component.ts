@@ -10,7 +10,7 @@ import { AlertifyServiceService } from 'src/app/_services/alertify-service.servi
 })
 export class ReviewComponent implements OnInit {
 
-  @ViewChild('contactForm', { static: true}) contactForm
+  @ViewChild('contactForm', { static: true }) contactForm
 
   constructor(
     private router: Router,

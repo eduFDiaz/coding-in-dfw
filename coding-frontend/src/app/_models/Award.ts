@@ -4,5 +4,4 @@ export interface Award {
     company: string
     year: number
     userId?: string
-
 }
