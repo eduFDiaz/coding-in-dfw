@@ -49,13 +49,13 @@ export class AuthService {
   }
 
 
-  public get currentUserValue(): User {
-    return this.currentUserSubject.value;
-  }
+  // public get currentUserValue(): User {
+  //   return this.currentUserSubject.value;
+  // }
 
-  public get loginStatusValue(): boolean {
-    return this.currentLoginStatusSubject.value
-  }
+  // public get loginStatusValue(): boolean {
+  //   return this.currentLoginStatusSubject.value
+  // }
 
   public get currentPhotoValue(): string {
     return this.currentPhotoSubject.value

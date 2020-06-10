@@ -80,14 +80,15 @@ export class HeaderComponent implements OnInit {
       )
       .subscribe((isLessThanXl: boolean) => this.userPictureOnly = isLessThanXl);
 
-    this.theuser = this.auth.currentUserValue
-    this.isLoggedIn = this.auth.loginStatusValue
-    // this.auth.currentLoginStatus.subscribe(result => this.isLoggedIn = result)
-    // this.auth.currentUser.subscribe(user => this.theuser = user)
+    // this.theuser = this.auth.currentUserValue
+    // this.isLoggedIn = this.auth.loginStatusValue
+    this.auth.currentLoginStatus.subscribe(result => this.isLoggedIn = result)
+    this.auth.currentUser.subscribe(user => this.theuser = user)
 
 
-    console.log(this.auth.currentUserValue)
+
     console.log(this.isLoggedIn)
+    console.log(this.theuser)
   }
 
   onItemSelection(title) {

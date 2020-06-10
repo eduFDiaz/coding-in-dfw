@@ -23,7 +23,7 @@ namespace coding.API.Models.Presenter
         [JsonProperty("username")]
         public string Username => _user.Username;
 
-        [JsonProperty("fullname")]
+        [JsonProperty("fullName")]
         public string FullName => _user.FullName;
 
         [JsonProperty("email")]

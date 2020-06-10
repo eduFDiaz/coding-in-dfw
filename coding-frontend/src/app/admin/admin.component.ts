@@ -19,7 +19,7 @@ export class AdminComponent implements OnInit {
 
   }
   ngOnInit() {
-    this.isLoggedIn = this.auth.loginStatusValue
+    this.auth.currentLoginStatus.subscribe(result => this.isLoggedIn = result)
   }
 
   title = 'coding-admin';
