@@ -19,6 +19,7 @@ import { AppPagesRoutes } from './app-pages.routing';
 import { FormsModule } from '@angular/forms';
 import { SortByPipe } from '../_pipes/sort-by.pipe';
 import { ReviewComponent } from './review/review.component';
+import { ProjectDetailComponent } from './projects/project-detail/project-detail.component';
 
 @NgModule({
   declarations: [HomeComponent,
@@ -34,7 +35,8 @@ import { ReviewComponent } from './review/review.component';
     AppPagesComponent,
     FooterComponent,
     SortByPipe,
-    ReviewComponent
+    ReviewComponent,
+    ProjectDetailComponent
   ],
   imports: [
     CommonModule, FormsModule,
