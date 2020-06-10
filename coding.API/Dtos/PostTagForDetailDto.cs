@@ -1,5 +1,4 @@
 using System;
-using coding.API.Models;
 
 namespace coding.API.Dtos
 {

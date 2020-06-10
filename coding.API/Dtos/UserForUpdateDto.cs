@@ -1,5 +1,4 @@
-using System;
-using System.Collections.Generic;
+
 namespace coding.API.Dtos
 {
     public class UserForUpdateDto

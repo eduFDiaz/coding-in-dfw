@@ -12,7 +12,6 @@ namespace coding.API.Dtos.Products
         public string Type { get; set; }
         [Required]
         public string Url { get; set; }
-        // public string ProductPhoto { get; set; }
         [Required]
         public string Description { get; set; }
 

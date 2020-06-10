@@ -89,7 +89,7 @@ namespace coding.API.Controllers
         }
 
 
-        [Authorize]
+
         [HttpGet("foruser/{userId}", Name = "GetPost")]
         public async Task<IActionResult> GetAllPostsForUser(Guid userId)
         {

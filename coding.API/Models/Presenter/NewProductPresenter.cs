@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using System.Linq;
 
 using coding.API.Models.Products;
-using coding.API.Models.Products.Requirements;
 
 namespace coding.API.Models.Presenter
 {
@@ -48,10 +47,6 @@ namespace coding.API.Models.Presenter
 
         [JsonProperty("url")]
         public string Url => _product.Url;
-
-
-        // [JsonProperty("photoUrl")]
-        // public string PhotoUrl => _product.Photos.Where(p => p.IsMain == true).Select(p => p.Url).SingleOrDefault();
 
         [JsonProperty("description")]
         public string ProductDescription => _product.ProductDescription;

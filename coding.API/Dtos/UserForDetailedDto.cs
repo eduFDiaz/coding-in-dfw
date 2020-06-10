@@ -1,7 +1,5 @@
 using System;
-using System.Collections.Generic;
-using coding.API.Models;
-using coding.API.Dtos.Products;
+
 
 namespace coding.API.Dtos
 {

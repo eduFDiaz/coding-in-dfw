@@ -35,7 +35,7 @@ namespace coding.API.Controllers
             _mapper = mapper;
         }
 
-        // [Authorize]
+        [Authorize]
         [HttpPost("create")]
         public async Task<IActionResult> Create([FromBody] CreateSkillDto request)
         {
@@ -48,7 +48,7 @@ namespace coding.API.Controllers
         }
 
 
-
+        [Authorize]
         [HttpGet("foruser/{userId}", Name = "Get skill for User")]
         public async Task<IActionResult> GetskillForUser(Guid userId)
         {
@@ -59,7 +59,7 @@ namespace coding.API.Controllers
 
         }
 
-
+        [Authorize]
         [HttpDelete("{Skillid}/delete", Name = "DeleteSkill")]
         public async Task<IActionResult> DeleteLan(Guid Skillid)
         {
@@ -75,7 +75,7 @@ namespace coding.API.Controllers
 
         }
 
-
+        [Authorize]
         [HttpPut("{Skillid}/update", Name = "Update Skill")]
         public async Task<IActionResult> UpdateSkill(Guid Skillid, [FromBody] UpdateSkillDto request)
         {

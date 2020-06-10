@@ -1,7 +1,6 @@
 using AutoMapper;
 using coding.API.Data;
 using coding.API.Dtos;
-using coding.API.Models;
 using coding.API.Models.Presenter;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -12,7 +11,6 @@ using coding.API.Models.Projects;
 
 
 using System;
-using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace coding.API.Controllers
@@ -35,7 +33,7 @@ namespace coding.API.Controllers
             _mapper = mapper;
         }
 
-        // [Authorize]
+        [Authorize]
         [HttpPost("create")]
         public async Task<IActionResult> Create([FromBody] CreateProjectDto request)
         {
@@ -48,7 +46,7 @@ namespace coding.API.Controllers
         }
 
 
-
+        [Authorize]
         [HttpGet("foruser/{userId}", Name = "Get project for User")]
         public async Task<IActionResult> GetProjectForUser(Guid userId)
         {
@@ -59,7 +57,7 @@ namespace coding.API.Controllers
 
         }
 
-
+        [Authorize]
         [HttpDelete("{projectid}/delete", Name = "DeleteProject")]
         public async Task<IActionResult> DeleteLan(Guid projectid)
         {
@@ -74,7 +72,7 @@ namespace coding.API.Controllers
             return BadRequest("Catn erase the project");
         }
 
-
+        [Authorize]
         [HttpPut("{projectid}/update", Name = "Update Project")]
         public async Task<IActionResult> UpdateLan(Guid projectid, [FromBody] UpdateProjectDto request)
         {
@@ -82,10 +80,6 @@ namespace coding.API.Controllers
 
             if (prjectToUpdate == null)
                 return NotFound();
-
-            // prjectToUpdate.Title = request.Title;
-            // prjectToUpdate.Resume = request.Resume;
-            // prjectToUpdate.Type = request.Type;
 
             var toUpd = _mapper.Map(request, prjectToUpdate);
 

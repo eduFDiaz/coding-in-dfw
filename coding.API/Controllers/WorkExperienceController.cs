@@ -11,6 +11,7 @@ using coding.API.Models.WorkExperiences;
 
 using System;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 
 namespace coding.API.Controllers
 {
@@ -32,7 +33,7 @@ namespace coding.API.Controllers
             _mapper = mapper;
         }
 
-        // [Authorize]
+        [Authorize]
         [HttpPost("create")]
         public async Task<IActionResult> Create([FromBody] CreateWorkExperienceDto request)
         {
@@ -56,7 +57,7 @@ namespace coding.API.Controllers
 
         }
 
-
+        [Authorize]
         [HttpDelete("{workExperienceid}/delete", Name = "DeleteworkExperience")]
         public async Task<IActionResult> DeleteLan(Guid workExperienceid)
         {
@@ -72,7 +73,7 @@ namespace coding.API.Controllers
 
         }
 
-
+        [Authorize]
         [HttpPut("{workExperienceid}/update", Name = "Update workExperience")]
         public async Task<IActionResult> UpdateworkExperience(Guid workExperienceid, [FromBody] UpdateWorkExperienceDto request)
         {
