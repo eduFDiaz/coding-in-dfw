@@ -35,9 +35,7 @@ export class LoginComponent implements OnInit {
   }
 
   ngOnInit() {
-    // if (this.test) {
-    //   this.router.navigate(['/profile']);
-    // }
+
   }
 
   login() {

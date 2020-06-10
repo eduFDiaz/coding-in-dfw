@@ -14,9 +14,10 @@ import { environment } from 'src/environments/environment';
 })
 export class AuthService {
 
-  // The service will use a behavior subject so any component can subscribe to changes emitted by it
-  photoUrl = new BehaviorSubject<string>('https://www.bsn.eu/wp-content/uploads/2016/12/user-icon-image-placeholder-300-grey.jpg');
-  currentPhotoUrl = this.photoUrl.asObservable();
+  // Photos
+  private currentPhotoSubject: BehaviorSubject<string>
+  public currentPhotoUrl: Observable<string>
+
 
   // User subjects and observable
   private currentUserSubject: BehaviorSubject<User>
@@ -33,6 +34,9 @@ export class AuthService {
 
 
   constructor(private http: HttpClient) {
+    this.currentPhotoSubject = new BehaviorSubject<string>('https://www.bsn.eu/wp-content/uploads/2016/12/user-icon-image-placeholder-300-grey.jpg');
+    this.currentPhotoUrl = this.currentPhotoSubject.asObservable();
+
     // Read the user from the local storage
     this.currentUserSubject = new BehaviorSubject<User>(JSON.parse(localStorage.getItem('data')));
     this.currentUser = this.currentUserSubject.asObservable();
@@ -51,6 +55,10 @@ export class AuthService {
 
   public get loginStatusValue(): boolean {
     return this.currentLoginStatusSubject.value
+  }
+
+  public get currentPhotoValue(): string {
+    return this.currentPhotoSubject.value
   }
 
   login(model: any) {
@@ -107,8 +115,8 @@ export class AuthService {
   // }
 
 
-  // changeMemberPhoto(photoUrl: string) {
-  //   // localStorage.setItem('user', JSON.stringify(this.loggedInUser));
-  //   this.photoUrl.next(photoUrl);
-  // }
+  changeMemberPhoto(photoUrl: string) {
+    // localStorage.setItem('user', JSON.stringify(this.loggedInUser));
+    this.currentPhotoSubject.next(photoUrl);
+  }
 }
