@@ -8,16 +8,17 @@
                     <div class="bio mb-4"> {{ userData?.shortResume }} I write about software development on
                         <a class="link-on-bg" [routerLink]="['/blog']">my blog</a>. Want to know how I may help your
                         project? Check out my project
-                        <a class="link-on-bg" [routerLink]="['/portfolio']" [queryParams]="{query: 'all'}">portfolio</a> and
+                        <a class="link-on-bg" [routerLink]="['/portfolio']" [queryParams]="{query: 'all'}">portfolio</a>
+                        and
                         <a class="link-on-bg" [routerLink]="['/resume']">online resume</a>.
                     </div>
                     <!--//bio-->
                     <div class="mb-4">
-                        <a class="btn btn-primary mr-2 mb-3" [routerLink]="['/portfolio']" [queryParams]="{query: 'all'}"><i
-                                class="fas fa-arrow-alt-circle-right mr-2"></i><span
+                        <a class="btn btn-primary mr-2 mb-3" [routerLink]="['/portfolio']"
+                            [queryParams]="{query: 'all'}"><i class="fas fa-arrow-alt-circle-right mr-2"></i><span
                                 class="d-none d-md-inline">View</span> Portfolio</a>
-                        <a class="btn btn-secondary mb-3" [routerLink]="['/resume']"><i class="fas fa-file-alt mr-2"></i><span
-                                class="d-none d-md-inline">View</span> Resume</a>
+                        <a class="btn btn-secondary mb-3" [routerLink]="['/resume']"><i
+                                class="fas fa-file-alt mr-2"></i><span class="d-none d-md-inline">View</span> Resume</a>
                     </div>
                 </div>
                 <!--//media-body-->
@@ -33,133 +34,21 @@
                 <a [routerLink]="['/resume']">online resume</a> and
                 <a [routerLink]="['/portfolio']" [queryParams]="{query: 'all'}">project portfolio</a>.
             </div>
+
             <div class="row">
-                <div class="item col-6 col-lg-3">
+                <div class="item col-6 col-lg-3" *ngFor="let fskill of featuredSkills">
                     <div class="item-inner">
                         <div class="item-icon">
-                            <i class="fab fa-js-square"></i>
+                            <i class="{{icon}}" *ngFor="let icon of fskill.icons"></i>
                         </div>
-                        <h3 class="item-title">Vanilla JavaScript</h3>
-                        <div class="item-desc">List skills/technologies here. You can change the icon above to any of
-                            the 1500+
-                            <a class="theme-link" href="https://fontawesome.com/" target="_blank">FontAwesome 5 free
-                                icons</a> available. Aenean commodo ligula eget dolor.
-                        </div>
+                        <h3 class="item-title">{{fskill.title}}</h3>
+                        <div class="item-desc">{{fskill.body }}</div>
                     </div>
                     <!--//item-inner-->
                 </div>
                 <!--//item-->
-                <div class="item col-6 col-lg-3">
-                    <div class="item-inner">
-                        <div class="item-icon">
-                            <i class="fab fa-angular mr-2"></i>
-                            <i class="fab fa-react mr-2"></i>
-                            <i class="fab fa-vuejs"></i>
-                        </div>
-                        <h3 class="item-title">Angular, React &amp; Vue</h3>
-                        <div class="item-desc">List skills/technologies here. You can change the icon above to any of
-                            the 1500+
-                            <a class="theme-link" href="https://fontawesome.com/" target="_blank">FontAwesome 5 free
-                                icons</a> available. Aenean commodo ligula eget dolor.
-                        </div>
-                    </div>
-                    <!--//item-inner-->
-                </div>
-                <!--//item-->
-                <div class="item col-6 col-lg-3">
-                    <div class="item-inner">
-                        <div class="item-icon">
-                            <i class="fab fa-node-js"></i>
-                        </div>
-                        <h3 class="item-title">Node.js</h3>
-                        <div class="item-desc">List skills/technologies here. You can change the icon above to any of
-                            the 1500+
-                            <a class="theme-link" href="https://fontawesome.com/" target="_blank">FontAwesome 5 free
-                                icons</a> available. Aenean commodo ligula eget dolor.
-                        </div>
-                    </div>
-                    <!--//item-inner-->
-                </div>
-                <!--//item-->
-                <div class="item col-6 col-lg-3">
-                    <div class="item-inner">
-                        <div class="item-icon">
-                            <i class="fab fa-python"></i>
-                        </div>
-                        <h3 class="item-title">Python &amp; Django</h3>
-                        <div class="item-desc">List skills/technologies here. You can change the icon above to any of
-                            the 1500+
-                            <a class="theme-link" href="https://fontawesome.com/" target="_blank">FontAwesome 5 free
-                                icons</a> available. Aenean commodo ligula eget dolor.
-                        </div>
-                    </div>
-                    <!--//item-inner-->
-                </div>
-                <!--//item-->
-                <div class="item col-6 col-lg-3">
-                    <div class="item-inner">
-                        <div class="item-icon">
-                            <i class="fab fa-php"></i>
-                        </div>
-                        <h3 class="item-title">PHP</h3>
-                        <div class="item-desc">List skills/technologies here. You can change the icon above to any of
-                            the 1500+
-                            <a class="theme-link" href="https://fontawesome.com/" target="_blank">FontAwesome 5 free
-                                icons</a> available. Aenean commodo ligula eget dolor.
-                        </div>
-                    </div>
-                    <!--//item-inner-->
-                </div>
-                <!--//item-->
-                <div class="item col-6 col-lg-3">
-                    <div class="item-inner">
-                        <div class="item-icon">
-                            <i class="fab fa-npm mr-2"></i>
-                            <i class="fab fa-gulp mr-2"></i>
-                            <i class="fab fa-grunt"></i>
-                        </div>
-                        <h3 class="item-title">npm, Gulp &amp; Grunt</h3>
-                        <div class="item-desc">List skills/technologies here. You can change the icon above to any of
-                            the 1500+
-                            <a class="theme-link" href="https://fontawesome.com/" target="_blank">FontAwesome 5 free
-                                icons</a> available. Aenean commodo ligula eget dolor.
-                        </div>
-                    </div>
-                    <!--//item-inner-->
-                </div>
-                <!--//item-->
-                <div class="item col-6 col-lg-3">
-                    <div class="item-inner">
-                        <div class="item-icon">
-                            <i class="fab fa-html5 mr-2"></i>
-                            <i class="fab fa-css3-alt"></i>
-                        </div>
-                        <h3 class="item-title">HTML &amp; CSS</h3>
-                        <div class="item-desc">List skills/technologies here. You can change the icon above to any of
-                            the 1500+
-                            <a class="theme-link" href="https://fontawesome.com/" target="_blank">FontAwesome 5 free
-                                icons</a> available. Aenean commodo ligula eget dolor.
-                        </div>
-                    </div>
-                    <!--//item-inner-->
-                </div>
-                <!--//item-->
-                <div class="item col-6 col-lg-3">
-                    <div class="item-inner">
-                        <div class="item-icon">
-                            <i class="fab fa-sass mr-2"></i>
-                            <i class="fab fa-less"></i>
-                        </div>
-                        <h3 class="item-title">Sass &amp; LESS</h3>
-                        <div class="item-desc">List skills/technologies here. You can change the icon above to any of
-                            the 1500+
-                            <a class="theme-link" href="https://fontawesome.com/" target="_blank">FontAwesome 5 free
-                                icons</a> available. Aenean commodo ligula eget dolor.
-                        </div>
-                    </div>
-                    <!--//item-inner-->
-                </div>
-                <!--//item-->
+
+
             </div>
             <!--//row-->
             <div class="text-center py-3">

@@ -7,6 +7,8 @@ import { ProductService } from 'src/app/_services/product.service';
 import { User } from 'src/app/_models/User';
 import { Post } from 'src/app/_models/Post';
 import { PostService } from 'src/app/_services/post.service';
+import { FeaturedSkill } from 'src/app/_models/FeaturedSkill';
+import { FeaturedSkillsService } from 'src/app/_services/featured-skills.service';
 
 @Component({
   selector: 'app-home',
@@ -20,8 +22,10 @@ export class HomeComponent implements OnInit {
   products: Product[]
   userid: User
   posts: Post[]
+  featuredSkills: FeaturedSkill[]
 
   constructor(
+    private featuredSkillsService: FeaturedSkillsService,
     private postService: PostService,
     private productService: ProductService,
     private alert: AlertService, private user: UserService) { }
@@ -42,6 +46,7 @@ export class HomeComponent implements OnInit {
     this.postService.getUserPosts(this.userid.id).subscribe((result) => {
       this.posts = result
     })
+    this.featuredSkillsService.getAllFeaturedSkills().subscribe((result: FeaturedSkill[]) => this.featuredSkills = result)
   }
 
   stripHtml(html: string) {

@@ -24,14 +24,51 @@ export class FeaturedskillsComponent implements OnInit {
     private featuredSkillService: FeaturedSkillsService) { }
 
   ngOnInit() {
-    this.featuredSkillService.getAllFeaturedSkills().subscribe((result: FeaturedSkill[]) => this.featuredSkills = result)
+    this.featuredSkillService.getAllFeaturedSkills().subscribe((result: FeaturedSkill[]) => {
+
+      this.featuredSkills = result
+      console.log(this.featuredSkills)
+    })
 
 
   }
 
+  resolveItems(type: string) {
+    let icons = []
+    switch (type) {
+      case 'Vanilla Javascript':
+        icons = ["fab fa-js-square"]
+        break;
+      case 'Angular, React & Vue':
+        icons = ["fab fa-angular mr-2", "fab fa-react mr-2", "fab fa-vuejs"]
+        break;
+      case 'NodeJS':
+        icons = ["fab fa-node-js mr-2"]
+        break;
+      case 'Python & Django':
+        icons = ["fab fa-python mr-2"]
+        break;
+      case 'PHP':
+        icons = ["fab fa-php mr-2"]
+        break;
+      case 'Npm, Gulp & Grunt':
+        icons = ["fab fa-npm mr-2", "fab fa-gulp mr-2", "fab fa-grunt"]
+        break;
+      case 'HTML & CSS':
+        icons = ["fab fa-html5 mr-2", "fab fa-css3 mr-2"]
+        break;
+      case 'SASS & LESS':
+        icons = ["fab fa-sass mr-2", "fab fa-less mr-2"]
+        break;
+      default:
+        break;
+    }
+    return icons
+  }
+
   createFeature(feature: FeaturedSkill) {
     this.spinner = true
-
+    feature.icons = this.resolveItems(feature.title)
     this.featuredSkillService.newFeaturedSkill(feature).subscribe((newfeature: FeaturedSkill) => {
       this.alert.showToast('top-right', 'success', 'Ok', 'Created featured!')
       this.featuredSkills.push(newfeature)
@@ -52,8 +89,10 @@ export class FeaturedskillsComponent implements OnInit {
   }
 
   editFeature(id: string, data: FeaturedSkill) {
+    data.icons = this.resolveItems(data.title)
     this.featuredSkillService.editFeatureSkill(id, data).subscribe((editedFeature: FeaturedSkill) => {
       this.alert.showToast('top-right', 'info', 'Ok', 'Updated featured!')
+      console.log(editedFeature)
     })
   }
 
