@@ -29,13 +29,7 @@ export class ResumeService {
   }
 
   addLanguage(langdata: any): Observable<any> {
-    return this.http.post(environment.apiUrl + '/language/create', langdata, {
-      headers: {
-        'Content-Type': 'application/json',
-        // tslint:disable-next-line: object-literal-key-quotes
-        'authorization': 'Bearer ' + localStorage.getItem('token')
-      }
-    }).pipe(
+    return this.http.post(environment.apiUrl + '/language/create', langdata).pipe(
       map(
         (result) => {
           return result
@@ -44,13 +38,7 @@ export class ResumeService {
   }
 
   deleteLanguage(languageid: string) {
-    return this.http.delete(environment.apiUrl + '/language/' + languageid + '/delete', {
-      headers: {
-        'Content-Type': 'application/json',
-        // tslint:disable-next-line: object-literal-key-quotes
-        'authorization': 'Bearer ' + localStorage.getItem('token')
-      }
-    }).pipe(map(
+    return this.http.delete(environment.apiUrl + '/language/' + languageid + '/delete').pipe(map(
       (result) => {
         return result
       }, catchError(err => {
@@ -88,13 +76,7 @@ export class ResumeService {
   }
 
   addEducation(data: any): Observable<any> {
-    return this.http.post(environment.apiUrl + '/education/create', data, {
-      headers: {
-        'Content-Type': 'application/json',
-        // tslint:disable-next-line: object-literal-key-quotes
-        'authorization': 'Bearer ' + localStorage.getItem('token')
-      }
-    }).pipe(
+    return this.http.post(environment.apiUrl + '/education/create', data).pipe(
       map(
         (result) => {
           return result
@@ -103,13 +85,7 @@ export class ResumeService {
   }
 
   deleteEducation(educationid: string) {
-    return this.http.delete(environment.apiUrl + '/education/' + educationid + '/delete', {
-      headers: {
-        'Content-Type': 'application/json',
-        // tslint:disable-next-line: object-literal-key-quotes
-        'authorization': 'Bearer ' + localStorage.getItem('token')
-      }
-    }).pipe(map(
+    return this.http.delete(environment.apiUrl + '/education/' + educationid + '/delete').pipe(map(
       (result) => {
         return result
       }, catchError(err => {
@@ -147,13 +123,7 @@ export class ResumeService {
   }
 
   addSkill(data: any): Observable<Skill> {
-    return this.http.post<Skill>(environment.apiUrl + '/skill/create', data, {
-      headers: {
-        'Content-Type': 'application/json',
-        // tslint:disable-next-line: object-literal-key-quotes
-        'authorization': 'Bearer ' + localStorage.getItem('token')
-      }
-    }).pipe(
+    return this.http.post<Skill>(environment.apiUrl + '/skill/create', data).pipe(
       map(
         (result) => {
           return result
@@ -162,13 +132,7 @@ export class ResumeService {
   }
 
   deleteSkill(id: string) {
-    return this.http.delete(environment.apiUrl + '/skill/' + id + '/delete', {
-      headers: {
-        'Content-Type': 'application/json',
-        // tslint:disable-next-line: object-literal-key-quotes
-        'authorization': 'Bearer ' + localStorage.getItem('token')
-      }
-    }).pipe(map(
+    return this.http.delete(environment.apiUrl + '/skill/' + id + '/delete').pipe(map(
       (result) => {
         return result
       }, catchError(err => {
@@ -206,13 +170,7 @@ export class ResumeService {
   }
 
   addProject(data: any): Observable<any> {
-    return this.http.post<any>(environment.apiUrl + '/project/create', data, {
-      headers: {
-        'Content-Type': 'application/json',
-        // tslint:disable-next-line: object-literal-key-quotes
-        'authorization': 'Bearer ' + localStorage.getItem('token')
-      }
-    }).pipe(
+    return this.http.post<any>(environment.apiUrl + '/project/create', data).pipe(
       map(
         (result) => {
           return result
@@ -221,13 +179,7 @@ export class ResumeService {
   }
 
   deleteProject(id: string) {
-    return this.http.delete(environment.apiUrl + '/project/' + id + '/delete', {
-      headers: {
-        'Content-Type': 'application/json',
-        // tslint:disable-next-line: object-literal-key-quotes
-        'authorization': 'Bearer ' + localStorage.getItem('token')
-      }
-    }).pipe(map(
+    return this.http.delete(environment.apiUrl + '/project/' + id + '/delete').pipe(map(
       (result) => {
         return result
       }, catchError(err => {
@@ -265,13 +217,7 @@ export class ResumeService {
   }
 
   addAward(data: any): Observable<any> {
-    return this.http.post<any>(environment.apiUrl + '/award/create', data, {
-      headers: {
-        'Content-Type': 'application/json',
-        // tslint:disable-next-line: object-literal-key-quotes
-        'authorization': 'Bearer ' + localStorage.getItem('token')
-      }
-    }).pipe(
+    return this.http.post<any>(environment.apiUrl + '/award/create', data).pipe(
       map(
         (result) => {
           return result
@@ -280,13 +226,7 @@ export class ResumeService {
   }
 
   deleteAward(id: string) {
-    return this.http.delete(environment.apiUrl + '/award/' + id + '/delete', {
-      headers: {
-        'Content-Type': 'application/json',
-        // tslint:disable-next-line: object-literal-key-quotes
-        'authorization': 'Bearer ' + localStorage.getItem('token')
-      }
-    }).pipe(map(
+    return this.http.delete(environment.apiUrl + '/award/' + id + '/delete').pipe(map(
       (result) => {
         return result
       }, catchError(err => {
@@ -324,13 +264,7 @@ export class ResumeService {
   }
 
   addWe(data: any): Observable<any> {
-    return this.http.post<any>(environment.apiUrl + '/workexperience/create', data, {
-      headers: {
-        'Content-Type': 'application/json',
-        // tslint:disable-next-line: object-literal-key-quotes
-        'authorization': 'Bearer ' + localStorage.getItem('token')
-      }
-    }).pipe(
+    return this.http.post<any>(environment.apiUrl + '/workexperience/create', data).pipe(
       map(
         (result) => {
           return result
@@ -339,13 +273,7 @@ export class ResumeService {
   }
 
   deleteWe(id: string) {
-    return this.http.delete(environment.apiUrl + '/workexperience/' + id + '/delete', {
-      headers: {
-        'Content-Type': 'application/json',
-        // tslint:disable-next-line: object-literal-key-quotes
-        'authorization': 'Bearer ' + localStorage.getItem('token')
-      }
-    }).pipe(map(
+    return this.http.delete(environment.apiUrl + '/workexperience/' + id + '/delete').pipe(map(
       (result) => {
         return result
       }, catchError(err => {
@@ -383,13 +311,7 @@ export class ResumeService {
   }
 
   addInterest(data: Interest): Observable<Interest> {
-    return this.http.post<any>(environment.apiUrl + '/interest/create', data, {
-      headers: {
-        'Content-Type': 'application/json',
-        // tslint:disable-next-line: object-literal-key-quotes
-        'authorization': 'Bearer ' + localStorage.getItem('token')
-      }
-    }).pipe(
+    return this.http.post<any>(environment.apiUrl + '/interest/create', data).pipe(
       map(
         (result) => {
           return result
@@ -398,13 +320,7 @@ export class ResumeService {
   }
 
   deleteInterest(id: string) {
-    return this.http.delete(environment.apiUrl + '/interest/' + id + '/delete', {
-      headers: {
-        'Content-Type': 'application/json',
-        // tslint:disable-next-line: object-literal-key-quotes
-        'authorization': 'Bearer ' + localStorage.getItem('token')
-      }
-    }).pipe(map(
+    return this.http.delete(environment.apiUrl + '/interest/' + id + '/delete').pipe(map(
       (result) => {
         return result
       }, catchError(err => {

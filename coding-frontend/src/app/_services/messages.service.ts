@@ -14,29 +14,27 @@ import { Commentary } from '../_models/Comments';
 })
 export class MessagesService {
 
-   constructor(
-     private http: HttpClient,
-     private toast: AlertService,
-     private user: UserService) { }
+  constructor(
+    private http: HttpClient,
+    private toast: AlertService,
+    private user: UserService) { }
 
-   createMessage(data: Message) {
-   	return this.http.post(environment.apiUrl + '/message/create',data,
-   	 { headers: { 'authorization': 'Bearer ' + localStorage.getItem('token') } } )
-   }
+  createMessage(data: Message) {
+    return this.http.post(environment.apiUrl + '/message/create', data
+    )
+  }
 
-   getMessages(): Observable<Message[]> {
-   	return this.http.get<Message[]>(environment.apiUrl + '/message/all')
-   }
+  getMessages(): Observable<Message[]> {
+    return this.http.get<Message[]>(environment.apiUrl + '/message/all')
+  }
 
-   deleteMessage(id: string) {
-   	return this.http.delete(environment.apiUrl + '/message/' + id + '/delete',
-   	 { headers: { 'authorization': 'Bearer ' + localStorage.getItem('token') } })
-   }
+  deleteMessage(id: string) {
+    return this.http.delete(environment.apiUrl + '/message/' + id + '/delete')
+  }
 
-   markRead(id: string) {
-   	return this.http.put(environment.apiUrl + '/message/' + id + '/update',
-   		{ headers: { 'authorization': 'Bearer ' + localStorage.getItem('token') } })
-   }
+  markRead(id: string) {
+    return this.http.put(environment.apiUrl + '/message/' + id + '/update', {})
+  }
 
 
 }

@@ -15,6 +15,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NbSidebarModule, NbToastrModule } from '@nebular/theme';
 import { PagesModule } from './pages/pages.module';
 import { ErrorInterceptorService } from './_services/error-interceptor.service';
+import { JwtInterceptor } from './_helpers/jwt.interceptor';
 
 
 
@@ -34,7 +35,9 @@ import { ErrorInterceptorService } from './_services/error-interceptor.service';
     AdminModule,
     AppRoutingModule,
   ],
-  providers: [AlertService, AuthService, UserService, ErrorInterceptorService, { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptorService, multi: true },
+  providers: [AlertService, AuthService, UserService,
+    { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptorService, multi: true },
+    { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
   ],
   bootstrap: [AppComponent]
 })

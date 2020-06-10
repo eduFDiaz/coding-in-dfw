@@ -73,7 +73,7 @@ export class ProductService {
 
   addProduct(data: Product): Observable<Product> {
     // tslint:disable-next-line: object-literal-key-quotes
-    return this.http.post<Product>(environment.apiUrl + '/product/create', data, { headers: { 'authorization': 'Bearer ' + localStorage.getItem('token') } }).pipe(
+    return this.http.post<Product>(environment.apiUrl + '/product/create', data).pipe(
       map((result: any) => {
         return result;
       }), catchError(error => {
@@ -85,7 +85,7 @@ export class ProductService {
   }
 
   addRequirement(data: Requirement): Observable<Requirement> {
-    return this.http.post<Requirement>(environment.apiUrl + '/product/addRequirement', data, { headers: { 'authorization': 'Bearer ' + localStorage.getItem('token') } }).pipe(
+    return this.http.post<Requirement>(environment.apiUrl + '/product/addRequirement', data).pipe(
       map((result: Requirement) => {
         return result;
       }), catchError(error => {

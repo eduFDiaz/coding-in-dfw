@@ -8,26 +8,18 @@ import { environment } from 'src/environments/environment';
 })
 export class FeaturedSkillsService {
 
-  myheader = {
-    headers: {
-      'authorization': 'Bearer ' + localStorage.getItem('token'),
-      'Content-Type': 'application/json'
-    }
-  }
-
-
   constructor(private http: HttpClient) { }
 
   newFeaturedSkill(data: FeaturedSkill) {
-    return this.http.post(environment.apiUrl + '/featureskill/create', data, this.myheader)
+    return this.http.post(environment.apiUrl + '/featureskill/create', data)
   }
 
   deleteFeatureSkill(id: string) {
-    return this.http.delete(environment.apiUrl + '/featureskill/' + id + '/delete', this.myheader)
+    return this.http.delete(environment.apiUrl + '/featureskill/' + id + '/delete')
   }
 
   editFeatureSkill(id: string, data: FeaturedSkill) {
-    return this.http.put(environment.apiUrl + '/featureskill/' + id + '/update', data, this.myheader)
+    return this.http.put(environment.apiUrl + '/featureskill/' + id + '/update', data)
   }
 
   getAllFeaturedSkills() {
