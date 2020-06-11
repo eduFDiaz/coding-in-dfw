@@ -38,7 +38,7 @@ namespace coding.API.Controllers
 
         }
 
-        
+        [Authorize]        
         [HttpPost("create")]
         public async Task<IActionResult> Create([FromBody] DraftReviewDto request)
         {
