@@ -40,6 +40,8 @@ export class ReviewComponent implements OnInit {
       this.alertService.success("Thanks for your review!")
       this.contactForm.resetForm()
       this.router.navigate(['/home'])
+    }, error => {
+      console.log(error)
     })
   }
 
