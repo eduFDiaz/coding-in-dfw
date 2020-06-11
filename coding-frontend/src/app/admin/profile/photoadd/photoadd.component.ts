@@ -76,8 +76,8 @@ export class PhotoaddComponent implements OnInit {
     this.uploader.onSuccessItem = (item, response, status, headers) => {
       console.log(response)
       if (response) {
-        const res: Photo = JSON.parse(response);
-        const photo = {
+        let res: Photo = JSON.parse(response);
+        let photo = {
           id: res.id,
           url: res.url,
           dateAdded: res.dateAdded,
@@ -99,7 +99,8 @@ export class PhotoaddComponent implements OnInit {
         this.currentMainPhoto = this.photos.filter(p => p.isMain === true)[0];
         this.currentMainPhoto.isMain = false;
         photo.isMain = true;
-        this.auth.changeMemberPhoto(photo.url);
+        this.auth.changeMemberPhoto(photo.url)
+        console.log(photo.url)
       }, error => { console.log(error); }
         , () => { });
   }

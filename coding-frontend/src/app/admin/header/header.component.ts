@@ -62,8 +62,8 @@ export class HeaderComponent implements OnInit {
 
   ngOnInit() {
 
-    // this.auth.currentPhotoUrl.subscribe(photoUrl => this.photoUrl = photoUrl);
-    this.photoUrl = this.auth.currentPhotoValue
+    this.auth.currentPhotoUrl.subscribe(photoUrl => this.currentAvatarUrl = photoUrl);
+    // this.photoUrl = this.auth.currentPhotoValue
 
     console.log(this.photoUrl)
 

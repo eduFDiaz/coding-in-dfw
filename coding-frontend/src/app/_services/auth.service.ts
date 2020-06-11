@@ -116,6 +116,7 @@ export class AuthService {
 
 
   changeMemberPhoto(photoUrl: string) {
+    console.log(photoUrl)
     // localStorage.setItem('user', JSON.stringify(this.loggedInUser));
     this.currentPhotoSubject.next(photoUrl);
   }
