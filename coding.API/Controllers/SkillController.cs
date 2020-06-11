@@ -48,7 +48,7 @@ namespace coding.API.Controllers
         }
 
 
-        [Authorize]
+        
         [HttpGet("foruser/{userId}", Name = "Get skill for User")]
         public async Task<IActionResult> GetskillForUser(Guid userId)
         {

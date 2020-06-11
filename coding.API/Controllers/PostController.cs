@@ -169,7 +169,8 @@ namespace coding.API.Controllers
             return BadRequest("Cant update the post");
 
         }
-        [Authorize]
+        
+        
         [HttpGet("{postid}", Name = "Get Single Post")]
         public async Task<IActionResult> GetPost(Guid postid)
         {

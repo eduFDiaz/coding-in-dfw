@@ -18,7 +18,7 @@ export class ProjectDetailComponent implements OnInit {
     this.route.params.subscribe((data) => {
       this.productService.getProduct(data.id).subscribe((result: Product) => {
         this.product = result
-
+        console.log(this.product)
       })
     })
   }

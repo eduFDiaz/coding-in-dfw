@@ -69,7 +69,7 @@ namespace coding.API.Controllers
             }
             catch (Exception ex)
             {
-                string exMsg = ex.Message;
+                Exception exMsg = ex;
                 return BadRequest(exMsg);
 
             }

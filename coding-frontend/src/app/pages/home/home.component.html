@@ -95,7 +95,7 @@
                         <div class="card-body">
                             <h5 class="card-title"><a [routerLink]="[ '/blog/post' , post.id ]">
                                     {{ post.title }}</a></h5>
-                            <p class="card-text" [innerHtml]="stripHtml(post.text)"></p>
+                            <p class="card-text postinfo" [innerHtml]="stripHtml(post.text)"></p>
                             <p class="mb-0"><a [routerLink]="[ '/blog/post' , post.id ]" class="more-link">Read more
                                     &rarr;</a></p>
                         </div>
