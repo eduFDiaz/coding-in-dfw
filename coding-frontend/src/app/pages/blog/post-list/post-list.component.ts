@@ -25,7 +25,7 @@ export class PostListComponent implements OnInit {
     this.postService.getUserPosts(this.currentUser.id).subscribe((posts: Post[]) => {
       this.posts = posts
       this.loading = false
-      console.log(this.posts)
+
     })
 
   }

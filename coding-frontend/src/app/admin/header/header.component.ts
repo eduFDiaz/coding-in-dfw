@@ -53,7 +53,7 @@ export class HeaderComponent implements OnInit {
     this.user.getAllUserPhotos().subscribe((photo: any) => {
       this.userPhotos = photo
       this.currentAvatarUrl = this.userPhotos.filter(photo => photo.isMain == true).map(photo => photo.url).toString()
-      console.log(this.currentAvatarUrl)
+
     })
 
 
@@ -65,7 +65,7 @@ export class HeaderComponent implements OnInit {
     this.auth.currentPhotoUrl.subscribe(photoUrl => this.currentAvatarUrl = photoUrl);
     // this.photoUrl = this.auth.currentPhotoValue
 
-    console.log(this.photoUrl)
+
 
     this.menuService.onItemClick().subscribe((event) => {
       this.onItemSelection(event.item.title);
@@ -87,8 +87,7 @@ export class HeaderComponent implements OnInit {
 
 
 
-    console.log(this.isLoggedIn)
-    console.log(this.theuser)
+
   }
 
   onItemSelection(title) {

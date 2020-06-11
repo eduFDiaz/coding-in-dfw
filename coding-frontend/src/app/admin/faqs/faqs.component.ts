@@ -24,7 +24,7 @@ export class FaqsComponent implements OnInit {
   ngOnInit() {
     this.faqService.getFaqs().subscribe((result: any) => {
       this.faqs = result
-      console.log(this.faqs)
+
     })
 
   }

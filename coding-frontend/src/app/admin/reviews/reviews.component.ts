@@ -41,25 +41,24 @@ export class ReviewsComponent implements OnInit {
   ngOnInit() {
     this.reviewService.getAllReviews(this.userService.getCurrentUserId()).subscribe((result: Review[]) => {
       this.reviews = result
-      console.log(this.reviews)
+
     })
 
   }
 
   new(data: any) {
     this.spinner = true
-    console.log(data)
     data.userid = this.userService.getCurrentUserId();
     this.reviewService.newDraftReview(data)
       .subscribe((review: Review) => {
         this.reviews.push(review)
         this.alertService.showToast('top-right', 'success', 'Invitation Send!, now you have to wait for aprove it in this section before it shows on the front page', 'Your invitation was sent!')
       }, error => {
-        console.log(error)
+
         this.alertService.showToast('top-right', 'danger', 'Invitation fail!', 'Your invitation was not send because:' + error
         )
       }, () => { this.spinner = false })
-    console.log(this.reviews)
+
   }
 
   openDialog(dialog: TemplateRef<any>) {
@@ -96,11 +95,11 @@ export class ReviewsComponent implements OnInit {
     this.reviewService.publishReview(id).subscribe(() => {
       this.alertService.showToast('top-right', 'info', 'Review aproved!', 'Sent to the frontpage!')
     }, error => {
-      console.log(error)
+
     }, () => {
       this.reviewService.getAllReviews(this.userService.getCurrentUserId()).subscribe((result: Review[]) => {
         this.reviews = result
-        console.log(this.reviews)
+
       })
       this.spinner = false
 

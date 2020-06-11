@@ -112,7 +112,7 @@ namespace coding.API.Controllers
             return Ok(productsToReturn);
         }
         
-        [Authorize]
+        
         [HttpGet("{productid}")]
         public async Task<IActionResult> GetSingleProduct(Guid productid)
         {

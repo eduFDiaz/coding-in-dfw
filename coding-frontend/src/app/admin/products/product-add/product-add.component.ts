@@ -70,7 +70,7 @@ export class ProductAddComponent implements OnInit {
   newProduct(dialog: TemplateRef<any>) {
     let arr = []
     this.spinner = true
-    console.log(this.product)
+
     if (this.requirements.length == 0) {
       let emptyreq: Requirement = {
         description: "This product doesnt have any requirements"
@@ -97,7 +97,7 @@ export class ProductAddComponent implements OnInit {
   openAddRequirementDialog() {
     this.dialogService.open(RequirementAddComponent, { closeOnBackdropClick: true }).onClose.subscribe(
       (data) => {
-        console.log(data)
+
         this.requirements.push(data)
       }
     )
@@ -109,11 +109,5 @@ export class ProductAddComponent implements OnInit {
     }).filter((field: any) => field.key !== 'id' && field.key !== 'dateCreated' && field.key !== 'dateModified')
   }
 
-  // addPhotoLink() {
-  //   this.dialogService.open(ProductphotoAddComponent, { closeOnBackdropClick: true })
-  //     .onClose.subscribe((result) => {
-  //       console.log(result)
-  //     })
-  // }
 
 }

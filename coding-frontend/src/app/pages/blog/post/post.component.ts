@@ -24,7 +24,7 @@ export class PostComponent implements OnInit {
     this.route.params.subscribe((data) => {
       this.postService.getSinglePost(data.id).subscribe((result: Post) => {
         this.post = result
-        console.log(this.post)
+
       })
     })
   }
@@ -41,9 +41,7 @@ export class PostComponent implements OnInit {
   }
 
   postNewComment() {
-    console.log(this.post.id)
     this.newComment.postId = this.post.id
-    console.log(this.newComment)
     this.postService.addComment(this.newComment).subscribe((result) => {
       this.alert.success('Thanks for your comment, you have to wait for the blog owner in order to be published')
       this.commentForm.resetForm({})

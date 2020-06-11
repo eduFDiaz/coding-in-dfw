@@ -53,7 +53,7 @@ export class LoginComponent implements OnInit {
         this.loginSpinner = false
       },
       () => {
-        console.log("ok")
+
         this.toast.showToast('bottom-left', 'success', 'You have sign in succefully!', 'Welcome back to your dashboard!')
         this.router.navigate(['profile']);
       }

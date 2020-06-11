@@ -64,7 +64,7 @@ export class AuthService {
   login(model: any) {
     return this.http.post(environment.apiUrl + '/auth/login', model).pipe(
       map((response: any, ) => {
-        console.log(response)
+
         localStorage.setItem('token', response.token);
         // this.decodedToken = this.jwtHelper.decodeToken(user.token);
         localStorage.setItem('data', JSON.stringify(response.user));
@@ -116,7 +116,7 @@ export class AuthService {
 
 
   changeMemberPhoto(photoUrl: string) {
-    console.log(photoUrl)
+
     // localStorage.setItem('user', JSON.stringify(this.loggedInUser));
     this.currentPhotoSubject.next(photoUrl);
   }

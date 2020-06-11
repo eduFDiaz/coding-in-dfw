@@ -31,13 +31,13 @@ export class ProductListComponent implements OnInit {
     this.productService.getProducts(this.user.getCurrentUserId()).subscribe((data) => {
       if (data.length > 0) {
         this.products = data
-        console.log(this.products)
+
         this.spinner = false
       } else {
         this.toast.showToast('top-right', 'info', 'Theres no products here :(', 'Cant find any product')
       }
     }, error => {
-      console.log(error)
+
       this.spinner = false
       this.toast.showToast('top-right', 'info', 'Theres no products here :(', 'Cant find any product')
     })
@@ -84,19 +84,7 @@ export class ProductListComponent implements OnInit {
         forproduct: productToEdit.id
       }
     })
-    // this.dialog.open(ProductEditComponent, {
-    //   context: {
-    //     product: productToEdit
-    //   }, closeOnBackdropClick: true
-    // })
-    //   .onClose.subscribe((data) => {
-    //     this.productService.getProducts(this.user.getCurrentUserId()).subscribe((data) => {
-    //       this.products = data
-    //     }, err => {
-    //       console.log(err)
 
-    //     })
-    //   });
   }
 
 }

@@ -29,13 +29,13 @@ export class ReviewComponent implements OnInit {
   ngOnInit() {
     this.activatedRoute.queryParams.subscribe((result) => {
       this.reviewId = result['id']
-      console.log(this.reviewId)
+
     })
 
   }
 
   sendReview(data: any) {
-    console.log(data)
+
     this.reviewService.confirmReview(this.reviewId, data).subscribe((result) => {
       this.alertService.success("Thanks for your review!")
       this.contactForm.resetForm()

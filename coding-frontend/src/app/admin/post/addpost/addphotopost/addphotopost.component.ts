@@ -31,7 +31,7 @@ export class AddphotopostComponent implements OnInit {
     this.activatedRouter.queryParams.subscribe((params) => {
       this.forpost = params['forpost']
     })
-    console.log(this.forpost)
+
     this.initializeUploader()
     this.uploader.onBeforeUploadItem = (item) => {
       item.withCredentials = false;
@@ -59,8 +59,8 @@ export class AddphotopostComponent implements OnInit {
     this.uploader.onAfterAddingFile = (file) => { file.withCredentials = false; };
 
     this.uploader.onSuccessItem = (item, response, status, headers) => {
-      // console.log(response)
-      console.log(status)
+
+
       if (response) {
         const res: PostPhoto = JSON.parse(response);
         const photo = {

@@ -44,7 +44,7 @@ export class PostlistComponent implements OnInit {
     this.postService.getUserPosts(this.user.getCurrentUserId()).subscribe((result) => {
       this.userposts = result
       this.spinner = false
-      console.log(result)
+
     }
     )
   }
@@ -55,7 +55,7 @@ export class PostlistComponent implements OnInit {
         post: postToDelete
       }, closeOnBackdropClick: false
     }).onClose.subscribe((data) => {
-      console.log(data)
+
       if (data) {
         if (data == 0) {
           this.spinner = false
@@ -81,9 +81,11 @@ export class PostlistComponent implements OnInit {
   }
 
   openEditDialog(id: string) {
-    this.route.navigate(['posts/edit'], { queryParams: {
-      forpost: id
-    }})
+    this.route.navigate(['posts/edit'], {
+      queryParams: {
+        forpost: id
+      }
+    })
     // this.dialog.open(EditPostComponent, {
     //   context: {
     //     post: postToEdit

@@ -3,7 +3,7 @@ $(document).ready(function () {
 	$.ajax({
 		type: "GET",
 		datatype: "json",
-		url: "http://codingindfw.com/api/review/all",
+		url: "https://www.codingindfw.com/api/review/all",
 		success: function (result) {
 			// $('#demo').html('<div id="testing" class="owl-carousel"></div>');
 			for (var i = 0; i < result.length; i++) {

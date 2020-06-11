@@ -41,7 +41,7 @@ export class HomeComponent implements OnInit {
     this.userid = JSON.parse(localStorage.getItem('userdata'))
     this.productService.getProducts(this.userid.id).subscribe((result) => {
       this.products = result
-      console.log(this.products)
+
     })
     this.postService.getUserPosts(this.userid.id).subscribe((result) => {
       this.posts = result

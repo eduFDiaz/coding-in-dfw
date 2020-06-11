@@ -33,7 +33,7 @@ export class TaglistComponent implements OnInit {
   ngOnInit() {
     this.spinner = false
     this.postService.getAlTags().subscribe((result) => {
-      console.log(result)
+
       this.tags = result
       this.spinner = false
     })
@@ -52,7 +52,7 @@ export class TaglistComponent implements OnInit {
       (result) => {
         this.spinner = true
         if (result === 'delete') {
-          console.log(result)
+
           this.postService.deleteTag(tag.id).subscribe((ok) => {
             this.alert.showToast('bottom-left', 'info', 'Tag deleted!', 'Your tag was deleted!')
             this.spinner = false
@@ -68,7 +68,7 @@ export class TaglistComponent implements OnInit {
   }
 
   test(data) {
-    console.log(data)
+
   }
 
   openEditDialog(dialog: TemplateRef<any>, mycontext: any) {
@@ -78,7 +78,7 @@ export class TaglistComponent implements OnInit {
     }).onClose.subscribe(
       (result) => {
         if (result) {
-          console.log(result)
+
           const tagid = result.id
           const tagbody = {
             title: result.title,
@@ -87,7 +87,7 @@ export class TaglistComponent implements OnInit {
           this.alert.showToast('top-right', 'success', 'Update', 'Your tag was updated')
           // this.spinner = false
           this.postService.editTag(tagid, tagbody).subscribe((ok) => {
-            console.log(ok)
+
           })
           this.postService.updatedTags.subscribe((freshtags) => {
             this.tags = freshtags

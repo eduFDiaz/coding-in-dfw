@@ -57,18 +57,7 @@ export class ProductService {
         'authorization': 'Bearer ' + localStorage.getItem('token')
       }
     })
-    // })
-    //   .pipe(
-    //     map((response: Product) => {
-    //       this.getProducts(this.user.getCurrentUserId()).subscribe((result) => {
-    //         this.currentProduct.next(result)
-    //         console.log(result)
-    //       })
-    //       return response
-    //     }, catchError(err => {
-    //       return err
-    //     }))
-    //   )
+
   }
 
   addProduct(data: Product): Observable<Product> {
