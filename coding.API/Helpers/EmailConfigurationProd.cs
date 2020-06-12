@@ -1,3 +1,4 @@
+using System;
 namespace coding.API.Helpers
 
 {
@@ -11,12 +12,12 @@ namespace coding.API.Helpers
         public  int SmtpPort { get; set; }
         public EmailConfigurationProd()
         {
+            Console.WriteLine("Configuring mail");
             FromAddress = "dcruzbv1990@gmail.com";
             FromPassword = "Wundstarrkrampf";
             FromName = "Coding in DFW";
             SmtpHost = "smtp.gmail.com";
             SmtpPort = 587;
-
 
         }
 
