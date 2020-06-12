@@ -54,9 +54,9 @@ export class ReviewsComponent implements OnInit {
         this.reviews.push(review)
         this.alertService.showToast('top-right', 'success', 'Invitation Send!, now you have to wait for aprove it in this section before it shows on the front page', 'Your invitation was sent!')
       }, error => {
-
-        this.alertService.showToast('top-right', 'danger', 'Invitation fail!', 'Your invitation was not send because:' + error
-        )
+        console.log(error)
+        this.alertService.showToast('top-right', 'danger', 'Invitation fail!', 'Your invitation was not send because:' + error)
+        this.spinner = false
       }, () => { this.spinner = false })
 
   }
