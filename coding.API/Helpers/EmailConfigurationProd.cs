@@ -5,11 +5,12 @@ namespace coding.API.Helpers
     public class EmailConfigurationProd : IEmailConfiguration
     {
 
-        public  string FromAddress { get; set; }
-        public  string FromPassword { get; set; }
-        public  string FromName { get; set; }
-        public  string SmtpHost { get; set; }
-        public  int SmtpPort { get; set; }
+        public string FromAddress { get; set; }
+        public string FromPassword { get; set; }
+        public string FromName { get; set; }
+        public string SmtpHost { get; set; }
+        public int SmtpPort { get; set; }
+
         public EmailConfigurationProd()
         {
             Console.WriteLine("Configuring mail");
@@ -18,6 +19,7 @@ namespace coding.API.Helpers
             FromName = "Coding in DFW";
             SmtpHost = "smtp.gmail.com";
             SmtpPort = 587;
+
 
         }
 
