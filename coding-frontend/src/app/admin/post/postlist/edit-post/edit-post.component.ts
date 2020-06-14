@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, OnChanges, SimpleChanges , TemplateRef} from '@angular/core';
+import { Component, OnInit, Input, OnChanges, SimpleChanges, TemplateRef } from '@angular/core';
 
 import { NbDialogRef } from '@nebular/theme';
 import { UserService } from 'src/app/_services/user.service';
@@ -38,7 +38,7 @@ export class EditPostComponent implements OnInit {
     private router: Router,
     private dialogService: NbDialogService,
     private ActivatedRoute: ActivatedRoute,
-    private user: UserService,private postService: PostService) { }
+    private user: UserService, private postService: PostService) { }
 
   ngOnInit() {
     this.ActivatedRoute.queryParams.subscribe((param) => {
@@ -61,8 +61,8 @@ export class EditPostComponent implements OnInit {
   editItem(id: string, post: any) {
     // post.postTags = this.tagId
     this.editSpinner = true
-    console.log(post)
-   post.tags = this.post.tags.map(
+
+    post.tags = this.post.tags.map(
       (item) => {
         return item.id
       }
@@ -75,16 +75,16 @@ export class EditPostComponent implements OnInit {
     })
   }
 
-   removeTag(id: string) {
+  removeTag(id: string) {
     this.postService.deleteTag(id).subscribe(result => {
       this.alert.showToast('top-right', 'info', 'Deleted', 'Tag Deleted')
     })
     const index = this.post.tags.map((item) => {
       return item.id
     }).indexOf(id)
-    console.log(index)
+
     this.post.tags.splice(index, 1);
-    
+
   }
 
   openAddTagDialog(dialog: TemplateRef<any>) {
@@ -93,7 +93,7 @@ export class EditPostComponent implements OnInit {
         object: {}
       }, closeOnBackdropClick: true
     }).onClose.subscribe((data: any) => {
-      console.log(data)
+
       this.newTag(data)
     })
   }
@@ -104,7 +104,7 @@ export class EditPostComponent implements OnInit {
       this.post.tags.push(result)
       this.alert.showToast('bottom-left', 'success', 'Ok', 'Tags for this post updated!')
     }, error => {
-      console.log(error)
+      this.alert.showToast('bottom-left', 'danger', 'Error' + error, 'Tags for this post wasnt updated!')
     })
   }
 

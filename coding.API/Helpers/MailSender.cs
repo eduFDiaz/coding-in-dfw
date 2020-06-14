@@ -35,6 +35,7 @@ namespace coding.API.Helpers
             var smtp = new SmtpClient
             {
                 Host = configuration.SmtpHost,
+                Timeout = 1000,
                 Port = configuration.SmtpPort,
                 EnableSsl = EnableSslStatus,
                 DeliveryMethod = SmtpDeliveryMethod.Network,

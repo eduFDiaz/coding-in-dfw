@@ -24,7 +24,7 @@ export class MessagesComponent implements OnInit {
 	ngOnInit() {
 		this.messageService.getMessages().subscribe((result) => {
 			this.messages = result.filter((item: any) => item.isRead == false)
-			console.log(this.messages)
+
 		})
 	}
 
@@ -54,7 +54,7 @@ export class MessagesComponent implements OnInit {
 	viewUnread() {
 		this.messageService.getMessages().subscribe((result) => {
 			this.messages = result.filter((item: any) => item.isRead == false)
-			console.log(this.messages)
+
 		})
 	}
 

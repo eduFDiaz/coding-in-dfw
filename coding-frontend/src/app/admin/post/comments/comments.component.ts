@@ -23,7 +23,7 @@ export class CommentsComponent implements OnInit {
     this.commentSpinner = true
     this.postService.getUnpublishedComments().subscribe((comments) => {
       this.unpublishedComments = comments
-      console.log(this.unpublishedComments)
+
       this.commentSpinner = false
     })
   }

@@ -32,7 +32,7 @@ export class AppPagesComponent implements OnInit {
     })
     this.user.getAllUserPhotos().subscribe((result: any) => {
       this.userAvatar = result.filter((item: any) => item.isMain == true)[0].url
-      console.log(this.userAvatar)
+
     })
 
   }

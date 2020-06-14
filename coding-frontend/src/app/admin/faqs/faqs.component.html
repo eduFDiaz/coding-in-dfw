@@ -3,19 +3,21 @@
     <nb-card status="success">
         <nb-card-header>Create new FAQ </nb-card-header>
         <nb-card-body>
-              <div class="row">
-            <form #newForm="ngForm" name="newForm">
-              <div class="col">
-                  <label for="title" class="label">Title:</label><br>
-                  <input fullWidth minlength="4" [(ngModel)]="title" required nbInput name="title" id="title">
-              </div>
-              <div class="col">
-                  <label for="description" class="label">Description:</label><br>
-                  <!-- <input fullWidth minlength="4" #description="ngModel" [(ngModel)]="data.object.description"
+            <div class="row">
+                <form #newForm="ngForm" name="newForm">
+                    <div class="col">
+                        <label for="title" class="label">Title:</label><br>
+                        <input fullWidth minlength="4" [(ngModel)]="data.title" required nbInput name="title"
+                            id="title">
+                    </div>
+                    <div class="col">
+                        <label for="description" class="label">Description:</label><br>
+                        <!-- <input fullWidth minlength="4" #description="ngModel" [(ngModel)]="data.object.description"
                           required nbInput name="description" id="description"> -->
-                  <textarea [(ngModel)]="description" cols="30" name="description" nbInput fullWidth placeholder="Description"></textarea>
-              </div>
-            </form>
+                        <textarea [(ngModel)]="data.description" cols="30" name="description" nbInput fullWidth
+                            placeholder="Description"></textarea>
+                    </div>
+                </form>
             </div>
         </nb-card-body>
         <nb-card-footer>
@@ -44,47 +46,48 @@
     <nb-card status="success">
         <nb-card-header>Edit FAQ </nb-card-header>
         <nb-card-body>
-          <div class="row">
+            <div class="row">
 
 
 
-            <form #editForm="ngForm" name="editForm">
+                <form #editForm="ngForm" name="editForm">
 
-                <div class="col-md-6">
-                    <label for="title" class="label">Title:</label><br>
-                    <input fullWidth minlength="4" #title="ngModel" required nbInput name="title" id="title"
-                        [(ngModel)]="data.object.title">
+                    <div class="col-md-6">
+                        <label for="title" class="label">Title:</label><br>
+                        <input fullWidth minlength="4" #title="ngModel" required nbInput name="title" id="title"
+                            [(ngModel)]="data.object.title">
 
-                    <div *ngIf="title.invalid && (title.dirty || title.touched)">
-                        <nb-alert *ngIf="title.errors.required" status="warning">Title is required.
-                        </nb-alert>
-                        <nb-alert *ngIf="title.errors.minlength" status="warning">Title must be at
-                            least 4
-                            characters long.</nb-alert>
+                        <div *ngIf="title.invalid && (title.dirty || title.touched)">
+                            <nb-alert *ngIf="title.errors.required" status="warning">Title is required.
+                            </nb-alert>
+                            <nb-alert *ngIf="title.errors.minlength" status="warning">Title must be at
+                                least 4
+                                characters long.</nb-alert>
+                        </div>
                     </div>
-                </div>
-                <div class="col-md-6">
-                    <label for="description" class="label">Description:</label><br>
-                    <!-- <input fullWidth minlength="4" #description="ngModel" [(ngModel)]="data.object.description"
+                    <div class="col-md-6">
+                        <label for="description" class="label">Description:</label><br>
+                        <!-- <input fullWidth minlength="4" #description="ngModel" [(ngModel)]="data.object.description"
                             required nbInput name="description" id="description"> -->
 
-                    <textarea #description="ngModel" cols="30" name="description" [(ngModel)]="data.object.description"
-                        nbInput fullWidth placeholder="Description"></textarea>
+                        <textarea #description="ngModel" cols="30" name="description"
+                            [(ngModel)]="data.object.description" nbInput fullWidth
+                            placeholder="Description"></textarea>
 
-                    <div *ngIf="description.invalid && (description.dirty || description.touched)">
-                        <nb-alert *ngIf="description.errors.required" status="warning">Description is required.
-                        </nb-alert>
-                        <nb-alert *ngIf="description.errors.minlength" status="warning">Description must be at
-                            least 4
-                            characters long.</nb-alert>
+                        <div *ngIf="description.invalid && (description.dirty || description.touched)">
+                            <nb-alert *ngIf="description.errors.required" status="warning">Description is required.
+                            </nb-alert>
+                            <nb-alert *ngIf="description.errors.minlength" status="warning">Description must be at
+                                least 4
+                                characters long.</nb-alert>
+                        </div>
                     </div>
-                </div>
-                <div>
-                  <input type="hidden" value="{{data.object.id}}">
-                </div>
+                    <div>
+                        <input type="hidden" value="{{data.object.id}}">
+                    </div>
 
-            </form>
-              </div>
+                </form>
+            </div>
         </nb-card-body>
         <nb-card-footer>
             <button [disabled]="!editForm.dirty || !editForm.valid" type="button" nbButton
@@ -100,7 +103,7 @@
 <!-- Main structure -->
 <div class="row">
     <div class="col-md-12">
-        <nb-card [nbSpinner]="spinner">
+        <nb-card>
             <nb-card-header>
                 FAQs:
                 <button nbButton status="primary" size="tiny">View on page</button>

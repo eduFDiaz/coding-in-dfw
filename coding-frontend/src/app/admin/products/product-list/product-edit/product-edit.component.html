@@ -1,7 +1,7 @@
 <ng-template #addRequirement let-data let-ref="dialogRef">
     <div class="row">
         <div class="col-md-12">
-            <nb-card status="success" [nbSpinner]="spinner">
+            <nb-card status="success" [nbSpinner]="editSpinner">
                 <nb-card-header>
                     Add new requirement: {{ data.newreq }}
                 </nb-card-header>
@@ -13,7 +13,7 @@
                                 <label class="label" for="title">Description:</label>
                                 <input #description="ngModel" [(ngModel)]="data.newreq" minlength="4" nbInput
                                     name="Description" type="text" status="success">
-                                    <div *ngIf="description.invalid && (description.dirty || description.touched)">
+                                <div *ngIf="description.invalid && (description.dirty || description.touched)">
                                     <nb-alert *ngIf="description.errors.required" status="warning">Title is required
                                     </nb-alert>
                                     <nb-alert *ngIf="description.errors.minlength" status="warning">Title must be at
@@ -121,8 +121,7 @@
             <div class="row">
                 <div class="col-md-6">
                     Requirements
-                    <button (click)="openAddRequirementDialog(addRequirement)" nbButton type="button" size="tiny"
-                        status="success">
+                    <button (click)="openAddRequirementDialog()" nbButton type="button" size="tiny" status="success">
                         <nb-icon icon="plus"></nb-icon>
                     </button>
                 </div>
@@ -132,7 +131,7 @@
                         <button nbButton size="tiny" status="danger" (click)="removeRequirement(req.id)">-</button>
                     </div>
                 </div>
-              <!--   <nb-select #prodReq="ngModel" multiple name="requirement" [(ngModel)]="product.requirements"
+                <!--   <nb-select #prodReq="ngModel" multiple name="requirement" [(ngModel)]="product.requirements"
                     placeholder="Select Requirements">
                     <nb-option *ngFor="let req of product.requirements" value="{{ req.id }}">
                         {{ req.description }}
@@ -148,7 +147,8 @@
         </form>
     </nb-card-body>
     <nb-card-footer>
-        <button [nbSpinner]="editSpinner" (click)="editItem(product.id, product)" nbSpinnerStatus="success" nbSpinnerSize="small" nbButton status="success">
+        <button [nbSpinner]="editSpinner" (click)="editItem(product.id, product)" nbSpinnerStatus="success"
+            nbSpinnerSize="small" nbButton status="success">
             <nb-icon icon="edit"></nb-icon>Edit!
         </button>
         <!-- <button [attr.disabled]="elementAdded" [nbSpinner]="editSpinner" nbSpinnerStatus="success" nbSpinnerSize="small"

@@ -129,16 +129,25 @@ namespace coding.API
             app.UseAuthorization();
             app.UseSwagger();
             app.UseSwaggerUI(c => {
-                c.SwaggerEndpoint("/swagger/v1/swagger.json", "Coding in DfW API v1");
+                 c.SwaggerEndpoint("/swagger/v1/swagger.json", "Coding in DfW API v1");
+             });
+            app.UseEndpoints(endpoints =>
+            {
+                endpoints.MapControllerRoute(
+                    name: "coding-fallback",
+                    pattern: " { controller = Fallback, action = Index }");
+                endpoints.MapFallbackToController("Index", "Fallback");
             });
-            // app.UseEndpoints(endpoints =>
-            // {
-            //     endpoints.MapControllerRoute(
-            //         name: "coding-fallback",
-            //         pattern: " { controller = Fallback, action = Index }");
-            //     endpoints.MapFallbackToController("Index", "Fallback");
-            // });
-            app.UseMvc();
+            app.UseMvc(
+            //     routes =>  {
+            //     routes.MapSpaFallbackRoute(
+            //         name: "spa-fallback",
+            //         defaults: new {
+            //              controller = "Fallback", action = "Index"
+            //         }
+            //     );
+            // }
+            );
 
             app.UseHsts();
             app.UseHttpsRedirection();

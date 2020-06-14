@@ -14,12 +14,17 @@ export class FaqsComponent implements OnInit {
 
   faqs: Faq[]
 
+  mynewFAq: {
+    title: '',
+    description: ''
+  }
+
   constructor(private faqService: FaqServiceService, private dialogService: NbDialogService, private alert: AlertService) { }
 
   ngOnInit() {
     this.faqService.getFaqs().subscribe((result: any) => {
       this.faqs = result
-      console.log(this.faqs)
+
     })
 
   }
@@ -29,7 +34,7 @@ export class FaqsComponent implements OnInit {
       context: {
         id: data.id
       }
-    } )
+    })
   }
 
   deleteTag(id: string) {
@@ -48,21 +53,27 @@ export class FaqsComponent implements OnInit {
           this.faqService.editFaq(info.id, info.body).subscribe(() => {
             this.alert.showToast('top-right', 'success', 'Created OK', 'Your FAQ was saved')
           }, err => {
-            this.alert.showToast('top-right', 'danger', 'Error!'+ err, 'Cant edit the FAq')
+            this.alert.showToast('top-right', 'danger', 'Error!' + err, 'Cant edit the FAq')
           })
         }
       })
   }
 
   createDialogGeneric(dialog: TemplateRef<any>) {
-    this.dialogService.open(dialog).onClose.subscribe((result) => {
-      this.faqService.newFaq(result).subscribe((newfaq: Faq) => {
-        this.alert.showToast('top-right', 'success', 'Created OK', 'Your FAQ was created')
-        this.faqs.push(newfaq)
-      }, () => {
-            this.alert.showToast('top-right', 'danger', 'Error!','Cant edit the FAq')
-      })
-
+    this.dialogService.open(dialog, {
+      context: {
+        newFaq: this.mynewFAq
+      }
+    }).onClose.subscribe((result) => {
+      if (result) {
+        this.faqService.newFaq(result).subscribe((newfaq: Faq) => {
+          this.alert.showToast('top-right', 'success', 'Created OK', 'Your FAQ was created')
+          this.faqs.push(newfaq)
+        }
+          , () => {
+            this.alert.showToast('top-right', 'danger', 'Error!', 'Cant create the FAq')
+          })
+      }
 
     })
   }

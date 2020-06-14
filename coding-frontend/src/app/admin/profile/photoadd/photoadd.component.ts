@@ -30,7 +30,6 @@ export class PhotoaddComponent implements OnInit {
 
   uploader: FileUploader;
   // hasBaseDropZoneOver = false;
-  baseUrl = 'http://localhost:5050/api'
 
   currentMainPhoto: Photo;
 
@@ -47,7 +46,7 @@ export class PhotoaddComponent implements OnInit {
 
     this.user.getAllUserPhotos().subscribe((photos: any) => {
       this.photos = photos
-      console.log(this.photos)
+
     })
     this.uploader.onBeforeUploadItem = (item) => {
       item.withCredentials = false;
@@ -61,7 +60,7 @@ export class PhotoaddComponent implements OnInit {
 
   initializeUploader() {
     this.uploader = new FileUploader({
-      url: this.baseUrl + '/Photo/' + this.user.getCurrentUserId() + '/create',
+      url: environment.apiUrl + '/photo/' + this.user.getCurrentUserId() + '/create',
       authToken: 'Bearer ' + localStorage.getItem('token'),
       isHTML5: true,
       allowedFileType: ['image'],
@@ -74,10 +73,10 @@ export class PhotoaddComponent implements OnInit {
     this.uploader.onAfterAddingFile = (file) => { file.withCredentials = false; };
 
     this.uploader.onSuccessItem = (item, response, status, headers) => {
-      console.log(response)
+
       if (response) {
-        const res: Photo = JSON.parse(response);
-        const photo = {
+        let res: Photo = JSON.parse(response);
+        let photo = {
           id: res.id,
           url: res.url,
           dateAdded: res.dateAdded,
@@ -99,8 +98,9 @@ export class PhotoaddComponent implements OnInit {
         this.currentMainPhoto = this.photos.filter(p => p.isMain === true)[0];
         this.currentMainPhoto.isMain = false;
         photo.isMain = true;
-        this.auth.changeMemberPhoto(photo.url);
-      }, error => { console.log(error); }
+        this.auth.changeMemberPhoto(photo.url)
+
+      }, error => { }
         , () => { });
   }
 
@@ -119,7 +119,7 @@ export class PhotoaddComponent implements OnInit {
         this.photos = this.photos.filter((data, idx) => idx !== id);
         // this.alertify.success('Photo deleted successfully!');
 
-      }, error => { console.log("Error no se pudo borrar la foto") }
+      }, error => { }
         , () => { });
   }
 

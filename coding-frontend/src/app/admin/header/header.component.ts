@@ -45,7 +45,7 @@ export class HeaderComponent implements OnInit {
     private user: UserService,
     private auth: AuthService,
     private router: Router,
-    private toast: AlertService
+
 
   ) {
 
@@ -53,10 +53,8 @@ export class HeaderComponent implements OnInit {
     this.user.getAllUserPhotos().subscribe((photo: any) => {
       this.userPhotos = photo
       this.currentAvatarUrl = this.userPhotos.filter(photo => photo.isMain == true).map(photo => photo.url).toString()
-      console.log(this.currentAvatarUrl)
+
     })
-
-
 
 
   }
@@ -64,10 +62,10 @@ export class HeaderComponent implements OnInit {
 
   ngOnInit() {
 
-    // this.auth.currentPhotoUrl.subscribe(photoUrl => this.photoUrl = photoUrl);
-    this.photoUrl = this.auth.currentPhotoValue
+    this.auth.currentPhotoUrl.subscribe(photoUrl => this.currentAvatarUrl = photoUrl);
+    // this.photoUrl = this.auth.currentPhotoValue
 
-    console.log(this.photoUrl)
+
 
     this.menuService.onItemClick().subscribe((event) => {
       this.onItemSelection(event.item.title);
@@ -82,14 +80,14 @@ export class HeaderComponent implements OnInit {
       )
       .subscribe((isLessThanXl: boolean) => this.userPictureOnly = isLessThanXl);
 
-    this.theuser = this.auth.currentUserValue
-    this.isLoggedIn = this.auth.loginStatusValue
-    // this.auth.currentLoginStatus.subscribe(result => this.isLoggedIn = result)
-    // this.auth.currentUser.subscribe(user => this.theuser = user)
+    // this.theuser = this.auth.currentUserValue
+    // this.isLoggedIn = this.auth.loginStatusValue
+    this.auth.currentLoginStatus.subscribe(result => this.isLoggedIn = result)
+    this.auth.currentUser.subscribe(user => this.theuser = user)
 
 
-    console.log(this.auth.currentUserValue)
-    console.log(this.isLoggedIn)
+
+
   }
 
   onItemSelection(title) {
@@ -97,7 +95,7 @@ export class HeaderComponent implements OnInit {
       this.logout()
 
     } else if (title === 'Profile') {
-
+      this.router.navigate(['/profile'])
     }
   }
 
@@ -117,7 +115,7 @@ export class HeaderComponent implements OnInit {
     this.auth.logout()
     // this.toast.showToast('bottom-left', 'info', 'See you soon!', 'You have sucefully logout')
     // location.reload(true);
-    this.router.navigate(['/'])
+    location.reload()
 
   }
 

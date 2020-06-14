@@ -46,7 +46,7 @@ namespace coding.API.Controllers
         }
 
 
-        [Authorize]
+        
         [HttpGet("foruser/{userId}", Name = "Get project for User")]
         public async Task<IActionResult> GetProjectForUser(Guid userId)
         {

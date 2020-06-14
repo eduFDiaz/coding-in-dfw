@@ -64,8 +64,10 @@ namespace coding.API.Controllers
 
             try
             {
-
+                Console.WriteLine("Trying to send mail!");
                 await mailSender.SendEmailAsync(template);
+                Console.WriteLine("Mail Sent!");
+
             }
             catch (Exception ex)
             {

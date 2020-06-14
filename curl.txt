@@ -1,0 +1,1 @@
+curl -X POST "http://localhost:5050/api/Review/create" -H "accept: */*" -H "Content-Type: application/json-patch+json" -d "{\"email\":\"dcruzbv1990@gmail.com\",\"userId\":\"08d8073e-7c82-9a7a-b280-01e1a1f353db\",\"company\":\"TEST\"}"

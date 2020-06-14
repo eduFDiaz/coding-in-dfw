@@ -27,12 +27,12 @@ export class AddtagComponent implements OnInit {
 
 
   addNewTag() {
-    console.log(this.newtag)
+
     this.post.addNewTag(this.newtag).subscribe((result) => {
       this.dialogRef.close(result)
       this.alert.showToast('top-right', 'success', 'Done', 'Your tag was added!')
     }, error => {
-      console.log(error)
+      this.alert.showToast('top-right', 'danger', 'Error!' + error, 'Your tag wasnt added!')
     })
   }
 

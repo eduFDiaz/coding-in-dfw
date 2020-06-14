@@ -29,7 +29,7 @@ export class ProductphotoComponent implements OnInit {
     this.route.queryParams.subscribe((params) => {
       this.forproduct = params['forproduct']
     })
-    console.log(this.forproduct)
+
     this.initializeUploader()
     this.uploader.onBeforeUploadItem = (item) => {
       item.withCredentials = false;
@@ -56,9 +56,6 @@ export class ProductphotoComponent implements OnInit {
     this.uploader.onAfterAddingFile = (file) => { file.withCredentials = false; };
 
     this.uploader.onSuccessItem = (item, response, status, headers) => {
-      // console.log(response)
-      console.log("asdasdsadasd")
-      console.log(status)
       if (response) {
         const res: ProductPhoto = JSON.parse(response);
         const photo = {

@@ -54,10 +54,10 @@ export class ProductEditComponent implements OnInit {
     })
     this.productService.getProduct(this.id).subscribe((result) => {
       this.product = result
-      console.log(this.product)
+
       this.editSpinner = false
     })
-    
+
 
   }
 
@@ -69,7 +69,7 @@ export class ProductEditComponent implements OnInit {
         return item.id
       }
     )
-    console.log(product)
+
     this.productService.editProduct(id, product).subscribe(result => {
       this.editSpinner = false
       this.alert.showToast('bottom-left', 'info', 'Update ok', 'Requirements for this product updated!')
@@ -85,7 +85,7 @@ export class ProductEditComponent implements OnInit {
     const index = this.product.requirements.map((item) => {
       return item.id
     }).indexOf(id)
-    console.log(index)
+
     this.product.requirements.splice(index, 1);
     this.pepe = true
   }
@@ -97,9 +97,6 @@ export class ProductEditComponent implements OnInit {
       }, closeOnBackdropClick: false
     }).onClose.subscribe((data) => {
       this.newRequirement(data)
-      // this.elementAdded = true
-      // console.log(this.elementAdded)
-
 
 
     })
@@ -114,7 +111,7 @@ export class ProductEditComponent implements OnInit {
       this.product.requirements.push(result)
       this.alert.showToast('bottom-left', 'success', 'Ok', 'Requirements for this product updated!')
     }, error => {
-      console.log(error)
+
     })
 
 

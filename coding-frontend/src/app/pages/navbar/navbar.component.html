@@ -8,9 +8,11 @@
             </button>
             <div id="navigation" class="collapse navbar-collapse flex-column">
                 <div class="profile-section pt-3 pt-lg-0">
-                    <img *ngIf="avatar; else photoPlaceholder" class="profile-image mb-3 rounded-circle mx-auto" src="{{avatar}}" alt="image">
-                    <ng-template #photoPlaceholder >
-                        <img class="profile-image mb-3 rounded-circle mx-auto" src="assets/images/profile.png" alt="image">
+                    <img *ngIf="avatar; else photoPlaceholder" class="profile-image mb-3 rounded-circle mx-auto"
+                        src="{{avatar}}" alt="image">
+                    <ng-template #photoPlaceholder>
+                        <img class="profile-image mb-3 rounded-circle mx-auto" src="assets/images/profile.png"
+                            alt="image">
                     </ng-template>
 
                     <div class="bio mb-3">Hi, my name is {{ user?.fullName }} and I'm a senior software engineer.
@@ -19,19 +21,24 @@
                     <!--//bio-->
                     <ul class="social-list list-inline py-2 mx-auto">
                         <li class="list-inline-item">
-                            <a href="https://twitter.com/{{ user?.twiterProfile }}"><i class="fab fa-twitter fa-fw"></i></a>
+                            <a href="https://twitter.com/{{ user?.twiterProfile }}"><i
+                                    class="fab fa-twitter fa-fw"></i></a>
                         </li>
                         <li class="list-inline-item">
-                            <a href="https://www.linkedin.com/in/{{user?.linkedInProfile }}"><i class="fab fa-linkedin-in fa-fw"></i></a>
+                            <a href="https://www.linkedin.com/in/{{user?.linkedInProfile }}"><i
+                                    class="fab fa-linkedin-in fa-fw"></i></a>
                         </li>
                         <li class="list-inline-item">
-                            <a href="https://github.com/{{user?.githubUrl }}"><i class="fab fa-github-alt fa-fw"></i></a>
+                            <a href="https://github.com/{{user?.githubUrl }}"><i
+                                    class="fab fa-github-alt fa-fw"></i></a>
                         </li>
                         <li class="list-inline-item">
-                            <a href="https://stackoverflow.com/users/{{ user?.stackOverflowProfile }}"><i class="fab fa-stack-overflow fa-fw"></i></a>
+                            <a href="https://stackoverflow.com/users/{{ user?.stackOverflowProfile }}"><i
+                                    class="fab fa-stack-overflow fa-fw"></i></a>
                         </li>
                         <li class="list-inline-item">
-                            <a href="https://codepen.io/{{user?.codepenProfile }}"><i class="fab fa-codepen fa-fw"></i></a>
+                            <a href="https://codepen.io/{{user?.codepenProfile }}"><i
+                                    class="fab fa-codepen fa-fw"></i></a>
                         </li>
                     </ul>
                     <!--//social-list-->
@@ -40,7 +47,7 @@
                 <!--//profile-section-->
                 <ul class="navbar-nav flex-column text-left">
                     <li class="nav-item" routerLinkActive="active">
-                        <a class="nav-link" [routerLink]="['/home']"><i class="fas fa-user fa-fw mr-2"></i>About
+                        <a class="nav-link" href="pages/home"><i class="fas fa-user fa-fw mr-2"></i>About
                             Me</a>
                     </li>
                     <li class="nav-item" routerLinkActive="active">
@@ -78,7 +85,7 @@
                     </li> -->
                 </ul>
                 <div class="my-2">
-                    <a class="btn btn-primary" type="text" [routerLink]="['contact']"><i
+                    <a class="btn btn-primary" type="text" [routerLink]="['/contact']"><i
                             class="fas fa-paper-plane mr-2"></i>Hire Me</a>
                 </div>
                 <div class="dark-mode-toggle text-center w-100">

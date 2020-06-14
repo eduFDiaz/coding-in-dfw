@@ -72,7 +72,7 @@ namespace coding.API.Controllers
             postForCreate.Text = strEncryptred;
 
 
-
+            
             var createdPost = await _postDal.Add(postForCreate);
             var PostTextDecrypted = Cipher.Decrypt(createdPost.Text, password);
 
@@ -223,7 +223,8 @@ namespace coding.API.Controllers
             return BadRequest("Cant update the post");
 
         }
-        [Authorize]
+        
+        
         [HttpGet("{postid}", Name = "Get Single Post")]
         public async Task<IActionResult> GetPost(Guid postid)
         {

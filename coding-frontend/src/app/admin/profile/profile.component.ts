@@ -47,7 +47,7 @@ export class ProfileComponent implements OnInit {
   openAddTagDialog() {
     this.dialogService.open(PhotoaddComponent, { closeOnBackdropClick: false }).onClose.subscribe(
       (data) => {
-        console.log(data)
+
       }
     )
   }
@@ -63,11 +63,11 @@ export class ProfileComponent implements OnInit {
   }
 
   updateProfile(userdata: User) {
-    console.log(userdata)
+
     this.updateSpinner = true;
     this.user.updateUser(this.user.getCurrentUserId(), userdata).subscribe(
       (value: User) => {
-        console.log(value)
+
         this.updateSpinner = false;
         this.myuser = value
         this.auth.changeCurrentUser(value);

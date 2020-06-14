@@ -11,7 +11,7 @@ import { User } from 'src/app/_models/User';
 export class ServicesComponent implements OnInit {
 
   faqs: Faq[]
-  user: User[]
+  user: User
   constructor(private faqService: FaqServiceService) { }
 
   ngOnInit() {

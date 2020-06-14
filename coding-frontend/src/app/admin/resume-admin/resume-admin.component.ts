@@ -98,7 +98,7 @@ export class ResumeAdminComponent implements OnInit {
   getData() {
     this.resume.getLanguages(this.user.getCurrentUserId()).subscribe((data) => {
       this.langs = data;
-      console.log(this.langs)
+
     })
     this.resume.getEducation(this.user.getCurrentUserId()).subscribe((data) => {
       this.educations = data;
@@ -131,7 +131,7 @@ export class ResumeAdminComponent implements OnInit {
         type: kind
       }
     }).onClose.subscribe((result) => {
-      console.log(result)
+
       switch (result) {
         case 'deletelanguage':
           this.resume.deleteLanguage(data.id).subscribe((result) => {
@@ -301,8 +301,6 @@ export class ResumeAdminComponent implements OnInit {
         type: type
       }
     }).onClose.subscribe((result) => {
-      console.log(result.type)
-      console.log(result.body)
       switch (result.type) {
         case 'education':
           this.resume.addEducation(result.body).subscribe(
@@ -324,7 +322,7 @@ export class ResumeAdminComponent implements OnInit {
         case 'language':
           this.resume.addLanguage(result.body).subscribe(
             result => {
-              console.log(result.body)
+
               this.alert.showToast('top-right', 'success', 'Created', 'Language added!')
               this.langs.push(result)
             }

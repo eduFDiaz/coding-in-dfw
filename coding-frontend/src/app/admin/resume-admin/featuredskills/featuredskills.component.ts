@@ -12,7 +12,11 @@ import { NgForm } from '@angular/forms';
 })
 export class FeaturedskillsComponent implements OnInit {
 
+  newFeatured = {
+    title: '',
+    body: '',
 
+  }
 
   spinner = false
 
@@ -27,7 +31,7 @@ export class FeaturedskillsComponent implements OnInit {
     this.featuredSkillService.getAllFeaturedSkills().subscribe((result: FeaturedSkill[]) => {
 
       this.featuredSkills = result
-      console.log(this.featuredSkills)
+
     })
 
 
@@ -75,7 +79,7 @@ export class FeaturedskillsComponent implements OnInit {
     }, err => {
       this.alert.showToast('top-right', 'danger', 'Error' + err, 'Cant create')
     }, () => {
-      console.log("complete callback")
+
       this.spinner = false
 
     })
@@ -92,7 +96,7 @@ export class FeaturedskillsComponent implements OnInit {
     data.icons = this.resolveItems(data.title)
     this.featuredSkillService.editFeatureSkill(id, data).subscribe((editedFeature: FeaturedSkill) => {
       this.alert.showToast('top-right', 'info', 'Ok', 'Updated featured!')
-      console.log(editedFeature)
+
     })
   }
 

@@ -55,12 +55,12 @@ export class AddpostComponent implements OnInit {
   ngOnInit() {
     this.toPost.getAlTags().subscribe((result) => {
       this.tags = result
-      console.log(result)
+
     })
   }
 
   recibeNewTag($event) {
-    console.log($event)
+
     this.tags.push($event)
   }
 

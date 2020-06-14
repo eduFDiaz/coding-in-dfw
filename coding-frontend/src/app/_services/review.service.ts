@@ -1,8 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
-import { UserService } from './user.service';
-
 import { environment } from 'src/environments/environment';
 
 
@@ -31,7 +29,7 @@ export class ReviewService {
   }
 
   publishReview(id: string) {
-    return this.http.get(environment.apiUrl + '/review/publish/' + id)
+    return this.http.put(environment.apiUrl + '/review/publish/' + id, {})
   }
 
   getPublishedReviews(id: string) {

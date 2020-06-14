@@ -17,7 +17,6 @@ using coding.API.Models.Presenter;
 
 namespace coding.API.Controllers
 {
-
     [ApiController]
     [Route("api/[controller]")]
     public class UsersController : ControllerBase
@@ -42,6 +41,7 @@ namespace coding.API.Controllers
 
             return Ok(usersToReturn);
         }
+        
         [Authorize]
         [HttpGet("{userId}", Name = "GetUser")]
         public async Task<ActionResult<User>> GetUser(Guid userId)

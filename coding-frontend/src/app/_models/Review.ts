@@ -1,10 +1,10 @@
 export interface Review {
-    id?: string
-    name: string
-    company: string
-    email: number
-    userId?: string
-    body: string,
-    url?: string
+    Id?: string
+    Name: string
+    Company: string
+    Email: number
+    UserId?: string
+    Body: string,
+    Url?: string
 
 }

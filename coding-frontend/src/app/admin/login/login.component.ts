@@ -28,13 +28,18 @@ export class LoginComponent implements OnInit {
   loginSpinner = false;
   loginStatus: any
 
-
+  logintrigger = false
 
   constructor(private auth: AuthService, private router: Router, private toast: AlertService, private activatedRouter: ActivatedRoute) {
 
   }
 
   ngOnInit() {
+    if (localStorage.getItem('token')) {
+      this.logintrigger = true
+    }
+    if (this.logintrigger)
+      this.router.navigate(['/profile'])
 
   }
 
@@ -48,7 +53,7 @@ export class LoginComponent implements OnInit {
         this.loginSpinner = false
       },
       () => {
-        console.log("ok")
+
         this.toast.showToast('bottom-left', 'success', 'You have sign in succefully!', 'Welcome back to your dashboard!')
         this.router.navigate(['profile']);
       }

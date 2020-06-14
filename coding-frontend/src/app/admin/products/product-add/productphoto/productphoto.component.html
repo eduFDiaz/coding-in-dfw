@@ -10,9 +10,9 @@
                 <img class="img-thumbnail mb-1" src="{{ photo?.url }}" alt="" />
                 <div class="btn-group m-1">
                     <button class="btn w-70" style="align-content: space-between;"
-                        [ngClass]="photo.isMain ? 'btn-success active': 'btn-secondary'" (click)="setAsMainPhoto(photo)"
+                        [ngClass]="photo.isMain ? 'btn-success active': 'btn-secondary'"
                         [disabled]="photo.isMain">Main</button>
-                    <button class="btn btn-danger w-30" (click)="DeletePhoto(photo)">
+                    <button class="btn btn-danger w-30">
                         <nb-icon icon="trash"></nb-icon>
 
                     </button>
