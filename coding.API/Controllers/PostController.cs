@@ -60,7 +60,7 @@ namespace coding.API.Controllers
             _subDal = subDal;
         }
 
-        [Authorize]
+        //[Authorize]
         [HttpPost("create")]
         public async Task<IActionResult> Create([FromBody] PostForCreateDto request)
         {
@@ -71,9 +71,8 @@ namespace coding.API.Controllers
             var strEncryptred = Cipher.Encrypt(str, password);
             postForCreate.Text = strEncryptred;
 
-
-            
             var createdPost = await _postDal.Add(postForCreate);
+
             var PostTextDecrypted = Cipher.Decrypt(createdPost.Text, password);
 
 
@@ -92,51 +91,53 @@ namespace coding.API.Controllers
                 await _postTagDal.Add(postag);
             }
 
-            List<string> subsEmails = new List<string>();
-            ICollection<Subscriber> allSubs = (await _subDal.ListAsync());
+            ICollection<Subscriber> allSubs = (await _subDal.ListAsync()).ToList();
 
-            foreach (var sub in allSubs)
+            if (allSubs.Count != 0)
             {
-                subsEmails.Append(sub.Email);
-            }
+                //Now send the email
+                //EmailConfigurationDev emailConfigurationDev = new EmailConfigurationDev();
+                EmailConfigurationProd emailConfigurationProd = new EmailConfigurationProd();
 
-            //Now send the email
-            EmailConfigurationDev emailConfigurationDev = new EmailConfigurationDev();
-            //EmailConfigurationProd emailConfigurationProd = new EmailConfigurationProd();
-
-            var smtp = new SmtpClient
-            {
-                Host = emailConfigurationDev.SmtpHost,
-                Port = emailConfigurationDev.SmtpPort,
-                EnableSsl = false,
-                DeliveryMethod = SmtpDeliveryMethod.Network,
-                UseDefaultCredentials = false,
-                Credentials = new NetworkCredential(emailConfigurationDev.FromAddress, emailConfigurationDev.FromPassword),
-            };
-            string msg = $@"Hello, Eduardo has write a new post {createdPost.Title} <br> {PostTextDecrypted.Substring(0, 50)} <br> <a href='http://www.codingindfw.com/blog/post/{createdPost.Id}'> Read more.. </a> <br> <p> Your are reciving this email cause you  subscribed in Coding in DFW, if you want to unsubscribe please click this link below</p> <br> <a href='www.codingindfw.com/blog/unsubscribe'>";
-            MailMessage mail = new MailMessage(){
-                Subject = "New post on Coding in DFW",
-                Body = msg,
-                IsBodyHtml = true,
-            };
-
-                foreach (var email in subsEmails)
+                var smtp = new SmtpClient
                 {
-                    mail.To.Add(email);
+                    Host = emailConfigurationProd.SmtpHost,
+                    Port = emailConfigurationProd.SmtpPort,
+                    EnableSsl = true,
+                    DeliveryMethod = SmtpDeliveryMethod.Network,
+                    UseDefaultCredentials = false,
+                    Credentials = new NetworkCredential(emailConfigurationProd.FromAddress, emailConfigurationProd.FromPassword),
+                };
+                string msg = $@"Hello, Eduardo has write a new post: <br> <b> {createdPost.Title} </b> <br> <i>{PostTextDecrypted.Substring(0, PostTextDecrypted.Length / 4)}...</i> <br> <a href='http://www.codingindfw.com/blog/post/{createdPost.Id}'> Read more.. </a> <br> <p> Your are reciving this email cause you  subscribed in Coding in DFW, if you want to unsubscribe please click this link below: </p> <br> <a href='www.codingindfw.com/blog/unsubscribe'> Unsubscribe </a>";
+
+                foreach (var subscriber in allSubs)
+                {
+                    MailMessage mail = new MailMessage("codingindfw@gmail.com", subscriber.Email)
+                    {
+                        Subject = "New post on Coding in DFW",
+                        //To = strw,
+                        //From = new MailAddress("codingindfw@gmail.com"),
+                        Body = msg,
+                        IsBodyHtml = true,
+                    };
+                    try
+                    {
+
+                        smtp.Send(mail);
+                    }
+                    catch (Exception ex)
+                    {
+                        Exception exc = ex;
+                        return BadRequest(exc);
+
+                    }
+
                 }
 
 
-            try
-            {
-
-                 smtp.Send(mail);
             }
-            catch (Exception ex)
-            {
-                Exception exc = ex;
-                return BadRequest(exc);
 
-            }
+
             return Ok(new NewPostPresenter(createdPost));
 
         }
@@ -223,8 +224,8 @@ namespace coding.API.Controllers
             return BadRequest("Cant update the post");
 
         }
-        
-        
+
+
         [HttpGet("{postid}", Name = "Get Single Post")]
         public async Task<IActionResult> GetPost(Guid postid)
         {

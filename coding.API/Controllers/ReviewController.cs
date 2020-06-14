@@ -25,7 +25,8 @@ namespace coding.API.Controllers
     {
         private readonly IConfiguration _config;
         private readonly IMapper _mapper;
-        private string url = "http://localhost:4200/pages/review/referal?id=";
+        //private string url = "http://localhost:4200/pages/review/referal?id=";
+        private string urlProd = "https://www.codingindfw.com/pages/review/referal?id=";
         private readonly Repository<Review> _reviewDal;
 
         public ReviewController(
@@ -53,7 +54,7 @@ namespace coding.API.Controllers
 
             Review createdReview = await _reviewDal.Add(reviewToCreate);
 
-            createdReview.Url = url + reviewToCreate.Id;
+            createdReview.Url = urlProd + reviewToCreate.Id;
 
             //Now send the email
             // EmailConfigurationDev emailConfigurationDev = new EmailConfigurationDev();
@@ -64,9 +65,7 @@ namespace coding.API.Controllers
 
             try
             {
-                Console.WriteLine("Trying to send mail!");
                 await mailSender.SendEmailAsync(template);
-                Console.WriteLine("Mail Sent!");
 
             }
             catch (Exception ex)

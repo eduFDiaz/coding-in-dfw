@@ -13,7 +13,6 @@ namespace coding.API.Helpers
 
         public EmailConfigurationProd()
         {
-            Console.WriteLine("Configuring mail");
             FromAddress = "dcruzbv1990@gmail.com";
             FromPassword = "Wundstarrkrampf";
             FromName = "Coding in DFW";
