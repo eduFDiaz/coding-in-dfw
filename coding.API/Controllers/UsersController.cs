@@ -17,7 +17,6 @@ using coding.API.Models.Presenter;
 
 namespace coding.API.Controllers
 {
-    
     [ApiController]
     [Route("api/[controller]")]
     public class UsersController : ControllerBase
@@ -32,7 +31,6 @@ namespace coding.API.Controllers
             _userDal = userDal;
 
         }
-        
         
         [HttpGet]
         public async Task<ActionResult<IEnumerable>> GetUsers()
