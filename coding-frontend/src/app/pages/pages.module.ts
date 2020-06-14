@@ -20,6 +20,7 @@ import { FormsModule } from '@angular/forms';
 import { SortByPipe } from '../_pipes/sort-by.pipe';
 import { ReviewComponent } from './review/review.component';
 import { ProjectDetailComponent } from './projects/project-detail/project-detail.component';
+import { UnsubscribeComponent } from './unsubscribe/unsubscribe.component';
 
 @NgModule({
   declarations: [HomeComponent,
@@ -36,7 +37,8 @@ import { ProjectDetailComponent } from './projects/project-detail/project-detail
     FooterComponent,
     SortByPipe,
     ReviewComponent,
-    ProjectDetailComponent
+    ProjectDetailComponent,
+    UnsubscribeComponent
   ],
   imports: [
     CommonModule, FormsModule,
