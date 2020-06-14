@@ -112,7 +112,14 @@ export class AdminComponent implements OnInit {
       title: 'Reviews',
       icon: 'file-text-outline',
       expanded: false,
-      link: '/admin/reviews'
+      link: '/admin/reviews',
+      
+    },
+    {
+      title: 'Subscriptions',
+      icon: 'email-outline',
+      expanded: false,
+      link: '/admin/subscriptions'
     }
 
   ];

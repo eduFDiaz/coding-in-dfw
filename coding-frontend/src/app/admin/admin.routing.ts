@@ -20,6 +20,7 @@ import { MessagesComponent } from './messages/messages.component'
 import { ReviewsComponent } from './reviews/reviews.component'
 import { FeaturedskillsComponent } from './resume-admin/featuredskills/featuredskills.component';
 import { GuestGuard } from '../_services/guest-guard.service';
+import { SubscriptionsComponent } from './subscriptions/subscriptions.component';
 
 
 
@@ -44,7 +45,8 @@ const routes: Routes = [
       { path: 'product/new/photo', component: ProductphotoComponent, canActivate: [AuthGuardService] },
       { path: 'faqs', component: FaqsComponent, canActivate: [AuthGuardService] },
       { path: 'messages', component: MessagesComponent, canActivate: [AuthGuardService] },
-      { path: 'reviews', component: ReviewsComponent, canActivate: [AuthGuardService] }
+      { path: 'reviews', component: ReviewsComponent, canActivate: [AuthGuardService] },
+      { path: 'subscriptions', component: SubscriptionsComponent, canActivate: [AuthGuardService] }
 
     ]
   }

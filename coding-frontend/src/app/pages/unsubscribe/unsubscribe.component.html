@@ -10,13 +10,15 @@
     </section>
     <section class="contact-section unsubscribe px-3 py-5 p-md-5" data-pg-id="524">
         <div class="container" data-pg-id="525">
-            <form class="signup-form form-inline justify-content-center pt-3">
+            <form #unsubForm="ngForm" class="signup-form form-inline justify-content-center pt-3">
                 <div class="form-group">
                     <label class="sr-only" for="semail">Your email</label>
-                    <input type="email" id="semail" name="semail1" class="form-control mr-md-1 semail"
-                        placeholder="Enter email">
+                    <input [(ngModel)]="unsbuEmail" type="email" id="semail" name="email"
+                        class="form-control mr-md-1 semail" placeholder="Enter email">
                 </div>
-                <button type="submit" class="btn btn-primary">Cancel email subscription</button>
+                <button type="button" (click)="deleteSubscription(unsubForm.value); unsubForm.resetForm();"
+                    class="btn btn-primary">Cancel
+                    email subscription</button>
             </form><br><br>
         </div>
         <!--//container-->

@@ -11,6 +11,7 @@ import { Subscriber } from 'src/app/_models/Subscriber';
 export class UnsubscribeComponent implements OnInit {
 
   subscribers: Subscriber[]
+  unsbuEmail: string
 
   constructor(
     private alertify: AlertifyServiceService,
@@ -19,16 +20,21 @@ export class UnsubscribeComponent implements OnInit {
   ngOnInit() {
     this.subscriptionService.getAll().subscribe((result: Subscriber[]) => {
       this.subscribers = result
+      console.log(this.subscribers)
     })
   }
 
-  deleteSubscription(email: string) {
-    let subsid = this.subscribers.find(item => item.email == email).id
-    this.subscriptionService.unsubscribe(subsid).subscribe(() => {
-      this.alertify.success('Your mail was removed from the subsrciption list!')
-    }, () => {
-      this.alertify.error('Your mail was\'nt removed from the subsrciption list')
-    })
+  deleteSubscription(fromForm: any) {
+    let subsid = this.subscribers.filter((item: any) => item.email === fromForm.email)[0]
+    if (subsid !== undefined) {
+      this.subscriptionService.unsubscribe(subsid.id).subscribe(() => {
+        this.alertify.success('Your mail was removed from the subsrciption list!')
+      }, () => {
+        this.alertify.error('Something may happen whit the backend :( ')
+      })
+    } else {
+      this.alertify.error('Your mail doesn\'t exist on the subscribers lists')
+    }
   }
 
 }

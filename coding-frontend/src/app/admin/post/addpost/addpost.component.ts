@@ -60,7 +60,6 @@ export class AddpostComponent implements OnInit {
   }
 
   recibeNewTag($event) {
-
     this.tags.push($event)
   }
 
@@ -84,6 +83,8 @@ export class AddpostComponent implements OnInit {
       this.route.navigate(['admin/posts/new/photo'], { queryParams: { forpost: request.id } })
 
     }, error => {
+      console.log(error)
+      this.toast.showToast('bottom-right', 'danger', 'Error!' + error, 'Something happen!')
       this.postSpinner = false;
     })
   }

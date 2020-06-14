@@ -32,9 +32,10 @@ export class PostService {
         return result;
       }), catchError(error => {
 
-        this.toast.showToast('top-right', 'danger', 'Error `$error.statusText`', 'There was a problem trying to upload the post')
+        // this.toast.showToast('top-right', 'danger', 'Error `$error.statusText`', 'There was a problem trying to upload the post')
         // return throwError('Something went wrong!');
-        return throwError('Something went wrong!');
+        // return throwError('Something went wrong!');
+        return error
 
       })
     )

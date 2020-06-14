@@ -3,12 +3,14 @@
     <div class="container text-center single-col-max-width">
       <h2 class="heading">A Blog About Software Development And Life</h2>
       <div class="intro">Welcome to my blog. Subscribe and get my latest blog post in your inbox.</div>
-      <form class="signup-form form-inline justify-content-center pt-3">
+      <form #signUp="ngForm" name="signUpForm" class="signup-form form-inline justify-content-center pt-3">
         <div class="form-group">
           <label class="sr-only" for="semail">Your email</label>
-          <input type="email" id="semail" name="semail1" class="form-control mr-md-1 semail" placeholder="Enter email">
+          <input [(ngModel)]="newSubscriber.email" type="email" id="semail" name="email"
+            class="form-control mr-md-1 semail" placeholder="Enter email">
         </div>
-        <button type="submit" class="btn btn-primary">Subscribe</button>
+        <button (click)="addSubscription(signUp.value); signUp.resetForm()" type="submit"
+          class="btn btn-primary">Subscribe</button>
       </form>
     </div>
     <!--//container-->

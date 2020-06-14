@@ -5,6 +5,8 @@ import {
   NbLayoutModule, NbSelectModule, NbBadgeModule, NbButtonModule, NbCheckboxModule, NbMenuService, NbMenuModule, NbCardModule, NbInputModule, NbAlertModule, NbIconModule, NbToastrModule, NbDialogService, NbDialogRef,
 } from '@nebular/theme';
 
+
+
 // import { BrowserModule } from '@angular/platform-browser';
 
 import { NgModule } from '@angular/core';
@@ -39,6 +41,7 @@ import { ReviewsComponent } from './reviews/reviews.component';
 import { FilterByTypePipe } from '../_pipes/filter-by-pipe';
 
 import { FeaturedskillsComponent } from '../admin/resume-admin/featuredskills/featuredskills.component';
+import { SubscriptionsComponent } from './subscriptions/subscriptions.component';
 
 
 @NgModule({
@@ -52,7 +55,8 @@ import { FeaturedskillsComponent } from '../admin/resume-admin/featuredskills/fe
     MessagesComponent,
     ReviewsComponent,
     FeaturedskillsComponent,
-    FilterByTypePipe
+    FilterByTypePipe,
+    SubscriptionsComponent
   ],
   imports: [
     CommonModule,
