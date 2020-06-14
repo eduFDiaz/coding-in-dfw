@@ -38,7 +38,7 @@ namespace coding.API.Controllers
 
         }
 
-        [Authorize]
+       // [Authorize]
         [HttpPost("create")]
         public async Task<IActionResult> Create([FromBody] DraftReviewDto request)
         {
@@ -69,8 +69,8 @@ namespace coding.API.Controllers
             }
             catch (Exception ex)
             {
-                string exMsg = ex.Message;
-                return BadRequest(exMsg);
+                Exception exc = ex;
+                return BadRequest(exc);
 
             }
 

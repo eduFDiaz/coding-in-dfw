@@ -18,6 +18,9 @@ using System.Threading.Tasks;
 using coding.API.Models.Posts.Comments;
 using coding.API.Dtos.Posts;
 using coding.API.Models.Photos;
+using coding.API.Models.Subscribers;
+using System.Net.Mail;
+using System.Net;
 
 namespace coding.API.Controllers
 {
@@ -30,6 +33,8 @@ namespace coding.API.Controllers
         private readonly Repository<Post> _postDal;
         private readonly Repository<PostPhoto> _postPhotoDal;
         private readonly Repository<Tag> _tagDal;
+        private readonly Repository<Subscriber> _subDal;
+
 
         private readonly Repository<PostTag> _postTagDal;
         private readonly Repository<Comment> _commentDal;
@@ -40,6 +45,8 @@ namespace coding.API.Controllers
         Repository<PostPhoto> postPhotoDal,
         Repository<Tag> tagDal,
         Repository<Post> postDal,
+        Repository<Subscriber> subDal,
+
         IConfiguration config, IMapper mapper)
         {
 
@@ -50,6 +57,7 @@ namespace coding.API.Controllers
             _commentDal = commentDal;
             _config = config;
             _mapper = mapper;
+            _subDal = subDal;
         }
 
         [Authorize]
@@ -59,13 +67,15 @@ namespace coding.API.Controllers
 
             var postForCreate = _mapper.Map<Post>(request);
             var str = postForCreate.Text;
-            
+
             var strEncryptred = Cipher.Encrypt(str, password);
             postForCreate.Text = strEncryptred;
-            
+
 
 
             var createdPost = await _postDal.Add(postForCreate);
+            var PostTextDecrypted = Cipher.Decrypt(createdPost.Text, password);
+
 
             foreach (var tag in request.PostTagId)
             {
@@ -73,7 +83,7 @@ namespace coding.API.Controllers
                 PostTag postag = new PostTag
                 {
                     TagId = tag,
-                    PostId = createdPost.Id, 
+                    PostId = createdPost.Id,
                     Tag = await _tagDal.GetById(tag)
 
                 };
@@ -82,8 +92,51 @@ namespace coding.API.Controllers
                 await _postTagDal.Add(postag);
             }
 
+            List<string> subsEmails = new List<string>();
+            ICollection<Subscriber> allSubs = (await _subDal.ListAsync());
+
+            foreach (var sub in allSubs)
+            {
+                subsEmails.Append(sub.Email);
+            }
+
+            //Now send the email
+            EmailConfigurationDev emailConfigurationDev = new EmailConfigurationDev();
+            //EmailConfigurationProd emailConfigurationProd = new EmailConfigurationProd();
+
+            var smtp = new SmtpClient
+            {
+                Host = emailConfigurationDev.SmtpHost,
+                Port = emailConfigurationDev.SmtpPort,
+                EnableSsl = false,
+                DeliveryMethod = SmtpDeliveryMethod.Network,
+                UseDefaultCredentials = false,
+                Credentials = new NetworkCredential(emailConfigurationDev.FromAddress, emailConfigurationDev.FromPassword),
+            };
+            string msg = $@"Hello, Eduardo has write a new post {createdPost.Title} <br> {PostTextDecrypted.Substring(0, 50)} <br> <a href='http://www.codingindfw.com/blog/post/{createdPost.Id}'> Read more.. </a> <br> <p> Your are reciving this email cause you  subscribed in Coding in DFW, if you want to unsubscribe please click this link below</p> <br> <a href='www.codingindfw.com/blog/unsubscribe'>";
+            MailMessage mail = new MailMessage(){
+                Subject = "New post on Coding in DFW",
+                Body = msg,
+                IsBodyHtml = true,
+            };
+
+                foreach (var email in subsEmails)
+                {
+                    mail.To.Add(email);
+                }
 
 
+            try
+            {
+
+                 smtp.Send(mail);
+            }
+            catch (Exception ex)
+            {
+                Exception exc = ex;
+                return BadRequest(exc);
+
+            }
             return Ok(new NewPostPresenter(createdPost));
 
         }
@@ -95,15 +148,16 @@ namespace coding.API.Controllers
         {
 
             var allUserPosts = (await _postDal.GetRelatedFields("PostTags.Tag", "Comments")).Where(p => p.UserId == userId).ToList();
-            
+
 
             var alluserPostsImages = (await _postDal.GetRelatedField("Photos")).Where(p => p.UserId == userId).ToList();
 
             List<PostPresenter> presentedPosts = new List<PostPresenter>();
 
             foreach (var post in allUserPosts)
-            {   var text = post.Text;
-                post.Text = Cipher.Decrypt(text,password); 
+            {
+                var text = post.Text;
+                post.Text = Cipher.Decrypt(text, password);
                 presentedPosts.Add(new PostPresenter(post));
             }
 
@@ -134,7 +188,7 @@ namespace coding.API.Controllers
             var text = request.Text;
             var pt = new PostTagForCreateDto();
             var toUpd = _mapper.Map(request, postToUpdate);
-            toUpd.Text = Cipher.Encrypt(text,password);
+            toUpd.Text = Cipher.Encrypt(text, password);
             foreach (var row in postToUpdate.PostTags)
             {
 
@@ -162,7 +216,7 @@ namespace coding.API.Controllers
             }
 
             var outPut = _mapper.Map<PostForDetailDto>(toUpd);
-            outPut.Text = Cipher.Decrypt(outPut.Text,password);
+            outPut.Text = Cipher.Decrypt(outPut.Text, password);
             if (await _postDal.Update(toUpd))
                 return Ok(outPut);
 
@@ -175,7 +229,7 @@ namespace coding.API.Controllers
         {
             var singlePostFromRepo = (await _postDal.GetRelatedField("PostTags.Tag")).SingleOrDefault(p => p.Id == postid);
             var text = singlePostFromRepo.Text;
-            singlePostFromRepo.Text = Cipher.Decrypt(text,password);
+            singlePostFromRepo.Text = Cipher.Decrypt(text, password);
 
             singlePostFromRepo.Comments = (await _commentDal.ListAsync()).Where(c => c.PostId == postid && c.Published == true).ToList();
 
