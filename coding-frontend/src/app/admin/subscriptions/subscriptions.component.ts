@@ -56,10 +56,21 @@ export class SubscriptionsComponent implements OnInit {
 
   addSubs(data: Subscriber) {
     this.spinner = true
-    this.subsService.newSubscriber(data).subscribe((result: Subscriber) => {
-      this.subscribers.push(result)
+    let email = this.subscribers.filter((item: any) => item.email === data.email)[0]
+    if (email && email.email == data.email) {
+      this.alert.showToast('top-right', 'danger', 'Error!', 'Mail already exist')
       this.spinner = false
-    })
+    } else {
+      this.subsService.newSubscriber(data).subscribe((result: Subscriber) => {
+        this.alert.showToast('top-right', 'success', 'Added', 'The email was added to list.')
+        this.subscribers.push(result)
+      }, () => {
+        this.alert.showToast('top-right', 'danger', 'Error!', 'Something went wrong')
+        this.spinner = false
+      }, () => {
+        this.spinner = false
+      })
+    }
   }
-
 }
+

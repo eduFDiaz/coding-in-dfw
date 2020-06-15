@@ -25,6 +25,8 @@ export class PostListComponent implements OnInit {
     email: ''
   }
 
+  allsubs: Subscriber[]
+
 
   constructor(
     private alertify: AlertifyServiceService,
@@ -38,6 +40,7 @@ export class PostListComponent implements OnInit {
       this.posts = posts
       this.loading = false
     })
+    this.subscriptionService.getAll().subscribe((data: Subscriber[]) => this.allsubs = data)
 
   }
 
@@ -51,12 +54,17 @@ export class PostListComponent implements OnInit {
 
   addSubscription(data: Subscriber) {
     console.log(data)
-    this.subscriptionService.newSubscriber(data).subscribe(() => {
-      this.alertify.success('Success!, you email was added to the subscribers list')
-
-    }, () => {
-      this.alertify.error('Failure')
-    })
+    let email = this.allsubs.filter((item: any) => item.email === data.email)[0]
+    if (email && email.email == data.email) {
+      this.alertify.error('Email exists')
+    } else {
+      this.subscriptionService.newSubscriber(data).subscribe(() => {
+        this.alertify.success('Success!, you email was added to the subscribers list')
+        this.subscriptionService.getAll().subscribe((data: Subscriber[]) => this.allsubs = data)
+      }, () => {
+        this.alertify.error('Failure')
+      })
+    }
   }
 
 }
