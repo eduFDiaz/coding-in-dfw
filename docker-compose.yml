@@ -1,0 +1,47 @@
+version: '3.4'
+
+services:
+  api-service:
+    image: core.api.dev.image
+    container_name: core.web.api.dev.container
+    build:
+      args:
+        buildconfig: Debug
+      context: ./coding.API
+      dockerfile: .docker/production.dockerfile
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Production
+
+      # Set the certificate env variables (We copied certificate from host to below location. See volumes)
+      #- Kestrel__Certificates__Default__Path=/root/.dotnet/https/aspnetcore-cert.pfx
+      #- Kestrel__Certificates__Default__Password=yourpassword
+
+      # The .net core base image used in the docker file, runs the app on port 80 by default
+      # Force it to run on ports 5000 & 5001
+      # Also we are specifying 0.0.0.0 instead of localhost
+      # as the app crashes inside docker when used localhost.
+      - ASPNETCORE_URLS=http://0.0.0.0:5000/;https://0.0.0.0:5001
+      - DOTNET_USE_POLLING_FILE_WATCHER=true
+    ports:
+      - 5000:5000
+      - 5001:5001
+    volumes:
+      # Map the certificate from host to the container
+      #- 'c:/cert/:/root/.dotnet/https'
+      #- 'c:/cert/:/usr/local/share/ca-certificates'
+      - './coding.API/:/src'
+ 
+  ng-app-service:
+    image: ng.app.dev.image
+    container_name: ng.app.dev.container
+    build:
+      context: ./coding-frontend
+      dockerfile: .docker/development.dockerfile
+    environment:
+      NODE_ENV: development
+    volumes:
+      - './coding-frontend/:/usr/share/app'
+      - /app/node_modules/
+    ports:
+      - 4200:80
+    command: ['ng', 'serve', '--host=0.0.0.0', '--watch', '--poll=2000']
