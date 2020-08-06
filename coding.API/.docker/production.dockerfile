@@ -12,6 +12,8 @@ COPY ["coding.API.csproj", "coding.API.csproj"]
 
 RUN dotnet restore "coding.API.csproj"
 COPY . .
+#RUN dotnet tool install --global dotnet-ef --version 3.1.6
+#RUN dotnet ef database update
 RUN dotnet build "coding.API.csproj" -c Release -o /app
 
 FROM build AS publish
