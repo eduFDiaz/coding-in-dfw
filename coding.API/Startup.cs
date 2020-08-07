@@ -101,7 +101,10 @@ namespace coding.API
             dataContext.Database.Migrate();
             if (_env.IsDevelopment())
             {
-
+                app.UseSwagger();
+                app.UseSwaggerUI(c => {
+                 c.SwaggerEndpoint("/swagger/v1/swagger.json", "Coding in DfW API v1");
+             });
                 app.UseDeveloperExceptionPage();
             }
             else
@@ -128,10 +131,6 @@ namespace coding.API
             app.UseStaticFiles();
             app.UseRouting();
             app.UseAuthorization();
-            app.UseSwagger();
-            app.UseSwaggerUI(c => {
-                 c.SwaggerEndpoint("/swagger/v1/swagger.json", "Coding in DfW API v1");
-             });
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllerRoute(
