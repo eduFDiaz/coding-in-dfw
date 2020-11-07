@@ -24,10 +24,10 @@ namespace coding.API.Controllers
         private readonly IConfiguration _config;
         private readonly IMapper _mapper;
 
-        private readonly Repository<Education> _educationDal;
+        private readonly IRepository<Education> _educationDal;
 
         public EducationController(
-            Repository<Education> educationDal, IConfiguration config, IMapper mapper)
+            IRepository<Education> educationDal, IConfiguration config, IMapper mapper)
         {
 
             _educationDal = educationDal;

@@ -22,10 +22,10 @@ namespace coding.API.Controllers
         private readonly IConfiguration _config;
         private readonly IMapper _mapper;
 
-        private readonly Repository<Project> _projectDal;
+        private readonly IRepository<Project> _projectDal;
 
         public ProjectController(
-            Repository<Project> projectDal, IConfiguration config, IMapper mapper)
+            IRepository<Project> projectDal, IConfiguration config, IMapper mapper)
         {
 
             _projectDal = projectDal;

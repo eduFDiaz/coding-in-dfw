@@ -16,10 +16,10 @@ namespace coding.API.Controllers
     {
         private readonly IConfiguration _config;
         private readonly IMapper _mapper;
-        private readonly Repository<Subscriber> _subDal;
+        private readonly IRepository<Subscriber> _subDal;
 
         public NewsletterController(
-            Repository<Subscriber> subDal, IConfiguration config, IMapper mapper)
+            IRepository<Subscriber> subDal, IConfiguration config, IMapper mapper)
         {
 
             _subDal = subDal;

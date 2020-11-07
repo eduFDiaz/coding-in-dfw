@@ -22,10 +22,10 @@ namespace coding.API.Controllers
         private readonly IConfiguration _config;
         private readonly IMapper _mapper;
 
-        private readonly Repository<WorkExperience> _workExperienceDal;
+        private readonly IRepository<WorkExperience> _workExperienceDal;
 
         public WorkExperienceController(
-            Repository<WorkExperience> workExperienceDal, IConfiguration config, IMapper mapper)
+            IRepository<WorkExperience> workExperienceDal, IConfiguration config, IMapper mapper)
         {
 
             _workExperienceDal = workExperienceDal;

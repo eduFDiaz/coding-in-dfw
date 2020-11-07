@@ -1,6 +1,5 @@
 using AutoMapper;
 using coding.API.Data;
-using coding.API.Dtos.Comments;
 using coding.API.Models.Presenter;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
@@ -9,8 +8,7 @@ using System.Linq;
 using System.Net.Mail;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using coding.API.Models.Messages;
-using coding.API.Dtos;
+
 using coding.API.Models.Reviews;
 using coding.API.Dtos.Reviews;
 using System;
@@ -27,10 +25,10 @@ namespace coding.API.Controllers
         private readonly IMapper _mapper;
         //private string url = "http://localhost:4200/pages/review/referal?id=";
         private string urlProd = "https://www.codingindfw.com/pages/review/referal?id=";
-        private readonly Repository<Review> _reviewDal;
+        private readonly IRepository<Review> _reviewDal;
 
         public ReviewController(
-            Repository<Review> reviewDal, IConfiguration config, IMapper mapper)
+            IRepository<Review> reviewDal, IConfiguration config, IMapper mapper)
         {
 
             _reviewDal = reviewDal;

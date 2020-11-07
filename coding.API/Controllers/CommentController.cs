@@ -25,10 +25,10 @@ namespace coding.API.Controllers
         private readonly IConfiguration _config;
         private readonly IMapper _mapper;
 
-        private readonly Repository<Comment> _commentDal;
+        private readonly IRepository<Comment> _commentDal;
 
         public CommentController(
-            Repository<Comment> commentDal, IConfiguration config, IMapper mapper)
+            IRepository<Comment> commentDal, IConfiguration config, IMapper mapper)
         {
 
             _commentDal = commentDal;

@@ -1,6 +1,5 @@
 using AutoMapper;
 using coding.API.Data;
-using coding.API.Dtos.Comments;
 using coding.API.Models.Presenter;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
@@ -8,7 +7,7 @@ using System.Linq;
 
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using coding.API.Models.Messages;
+
 using coding.API.Dtos;
 using coding.API.Models.FeatureSkills;
 using System;
@@ -22,10 +21,10 @@ namespace coding.API.Controllers
     {
         private readonly IConfiguration _config;
         private readonly IMapper _mapper;
-        private readonly Repository<FeatureSkill> _featureSkillDal;
+        private readonly IRepository<FeatureSkill> _featureSkillDal;
 
         public FeatureSkillController(
-            Repository<FeatureSkill> featureSkillDal, IConfiguration config, IMapper mapper)
+            IRepository<FeatureSkill> featureSkillDal, IConfiguration config, IMapper mapper)
         {
 
             _featureSkillDal = featureSkillDal;

@@ -1,7 +1,7 @@
 using AutoMapper;
 using coding.API.Data;
 using coding.API.Dtos;
-using coding.API.Models;
+
 using coding.API.Models.Presenter;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -12,7 +12,7 @@ using coding.API.Models.Languages;
 
 
 using System;
-using System.Collections.Generic;
+
 using System.Threading.Tasks;
 
 namespace coding.API.Controllers
@@ -24,10 +24,10 @@ namespace coding.API.Controllers
         private readonly IConfiguration _config;
         private readonly IMapper _mapper;
 
-        private readonly Repository<Language> _languageDal;
+        private readonly IRepository<Language> _languageDal;
 
         public LanguageController(
-            Repository<Language> languageDal, IConfiguration config, IMapper mapper)
+            IRepository<Language> languageDal, IConfiguration config, IMapper mapper)
         {
 
             _languageDal = languageDal;

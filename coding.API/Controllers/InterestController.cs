@@ -1,7 +1,7 @@
 using AutoMapper;
 using coding.API.Data;
 using coding.API.Dtos;
-using coding.API.Models;
+
 using coding.API.Models.Presenter;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -12,7 +12,7 @@ using coding.API.Models.Interests;
 
 
 using System;
-using System.Collections.Generic;
+
 using System.Threading.Tasks;
 
 namespace coding.API.Controllers
@@ -24,10 +24,10 @@ namespace coding.API.Controllers
         private readonly IConfiguration _config;
         private readonly IMapper _mapper;
 
-        private readonly Repository<Interest> _interestDal;
+        private readonly IRepository<Interest> _interestDal;
 
         public InterestController(
-            Repository<Interest> interestDal, IConfiguration config, IMapper mapper)
+            IRepository<Interest> interestDal, IConfiguration config, IMapper mapper)
         {
 
             _interestDal = interestDal;

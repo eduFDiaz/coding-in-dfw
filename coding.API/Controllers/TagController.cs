@@ -1,16 +1,16 @@
 using AutoMapper;
 using coding.API.Data;
 using coding.API.Dtos;
-using coding.API.Models;
+
 using coding.API.Models.Presenter;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
-using coding.API.Models.Posts;
+
 using coding.API.Models.Tags;
 using coding.API.Models.PostTags;
 using System;
-using System.Collections.Generic;
+
 using System.Threading.Tasks;
 
 namespace coding.API.Controllers
@@ -22,12 +22,12 @@ namespace coding.API.Controllers
         private readonly IConfiguration _config;
         private readonly IMapper _mapper;
 
-        private readonly Repository<Tag> _tagDal;
-        private readonly Repository<PostTag> _postTagDal;
+        private readonly IRepository<Tag> _tagDal;
+        private readonly IRepository<PostTag> _postTagDal;
 
         public TagController(
-            Repository<PostTag> postTagDal,
-            Repository<Tag> tagDal,
+            IRepository<PostTag> postTagDal,
+            IRepository<Tag> tagDal,
             IConfiguration config, IMapper mapper)
         {
 

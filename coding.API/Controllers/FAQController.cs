@@ -1,15 +1,12 @@
 using AutoMapper;
 using coding.API.Data;
 using coding.API.Dtos;
-using coding.API.Models;
 using coding.API.Models.Presenter;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
-using System.Linq;
 
 using coding.API.Models.FAQS;
-
 
 using System;
 using System.Collections.Generic;
@@ -24,10 +21,10 @@ namespace coding.API.Controllers
         private readonly IConfiguration _config;
         private readonly IMapper _mapper;
 
-        private readonly Repository<FAQ> _FAQDal;
+        private readonly IRepository<FAQ> _FAQDal;
 
         public FAQController(
-            Repository<FAQ> FAQDal, IConfiguration config, IMapper mapper)
+            IRepository<FAQ> FAQDal, IConfiguration config, IMapper mapper)
         {
 
             _FAQDal = FAQDal;

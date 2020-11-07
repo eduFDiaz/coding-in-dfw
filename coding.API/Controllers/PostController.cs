@@ -1,7 +1,7 @@
 using AutoMapper;
 using coding.API.Data;
 using coding.API.Dtos;
-using coding.API.Models;
+
 using coding.API.Models.Presenter;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -30,22 +30,22 @@ namespace coding.API.Controllers
     {
         private readonly IConfiguration _config;
         private readonly IMapper _mapper;
-        private readonly Repository<Post> _postDal;
-        private readonly Repository<PostPhoto> _postPhotoDal;
-        private readonly Repository<Tag> _tagDal;
-        private readonly Repository<Subscriber> _subDal;
+        private readonly IRepository<Post> _postDal;
+        private readonly IRepository<PostPhoto> _postPhotoDal;
+        private readonly IRepository<Tag> _tagDal;
+        private readonly IRepository<Subscriber> _subDal;
 
 
-        private readonly Repository<PostTag> _postTagDal;
-        private readonly Repository<Comment> _commentDal;
+        private readonly IRepository<PostTag> _postTagDal;
+        private readonly IRepository<Comment> _commentDal;
         string password = "p@SSword";
         public PostController(
-        Repository<Comment> commentDal,
-        Repository<PostTag> postTagDal,
-        Repository<PostPhoto> postPhotoDal,
-        Repository<Tag> tagDal,
-        Repository<Post> postDal,
-        Repository<Subscriber> subDal,
+        IRepository<Comment> commentDal,
+        IRepository<PostTag> postTagDal,
+        IRepository<PostPhoto> postPhotoDal,
+        IRepository<Tag> tagDal,
+        IRepository<Post> postDal,
+        IRepository<Subscriber> subDal,
 
         IConfiguration config, IMapper mapper)
         {

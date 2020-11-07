@@ -25,21 +25,21 @@ namespace coding.API.Controllers
         private readonly IConfiguration _config;
         private readonly IMapper _mapper;
 
-        private readonly Repository<Product> _productDal;
+        private readonly IRepository<Product> _productDal;
 
-        private readonly Repository<ProductPhoto> _productPhotoDal;
+        private readonly IRepository<ProductPhoto> _productPhotoDal;
 
-        private readonly Repository<Requirement> _requirementDal;
+        private readonly IRepository<Requirement> _requirementDal;
 
-        private readonly Repository<ProductRequirement> _productRequirementDal;
+        private readonly IRepository<ProductRequirement> _productRequirementDal;
 
 
         public ProductController(
-            Repository<Product> productDal,
-            Repository<ProductPhoto> productPhotoDal,
+            IRepository<Product> productDal,
+            IRepository<ProductPhoto> productPhotoDal,
             IConfiguration config, IMapper mapper,
-            Repository<Requirement> requirementDal,
-            Repository<ProductRequirement> productRequirementDal
+            IRepository<Requirement> requirementDal,
+            IRepository<ProductRequirement> productRequirementDal
             )
         {
 

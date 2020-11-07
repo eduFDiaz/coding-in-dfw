@@ -31,6 +31,8 @@ namespace coding.API.Tests
 
         Award testAward;
 
+        UpdateAwardDto update;
+        // Define AutoMapper mappings :D
         private MapperConfiguration CreateMaps()
 {
                 return new MapperConfiguration(mc =>
@@ -40,7 +42,7 @@ namespace coding.API.Tests
                
             });
         }
-
+        // Init test
         public TestAwardController()
         {
          
@@ -56,15 +58,23 @@ namespace coding.API.Tests
             testAwardId = new Guid();
 
             listAwards = new List<Award>() {
-                new Award() { Company = "test", UserId = testUserId},
-                new Award() { Company = "Test2", UserId = testUserId }
+                new Award() { Company = "test", UserId = testUserId, Year = 2020},
+                new Award() { Company = "Test2", UserId = testUserId, Year = 2021 }
                 };
 
             testAward = new Award()
             {
                 Id = testAwardId,
                 Company = "Award",
-                UserId = testUserId
+                UserId = testUserId,
+                Year = 2020
+                
+            };
+
+            update = new UpdateAwardDto() {
+                Company = "Updated Company",
+                Title = "Updated Year",
+                Year = 2021
             };
 
             mockRepo.Setup(repo => repo.Add(testAward)).ReturnsAsync(testAward);
@@ -75,24 +85,22 @@ namespace coding.API.Tests
             mockRepo.Setup(repo => repo.Update(testAward)).ReturnsAsync(true);
 
             awardController = new AwardController(mockRepo.Object, _mapper, mockConfiguration.Object);
-
             
-        }
-
-        [Fact]
-        public void Get_Award_From_Repo_List_Returns_Expected()
-        {
-            List<Award> results = mockRepo.Object.ListAll().ToList();
-            Assert.Equal(2, results.Count()); 
         }
 
         [Fact]
         public void AwardController_Returns_GetById()
         {
             // Act
-            var okResult = awardController.GetawardForUser(testUserId);
+            var okResult = awardController.GetawardForUser(testUserId).Result as OkObjectResult;
+
             // Assert
-            Assert.IsType<OkObjectResult>(okResult.Result);
+            Assert.IsType<OkObjectResult>(okResult);
+
+            var items = Assert.IsType<List<Award>>(okResult.Value);
+
+            Assert.Equal(2020, items[0].Year);
+            Assert.Equal(testUserId, items[1].UserId);
             
         }
 
@@ -100,7 +108,7 @@ namespace coding.API.Tests
         public void Check_AwardList_Returned()
         {
             // Act
-            var okResult = awardController.GetawardForUser(testAwardId).Result as OkObjectResult;
+            var okResult = awardController.GetawardForUser(testUserId).Result as OkObjectResult;
             // Assert
             var items = Assert.IsType<List<Award>>(okResult.Value);
             Assert.Equal(2, items.Count);
@@ -109,6 +117,7 @@ namespace coding.API.Tests
         [Fact]
         public void Can_create_new_award()
         {
+            // Given
             var newAward = new CreateAwardDto() {
                 Company = "New Company",
                 Title = "New AWard",
@@ -116,35 +125,33 @@ namespace coding.API.Tests
                 Year = 2020
             };
 
+            // Act
             var result = awardController.Create(newAward).Result as OkObjectResult;
-            
+
+            // Assert
             Assert.IsType<AwardPresenter>(result.Value);
-                       
+                      
         }
 
         [Fact]
         public async Task Can_delete_an_award()
         {
-
+            // Act
             var result = await awardController.DeleteAward(testAwardId) as NoContentResult;
-            
+            // Assert
             Assert.IsType<NoContentResult>(result);        
             
         }
 
         [Fact]
         public async Task Can_update_an_award() {
-            
+            // Given
             var awardToUpdate = mockRepo.Object.GetById(testAwardId);
-
-            var update = new UpdateAwardDto() {
-                Company = "Updated Company",
-                Title = "Updated Year",
-                Year = 2021
-            };
-
+        
+        
+            // Act
             var result = await awardController.UpdateAward(awardToUpdate.Result.Id, update) as NoContentResult;
-
+            // Assert
             Assert.IsType<NoContentResult>(result);
         }
 

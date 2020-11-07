@@ -5,8 +5,6 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using System.Linq;
 
-
-
 using System;
 using System.Threading.Tasks;
 using coding.API.Models.Messages;
@@ -22,10 +20,10 @@ namespace coding.API.Controllers
         private readonly IConfiguration _config;
         private readonly IMapper _mapper;
 
-        private readonly Repository<Message> _messageDal;
+        private readonly IRepository<Message> _messageDal;
 
         public MessageController(
-            Repository<Message> messageDal, IConfiguration config, IMapper mapper)
+            IRepository<Message> messageDal, IConfiguration config, IMapper mapper)
         {
 
             _messageDal = messageDal;

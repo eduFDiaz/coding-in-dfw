@@ -1,19 +1,17 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
+
 using System.Threading.Tasks;
 using AutoMapper;
 using coding.API.Dtos;
-using coding.API.Models;
+
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Logging;
-using System.Security.Claims;
+
 using coding.API.Data;
 using coding.API.Models.Users;
-using coding.API.Models.Presenter;
+
 
 namespace coding.API.Controllers
 {
@@ -23,9 +21,9 @@ namespace coding.API.Controllers
     {
 
         private readonly IMapper _mapper;
-        private readonly Repository<User> _userDal;
+        private readonly IRepository<User> _userDal;
 
-        public UsersController(Repository<User> userDal, IMapper mapper)
+        public UsersController(IRepository<User> userDal, IMapper mapper)
         {
             _mapper = mapper;
             _userDal = userDal;

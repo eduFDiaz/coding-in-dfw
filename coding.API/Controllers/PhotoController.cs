@@ -1,10 +1,8 @@
 using System;
-using System.Text;
 using System.Threading.Tasks;
 using AutoMapper;
 using coding.API.Dtos;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using CloudinaryDotNet;
 using CloudinaryDotNet.Actions;
@@ -20,7 +18,7 @@ using Microsoft.AspNetCore.Authorization;
 using coding.API.Dtos.Products;
 using coding.API.Models.Posts;
 using coding.API.Dtos.Posts;
-using System.Security.Claims;
+
 
 namespace coding.API.Controllers
 {
@@ -29,15 +27,15 @@ namespace coding.API.Controllers
     public class PhotoController : ControllerBase
     {
 
-        private readonly Repository<Photo> _photoDal;
-        private readonly Repository<User> _userDal;
-        private readonly Repository<Product> _productDal;
+        private readonly IRepository<Photo> _photoDal;
+        private readonly IRepository<User> _userDal;
+        private readonly IRepository<Product> _productDal;
 
-        private readonly Repository<ProductPhoto> _productPhotoDal;
+        private readonly IRepository<ProductPhoto> _productPhotoDal;
 
-        private readonly Repository<Post> _postDal;
+        private readonly IRepository<Post> _postDal;
 
-        private readonly Repository<PostPhoto> _postPhotoDal;
+        private readonly IRepository<PostPhoto> _postPhotoDal;
         private readonly IConfiguration _config;
         private readonly IMapper _mapper;
         private readonly IOptions<CloudinarySettings> _cloudinaryConfig;
@@ -45,7 +43,7 @@ namespace coding.API.Controllers
 
 
 
-        public PhotoController(Repository<Post> postDal, Repository<PostPhoto> postPhotoDal, Repository<ProductPhoto> productPhotoDal, Repository<Photo> photoDal, Repository<User> userDal, Repository<Product> productDal, IConfiguration config, IMapper mapper, IOptions<CloudinarySettings> cloudinaryConfig)
+        public PhotoController(IRepository<Post> postDal, IRepository<PostPhoto> postPhotoDal, IRepository<ProductPhoto> productPhotoDal, IRepository<Photo> photoDal, IRepository<User> userDal, IRepository<Product> productDal, IConfiguration config, IMapper mapper, IOptions<CloudinarySettings> cloudinaryConfig)
         {
             _photoDal = photoDal;
             _userDal = userDal;
