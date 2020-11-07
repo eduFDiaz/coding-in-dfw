@@ -17,6 +17,7 @@ namespace coding.API.Tests
 {
     public class TestAwardController
     {
+        private readonly IMapper _mapper;
         Mock<IRepository<Award>> mockRepo;
         Mock<IMapper> mockMapper;
         AwardController awardController;
@@ -30,9 +31,20 @@ namespace coding.API.Tests
 
         Award testAward;
 
+        private MapperConfiguration CreateMaps()
+{
+                return new MapperConfiguration(mc =>
+            {
+                mc.CreateMap<UpdateAwardDto, Award>();
+                mc.CreateMap<CreateAwardDto, Award>();
+               
+            });
+        }
+
         public TestAwardController()
         {
-            
+         
+            _mapper = new Mapper(CreateMaps());
 
             mockRepo = new Mock<IRepository<Award>>();
 
@@ -55,8 +67,6 @@ namespace coding.API.Tests
                 UserId = testUserId
             };
 
-            // mockMapper.Setup(mapper => mapper.Map())
-
             mockRepo.Setup(repo => repo.Add(testAward)).ReturnsAsync(testAward);
             mockRepo.Setup(repo => repo.ListAll()).Returns(listAwards).Verifiable();
             mockRepo.Setup(repo => repo.ListAsync()).ReturnsAsync(listAwards);
@@ -64,7 +74,7 @@ namespace coding.API.Tests
             mockRepo.Setup(repo => repo.Delete(testAward)).ReturnsAsync(true);
             mockRepo.Setup(repo => repo.Update(testAward)).ReturnsAsync(true);
 
-            awardController = new AwardController(mockRepo.Object, mockMapper.Object, mockConfiguration.Object);
+            awardController = new AwardController(mockRepo.Object, _mapper, mockConfiguration.Object);
 
             
         }
@@ -123,7 +133,7 @@ namespace coding.API.Tests
         }
 
         [Fact]
-        public async Task Can_update_a_award() {
+        public async Task Can_update_an_award() {
             
             var awardToUpdate = mockRepo.Object.GetById(testAwardId);
 
@@ -133,9 +143,9 @@ namespace coding.API.Tests
                 Year = 2021
             };
 
-            // var result = await awardController.UpdateAward(awardToUpdate.Result.Id, update) as NoContentResult;
+            var result = await awardController.UpdateAward(awardToUpdate.Result.Id, update) as NoContentResult;
 
-            // Assert.IsType<NoContentResult>(result);
+            Assert.IsType<NoContentResult>(result);
         }
 
      }

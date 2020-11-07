@@ -98,12 +98,9 @@ namespace coding.API.Dtos
             CreateMap<FAQ, FAQForDetailDto>();
             CreateMap<UpdateFAQDto, FAQ>();
 
-
-
             // Projects Mappings
             CreateMap<CreateProjectDto, Project>();
             CreateMap<UpdateProjectDto, Project>();
-
 
             // Education Mappings
             CreateMap<CreateEducationDto, Education>();
