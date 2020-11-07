@@ -24,10 +24,10 @@ namespace coding.API.Controllers
         private readonly IConfiguration _config;
         private readonly IMapper _mapper;
 
-        private readonly Repository<Award> _awardDal;
+        private readonly IRepository<Award> _awardDal;
 
         public AwardController(
-            Repository<Award> awardDal, IConfiguration config, IMapper mapper)
+            IRepository<Award> awardDal, IMapper mapper, IConfiguration config)
         {
 
             _awardDal = awardDal;
@@ -44,10 +44,9 @@ namespace coding.API.Controllers
             var createdaward = await _awardDal.Add(awardToCreate);
 
             return Ok(new AwardPresenter(createdaward));
-
+            
         }
-
-
+      
         
         [HttpGet("foruser/{userId}", Name = "Get award for User")]
         public async Task<IActionResult> GetawardForUser(Guid userId)
@@ -61,7 +60,7 @@ namespace coding.API.Controllers
 
         [Authorize]
         [HttpDelete("{awardid}/delete", Name = "Deleteaward")]
-        public async Task<IActionResult> DeleteLan(Guid awardid)
+        public async Task<IActionResult> DeleteAward(Guid awardid)
         {
             var awardToDelete = (await _awardDal.GetById(awardid));
 

@@ -16,7 +16,6 @@ namespace coding.API.Models.Presenter
         public AwardPresenter(Award award)
         {
             _award = award;
-
         }
 
         [JsonProperty("id")]
@@ -32,9 +31,5 @@ namespace coding.API.Models.Presenter
         [JsonProperty("title")]
         public string Title => _award.Title;
 
-       
-        
-
-       
     }
 }

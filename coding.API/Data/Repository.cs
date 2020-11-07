@@ -10,7 +10,7 @@ using coding.API.Models.Photos;
 
 namespace coding.API.Data
 {
-    public class Repository<T> where T : BaseEntity
+    public class Repository<T> : IRepository<T> where T : BaseEntity
     {
         private readonly DataContext _dbContext;
 
