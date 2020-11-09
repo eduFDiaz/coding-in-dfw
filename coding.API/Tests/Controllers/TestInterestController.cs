@@ -19,7 +19,7 @@ namespace coding.API.Tests.Controllers
          private readonly IMapper _mapper;
         Mock<IRepository<Interest>> mockRepo;
         Mock<IMapper> mockMapper;
-        InterestController awardController;
+        InterestController interestController;
         Mock<IConfiguration> mockConfiguration;
 
         Guid testUserId;
@@ -78,7 +78,7 @@ namespace coding.API.Tests.Controllers
             mockRepo.Setup(repo => repo.Delete(testInterest)).ReturnsAsync(true);
             mockRepo.Setup(repo => repo.Update(testInterest)).ReturnsAsync(true);
 
-            awardController = new InterestController(mockRepo.Object, mockConfiguration.Object, _mapper);
+            interestController = new InterestController(mockRepo.Object, mockConfiguration.Object, _mapper);
             
         }
 
@@ -86,7 +86,7 @@ namespace coding.API.Tests.Controllers
         public void InterestController_Returns_GetById()
         {
             // Act
-            var okResult = awardController.GetinterestForUser(testUserId).Result as OkObjectResult;
+            var okResult = interestController.GetinterestForUser(testUserId).Result as OkObjectResult;
 
             // Assert
             Assert.IsType<OkObjectResult>(okResult);
@@ -110,7 +110,7 @@ namespace coding.API.Tests.Controllers
             };
 
             // Act
-            var result = awardController.Create(newInterest).Result as OkObjectResult;
+            var result = interestController.Create(newInterest).Result as OkObjectResult;
 
             // Assert
             Assert.IsType<InterestPresenter>(result.Value);
@@ -121,7 +121,7 @@ namespace coding.API.Tests.Controllers
         public async Task Can_delete_an_Interest()
         {
             // Act
-            var result = await awardController.DeleteLan(testInterestId) as NoContentResult;
+            var result = await interestController.DeleteLan(testInterestId) as NoContentResult;
             // Assert
             Assert.IsType<NoContentResult>(result);        
             
@@ -134,7 +134,7 @@ namespace coding.API.Tests.Controllers
         
         
             // Act
-            var result = await awardController.UpdateInterest(interestToUpdate.Result.Id, update) as NoContentResult;
+            var result = await interestController.UpdateInterest(interestToUpdate.Result.Id, update) as NoContentResult;
             // Assert
             Assert.IsType<NoContentResult>(result);
         }

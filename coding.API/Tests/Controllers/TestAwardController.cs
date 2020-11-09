@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
 using coding.API.Controllers;
@@ -12,6 +11,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Moq;
 using Xunit;
+
+
 
 namespace coding.API.Tests
 {
@@ -45,7 +46,8 @@ namespace coding.API.Tests
         // Init test
         public TestAwardController()
         {
-         
+
+            
             _mapper = new Mapper(CreateMaps());
 
             mockRepo = new Mock<IRepository<Award>>();

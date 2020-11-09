@@ -75,7 +75,6 @@ namespace coding.API.Controllers
 
             var PostTextDecrypted = Cipher.Decrypt(createdPost.Text, password);
 
-
             foreach (var tag in request.PostTagId)
             {
 
