@@ -125,7 +125,7 @@ namespace coding.API.Controllers
 
         [Authorize]
         [HttpDelete("{productid}/delete")]
-        public async Task<IActionResult> DeleteTag(Guid productid)
+        public async Task<IActionResult> DeleteProduct(Guid productid)
         {
             var productToDelete = (await _productDal.GetById(productid));
 
