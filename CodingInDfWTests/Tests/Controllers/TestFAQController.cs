@@ -147,6 +147,64 @@ namespace coding.API.Tests
             Assert.IsType<NoContentResult>(result);
         }
 
+        [Fact]
+        public async Task Cant_delete_an_non_existing_item()
+        {
+            // Returning null
+            mockRepo.Setup(repo => repo.GetById(It.IsAny<Guid>())).ReturnsAsync(null as FAQ);
+            // Act
+            var result = await faqController.DeleteLan(testFAQId) as NotFoundResult;
+            // Assert
+            Assert.IsType<NotFoundResult>(result);        
+            
+        }
+
+        [Fact]
+        public async Task Cant_delete_an_existing_item_when_dbOperation_fails()
+        {
+            // Assemble to fail when deleting education record
+            mockRepo.Setup(repo => repo.Delete(It.IsAny<FAQ>())).ReturnsAsync(false);
+            mockRepo.Setup(repo => repo.GetById(It.IsAny<Guid>())).ReturnsAsync(new FAQ());
+
+            // Act
+            var result = await faqController.DeleteLan(testFAQId) as BadRequestObjectResult;
+
+            // Assert it fails
+            Assert.IsType<BadRequestObjectResult>(result);
+
+        }
+
+        [Fact]
+        public async Task Cant_update_an_inexistent_item()
+        {
+            // Mock inexistent education
+            mockRepo.Setup(repo => repo.GetById(It.IsAny<Guid>())).ReturnsAsync(null as FAQ);
+
+            // Act
+            var result = await faqController.UpdateLan(testFAQId, new UpdateFAQDto()) as NotFoundResult;
+
+            // Assert
+            Assert.IsNotType<NoContentResult>(result);
+
+            Assert.IsType<NotFoundResult>(result);
+
+        }
+
+        [Fact]
+        public async Task Cant_update_an_item_when_db_query_fails()
+        {
+            // Mock the things
+            mockRepo.Setup(repo => repo.Delete(It.IsAny<FAQ>())).ReturnsAsync(false);
+            mockRepo.Setup(repo => repo.GetById(It.IsAny<Guid>())).ReturnsAsync(new FAQ());
+
+            // Act
+            var result = await faqController.UpdateLan(testFAQId, new UpdateFAQDto()) as BadRequestObjectResult;
+
+            // Assert it fails
+            Assert.IsType<BadRequestObjectResult>(result);
+
+        }
+
      }
 
     

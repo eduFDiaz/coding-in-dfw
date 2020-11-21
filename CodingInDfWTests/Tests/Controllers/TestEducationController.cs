@@ -131,7 +131,7 @@ namespace coding.API.Tests
         [Fact]
         public async Task Can_update_an_education() {
             // Given
-            var awardToUpdate = mockRepo.Object.GetById(testEducationId);
+            var educationToUpdate = mockRepo.Object.GetById(testEducationId);
         
             var update = new UpdateEducationDto() {
                 SchoolName = "Updated SchoolName",
@@ -139,9 +139,67 @@ namespace coding.API.Tests
                 
             };
             // Act
-            var result = await educationController.UpdateLan(awardToUpdate.Result.Id, update) as NoContentResult;
+            var result = await educationController.UpdateLan(educationToUpdate.Result.Id, update) as NoContentResult;
             // Assert
             Assert.IsType<NoContentResult>(result);
+        }
+
+        [Fact]
+        public async Task Cant_delete_an_non_existing_item()
+        {
+            // Returning null
+            mockRepo.Setup(repo => repo.GetById(It.IsAny<Guid>())).ReturnsAsync(null as Education);
+            // Act
+            var result = await educationController.DeleteLan(testEducationId) as NotFoundResult;
+            // Assert
+            Assert.IsType<NotFoundResult>(result);        
+            
+        }
+
+        [Fact]
+        public async Task Cant_delete_an_existing_item_when_dbOperation_fails()
+        {
+            // Assemble to fail when deleting education record
+            mockRepo.Setup(repo => repo.Delete(It.IsAny<Education>())).ReturnsAsync(false);
+            mockRepo.Setup(repo => repo.GetById(It.IsAny<Guid>())).ReturnsAsync(new Education());
+
+            // Act
+            var result = await educationController.DeleteLan(testEducationId) as BadRequestObjectResult;
+
+            // Assert it fails
+            Assert.IsType<BadRequestObjectResult>(result);
+
+        }
+
+        [Fact]
+        public async Task Cant_update_an_inexistent_item()
+        {
+            // Mock inexistent education
+            mockRepo.Setup(repo => repo.GetById(It.IsAny<Guid>())).ReturnsAsync(null as Education);
+
+            // Act
+            var result = await educationController.UpdateLan(testEducationId, new UpdateEducationDto()) as NotFoundResult;
+
+            // Assert
+            Assert.IsNotType<NoContentResult>(result);
+
+            Assert.IsType<NotFoundResult>(result);
+
+        }
+
+        [Fact]
+        public async Task Cant_update_an_item_when_db_query_fails()
+        {
+            // Mock the things
+            mockRepo.Setup(repo => repo.Delete(It.IsAny<Education>())).ReturnsAsync(false);
+            mockRepo.Setup(repo => repo.GetById(It.IsAny<Guid>())).ReturnsAsync(new Education());
+
+            // Act
+            var result = await educationController.UpdateLan(testEducationId, new UpdateEducationDto()) as BadRequestObjectResult;
+
+            // Assert it fails
+            Assert.IsType<BadRequestObjectResult>(result);
+
         }
 
      }

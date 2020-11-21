@@ -68,9 +68,8 @@ namespace coding.API.Controllers
 
             if (await _awardDal.Delete(awardToDelete))
                 return NoContent();
-
-            return BadRequest("Can't erase the award");
-
+            
+            return BadRequest("cant delete the award!");
 
         }
 
@@ -91,8 +90,6 @@ namespace coding.API.Controllers
             return BadRequest("cant update the award!");
 
         }
-
-        
 
     }
 }

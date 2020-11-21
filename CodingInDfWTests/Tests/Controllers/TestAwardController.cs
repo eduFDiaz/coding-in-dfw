@@ -136,7 +136,7 @@ namespace coding.API.Tests
         }
 
         [Fact]
-        public async Task Can_delete_an_award()
+        public async Task Can_delete_an_existing_award()
         {
             // Act
             var result = await awardController.DeleteAward(testAwardId) as NoContentResult;
@@ -146,11 +146,68 @@ namespace coding.API.Tests
         }
 
         [Fact]
+        public async Task Cant_delete_an_non_existing_award()
+        {
+            // Returning null
+            mockRepo.Setup(repo => repo.GetById(It.IsAny<Guid>())).ReturnsAsync(null as Award);
+            // Act
+            var result = await awardController.DeleteAward(testAwardId) as NotFoundResult;
+            // Assert
+            Assert.IsType<NotFoundResult>(result);        
+            
+        }
+
+        [Fact]
+        public async Task Cant_delete_an_existing_award_when_dbOperation_fails()
+        {
+            // Assemble to fail when deleting award record
+            mockRepo.Setup(repo => repo.Delete(It.IsAny<Award>())).ReturnsAsync(false);
+            mockRepo.Setup(repo => repo.GetById(It.IsAny<Guid>())).ReturnsAsync(listAwards[0]);
+
+            // Act
+            var result = await awardController.DeleteAward(testAwardId) as BadRequestObjectResult;
+
+            // Assert it fails
+            Assert.IsType<BadRequestObjectResult>(result);
+
+        }
+
+        [Fact]
+        public async Task Cant_update_an_inexistent_award()
+        {
+            // Mock inexistent award
+            mockRepo.Setup(repo => repo.GetById(It.IsAny<Guid>())).ReturnsAsync(null as Award);
+
+            // Act
+            var result = await awardController.UpdateAward(testAwardId, new UpdateAwardDto()) as NotFoundResult;
+
+            // Assert
+            Assert.IsNotType<NoContentResult>(result);
+
+            Assert.IsType<NotFoundResult>(result);
+
+        }
+
+        [Fact]
+        public async Task Cant_update_an_award_when_db_query_fails()
+        {
+            // Mock the things
+            mockRepo.Setup(repo => repo.Delete(It.IsAny<Award>())).ReturnsAsync(false);
+            mockRepo.Setup(repo => repo.GetById(It.IsAny<Guid>())).ReturnsAsync(listAwards[0]);
+
+            // Act
+            var result = await awardController.UpdateAward(testAwardId, new UpdateAwardDto()) as BadRequestObjectResult;
+
+            // Assert it fails
+            Assert.IsType<BadRequestObjectResult>(result);
+
+        }
+
+        [Fact]
         public async Task Can_update_an_award() {
             // Given
             var awardToUpdate = mockRepo.Object.GetById(testAwardId);
-        
-        
+                
             // Act
             var result = await awardController.UpdateAward(awardToUpdate.Result.Id, update) as NoContentResult;
             // Assert
