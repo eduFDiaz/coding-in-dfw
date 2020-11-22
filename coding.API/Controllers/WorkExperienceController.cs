@@ -59,7 +59,7 @@ namespace coding.API.Controllers
 
         [Authorize]
         [HttpDelete("{workExperienceid}/delete", Name = "DeleteworkExperience")]
-        public async Task<IActionResult> DeleteLan(Guid workExperienceid)
+        public async Task<IActionResult> DeleteWorkExperience(Guid workExperienceid)
         {
             var workExperienceToDelete = (await _workExperienceDal.GetById(workExperienceid));
 

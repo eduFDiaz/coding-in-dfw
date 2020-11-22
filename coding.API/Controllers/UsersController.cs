@@ -31,9 +31,9 @@ namespace coding.API.Controllers
         }
         
         [HttpGet]
-        public async Task<ActionResult<IEnumerable>> GetUsers()
+        public async Task<IActionResult> GetUsers()
         {
-            var users = (await _userDal.ListAsync());
+            var users = await _userDal.ListAsync();
 
             var usersToReturn = _mapper.Map<List<UserForDetailedDto>>(users);
 

@@ -187,10 +187,11 @@ namespace coding.API.Tests
         [Fact]
         public async Task Can_update_an_Comment() {
             // Given
-            var CommentToUpdate = mockRepo.Object.GetById(testCommentId);
+            mockRepo.Setup(repo => repo.GetById(It.IsAny<Guid>())).ReturnsAsync(new Comment());
+            mockRepo.Setup(repo => repo.SaveAll()).ReturnsAsync(true);
                 
             // Act
-            var result = await CommentController.UpdateComment(CommentToUpdate.Result.Id) as NoContentResult;
+            var result = await CommentController.UpdateComment(testCommentId) as NoContentResult;
             // Assert
             Assert.IsType<NoContentResult>(result);
         }
