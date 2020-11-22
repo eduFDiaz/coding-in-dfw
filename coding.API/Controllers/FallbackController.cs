@@ -1,8 +1,10 @@
+using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using Microsoft.AspNetCore.Mvc;
 
 namespace DatingApp.API.Controllers
 {
+    [ExcludeFromCodeCoverage]
     public class FallbackController : Controller
     {
         public IActionResult Index()

@@ -27,6 +27,7 @@ using coding.API.Data;
 
 namespace coding.API
 {
+    [ExcludeFromCodeCoverage]
     public class Startup
     {
         public Startup(IConfiguration configuration, IWebHostEnvironment env)
