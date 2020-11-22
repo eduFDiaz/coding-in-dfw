@@ -61,7 +61,7 @@ namespace coding.API.Controllers
 
         [Authorize]
         [HttpDelete("{Skillid}/delete", Name = "DeleteSkill")]
-        public async Task<IActionResult> DeleteLan(Guid Skillid)
+        public async Task<IActionResult> DeleteSkill(Guid Skillid)
         {
             var SkillToDelete = (await _skillDal.GetById(Skillid));
 

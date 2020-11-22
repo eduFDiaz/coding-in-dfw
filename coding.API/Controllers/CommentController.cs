@@ -77,6 +77,11 @@ namespace coding.API.Controllers
         {
             var comment = (await _commentDal.GetById(commentId));
 
+            if (comment == null)
+            {
+                return NotFound();
+            }
+
             comment.Published = true;
 
             if (await _commentDal.SaveAll())
@@ -87,7 +92,7 @@ namespace coding.API.Controllers
         }
         [Authorize]
         [HttpDelete("{commentId}/delete", Name = "DeleteComment")]
-        public async Task<IActionResult> DeleteLan(Guid commentId)
+        public async Task<IActionResult> DeleteComment(Guid commentId)
         {
             var commentToDelete = (await _commentDal.GetById(commentId));
 

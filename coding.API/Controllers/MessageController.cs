@@ -65,10 +65,12 @@ namespace coding.API.Controllers
         public async Task<IActionResult> UpdateMessage(Guid messageid)
         {
             var messageToUpd = (await _messageDal.GetById(messageid));
-            messageToUpd.isRead = true;
+
             if (messageToUpd == null)
                 return NotFound();
-
+            
+            messageToUpd.isRead = true;
+            
             if (await _messageDal.Update(messageToUpd))
                 return NoContent();
 

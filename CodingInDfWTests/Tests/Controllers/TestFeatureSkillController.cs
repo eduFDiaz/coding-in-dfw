@@ -6,7 +6,6 @@ using AutoMapper;
 using coding.API.Controllers;
 using coding.API.Data;
 using coding.API.Dtos;
-using coding.API.Models.FeatureFeatureSkill;
 using coding.API.Models.FeatureSkills;
 using coding.API.Models.Presenter;
 using Microsoft.AspNetCore.Mvc;
@@ -96,7 +95,7 @@ namespace coding.API.Tests
         public void featureSkillController_Returns_GetById()
         {
             // Act
-            var okResult = featureSkillController.GetAllFeatureFeatureSkill().Result as OkObjectResult;
+            var okResult = featureSkillController.GetAllFeatureSkills().Result as OkObjectResult;
 
             // Assert
             Assert.IsType<OkObjectResult>(okResult);
@@ -144,7 +143,7 @@ namespace coding.API.Tests
             Assert.IsType<OkObjectResult>(result);
         }
 
-         [Fact]
+        [Fact]
         public async Task Cant_delete_an_non_existing_item()
         {
             // Returning null
@@ -161,7 +160,7 @@ namespace coding.API.Tests
         {
             // Assemble to fail when deleting education record
             mockRepo.Setup(repo => repo.Delete(It.IsAny<FeatureSkill>())).ReturnsAsync(false);
-            mockRepo.Setup(repo => repo.GetById(It.IsAny<Guid>())).ReturnsAsync(new FeatureSkill));
+            mockRepo.Setup(repo => repo.GetById(It.IsAny<Guid>())).ReturnsAsync(new FeatureSkill());
 
             // Act
             var result = await featureSkillController.DeleteFeatureSkill(testfeatureSkillId) as BadRequestObjectResult;
@@ -175,10 +174,10 @@ namespace coding.API.Tests
         public async Task Cant_update_an_inexistent_item()
         {
             // Mock inexistent education
-            mockRepo.Setup(repo => repo.GetById(It.IsAny<Guid>())).ReturnsAsync(null as Skill);
+            mockRepo.Setup(repo => repo.GetById(It.IsAny<Guid>())).ReturnsAsync(null as FeatureSkill);
 
             // Act
-            var result = await SkillController.UpdateLan(testSkillId, new UpdateSkillDto()) as NotFoundResult;
+            var result = await featureSkillController.UpdateFeatureSkill(testfeatureSkillId, new UpdateFeatureSkillDto()) as NotFoundResult;
 
             // Assert
             Assert.IsNotType<NoContentResult>(result);
@@ -191,11 +190,11 @@ namespace coding.API.Tests
         public async Task Cant_update_an_item_when_db_query_fails()
         {
             // Mock the things
-            mockRepo.Setup(repo => repo.Delete(It.IsAny<Skill>())).ReturnsAsync(false);
-            mockRepo.Setup(repo => repo.GetById(It.IsAny<Guid>())).ReturnsAsync(new Skill());
+            mockRepo.Setup(repo => repo.Delete(It.IsAny<FeatureSkill>())).ReturnsAsync(false);
+            mockRepo.Setup(repo => repo.GetById(It.IsAny<Guid>())).ReturnsAsync(new FeatureSkill());
 
             // Act
-            var result = await SkillController.UpdateLan(testSkillId, new UpdateSkillDto()) as BadRequestObjectResult;
+            var result = await featureSkillController.UpdateFeatureSkill(testfeatureSkillId, new UpdateFeatureSkillDto()) as BadRequestObjectResult;
 
             // Assert it fails
             Assert.IsType<BadRequestObjectResult>(result);

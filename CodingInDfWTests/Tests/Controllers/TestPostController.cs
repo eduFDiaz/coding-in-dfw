@@ -285,5 +285,49 @@ namespace coding.API.Tests.Controllers
             Assert.IsType<OkObjectResult>(result);
         }
 
+              [Fact]
+        public async Task Cant_delete_an_non_existing_item()
+        {
+            // Returning null
+            mockPostRepo.Setup(repo => repo.GetById(It.IsAny<Guid>())).ReturnsAsync(null as Post);
+            // Act
+            var result = await postController.DeletePost(testPostId) as NotFoundResult;
+            // Assert
+            Assert.IsType<NotFoundResult>(result);        
+            
+        }
+
+        [Fact]
+        public async Task Cant_delete_an_existing_item_when_dbOperation_fails()
+        {
+            // Assemble to fail when deleting a record
+            mockPostRepo.Setup(repo => repo.Delete(It.IsAny<Post>())).ReturnsAsync(false);
+            mockPostRepo.Setup(repo => repo.GetById(It.IsAny<Guid>())).ReturnsAsync(new Post());
+
+            // Act
+            var result = await postController.DeletePost(testPostId) as BadRequestObjectResult;
+
+            // Assert it fails
+            Assert.IsType<BadRequestObjectResult>(result);
+
+        }
+
+        // [Fact]
+        // public async Task Cant_update_an_item_when_db_query_fails()
+        // {
+        //     // Mock the things
+        //     mockPostRepo.Setup(repo => repo.Delete(It.IsAny<Post>())).ReturnsAsync(false);
+        //     mockPostRepo.Setup(repo => repo.GetById(It.IsAny<Guid>())).ReturnsAsync(new Post());
+
+        //     // Act
+        //     var result = await postController.UpdatePost(testPostId, new PostForUpdateDto()) as BadRequestObjectResult;
+
+        //     // Assert it fails
+        //     Assert.IsType<BadRequestObjectResult>(result);
+
+        // }
+
+
+
     }
 }

@@ -1,14 +1,11 @@
 using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Threading.Tasks;
 using AutoMapper;
 using coding.API.Controllers;
 using coding.API.Data;
 using coding.API.Dtos;
-using coding.API.Dtos.Reviews;
 using coding.API.Models.Presenter;
-using coding.API.Models.Reviews;
 using coding.API.Models.Skills;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
@@ -115,7 +112,7 @@ namespace coding.API.Tests
         public async Task Can_delete_an_Skill()
         {
             // Act
-            var result = await SkillController.DeleteLan(testSkillId) as NoContentResult;
+            var result = await SkillController.DeleteSkill(testSkillId) as NoContentResult;
             // Assert
             Assert.IsType<NoContentResult>(result);        
             
@@ -136,6 +133,64 @@ namespace coding.API.Tests
             var result = await SkillController.UpdateSkill(SkillToUpdate.Result.Id, update) as NoContentResult;
             // Assert
             Assert.IsType<NoContentResult>(result);
+        }
+
+         [Fact]
+        public async Task Cant_delete_an_non_existing_item()
+        {
+            // Returning null
+            mockRepo.Setup(repo => repo.GetById(It.IsAny<Guid>())).ReturnsAsync(null as Skill);
+            // Act
+            var result = await SkillController.DeleteSkill(testSkillId) as NotFoundResult;
+            // Assert
+            Assert.IsType<NotFoundResult>(result);        
+            
+        }
+
+        [Fact]
+        public async Task Cant_delete_an_existing_item_when_dbOperation_fails()
+        {
+            // Assemble to fail when deleting a record
+            mockRepo.Setup(repo => repo.Delete(It.IsAny<Skill>())).ReturnsAsync(false);
+            mockRepo.Setup(repo => repo.GetById(It.IsAny<Guid>())).ReturnsAsync(new Skill());
+
+            // Act
+            var result = await SkillController.DeleteSkill(testSkillId) as BadRequestObjectResult;
+
+            // Assert it fails
+            Assert.IsType<BadRequestObjectResult>(result);
+
+        }
+
+        [Fact]
+        public async Task Cant_update_an_inexistent_item()
+        {
+            // Mock inexistent Skill
+            mockRepo.Setup(repo => repo.GetById(It.IsAny<Guid>())).ReturnsAsync(null as Skill);
+
+            // Act
+            var result = await SkillController.UpdateSkill(testSkillId, new UpdateSkillDto()) as NotFoundResult;
+
+            // Assert
+            Assert.IsNotType<NoContentResult>(result);
+
+            Assert.IsType<NotFoundResult>(result);
+
+        }
+
+        [Fact]
+        public async Task Cant_update_an_item_when_db_query_fails()
+        {
+            // Mock the things
+            mockRepo.Setup(repo => repo.Update(It.IsAny<Skill>())).ReturnsAsync(false);
+            mockRepo.Setup(repo => repo.GetById(It.IsAny<Guid>())).ReturnsAsync(new Skill());
+
+            // Act
+            var result = await SkillController.UpdateSkill(testSkillId, new UpdateSkillDto()) as BadRequestObjectResult;
+
+            // Assert it fails
+            Assert.IsType<BadRequestObjectResult>(result);
+
         }
 
      }

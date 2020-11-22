@@ -25,16 +25,15 @@ namespace coding.API.Tests
         private readonly IMapper _mapper;
         Mock<IRepository<Photo>> mockPhotoRepo;
         Mock<IRepository<Post>> mockPostRepo;
-        Mock<IRepository<PostPhoto>> MockPostPhotoRepo;
-        Mock<IRepository<User>> MockUserRepo;
-        Mock<IRepository<Product>> MockProductRepo;
+        Mock<IRepository<PostPhoto>> mockPostPhotoRepo;
+        Mock<IRepository<User>> mockUserRepo;
+        Mock<IRepository<Product>> mockProductRepo;
 
-        Mock<IRepository<ProductPhoto>> MockProductPhoto;
+        Mock<IRepository<ProductPhoto>> mockProductPhoto;
 
-        Mock<IOptions<CloudinarySettings>> MockcloudinarySettings;
+        Mock<IOptions<CloudinarySettings>> mockcloudinarySettings;
 
-        Mock<IMapper> mockMapper;
-
+        
         PhotoController PhotoController;
         Mock<IConfiguration> mockConfiguration;
 
@@ -63,14 +62,13 @@ namespace coding.API.Tests
 
             mockPhotoRepo = new Mock<IRepository<Photo>>();
             mockPostRepo = new Mock<IRepository<Post>>();
-            MockProductRepo = new Mock<IRepository<Product>>();
-            MockProductPhoto = new Mock<IRepository<ProductPhoto>>();
-            MockUserRepo = new Mock<IRepository<User>>();
-            MockcloudinarySettings = new Mock<IOptions<CloudinarySettings>>();
-            MockPostPhotoRepo = new Mock<IRepository<PostPhoto>>();
+            mockProductRepo = new Mock<IRepository<Product>>();
+            mockProductPhoto = new Mock<IRepository<ProductPhoto>>();
+            mockUserRepo = new Mock<IRepository<User>>();
+            mockcloudinarySettings = new Mock<IOptions<CloudinarySettings>>();
+            mockPostPhotoRepo = new Mock<IRepository<PostPhoto>>();
 
-            mockMapper = new Mock<IMapper>();
-
+            
             mockConfiguration = new Mock<IConfiguration>();
 
             testUserId = new Guid();
@@ -81,7 +79,62 @@ namespace coding.API.Tests
                 new Photo() { Description = "Test Photo 1", PublicId = "publicID 1" , IsMain = false, Url = "http://cloudinaryfake.com/image/4frds20",  UserId = testUserId},
             };
 
-          
+            // MockPhoto Repo
+            mockPhotoRepo.Setup(repo => repo.Add(It.IsAny<Photo>())).ReturnsAsync(listPhotos[0]);
+            mockPhotoRepo.Setup(repo => repo.ListAll()).Returns(listPhotos).Verifiable();
+            mockPhotoRepo.Setup(repo => repo.ListAsync()).ReturnsAsync(listPhotos);
+            mockPhotoRepo.Setup(repo => repo.GetById(It.IsAny<Guid>())).ReturnsAsync(listPhotos[0]);
+            mockPhotoRepo.Setup(repo => repo.Delete(It.IsAny<Photo>())).ReturnsAsync(true);
+            mockPhotoRepo.Setup(repo => repo.Update(It.IsAny<Photo>())).ReturnsAsync(true);
+
+            // Mock Posts
+            mockPostRepo.Setup(repo => repo.Add(It.IsAny<Post>())).ReturnsAsync(new Post());
+            mockPostRepo.Setup(repo => repo.ListAll()).Returns(new List<Post>()).Verifiable();
+            mockPostRepo.Setup(repo => repo.ListAsync()).ReturnsAsync(new List<Post>());
+            mockPostRepo.Setup(repo => repo.GetById(It.IsAny<Guid>())).ReturnsAsync(new Post());
+            mockPostRepo.Setup(repo => repo.Delete(It.IsAny<Post>())).ReturnsAsync(true);
+            mockPostRepo.Setup(repo => repo.Update(It.IsAny<Post>())).ReturnsAsync(true);
+
+            // Mock Post Photo
+            mockPostPhotoRepo.Setup(repo => repo.Add(It.IsAny<PostPhoto>())).ReturnsAsync(new PostPhoto());
+            mockPostPhotoRepo.Setup(repo => repo.ListAll()).Returns(new List<PostPhoto>()).Verifiable();
+            mockPostPhotoRepo.Setup(repo => repo.ListAsync()).ReturnsAsync(new List<PostPhoto>());
+            mockPostPhotoRepo.Setup(repo => repo.GetById(It.IsAny<Guid>())).ReturnsAsync(new PostPhoto());
+            mockPostPhotoRepo.Setup(repo => repo.Delete(It.IsAny<PostPhoto>())).ReturnsAsync(true);
+            mockPostPhotoRepo.Setup(repo => repo.Update(It.IsAny<PostPhoto>())).ReturnsAsync(true);
+
+            // Mock Product Photo
+            mockProductPhoto.Setup(repo => repo.Add(It.IsAny<ProductPhoto>())).ReturnsAsync(new ProductPhoto());
+            mockProductPhoto.Setup(repo => repo.ListAll()).Returns(new List<ProductPhoto>());
+            mockProductPhoto.Setup(repo => repo.ListAsync()).ReturnsAsync(new List<ProductPhoto>());
+            mockProductPhoto.Setup(repo => repo.GetById(It.IsAny<Guid>())).ReturnsAsync(new ProductPhoto());
+            mockProductPhoto.Setup(repo => repo.Delete(It.IsAny<ProductPhoto>())).ReturnsAsync(true);
+            mockProductPhoto.Setup(repo => repo.Update(It.IsAny<ProductPhoto>())).ReturnsAsync(true);
+
+            // Mock User Photo
+            mockUserRepo.Setup(repo => repo.Add(It.IsAny<User>())).ReturnsAsync(new User());
+            mockUserRepo.Setup(repo => repo.ListAll()).Returns(new List<User>());
+            mockUserRepo.Setup(repo => repo.ListAsync()).ReturnsAsync(new List<User>());
+            mockUserRepo.Setup(repo => repo.GetById(It.IsAny<Guid>())).ReturnsAsync(new User());
+            mockUserRepo.Setup(repo => repo.Delete(It.IsAny<User>())).ReturnsAsync(true);
+            mockUserRepo.Setup(repo => repo.Update(It.IsAny<User>())).ReturnsAsync(true);
+
+            // Mock Product Repo
+            mockProductRepo.Setup(repo => repo.Add(It.IsAny<Product>())).ReturnsAsync(new Product());
+            mockProductRepo.Setup(repo => repo.ListAll()).Returns(new List<Product>());
+            mockProductRepo.Setup(repo => repo.ListAsync()).ReturnsAsync(new List<Product>());
+            mockProductRepo.Setup(repo => repo.GetById(It.IsAny<Guid>())).ReturnsAsync(new Product());
+            mockProductRepo.Setup(repo => repo.Delete(It.IsAny<Product>())).ReturnsAsync(true);
+            mockProductRepo.Setup(repo => repo.Update(It.IsAny<Product>())).ReturnsAsync(true);
+
+
+            
+
+
+            // PhotoController = new PhotoController(mockPostRepo.Object, mockPostPhotoRepo.Object, mockProductPhoto.Object
+            // ,mockPhotoRepo.Object, mockUserRepo.Object, mockProductRepo.Object, mockConfiguration.Object
+            // ,_mapper,mockcloudinarySettings.Object);
+
             
         }
 
@@ -91,26 +144,12 @@ namespace coding.API.Tests
         // public void PhotoController_Returns_AllPhotos()
         // {
           
-        //     mockPhotoRepo.Setup(photoRepo => photoRepo.ListAsync()).ReturnsAsync(listPhotos);
-        //     mockPostRepo.Setup(postRepo => postRepo.Add(It.IsAny<Post>())).ReturnsAsync(new Post());
-            
-
-        //     PhotoController = new PhotoController(mockPostRepo.Object, MockPostPhotoRepo.Object,
-        //     MockProductPhoto.Object, mockPhotoRepo.Object, MockUserRepo.Object, MockProductRepo.Object,
-        //     mockConfiguration.Object, mockMapper.Object, MockcloudinarySettings.Object);
-
-
         //     // Act
         //     var okResult = PhotoController.GetAllPhotos().Result as OkObjectResult;
 
         //     // Assert
         //     Assert.IsType<OkObjectResult>(okResult);
-
-        //     // var items = Assert.IsType<List<Photo>>(okResult.Value);
-
-        //     // Assert.Equal(2020, items[0].Year);
-        //     // Assert.Equal(testUserId, items[1].UserId);
-            
+           
         // }
 
         // [Fact]

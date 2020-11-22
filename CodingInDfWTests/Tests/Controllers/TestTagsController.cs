@@ -137,6 +137,63 @@ namespace coding.API.Tests
             Assert.IsType<NoContentResult>(result);
         }
 
+         [Fact]
+        public async Task Cant_delete_an_non_existing_item()
+        {
+            // Returning null
+            mockRepo.Setup(repo => repo.GetById(It.IsAny<Guid>())).ReturnsAsync(null as Tag);
+            // Act
+            var result = await TagController.DeleteTag(testTagId) as NotFoundResult;
+            // Assert
+            Assert.IsType<NotFoundResult>(result);        
+            
+        }
+
+        [Fact]
+        public async Task Cant_delete_an_existing_item_when_dbOperation_fails()
+        {
+            // Assemble to fail when deleting Tag record
+            mockRepo.Setup(repo => repo.Delete(It.IsAny<Tag>())).ReturnsAsync(false);
+            mockRepo.Setup(repo => repo.GetById(It.IsAny<Guid>())).ReturnsAsync(new Tag());
+
+            // Act
+            var result = await TagController.DeleteTag(testTagId) as BadRequestObjectResult;
+
+            // Assert it fails
+            Assert.IsType<BadRequestObjectResult>(result);
+
+        }
+
+        [Fact]
+        public async Task Cant_update_an_inexistent_item()
+        {
+            // Mock inexistent Tag
+            mockRepo.Setup(repo => repo.GetById(It.IsAny<Guid>())).ReturnsAsync(null as Tag);
+
+            // Act
+            var result = await TagController.UpdateTag(testTagId, new TagForUpdateDto()) as NotFoundObjectResult;
+
+            // Assert
+            Assert.IsNotType<NoContentResult>(result);
+
+            Assert.IsType<NotFoundObjectResult>(result);
+
+        }
+
+        [Fact]
+        public async Task Cant_update_an_item_when_db_query_fails()
+        {
+            // Mock the things
+            mockRepo.Setup(repo => repo.Update(It.IsAny<Tag>())).ReturnsAsync(false);
+            
+            // Act
+            var result = await TagController.UpdateTag(testTagId, new TagForUpdateDto()) as BadRequestObjectResult;
+
+            // Assert it fails
+            Assert.IsType<BadRequestObjectResult>(result);
+
+        }
+
      }
 
     

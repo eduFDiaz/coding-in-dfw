@@ -19,7 +19,7 @@ namespace coding.API.Tests.Controllers
          private readonly IMapper _mapper;
         Mock<IRepository<Language>> mockRepo;
         Mock<IMapper> mockMapper;
-        LanguageController awardController;
+        LanguageController LanguageController;
         Mock<IConfiguration> mockConfiguration;
 
         Guid testUserId;
@@ -78,7 +78,7 @@ namespace coding.API.Tests.Controllers
             mockRepo.Setup(repo => repo.Delete(testLanguage)).ReturnsAsync(true);
             mockRepo.Setup(repo => repo.Update(testLanguage)).ReturnsAsync(true);
 
-            awardController = new LanguageController(mockRepo.Object, mockConfiguration.Object, _mapper);
+            LanguageController = new LanguageController(mockRepo.Object, mockConfiguration.Object, _mapper);
             
         }
 
@@ -86,7 +86,7 @@ namespace coding.API.Tests.Controllers
         public void LanguageController_Returns_GetById()
         {
             // Act
-            var okResult = awardController.GetLanForUser(testUserId).Result as OkObjectResult;
+            var okResult = LanguageController.GetLanForUser(testUserId).Result as OkObjectResult;
 
             // Assert
             Assert.IsType<OkObjectResult>(okResult);
@@ -110,7 +110,7 @@ namespace coding.API.Tests.Controllers
             };
 
             // Act
-            var result = awardController.Create(newLanguage).Result as OkObjectResult;
+            var result = LanguageController.Create(newLanguage).Result as OkObjectResult;
 
             // Assert
             Assert.IsType<LanguagePresenter>(result.Value);
@@ -121,7 +121,7 @@ namespace coding.API.Tests.Controllers
         public async Task Can_delete_an_Language()
         {
             // Act
-            var result = await awardController.DeleteLan(testLanguageId) as NoContentResult;
+            var result = await LanguageController.DeleteLan(testLanguageId) as NoContentResult;
             // Assert
             Assert.IsType<NoContentResult>(result);        
             
@@ -134,10 +134,69 @@ namespace coding.API.Tests.Controllers
         
         
             // Act
-            var result = await awardController.UpdateLan(langaugeToUpdate.Result.Id, update) as NoContentResult;
+            var result = await LanguageController.UpdateLan(langaugeToUpdate.Result.Id, update) as NoContentResult;
             // Assert
             Assert.IsType<NoContentResult>(result);
         }
+
+         [Fact]
+        public async Task Cant_delete_an_non_existing_item()
+        {
+            // Returning null
+            mockRepo.Setup(repo => repo.GetById(It.IsAny<Guid>())).ReturnsAsync(null as Language);
+            // Act
+            var result = await LanguageController.DeleteLan(testLanguageId) as NotFoundResult;
+            // Assert
+            Assert.IsType<NotFoundResult>(result);        
+            
+        }
+
+        [Fact]
+        public async Task Cant_delete_an_existing_item_when_dbOperation_fails()
+        {
+            // Assemble to fail when deleting education record
+            mockRepo.Setup(repo => repo.Delete(It.IsAny<Language>())).ReturnsAsync(false);
+            mockRepo.Setup(repo => repo.GetById(It.IsAny<Guid>())).ReturnsAsync(new Language());
+
+            // Act
+            var result = await LanguageController.DeleteLan(testLanguageId) as BadRequestObjectResult;
+
+            // Assert it fails
+            Assert.IsType<BadRequestObjectResult>(result);
+
+        }
+
+        [Fact]
+        public async Task Cant_update_an_inexistent_item()
+        {
+            // Mock inexistent education
+            mockRepo.Setup(repo => repo.GetById(It.IsAny<Guid>())).ReturnsAsync(null as Language);
+
+            // Act
+            var result = await LanguageController.UpdateLan(testLanguageId, new UpdateLanguageDto()) as NotFoundResult;
+
+            // Assert
+            Assert.IsNotType<NoContentResult>(result);
+
+            Assert.IsType<NotFoundResult>(result);
+
+        }
+
+        [Fact]
+        public async Task Cant_update_an_item_when_db_query_fails()
+        {
+            // Mock the things
+            mockRepo.Setup(repo => repo.Delete(It.IsAny<Language>())).ReturnsAsync(false);
+            mockRepo.Setup(repo => repo.GetById(It.IsAny<Guid>())).ReturnsAsync(new Language());
+
+            // Act
+            var result = await LanguageController.UpdateLan(testLanguageId, new UpdateLanguageDto()) as BadRequestObjectResult;
+
+            // Assert it fails
+            Assert.IsType<BadRequestObjectResult>(result);
+
+        }
+
 
     }
 }

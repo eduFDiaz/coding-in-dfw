@@ -148,6 +148,65 @@ namespace coding.API.Tests
             Assert.IsType<NoContentResult>(result);
         }
 
+         [Fact]
+        public async Task Cant_delete_an_existing_Project_when_dbOperation_fails()
+        {
+            // Assemble to fail when deleting Project record
+            mockRepo.Setup(repo => repo.Delete(It.IsAny<Project>())).ReturnsAsync(false);
+            mockRepo.Setup(repo => repo.GetById(It.IsAny<Guid>())).ReturnsAsync(listProjects[0]);
+
+            // Act
+            var result = await ProjectController.DeleteLan(testProjectId) as BadRequestObjectResult;
+
+            // Assert it fails
+            Assert.IsType<BadRequestObjectResult>(result);
+
+        }
+
+        [Fact]
+        public async Task Cant_update_an_inexistent_Project()
+        {
+            // Mock inexistent Project
+            mockRepo.Setup(repo => repo.GetById(It.IsAny<Guid>())).ReturnsAsync(null as Project);
+
+            // Act
+            var result = await ProjectController.UpdateLan(testProjectId, new UpdateProjectDto()) as NotFoundResult;
+
+            // Assert
+            Assert.IsNotType<NoContentResult>(result);
+
+            Assert.IsType<NotFoundResult>(result);
+
+        }
+
+        [Fact]
+        public async Task Cant_update_an_Project_when_db_query_fails()
+        {
+            // Mock the things
+            mockRepo.Setup(repo => repo.Delete(It.IsAny<Project>())).ReturnsAsync(false);
+            mockRepo.Setup(repo => repo.GetById(It.IsAny<Guid>())).ReturnsAsync(null as Project);
+
+            // Act
+            var result = await ProjectController.UpdateLan(testProjectId, new UpdateProjectDto()) as NotFoundResult;
+
+            // Assert it fails
+            Assert.IsType<NotFoundResult>(result);
+
+        }
+
+        [Fact]
+        public async Task Can_update_an_item() {
+            // Given
+            var ProjectToUpdate = mockRepo.Object.GetById(testProjectId);
+                
+            // Act
+            var result = await ProjectController.UpdateLan(ProjectToUpdate.Result.Id, update) as NoContentResult;
+            // Assert
+            Assert.IsType<NoContentResult>(result);
+        }
+
+
+
      }
 
     

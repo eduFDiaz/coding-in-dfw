@@ -95,5 +95,32 @@ namespace coding.API.Tests.Controllers
             Assert.IsType<NoContentResult>(result);        
             
         }
+
+        [Fact]
+        public async Task Cant_delete_an_non_existing_item()
+        {
+            // Returning null
+            mockRepo.Setup(repo => repo.GetById(It.IsAny<Guid>())).ReturnsAsync(null as Subscriber);
+            // Act
+            var result = await newsletterController.DeleteMessage(testSubscriberId) as NotFoundResult;
+            // Assert
+            Assert.IsType<NotFoundResult>(result);        
+            
+        }
+
+        [Fact]
+        public async Task Cant_delete_an_existing_item_when_dbOperation_fails()
+        {
+            // Assemble to fail when deleting education record
+            mockRepo.Setup(repo => repo.Delete(It.IsAny<Subscriber>())).ReturnsAsync(false);
+            mockRepo.Setup(repo => repo.GetById(It.IsAny<Guid>())).ReturnsAsync(new Subscriber());
+
+            // Act
+            var result = await newsletterController.DeleteMessage(testSubscriberId) as BadRequestObjectResult;
+
+            // Assert it fails
+            Assert.IsType<BadRequestObjectResult>(result);
+
+        }
     }
 }

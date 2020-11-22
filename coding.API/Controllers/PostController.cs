@@ -185,6 +185,10 @@ namespace coding.API.Controllers
         public async Task<IActionResult> UpdatePost(Guid postid, [FromBody] PostForUpdateDto request)
         {
             var postToUpdate = (await _postDal.GetRelatedField("PostTags.Tag")).FirstOrDefault(p => p.Id == postid);
+
+            if (postToUpdate == null)
+                return NotFound("That post doesnt exists!");
+            
             var text = request.Text;
             var pt = new PostTagForCreateDto();
             var toUpd = _mapper.Map(request, postToUpdate);

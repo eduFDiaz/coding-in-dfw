@@ -75,6 +75,9 @@ namespace coding.API.Controllers
         {
             var tagToDelete = (await _tagDal.GetById(tagid));
 
+            if (tagToDelete == null)
+                return NotFound();
+
             if (await _tagDal.Delete(tagToDelete))
                 return NoContent();
 
@@ -88,9 +91,10 @@ namespace coding.API.Controllers
         {
             var tag = (await _tagDal.GetById(tagid));
 
-            var toUpd = _mapper.Map(request, tag);
+            if (tag == null)
+                return NotFound("This tag doesnt exists");
 
-            
+            var toUpd = _mapper.Map(request, tag);
 
             if (await _tagDal.Update(toUpd))
                 return NoContent();

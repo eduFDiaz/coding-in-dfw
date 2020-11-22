@@ -19,7 +19,7 @@ namespace coding.API.Tests.Controllers
          private readonly IMapper _mapper;
         Mock<IRepository<Message>> mockRepo;
         Mock<IMapper> mockMapper;
-        MessageController awardController;
+        MessageController messageController;
         Mock<IConfiguration> mockConfiguration;
 
         Guid testUserId;
@@ -80,7 +80,7 @@ namespace coding.API.Tests.Controllers
             mockRepo.Setup(repo => repo.Delete(testMessage)).ReturnsAsync(true);
             mockRepo.Setup(repo => repo.Update(testMessage)).ReturnsAsync(true);
 
-            awardController = new MessageController(mockRepo.Object, mockConfiguration.Object, _mapper);
+            messageController = new MessageController(mockRepo.Object, mockConfiguration.Object, _mapper);
             
         }
 
@@ -88,7 +88,7 @@ namespace coding.API.Tests.Controllers
         public void MessageController_Returns_GetById()
         {
             // Act
-            var okResult = awardController.GetAllMessages().Result as OkObjectResult;
+            var okResult = messageController.GetAllMessages().Result as OkObjectResult;
 
             // Assert
             Assert.IsType<OkObjectResult>(okResult);
@@ -114,7 +114,7 @@ namespace coding.API.Tests.Controllers
             };
 
             // Act
-            var result = awardController.Create(newMessage).Result as OkObjectResult;
+            var result = messageController.Create(newMessage).Result as OkObjectResult;
 
             // Assert
             Assert.IsType<MessagePresenter>(result.Value);
@@ -125,7 +125,7 @@ namespace coding.API.Tests.Controllers
         public async Task Can_delete_an_Message()
         {
             // Act
-            var result = await awardController.DeleteMessage(testMessageId) as NoContentResult;
+            var result = await messageController.DeleteMessage(testMessageId) as NoContentResult;
             // Assert
             Assert.IsType<NoContentResult>(result);        
             
@@ -138,10 +138,69 @@ namespace coding.API.Tests.Controllers
         
         
             // Act
-            var result = await awardController.UpdateMessage(langaugeToUpdate.Result.Id) as NoContentResult;
+            var result = await messageController.UpdateMessage(langaugeToUpdate.Result.Id) as NoContentResult;
             // Assert
             Assert.IsType<NoContentResult>(result);
         }
+
+        [Fact]
+        public async Task Cant_delete_an_non_existing_item()
+        {
+            // Returning null
+            mockRepo.Setup(repo => repo.GetById(It.IsAny<Guid>())).ReturnsAsync(null as Message);
+            // Act
+            var result = await messageController.DeleteMessage(testMessageId) as NotFoundResult;
+            // Assert
+            Assert.IsType<NotFoundResult>(result);        
+            
+        }
+
+        [Fact]
+        public async Task Cant_delete_an_existing_item_when_dbOperation_fails()
+        {
+            // Assemble to fail when deleting education record
+            mockRepo.Setup(repo => repo.Delete(It.IsAny<Message>())).ReturnsAsync(false);
+            mockRepo.Setup(repo => repo.GetById(It.IsAny<Guid>())).ReturnsAsync(new Message());
+
+            // Act
+            var result = await messageController.DeleteMessage(testMessageId) as BadRequestObjectResult;
+
+            // Assert it fails
+            Assert.IsType<BadRequestObjectResult>(result);
+
+        }
+
+        [Fact]
+        public async Task Cant_update_an_inexistent_item()
+        {
+            // Mock inexistent education
+            mockRepo.Setup(repo => repo.GetById(It.IsAny<Guid>())).ReturnsAsync(null as Message);
+
+            // Act
+            var result = await messageController.UpdateMessage(testMessageId) as NotFoundResult;
+
+            // Assert
+            Assert.IsNotType<NoContentResult>(result);
+
+            Assert.IsType<NotFoundResult>(result);
+
+        }
+
+        [Fact]
+        public async Task Cant_update_an_item_when_db_query_fails()
+        {
+            // Mock the things
+            mockRepo.Setup(repo => repo.Delete(It.IsAny<Message>())).ReturnsAsync(false);
+            mockRepo.Setup(repo => repo.GetById(It.IsAny<Guid>())).ReturnsAsync(new Message());
+
+            // Act
+            var result = await messageController.UpdateMessage(testMessageId) as BadRequestObjectResult;
+
+            // Assert it fails
+            Assert.IsType<BadRequestObjectResult>(result);
+
+        }
+
 
     }
 }
