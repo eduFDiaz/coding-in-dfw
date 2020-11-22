@@ -58,6 +58,9 @@ namespace coding.API.Controllers
         {
             var userFromRepo = await _userDal.GetById(id);
 
+            if (userFromRepo == null)
+                return NotFound();
+
             _mapper.Map(userForUpdateDto, userFromRepo);
 
             if (await _userDal.Update(userFromRepo))

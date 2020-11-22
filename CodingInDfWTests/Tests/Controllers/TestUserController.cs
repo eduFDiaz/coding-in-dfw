@@ -127,86 +127,36 @@ namespace coding.API.Tests
                       
         }
 
-        // [Fact]
-        // public async Task Can_delete_an_existing_User()
-        // {
-        //     // Act
-        //     var result = await UsersController.DeleteUser(testUserId) as NoContentResult;
-        //     // Assert
-        //     Assert.IsType<NoContentResult>(result);        
+         [Fact]
+        public void Cant_update_a_inexistent_User()
+        {
+            // Assemble
+            mockRepo.Setup(repo => repo.GetById(It.IsAny<Guid>())).ReturnsAsync(null as User);
             
-        // }
+                // Act
+            var result = UsersController.UpdateUser(testUserId, new UserForUpdateDto()).Result as NotFoundResult;
 
-        // [Fact]
-        // public async Task Cant_delete_an_non_existing_User()
-        // {
-        //     // Returning null
-        //     mockRepo.Setup(repo => repo.GetById(It.IsAny<Guid>())).ReturnsAsync(null as User);
-        //     // Act
-        //     var result = await UsersController.DeleteUser(testUserId) as NotFoundResult;
-        //     // Assert
-        //     Assert.IsType<NotFoundResult>(result);        
-            
-        // }
+            // Assert
+            Assert.IsType<NotFoundResult>(result);
+                      
+        }
 
-        // [Fact]
-        // public async Task Cant_delete_an_existing_User_when_dbOperation_fails()
-        // {
-        //     // Assemble to fail when deleting User record
-        //     mockRepo.Setup(repo => repo.Delete(It.IsAny<User>())).ReturnsAsync(false);
-        //     mockRepo.Setup(repo => repo.GetById(It.IsAny<Guid>())).ReturnsAsync(listUsers[0]);
 
-        //     // Act
-        //     var result = await UsersController.DeleteUser(testUserId) as BadRequestObjectResult;
+        [Fact]
+        public async Task Cant_update_an_existing_User_when_dbOperation_fails()
+        {
+            // Assemble to fail when deleting User record
+            mockRepo.Setup(repo => repo.GetById(It.IsAny<Guid>())).ReturnsAsync(testUser);
+            mockRepo.Setup(repo => repo.Update(It.IsAny<User>())).ReturnsAsync(false);
 
-        //     // Assert it fails
-        //     Assert.IsType<BadRequestObjectResult>(result);
+            // Act
+            var result = await UsersController.UpdateUser(testUserId, new UserForUpdateDto()) as BadRequestObjectResult;
 
-        // }
+            // Assert it fails
+            Assert.IsType<BadRequestObjectResult>(result);
 
-        // [Fact]
-        // public async Task Cant_update_an_inexistent_User()
-        // {
-        //     // Mock inexistent User
-        //     mockRepo.Setup(repo => repo.GetById(It.IsAny<Guid>())).ReturnsAsync(null as User);
-
-        //     // Act
-        //     var result = await UsersController.UpdateUser(testUserId, new UpdateUserDto()) as NotFoundResult;
-
-        //     // Assert
-        //     Assert.IsNotType<NoContentResult>(result);
-
-        //     Assert.IsType<NotFoundResult>(result);
-
-        // }
-
-        // [Fact]
-        // public async Task Cant_update_an_User_when_db_query_fails()
-        // {
-        //     // Mock the things
-        //     mockRepo.Setup(repo => repo.Delete(It.IsAny<User>())).ReturnsAsync(false);
-        //     mockRepo.Setup(repo => repo.GetById(It.IsAny<Guid>())).ReturnsAsync(listUsers[0]);
-
-        //     // Act
-        //     var result = await UsersController.UpdateUser(testUserId, new UpdateUserDto()) as BadRequestObjectResult;
-
-        //     // Assert it fails
-        //     Assert.IsType<BadRequestObjectResult>(result);
-
-        // }
-
-        // [Fact]
-        // public async Task Can_update_an_User() {
-        //     // Given
-        //     var UserToUpdate = mockRepo.Object.GetById(testUserId);
-                
-        //     // Act
-        //     var result = await UsersController.UpdateUser(UserToUpdate.Result.Id, update) as NoContentResult;
-        //     // Assert
-        //     Assert.IsType<NoContentResult>(result);
-        // }
+        }
 
      }
-
-    
+   
 }

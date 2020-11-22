@@ -23,10 +23,10 @@ namespace coding.API.Controllers
     public class AuthController : ControllerBase
     {
         private readonly IConfiguration _config;
-        private readonly Repository<User> _userDal;
+        private readonly IRepository<User> _userDal;
         private readonly IMapper _mapper;
 
-        public AuthController(IMapper mapper, IConfiguration config, Repository<User> userDal)
+        public AuthController(IMapper mapper, IConfiguration config, IRepository<User> userDal)
         {
             _config = config;
             _userDal = userDal;
@@ -66,7 +66,7 @@ namespace coding.API.Controllers
             // In a well done achitecture, you should not access to data layer in controller.
             //
             // Here is the logic to encrypt password 
-             using (var hmac = new System.Security.Cryptography.HMACSHA512())
+            using (var hmac = new System.Security.Cryptography.HMACSHA512())
             {
                 // passwordSalt is the key to verify the password when the user logs
                 passwordSalt = hmac.Key;
