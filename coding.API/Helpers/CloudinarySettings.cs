@@ -1,6 +1,9 @@
+using System.Diagnostics.CodeAnalysis;
+
 namespace coding.API.Helpers
 
 {
+    [ExcludeFromCodeCoverage]
     public class CloudinarySettings
     {
         public string CloudName { get; set; }

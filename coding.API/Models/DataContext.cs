@@ -23,9 +23,11 @@ using System;
 using coding.API.Models.Reviews;
 using coding.API.Models.FeatureSkills;
 using coding.API.Models.Subscribers;
+using System.Diagnostics.CodeAnalysis;
 
 namespace coding.API.Models
 {
+    [ExcludeFromCodeCoverage]
     public class DataContext : DbContext
     {
         public DataContext(DbContextOptions<DataContext> options) : base(options)

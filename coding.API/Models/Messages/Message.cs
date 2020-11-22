@@ -1,7 +1,9 @@
 
 using System.ComponentModel.DataAnnotations;
+using System.Diagnostics.CodeAnalysis;
 
 namespace coding.API.Models.Messages {
+        [ExcludeFromCodeCoverage]
         public class Message: BaseEntity {
             
         public string Name { get; set; }

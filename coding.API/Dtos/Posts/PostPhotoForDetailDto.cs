@@ -1,7 +1,9 @@
 using System;
+using System.Diagnostics.CodeAnalysis;
 
 namespace coding.API.Dtos.Posts
 {
+    [ExcludeFromCodeCoverage]
     public class PostPhotoForDetailDto
     {
         public Guid Id { get; set; }

@@ -1,7 +1,9 @@
 using System;
+using System.Diagnostics.CodeAnalysis;
 
 namespace coding.API.Dtos.Products
 {
+    [ExcludeFromCodeCoverage]
     public class ProductPhotoForDetailDto
     {
         public Guid Id { get; set; }

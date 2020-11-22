@@ -1,8 +1,10 @@
 using System;
+using System.Diagnostics.CodeAnalysis;
 using coding.API.Models.Products.Requirements;
 
 namespace coding.API.Dtos
 {
+    [ExcludeFromCodeCoverage]
     public class ProductRequirementForCreateDto
     {
         public Guid ProductId { get; set; }

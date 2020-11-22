@@ -1,9 +1,11 @@
 ﻿using Newtonsoft.Json;
 using System;
 using coding.API.Models.Reviews;
+using System.Diagnostics.CodeAnalysis;
 
 namespace coding.API.Models.Presenter
 {
+    [ExcludeFromCodeCoverage]
     /// <summary>
     /// Post baked to render.
     /// </summary>

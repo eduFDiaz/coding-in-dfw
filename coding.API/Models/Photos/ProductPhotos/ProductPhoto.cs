@@ -1,8 +1,10 @@
 using System;
+using System.Diagnostics.CodeAnalysis;
 using coding.API.Models.Products;
 
 namespace coding.API.Models.Photos
 {
+    [ExcludeFromCodeCoverage]
     public class ProductPhoto  : BaseEntity
     {
         public string Url { get; set; }

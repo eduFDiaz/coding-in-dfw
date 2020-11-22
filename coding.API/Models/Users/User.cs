@@ -3,9 +3,11 @@ using System.Collections.Generic;
 using coding.API.Models.Posts;
 using coding.API.Models.Photos;
 using coding.API.Models.Products;
+using System.Diagnostics.CodeAnalysis;
 
 namespace coding.API.Models.Users
 {
+    [ExcludeFromCodeCoverage]
     public class User : BaseEntity
     {
 

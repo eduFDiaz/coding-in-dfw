@@ -1,12 +1,13 @@
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using coding.API.Models.Photos;
 using coding.API.Models.Products.ProductsRequirements;
 
 
 namespace coding.API.Models.Products
 {
-
+    [ExcludeFromCodeCoverage]
     public partial class Product : BaseEntity
     {
 

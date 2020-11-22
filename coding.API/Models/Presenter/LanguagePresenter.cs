@@ -3,9 +3,11 @@ using System;
 
 
 using coding.API.Models.Languages;
+using System.Diagnostics.CodeAnalysis;
 
 namespace coding.API.Models.Presenter
 {
+    [ExcludeFromCodeCoverage]
     /// <summary>
     /// Post baked to render.
     /// </summary>

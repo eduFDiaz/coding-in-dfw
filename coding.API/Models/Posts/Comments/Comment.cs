@@ -1,10 +1,11 @@
 using System;
 using System.ComponentModel.DataAnnotations;
+using System.Diagnostics.CodeAnalysis;
 
 namespace coding.API.Models.Posts.Comments
 {
 
-
+    [ExcludeFromCodeCoverage]
     public class Comment : BaseEntity
     {
         [Required]

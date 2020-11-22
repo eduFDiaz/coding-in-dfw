@@ -1,6 +1,9 @@
 using System;
+using System.Diagnostics.CodeAnalysis;
+
 namespace coding.API.Models.Skills
 {
+    [ExcludeFromCodeCoverage]
     public class Skill : BaseEntity
     {
         

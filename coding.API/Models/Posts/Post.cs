@@ -4,9 +4,11 @@ using System.ComponentModel.DataAnnotations;
 using coding.API.Models.PostTags;
 using coding.API.Models.Posts.Comments;
 using coding.API.Models.Photos;
+using System.Diagnostics.CodeAnalysis;
 
 namespace coding.API.Models.Posts
 {
+    [ExcludeFromCodeCoverage]
     public class Post: BaseEntity
     {
         [Required]

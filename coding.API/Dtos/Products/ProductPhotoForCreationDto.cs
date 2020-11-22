@@ -1,9 +1,11 @@
 using System;
+using System.Diagnostics.CodeAnalysis;
 using Microsoft.AspNetCore.Http;
 
 
 namespace coding.API.Dtos.Products
 {
+    [ExcludeFromCodeCoverage]
     public class ProductPhotoForCreationDto
     {
 

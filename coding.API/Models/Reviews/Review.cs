@@ -1,7 +1,10 @@
 using System;
+using System.Diagnostics.CodeAnalysis;
+
 namespace coding.API.Models.Reviews
 
 {
+    [ExcludeFromCodeCoverage]
     public class Review : BaseEntity
     {
 

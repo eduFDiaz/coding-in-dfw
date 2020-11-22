@@ -1,6 +1,9 @@
+using System.Diagnostics.CodeAnalysis;
+
 namespace coding.API.Helpers
 
 {
+    
     public interface IEmailConfiguration
     {
          string FromAddress { get; set; }

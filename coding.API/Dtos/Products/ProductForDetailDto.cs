@@ -1,8 +1,10 @@
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 
 namespace coding.API.Dtos.Products
 {
+    [ExcludeFromCodeCoverage]
     public class ProductForDetailDto
     {
         public Guid Id { get; set; }

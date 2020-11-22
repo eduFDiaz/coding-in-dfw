@@ -1,10 +1,12 @@
 using System;
+using System.Diagnostics.CodeAnalysis;
 using System.Net;
 using System.Net.Mail;
 using System.Threading.Tasks;
 
 namespace coding.API.Helpers
 {
+    [ExcludeFromCodeCoverage]
     public class MailSender
     {
         public readonly IEmailConfiguration configuration;

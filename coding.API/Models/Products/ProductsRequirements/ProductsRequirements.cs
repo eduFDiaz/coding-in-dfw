@@ -1,8 +1,10 @@
 using System;
+using System.Diagnostics.CodeAnalysis;
 using coding.API.Models.Products.Requirements;
 
 namespace coding.API.Models.Products.ProductsRequirements
 {
+    [ExcludeFromCodeCoverage]
     public class ProductRequirement : BaseEntity
     {
         

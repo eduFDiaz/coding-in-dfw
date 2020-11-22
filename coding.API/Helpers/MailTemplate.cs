@@ -1,10 +1,11 @@
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Net.Mail;
 
 namespace coding.API.Helpers
 
-
 {
+    [ExcludeFromCodeCoverage]
     public class MailTemplate: IMailTemplate
     {
         public  string Receiver { get; set; }

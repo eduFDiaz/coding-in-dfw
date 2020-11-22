@@ -25,9 +25,11 @@ using coding.API.Models.FAQS;
 using coding.API.Models.Reviews;
 using coding.API.Dtos.Reviews;
 using coding.API.Models.FeatureSkills;
+using System.Diagnostics.CodeAnalysis;
 
 namespace coding.API.Dtos
 {
+    [ExcludeFromCodeCoverage]
     public class AutoMapperProfiles : Profile
     {
         public AutoMapperProfiles()

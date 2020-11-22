@@ -1,7 +1,9 @@
 using System;
+using System.Diagnostics.CodeAnalysis;
 
 namespace coding.API.Models.Languages
 {
+    [ExcludeFromCodeCoverage]
     public class Language : BaseEntity
     {
         

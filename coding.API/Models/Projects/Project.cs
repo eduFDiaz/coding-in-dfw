@@ -1,6 +1,9 @@
 using System;
+using System.Diagnostics.CodeAnalysis;
+
 namespace coding.API.Models.Projects
 {
+    [ExcludeFromCodeCoverage]
     public class Project : BaseEntity
     {
         

@@ -5,10 +5,11 @@ using System.Linq;
 
 
 using coding.API.Models.Posts;
-
+using System.Diagnostics.CodeAnalysis;
 
 namespace coding.API.Models.Presenter
 {
+    [ExcludeFromCodeCoverage]
     /// <summary>
     /// Post baked to render.
     /// </summary>

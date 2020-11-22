@@ -1,9 +1,10 @@
 using System;
 using System.ComponentModel.DataAnnotations;
-
+using System.Diagnostics.CodeAnalysis;
 
 namespace coding.API.Dtos.Comments
 {
+    [ExcludeFromCodeCoverage]
     public class CreateCommentDto
     {
 

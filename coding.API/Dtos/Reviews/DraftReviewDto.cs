@@ -1,7 +1,9 @@
 using System;
+using System.Diagnostics.CodeAnalysis;
 
 namespace coding.API.Dtos.Reviews
 {
+    [ExcludeFromCodeCoverage]
 
     public class DraftReviewDto
     {

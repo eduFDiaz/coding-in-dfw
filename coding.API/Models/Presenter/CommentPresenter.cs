@@ -2,9 +2,11 @@
 using System;
 
 using coding.API.Models.Posts.Comments;
+using System.Diagnostics.CodeAnalysis;
 
 namespace coding.API.Models.Presenter
 {
+    [ExcludeFromCodeCoverage]
     /// <summary>
     /// Post baked to render.
     /// </summary>

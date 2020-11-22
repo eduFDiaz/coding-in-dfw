@@ -1,9 +1,11 @@
 
 
 using System;
+using System.Diagnostics.CodeAnalysis;
 
 namespace coding.API.Dtos.Comments
 {
+    [ExcludeFromCodeCoverage]
     public class CommentClearForDetailDto
     {
         public Guid Id { get; set; }

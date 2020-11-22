@@ -1,7 +1,9 @@
 using System;
+using System.Diagnostics.CodeAnalysis;
 
 namespace coding.API.Dtos
 {
+    [ExcludeFromCodeCoverage]
     public class PhotoForReturnDto
     {
         public int Id { get; set; }

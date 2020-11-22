@@ -85,6 +85,16 @@ namespace coding.API.Tests
                 
                
             };
+
+            var mockIConfigurationSection = new Mock<IConfigurationSection>();
+            mockIConfigurationSection.Setup(x => x.Path).Returns("AppSettings");
+            mockIConfigurationSection.Setup(x => x.Key).Returns("Token");
+            mockIConfigurationSection.Setup(x => x.Value).Returns("sjbkdfsjkfjknbfjbgijbrsjorjoppkoeokpaejpegarjop");
+            mockConfiguration.Setup(config => config.GetSection(It.IsAny<String>())).Returns(mockIConfigurationSection.Object);
+
+            mockRepo.Setup(repo => repo.ListAsync()).ReturnsAsync(new List<User>() {
+                testUser
+            });
             
             authController = new AuthController(_mapper, mockConfiguration.Object, mockRepo.Object);
             
@@ -93,9 +103,6 @@ namespace coding.API.Tests
         [Fact]
         public void Can_register_a_user()
         {
-            //Assemble
-            mockRepo.Setup(repo => repo.ListAsync()).ReturnsAsync(new List<User>());
-
             var userToRegister = new UserForRegisterDto() {
                 Username = "testUser",
                 Password = "MyP@ssWord",
@@ -116,16 +123,6 @@ namespace coding.API.Tests
         [Fact]
         public async Task Can_login_into_CodingInDfw() {
             // Assemble
-            var mockIConfigurationSection = new Mock<IConfigurationSection>();
-            mockIConfigurationSection.Setup(x => x.Path).Returns("AppSettings");
-            mockIConfigurationSection.Setup(x => x.Key).Returns("Token");
-            mockIConfigurationSection.Setup(x => x.Value).Returns("sjbkdfsjkfjknbfjbgijbrsjorjoppkoeokpaejpegarjop");
-            mockConfiguration.Setup(config => config.GetSection(It.IsAny<String>())).Returns(mockIConfigurationSection.Object);
-
-            mockRepo.Setup(repo => repo.ListAsync()).ReturnsAsync(new List<User>() {
-                testUser
-            });
-
             var userToLogIn = new UserForLoginDto() {
                 Email = "testuser@testdomain.com",
                 Password = "Password",
@@ -142,13 +139,8 @@ namespace coding.API.Tests
 
          [Fact]
         public async Task Cant_login_into_CodingInDfw_whit_a_false_password() {
-            // Assemble
-            var mockIConfigurationSection = new Mock<IConfigurationSection>();
-            mockIConfigurationSection.Setup(x => x.Path).Returns("AppSettings");
-            mockIConfigurationSection.Setup(x => x.Key).Returns("Token");
-            mockIConfigurationSection.Setup(x => x.Value).Returns("sjbkdfsjkfjknbfjbgijbrsjorjoppkoeokpaejpegarjop");
-            mockConfiguration.Setup(config => config.GetSection(It.IsAny<String>())).Returns(mockIConfigurationSection.Object);
-
+           
+            //Assemble         
             mockRepo.Setup(repo => repo.ListAsync()).ReturnsAsync(new List<User>() {
                 testUser
             });

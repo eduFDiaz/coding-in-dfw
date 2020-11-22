@@ -3,8 +3,8 @@ using System.Net.Mail;
 
 namespace coding.API.Helpers
 
-
 {
+        
     public interface IMailTemplate
     {
          string Receiver { get; set; }

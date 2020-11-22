@@ -1,8 +1,10 @@
 using System;
 using System.ComponentModel.DataAnnotations;
+using System.Diagnostics.CodeAnalysis;
 
 namespace coding.API.Dtos
 {
+    [ExcludeFromCodeCoverage]
     public class UserForRegisterDto
     {
         public UserForRegisterDto()

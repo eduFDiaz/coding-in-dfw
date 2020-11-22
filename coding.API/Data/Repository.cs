@@ -7,9 +7,11 @@ using Microsoft.EntityFrameworkCore;
 using coding.API.Models.Products.ProductsRequirements;
 using coding.API.Models.PostTags;
 using coding.API.Models.Photos;
+using System.Diagnostics.CodeAnalysis;
 
 namespace coding.API.Data
 {
+    [ExcludeFromCodeCoverage]
     public class Repository<T> : IRepository<T> where T : BaseEntity
     {
         private readonly DataContext _dbContext;

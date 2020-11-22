@@ -1,7 +1,9 @@
 ﻿using System;
+using System.Diagnostics.CodeAnalysis;
 
 namespace coding.API.Models
 {
+    [ExcludeFromCodeCoverage]
     public abstract class BaseEntity
     {
         public virtual Guid Id { get; set; }

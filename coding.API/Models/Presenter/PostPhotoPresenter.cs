@@ -2,14 +2,17 @@
 using System;
 
 using coding.API.Models.Photos;
+using System.Diagnostics.CodeAnalysis;
 
 namespace coding.API.Models.Presenter
 {
+    [ExcludeFromCodeCoverage]
     /// <summary>
     /// Post baked to render.
     /// </summary>
     public class PostPhotoPresenter
     {
+        
         private readonly PostPhoto _photo;
 
         public PostPhotoPresenter(PostPhoto photo)

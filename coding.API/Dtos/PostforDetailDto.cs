@@ -1,10 +1,12 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Diagnostics.CodeAnalysis;
 using coding.API.Dtos.Posts;
 
 namespace coding.API.Dtos
 {
+    [ExcludeFromCodeCoverage]
     public class PostForDetailDto
     {
         public Guid Id { get; set; }
