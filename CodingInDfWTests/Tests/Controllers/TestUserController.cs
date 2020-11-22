@@ -35,6 +35,7 @@ namespace coding.API.Tests
                 return new MapperConfiguration(mc =>
             {
                 mc.CreateMap<UserForUpdateDto, User>();
+                mc.CreateMap<User, UserForDetailedDto>();
                                
             });
         }
@@ -93,34 +94,38 @@ namespace coding.API.Tests
             
         }
 
-        // [Fact]
-        // public void Check_UserList_Returned()
-        // {
-        //     // Act
-        //     var okResult = UsersController.GetUserForUser(testUserId).Result as OkObjectResult;
-        //     // Assert
-        //     var items = Assert.IsType<List<User>>(okResult.Value);
-        //     Assert.Equal(2, items.Count);
-        // }
+        [Fact]
+        public void UsersController_Returns_A_Single_User()
+        {
+            // Assemble
+            mockRepo.Setup(repo => repo.GetById(It.IsAny<Guid>())).ReturnsAsync(testUser);
+            // Act
+            var okResult = UsersController.GetUser(testUserId).Result as OkObjectResult;
 
-        // [Fact]
-        // public void Can_create_new_User()
-        // {
-        //     // Given
-        //     var newUser = new CreateUserDto() {
-        //         Company = "New Company",
-        //         Title = "New User",
-        //         UserId = testUserId,
-        //         Year = 2020
-        //     };
+            // Assert
+            Assert.IsType<OkObjectResult>(okResult);
+            
+        }
 
-        //     // Act
-        //     var result = UsersController.Create(newUser).Result as OkObjectResult;
+        [Fact]
+        public void Can_update_a_User()
+        {
+            // Assemble
+            mockRepo.Setup(repo => repo.GetById(It.IsAny<Guid>())).ReturnsAsync(testUser);
+            mockRepo.Setup(repo => repo.Update(It.IsAny<User>())).ReturnsAsync(true);
 
-        //     // Assert
-        //     Assert.IsType<UserPresenter>(result.Value);
+            // Given
+            var updateUser = new UserForUpdateDto() {
+                Email = "newemail@domain.com"
+            };
+
+            // Act
+            var result = UsersController.UpdateUser(testUserId, updateUser).Result as OkObjectResult;
+
+            // Assert
+            Assert.IsType<UserForDetailedDto>(result.Value);
                       
-        // }
+        }
 
         // [Fact]
         // public async Task Can_delete_an_existing_User()

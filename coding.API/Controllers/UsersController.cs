@@ -42,7 +42,7 @@ namespace coding.API.Controllers
         
         [Authorize]
         [HttpGet("{userId}", Name = "GetUser")]
-        public async Task<ActionResult<User>> GetUser(Guid userId)
+        public async Task<IActionResult> GetUser(Guid userId)
         {
             var user = await _userDal.GetById(userId);
 
