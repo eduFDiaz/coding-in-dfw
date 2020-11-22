@@ -5,6 +5,7 @@ using AutoMapper;
 using coding.API.Controllers;
 using coding.API.Data;
 using coding.API.Dtos.Comments;
+using coding.API.Models.Posts;
 using coding.API.Models.Posts.Comments;
 using coding.API.Models.Presenter;
 using Microsoft.AspNetCore.Mvc;
@@ -40,6 +41,10 @@ namespace coding.API.Tests
             {
                     mc.CreateMap<CreateCommentDto, Comment>();
                     mc.CreateMap<Comment, CreateCommentDto>();
+                    mc.CreateMap<List<Comment>, List<CommentForDetailDto>>();
+                    mc.CreateMap<Comment, CommentClearForDetailDto>();
+                    
+                    
             });
         }
         // Init test
@@ -195,6 +200,42 @@ namespace coding.API.Tests
             // Assert
             Assert.IsType<NoContentResult>(result);
         }
+
+        [Fact]
+        public void Can_get_a_comment_for_a_given_post()
+        {
+            var testPostId = new Guid("5082c70e-ef0b-4cbe-88dd-1b54692f9ca9");
+            //Act
+            var result = CommentController.GetcommentForPost(testPostId).Result as OkObjectResult;
+
+            //Assert
+            Assert.IsType<OkObjectResult>(result);
+        }
+
+        [Fact]
+        public void Can_get_all_unpublished_comments()
+        {
+            // Assemble 2 unpublished posts
+            mockRepo.Setup(repo => repo.GetRelatedField(It.IsAny<String>())).ReturnsAsync(
+                new List<Comment>(){
+                  new Comment() {
+                      Post = new Post(),
+                      PostId = new Guid("dec2fb94-039a-42af-bf79-cac5faeca141"),
+                      Published = false
+                  },
+                  new Comment() {
+                      Published = false
+                  }
+                }
+            );
+
+            // Act
+            var result = CommentController.GetsAllUnpublishedComments().Result as OkObjectResult;
+
+            //Assert
+            Assert.IsType<OkObjectResult>(result);
+        }
+        
 
      }
 

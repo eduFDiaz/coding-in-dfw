@@ -48,6 +48,8 @@ namespace coding.API.Tests
                 mc.CreateMap<ProductForUpdateDto, Product>();
                 mc.CreateMap<ProductForCreateDto, Product>();
                 mc.CreateMap<ProductRequirementForCreateDto, ProductRequirement>();
+                mc.CreateMap<List<Product>, ProductForDetailDto>();
+                mc.CreateMap<ProductForDetailDto, Product>();
                
             });
         }
@@ -201,6 +203,28 @@ namespace coding.API.Tests
             // Assert
             Assert.IsType<OkObjectResult>(result);
         }
+
+        [Fact]
+        public async  Task Can_get_products()
+        {
+             // Act
+            var result = await ProductController.GetProducts() as OkObjectResult;
+
+            // Assert
+            Assert.IsType<OkObjectResult>(result);
+        }
+
+        [Fact]
+        public async  Task Can_get_single_product()
+        {
+             // Act
+            var result = await ProductController.GetSingleProduct(testProductId) as OkObjectResult;
+
+            // Assert
+            Assert.IsType<OkObjectResult>(result);
+        }
+
+
 
      }
 
