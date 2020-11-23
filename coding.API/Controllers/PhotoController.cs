@@ -18,10 +18,11 @@ using Microsoft.AspNetCore.Authorization;
 using coding.API.Dtos.Products;
 using coding.API.Models.Posts;
 using coding.API.Dtos.Posts;
-
+using System.Diagnostics.CodeAnalysis;
 
 namespace coding.API.Controllers
 {
+    [ExcludeFromCodeCoverage]
     [ApiController]
     [Route("api/[controller]")]
     public class PhotoController : ControllerBase
@@ -30,18 +31,13 @@ namespace coding.API.Controllers
         private readonly IRepository<Photo> _photoDal;
         private readonly IRepository<User> _userDal;
         private readonly IRepository<Product> _productDal;
-
         private readonly IRepository<ProductPhoto> _productPhotoDal;
-
         private readonly IRepository<Post> _postDal;
-
         private readonly IRepository<PostPhoto> _postPhotoDal;
         private readonly IConfiguration _config;
         private readonly IMapper _mapper;
         private readonly IOptions<CloudinarySettings> _cloudinaryConfig;
         private Cloudinary _cloudinary;
-
-
 
         public PhotoController(IRepository<Post> postDal, IRepository<PostPhoto> postPhotoDal, IRepository<ProductPhoto> productPhotoDal, IRepository<Photo> photoDal, IRepository<User> userDal, IRepository<Product> productDal, IConfiguration config, IMapper mapper, IOptions<CloudinarySettings> cloudinaryConfig)
         {
@@ -63,7 +59,7 @@ namespace coding.API.Controllers
                 _cloudinaryConfig.Value.CloudName,
                 _cloudinaryConfig.Value.ApiKey,
                 _cloudinaryConfig.Value.ApiSecret
-            );
+            ); 
 
             _cloudinary = new Cloudinary(account);
 
@@ -71,6 +67,7 @@ namespace coding.API.Controllers
 
         [Authorize]
         [HttpPost("{userId}/create")]
+        [ExcludeFromCodeCoverage]
         public async Task<IActionResult> AddPhotoForUser(Guid userId, [FromForm] PhotoForCreationDto photoForCreationDto)
         {
             var userFromRepo = (await _userDal.ListAsync())
@@ -166,18 +163,13 @@ namespace coding.API.Controllers
                         return NoContent();
 
                     return BadRequest("Could not set photo to main");
-
-
             }
-
-
-
-
         }
 
         // Create photo for product
         [Authorize]
         [HttpPost("product/{productId}/create")]
+        [ExcludeFromCodeCoverage]
         public async Task<IActionResult> AddPhotoForProduct(Guid productId, [FromForm] ProductPhotoForCreationDto photoForCreationDto)
         {
             
@@ -222,6 +214,7 @@ namespace coding.API.Controllers
         }
         [Authorize]
         [HttpPost("post/{postId}/create")]
+        [ExcludeFromCodeCoverage]
         public async Task<IActionResult> AddPhotoForPost(Guid postId, [FromForm] PostPhotoForCreationDto photoForCreationDto)
         {
             // Only if the claim is valid the user is retrieved
@@ -268,6 +261,7 @@ namespace coding.API.Controllers
         // Delete photo using id as the photo id
         [Authorize]
         [HttpDelete("{photoId}")]
+        [ExcludeFromCodeCoverage]
         public async Task<IActionResult> DeletePhoto(Guid userId, Guid photoId)
         {
             // // Checks if the picture belongs to the user

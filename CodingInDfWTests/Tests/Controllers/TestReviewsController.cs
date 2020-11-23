@@ -1,11 +1,9 @@
 using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Threading.Tasks;
 using AutoMapper;
 using coding.API.Controllers;
 using coding.API.Data;
-using coding.API.Dtos;
 using coding.API.Dtos.Reviews;
 using coding.API.Models.Presenter;
 using coding.API.Models.Reviews;
@@ -206,9 +204,62 @@ namespace coding.API.Tests
             Assert.IsType<BadRequestObjectResult>(result);
 
         }
-        
 
-     }
+        [Fact]
+        public void Can_get_all_reviews()
+        {
+            // Act
+            var result = ReviewController.GetAllReviews().Result as OkObjectResult;
 
-    
+            // Assert
+            Assert.IsType<OkObjectResult>(result);
+            
+        }
+
+        [Fact]
+        public void Can_get_by_status()
+        {
+            // Assemble
+            mockRepo.Setup(repo => repo.ListAsync()).ReturnsAsync(new List<Review>() {
+                new Review() {
+                    UserId = testUserId,
+                    Status = "Published"
+                },
+                new Review() {
+                    UserId = testUserId,
+                    Status = "Draft"
+                }
+            });
+
+            // Act
+            var result = ReviewController.GetByStatus(testUserId, "Published").Result as OkObjectResult;
+
+            // Assert
+            Assert.IsType<OkObjectResult>(result);
+            
+        }
+
+        [Fact]
+        public void Can_publish_a_review()
+        {
+            // Act
+            var result = ReviewController.PublishReview(testReviewId).Result as NoContentResult;
+
+            // Assert 
+            Assert.IsType<NoContentResult>(result);
+        }
+
+        [Fact]
+        public void Cant_publish_an_inexistent_review()
+        {
+            // Assemble
+            mockRepo.Setup(repo => repo.GetById(It.IsAny<Guid>())).ReturnsAsync(null as Review);
+
+            // Act
+            var result = ReviewController.PublishReview(testReviewId).Result as NotFoundResult;
+
+            // Assert 
+            Assert.IsType<NotFoundResult>(result);
+        }
+    }
 }

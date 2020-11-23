@@ -166,6 +166,9 @@ namespace coding.API.Controllers
         {
             var toPublish = (await _reviewDal.GetById(reviewid));
 
+            if (toPublish == null)
+                return NotFound();
+
             toPublish.Status = "published";
 
             if (await _reviewDal.Update(toPublish))

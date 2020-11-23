@@ -1,4 +1,5 @@
 using System;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using coding.API.Models.Awards;
 using coding.API.Models.Users;
@@ -7,6 +8,7 @@ using Xunit;
 
 namespace coding.API.Tests.Models
 {
+    [ExcludeFromCodeCoverage]
     public class TestAwards
     {
        

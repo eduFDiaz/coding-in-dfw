@@ -3,13 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
+using CloudinaryDotNet;
 using coding.API.Controllers;
 using coding.API.Data;
 using coding.API.Dtos;
 using coding.API.Helpers;
 using coding.API.Models.Photos;
 using coding.API.Models.Posts;
-using coding.API.Models.Presenter;
 using coding.API.Models.Products;
 using coding.API.Models.Users;
 using Microsoft.AspNetCore.Mvc;
@@ -23,6 +23,7 @@ namespace coding.API.Tests
     public class TestPhotoController
     {
         private readonly IMapper _mapper;
+         private Account _account;
         Mock<IRepository<Photo>> mockPhotoRepo;
         Mock<IRepository<Post>> mockPostRepo;
         Mock<IRepository<PostPhoto>> mockPostPhotoRepo;
@@ -36,6 +37,8 @@ namespace coding.API.Tests
         
         PhotoController PhotoController;
         Mock<IConfiguration> mockConfiguration;
+
+        
 
         Guid testUserId;
 
@@ -68,7 +71,7 @@ namespace coding.API.Tests
             mockcloudinarySettings = new Mock<IOptions<CloudinarySettings>>();
             mockPostPhotoRepo = new Mock<IRepository<PostPhoto>>();
 
-            
+
             mockConfiguration = new Mock<IConfiguration>();
 
             testUserId = new Guid();
@@ -127,18 +130,29 @@ namespace coding.API.Tests
             mockProductRepo.Setup(repo => repo.Delete(It.IsAny<Product>())).ReturnsAsync(true);
             mockProductRepo.Setup(repo => repo.Update(It.IsAny<Product>())).ReturnsAsync(true);
 
-
             
 
-
-            // PhotoController = new PhotoController(mockPostRepo.Object, mockPostPhotoRepo.Object, mockProductPhoto.Object
-            // ,mockPhotoRepo.Object, mockUserRepo.Object, mockProductRepo.Object, mockConfiguration.Object
-            // ,_mapper,mockcloudinarySettings.Object);
+            PhotoController = new PhotoController(mockPostRepo.Object, mockPostPhotoRepo.Object, mockProductPhoto.Object
+            ,mockPhotoRepo.Object, mockUserRepo.Object, mockProductRepo.Object, mockConfiguration.Object
+            ,_mapper,mockcloudinarySettings.Object);
 
             
         }
 
         // TODO: Make this works
+
+        [Fact]
+        public void Can_put_a_photo_as_a_main()
+        {
+            var itemId = new Guid("ed8eb9cd-494b-4bd2-b9ec-0ed13a849edd");
+            var photoId = new Guid("a3317872-6841-45c1-b134-7e0ac245c4be");
+
+            // Act
+            var result = PhotoController.SetMain(itemId, "Product", photoId).Result as NoContentResult;
+
+            // Assert
+            Assert.IsType<NoContentResult>(result);
+        }
 
         // [Fact]
         // public void PhotoController_Returns_AllPhotos()

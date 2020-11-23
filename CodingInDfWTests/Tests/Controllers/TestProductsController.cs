@@ -7,6 +7,7 @@ using coding.API.Controllers;
 using coding.API.Data;
 using coding.API.Dtos;
 using coding.API.Dtos.Products;
+using coding.API.Dtos.Requirements;
 using coding.API.Models.Photos;
 using coding.API.Models.Presenter;
 using coding.API.Models.Products;
@@ -48,8 +49,8 @@ namespace coding.API.Tests
                 mc.CreateMap<ProductForUpdateDto, Product>();
                 mc.CreateMap<ProductForCreateDto, Product>();
                 mc.CreateMap<ProductRequirementForCreateDto, ProductRequirement>();
+                mc.CreateMap<List<Product>, List<ProductForDetailDto>>();
                 mc.CreateMap<List<Product>, ProductForDetailDto>();
-                mc.CreateMap<ProductForDetailDto, Product>();
                
             });
         }
@@ -224,9 +225,53 @@ namespace coding.API.Tests
             Assert.IsType<OkObjectResult>(result);
         }
 
+        [Fact]
+        public void Can_create_new_requirement_for_a_given_product()
+        {
+            // Assemble
+            mockRequirementRepo.Setup(repo => repo.Add(It.IsAny<Requirement>())).ReturnsAsync(new Requirement());
 
+            // Act
+            var result = ProductController.NewRequeriment(new RequirementForCreationDto()).Result as OkObjectResult;
 
+            // Assert
+            Assert.IsType<OkObjectResult>(result);
+        }
+
+        [Fact]
+        public void Can_get_all_requirements()
+        {
+            //Act
+            var result = ProductController.GetRequirements().Result as OkObjectResult;
+
+            // Assert
+            Assert.IsType<OkObjectResult>(result);
+        }
+
+        [Fact]
+        public void Can_delete_a_requirement()
+        {
+            // Assemble
+            mockRequirementRepo.Setup(repo => repo.Delete(It.IsAny<Requirement>())).ReturnsAsync(true);
+
+            //Act
+            var result = ProductController.DeleteRequirement(new Guid("2feaf66f-4286-43b2-89aa-9caea738a94f")).Result as NoContentResult;
+
+            // Assert
+            Assert.IsType<NoContentResult>(result);
+        }
+
+        [Fact]
+        public void Cant_delete_an_inexistent_requirement()
+        {
+            // Fake null response
+            mockRequirementRepo.Setup(repo => repo.GetById(It.IsAny<Guid>())).ReturnsAsync(null as Requirement);
+
+            //Act
+            var result = ProductController.DeleteRequirement(new Guid("2feaf66f-4286-43b2-89aa-9caea738a94f")).Result as BadRequestObjectResult;
+
+            // Assert
+            Assert.IsType<BadRequestObjectResult>(result);
+        }
      }
-
-    
 }

@@ -1,10 +1,12 @@
 using System;
+using System.Diagnostics.CodeAnalysis;
 using coding.API.Models;
 using Microsoft.Data.Sqlite;
 using Microsoft.EntityFrameworkCore;
 
 namespace coding.API.Tests.DataContextForTests
 {
+    [ExcludeFromCodeCoverage]
     public class ConnectionFactory : IDisposable
     {
          #region IDisposable Support  

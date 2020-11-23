@@ -118,8 +118,6 @@ namespace coding.API.Controllers
         {
             var product = (await _productDal.GetRelatedFields("ProductRequirements.Requirement", "Photos")).Where(p => p.Id == productid).SingleOrDefault();
 
-            var output = _mapper.Map<ProductForDetailDto>(product);
-
             return Ok(new ProductPresenter(product));
         }
 
