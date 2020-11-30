@@ -22,7 +22,7 @@ using System.Diagnostics.CodeAnalysis;
 
 namespace coding.API.Controllers
 {
-    [ExcludeFromCodeCoverage]
+    
     [ApiController]
     [Route("api/[controller]")]
     public class PhotoController : ControllerBase
@@ -67,7 +67,7 @@ namespace coding.API.Controllers
 
         [Authorize]
         [HttpPost("{userId}/create")]
-        [ExcludeFromCodeCoverage]
+        [System.Diagnostics.DebuggerHidden]
         public async Task<IActionResult> AddPhotoForUser(Guid userId, [FromForm] PhotoForCreationDto photoForCreationDto)
         {
             var userFromRepo = (await _userDal.ListAsync())
@@ -169,7 +169,7 @@ namespace coding.API.Controllers
         // Create photo for product
         [Authorize]
         [HttpPost("product/{productId}/create")]
-        [ExcludeFromCodeCoverage]
+        
         public async Task<IActionResult> AddPhotoForProduct(Guid productId, [FromForm] ProductPhotoForCreationDto photoForCreationDto)
         {
             
@@ -214,7 +214,7 @@ namespace coding.API.Controllers
         }
         [Authorize]
         [HttpPost("post/{postId}/create")]
-        [ExcludeFromCodeCoverage]
+        
         public async Task<IActionResult> AddPhotoForPost(Guid postId, [FromForm] PostPhotoForCreationDto photoForCreationDto)
         {
             // Only if the claim is valid the user is retrieved
@@ -261,7 +261,7 @@ namespace coding.API.Controllers
         // Delete photo using id as the photo id
         [Authorize]
         [HttpDelete("{photoId}")]
-        [ExcludeFromCodeCoverage]
+        
         public async Task<IActionResult> DeletePhoto(Guid userId, Guid photoId)
         {
             // // Checks if the picture belongs to the user
