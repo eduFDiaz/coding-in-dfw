@@ -89,6 +89,13 @@ namespace coding.API.Controllers
                             .Width("500").Height("500").Crop("fill")
                     };
                     uploadResults = _cloudinary.Upload(uploadParams);
+
+                    Console.WriteLine("Im here");
+
+                    if (uploadResults == null)
+                    {
+                        return BadRequest("Cant complete the upload to Cloud");
+                    }
                 }
             }
 

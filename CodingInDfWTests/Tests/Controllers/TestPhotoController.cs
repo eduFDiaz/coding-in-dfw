@@ -1,6 +1,8 @@
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
 using AutoMapper;
 using CloudinaryDotNet;
@@ -132,8 +134,8 @@ namespace coding.API.Tests
             mockProductRepo.Setup(repo => repo.Delete(It.IsAny<Product>())).ReturnsAsync(true);
             mockProductRepo.Setup(repo => repo.Update(It.IsAny<Product>())).ReturnsAsync(true);
 
-            IOptions<CloudinarySettings> cloudConfig = Mock.Of<IOptions<CloudinarySettings>>(cn => cn.Value.ApiKey == "TestAPiKey"
-            && cn.Value.CloudName == "TestCloudName" && cn.Value.ApiSecret == "TestSecret");
+            IOptions<CloudinarySettings> cloudConfig = Mock.Of<IOptions<CloudinarySettings>>(cn => cn.Value.ApiKey == "331921191438182"
+            && cn.Value.CloudName == "www-codingindfw-com" && cn.Value.ApiSecret == "1d4WQFjCX8Y-nsurZ0iusG04tVA");
 
             PhotoController = new PhotoController(mockPostRepo.Object, mockPostPhotoRepo.Object, mockProductPhoto.Object
             ,mockPhotoRepo.Object, mockUserRepo.Object, mockProductRepo.Object, mockConfiguration.Object
@@ -392,33 +394,60 @@ namespace coding.API.Tests
         }
 
         
-        // [Fact]
-        // public void Can_create_new_Photo()
-        // {
-        //     // Assemble
-        //     var userId = new Guid("7f1352df-4c79-46fe-989c-bcdcf3b8714e");
+        [Fact]
+        public void Can_create_new_Photo()
+        {
+            // Assemble
+            var userId = new Guid("7f1352df-4c79-46fe-989c-bcdcf3b8714e");
 
-        //     var mockedFile = Mock.Of<IFormFile>(file => file.Length == 32 &&
-        //     file.FileName == "testFile" &&
-        //     file.Name == "TestName" );
+            var mockedFile = Mock.Of<IFormFile>(file => file.Length == 32 &&
+            file.FileName == "testFile" &&
+            file.Name == "TestName" );
 
-        //     var newPhoto = new PhotoForCreationDto() {
-        //         File = mockedFile,
-                
-        //     };
+            var fileMock = new Mock<IFormFile>();
+            var physicalFile = new FileInfo("/home/karenydcruz/Desktop/43586145.png");
+            var ms = new MemoryStream();
+            var writer = new StreamWriter(ms);
+            using (FileStream fs = physicalFile.OpenRead())
+            {
+                byte[] b = new byte[1024];
+                UTF8Encoding temp = new UTF8Encoding(true);
+
+                while (fs.Read(b, 0, b.Length) > 0)
+                {
+                    writer.WriteLine(temp.GetString(b));
+                }
+            }
+            writer.Flush();
+            ms.Position = 0;
+            var fileName = physicalFile.Name;
             
-        //     mockUserRepo.Setup(repo => repo.ListAsync()).ReturnsAsync( new List<User>() {
-        //         new User() {
-        //             Id = userId
-        //         }
-        //     });
-        //     // Act
-        //     var result = PhotoController.AddPhotoForUser(userId, newPhoto).Result as OkObjectResult;
+            fileMock.Setup(_ => _.FileName).Returns(fileName);
+            fileMock.Setup(_ => _.Name).Returns("Test Name");
+            fileMock.Setup(_ => _.Length).Returns(ms.Length);
+            fileMock.Setup(m => m.OpenReadStream()).Returns(ms);
+            fileMock.Setup(m => m.ContentDisposition).Returns(string.Format("inline; filename={0}", fileName));
+            
+            var file = fileMock.Object;
 
-        //     // Assert
-        //     Assert.IsType<OkObjectResult>(result.Value);
+            var newPhoto = new PhotoForCreationDto() {
+                File = file,
+                Url = ""
+                         
+            };
+            
+            mockUserRepo.Setup(repo => repo.ListAsync()).ReturnsAsync( new List<User>() {
+                new User() {
+                    Id = userId
+                }
+            });
+            // Act
+            var result = PhotoController.AddPhotoForUser(userId, newPhoto).Result as OkObjectResult;
+
+            // Assert
+            Assert.IsType<OkObjectResult>(result.Value);
                       
-        // }
+        }
 
         [Fact]
         public async Task Cant_delete_a_Main_Photo()
