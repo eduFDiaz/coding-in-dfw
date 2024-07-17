@@ -1,0 +1,33 @@
+<div class="row">
+    <div class="col-md-12">
+        <nb-card status="success" [nbSpinner]="spinner">
+            <nb-card-header>
+                Add new requeriment:
+            </nb-card-header>
+            <nb-card-body>
+                <form #adRequerimentFromProduct="ngForm" name="adRequerimentFromProduct" id="adRequirementFromProduct">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <label class="label" for="title">Description:</label>
+                            <input #description="ngModel" [(ngModel)]="newReq.description" required minlength="4"
+                                nbInput name="Description" type="text" status="success">
+                            <div *ngIf="description.invalid && (description.dirty || description.touched)">
+                                <nb-alert *ngIf="description.errors.required" status="warning">Title is required
+                                </nb-alert>
+                                <nb-alert *ngIf="description.errors.minlength" status="warning">Title must be at
+                                    least 4
+                                    characters long.</nb-alert>
+                            </div>
+
+                        </div>
+                    </div>
+
+                </form>
+            </nb-card-body>
+            <nb-card-footer>
+                <button [disabled]="!adRequerimentFromProduct.dirty || !adRequerimentFromProduct.valid" type="button"
+                    (click)="newRequirement()" nbButton status="success">Add</button>
+            </nb-card-footer>
+        </nb-card>
+    </div>
+</div>

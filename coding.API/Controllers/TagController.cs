@@ -1,0 +1,108 @@
+using AutoMapper;
+using coding.API.Data;
+using coding.API.Dtos;
+
+using coding.API.Models.Presenter;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Configuration;
+
+using coding.API.Models.Tags;
+using coding.API.Models.PostTags;
+using System;
+
+using System.Threading.Tasks;
+
+namespace coding.API.Controllers
+{
+    [ApiController]
+    [Route("api/[controller]")]
+    public class TagController : ControllerBase
+    {
+        private readonly IConfiguration _config;
+        private readonly IMapper _mapper;
+
+        private readonly IRepository<Tag> _tagDal;
+        private readonly IRepository<PostTag> _postTagDal;
+
+        public TagController(
+            IRepository<PostTag> postTagDal,
+            IRepository<Tag> tagDal,
+            IConfiguration config, IMapper mapper)
+        {
+
+            _postTagDal = postTagDal;
+
+            _tagDal = tagDal;
+
+            _config = config;
+            _mapper = mapper;
+        }
+
+        [Authorize] 
+        [HttpPost("create")]
+        public async Task<IActionResult> Create([FromBody] TagForCreateDto request)
+        {
+            var tag = new Tag
+            {
+                Title = request.Title,
+                Description = request.Description,
+            };
+
+            var createdTag = await _tagDal.Add(tag);
+
+            return Ok(new TagPresenter(createdTag));
+
+        }
+
+
+        [HttpGet("all")]
+        public async Task<IActionResult> GetAllTags()
+        {
+            var alltags = (await _tagDal.ListAsync());
+
+            var tagCount = alltags.Count;
+
+            if (tagCount == 0)
+                return NoContent();
+
+            return Ok(alltags);
+        }
+
+        [Authorize]
+        [HttpDelete("{tagid}/delete")]
+        public async Task<IActionResult> DeleteTag(Guid tagid)
+        {
+            var tagToDelete = (await _tagDal.GetById(tagid));
+
+            if (tagToDelete == null)
+                return NotFound();
+
+            if (await _tagDal.Delete(tagToDelete))
+                return NoContent();
+
+            return BadRequest("cant delete the tag");
+
+        }
+
+        [Authorize]
+        [HttpPut("{tagid}/update")]
+        public async Task<IActionResult> UpdateTag(Guid tagid, [FromBody] TagForUpdateDto request)
+        {
+            var tag = (await _tagDal.GetById(tagid));
+
+            if (tag == null)
+                return NotFound("This tag doesnt exists");
+
+            var toUpd = _mapper.Map(request, tag);
+
+            if (await _tagDal.Update(toUpd))
+                return NoContent();
+
+            return BadRequest("Cant update the tag");
+
+        }
+
+
+    }
+}

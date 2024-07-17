@@ -1,0 +1,72 @@
+<div class="main-wrapper">
+  <section class="cta-section theme-bg-light py-5">
+    <div class="container text-center single-col-max-width">
+      <h2 class="heading">A Blog About Software Development And Life</h2>
+      <div class="intro">Welcome to my blog. Subscribe and get my latest blog post in your inbox.</div>
+      <form #signUp="ngForm" name="signUpForm" class="signup-form form-inline justify-content-center pt-3">
+        <div class="form-group">
+          <label class="sr-only" for="semail">Your email</label>
+          <input [(ngModel)]="newSubscriber.email" type="email" id="semail" name="email"
+            class="form-control mr-md-1 semail" placeholder="Enter email">
+        </div>
+        <button (click)="addSubscription(signUp.value); signUp.resetForm()" type="submit"
+          class="btn btn-primary">Subscribe</button>
+      </form>
+    </div>
+    <!--//container-->
+  </section>
+  <section class="blog-list px-3 py-5 p-md-5">
+    <div class="container single-col-max-width">
+
+      <div *ngIf="loading" class="spinner-border" role="status">
+        <span class="sr-only">Loading...</span>
+      </div>
+      <div class="item mb-5" *ngFor="let post of posts">
+        <div class="media">
+
+          <!-- <img class="mr-3 img-fluid post-thumb d-none d-md-flex" src="assets/images/blog/blog-post-thumb-1.jpg" -->
+          <img *ngIf="post.photourl; else placeholderPhoto" class="mr-3 img-fluid post-thumb d-none d-md-flex"
+            src="{{ post.photourl }}" alt="image">
+          <ng-template #placeholderPhoto><img src="../../../assets/images/blog/blog-post-thumb-1.jpg"
+              class="mr-3 img-fluid post-thumb d-none d-md-flex" alt="image">
+          </ng-template>
+
+          <div class="media-body">
+            <h3 class="title mb-1"><a [routerLink]="[ 'post' , post.id ]">
+                {{ post.title }}</a></h3>
+            <div class="meta mb-1"><span class="date">{{ post.dateCreated | date: 'medium' }}</span>
+              <span class="time">{{ post.readingTime }} minute reading </span>
+              <span class="comment"><a href="#">{{ post?.comments.length }} comments</a></span></div>
+            <div class="intro" [innerHtml]="stripHtml(post.text)"></div>
+            <a class="more-link" [routerLink]="[ 'post' , post.id ]">Read more →</a>
+          </div>
+          <!--//media-body-->
+        </div>
+        <!--//media-->
+      </div>
+      <!--//item-->
+
+      <!--//item-->
+      <nav class="blog-nav nav nav-justified my-5">
+        <a class="nav-link-prev nav-item nav-link d-none rounded-left" href="#">Previous<svg
+            class="svg-inline--fa fa-long-arrow-alt-left fa-w-14 arrow-prev" aria-hidden="true" focusable="false"
+            data-prefix="fas" data-icon="long-arrow-alt-left" role="img" xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 448 512" data-fa-i2svg="">
+            <path fill="currentColor"
+              d="M134.059 296H436c6.627 0 12-5.373 12-12v-56c0-6.627-5.373-12-12-12H134.059v-46.059c0-21.382-25.851-32.09-40.971-16.971L7.029 239.029c-9.373 9.373-9.373 24.569 0 33.941l86.059 86.059c15.119 15.119 40.971 4.411 40.971-16.971V296z">
+            </path>
+          </svg><!-- <i class="arrow-prev fas fa-long-arrow-alt-left"></i> --></a>
+        <a class="nav-link-next nav-item nav-link rounded" href="#">Next<svg
+            class="svg-inline--fa fa-long-arrow-alt-right fa-w-14 arrow-next" aria-hidden="true" focusable="false"
+            data-prefix="fas" data-icon="long-arrow-alt-right" role="img" xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 448 512" data-fa-i2svg="">
+            <path fill="currentColor"
+              d="M313.941 216H12c-6.627 0-12 5.373-12 12v56c0 6.627 5.373 12 12 12h301.941v46.059c0 21.382 25.851 32.09 40.971 16.971l86.059-86.059c9.373-9.373 9.373-24.569 0-33.941l-86.059-86.059c-15.119-15.119-40.971-4.411-40.971 16.971V216z">
+            </path>
+          </svg><!-- <i class="arrow-next fas fa-long-arrow-alt-right"></i> --></a>
+      </nav>
+
+    </div>
+  </section>
+
+</div>

@@ -1,0 +1,26 @@
+<nb-card status="danger">
+    <nb-card-header>Do you really want to delete: </nb-card-header>
+    <nb-card-body>
+        <b>Name: </b>{{ product.name }} <br>
+        <b>Description: </b>{{ product.productDescription }} <br>
+        <b>Type: </b>{{ product.type }} <br>
+        This action cant be undone!
+    </nb-card-body>
+    <nb-card-footer>
+        <div class="row d-flex justify-content-around">
+            <div class="col">
+                <button size="tiny" [nbSpinner]="deleteSpinner" nbSpinnerStatus="danger" nbSpinnerSize="small" nbButton
+                    status="danger" (click)="deleteItem(product.id)">
+                    <!-- <button nbButton status="danger" (click)="ref.close()"> -->
+                    <nb-icon icon="trash"></nb-icon>Delete!
+                </button>
+            </div>
+            <div class="col">
+                <button size="tiny" nbSpinnerStatus="success" nbButton status="success" (click)="close('closed')">
+                    <!-- <button nbButton status="danger" (click)="ref.close()"> -->
+                    No, take me back!
+                </button>
+            </div>
+        </div>
+    </nb-card-footer>
+</nb-card>

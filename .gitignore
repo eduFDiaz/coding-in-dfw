@@ -1,9 +1,7 @@
-*.pyc
-*~
-__pycache__
-myvenv
-db.sqlite3
-/static
-.DS_Store
-venv/
-.idea/
+# Visual Studio Code
+.vscode
+coding.API/DatingApp.db
+coding.API/wwwroot.zip
+coding.API/appsettings.json
+coding.API/Release.tar.gz
+coding.API/wwwroot.tar.gz
